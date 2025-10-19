@@ -15,16 +15,16 @@ Setup core infrastructure and base configuration for the Nebras Dashboard.
 - [x] Install all dependencies
 - [x] Create folder structure
 - [x] Create project plan documentation
+- [x] Setup Redux store for UI state
 
 ### 🔄 In Progress
 
-- [ ] Setup Redux store for UI state
+- [ ] Create theme configuration (light/dark, RTL, custom colors)
 
 ### 📋 Pending
 
 - [ ] Setup React Query provider
 - [ ] Setup React Router with protected routes
-- [ ] Create theme configuration (light/dark, RTL, custom colors)
 - [ ] Create layout components (Sidebar, Header, Main Layout)
 - [ ] Setup i18n for Arabic/English
 
@@ -244,7 +244,7 @@ src/
 
 ## Testing Checklist
 
-- [ ] Redux store updates correctly
+- [x] Redux store updates correctly
 - [ ] Theme toggle works (light/dark)
 - [ ] Language switcher works (AR/EN)
 - [ ] Sidebar toggles correctly
@@ -259,13 +259,13 @@ src/
 ## Success Criteria
 
 ✅ Redux store is configured and working
-✅ React Query provider is set up
-✅ React Router is configured with protected routes
-✅ Theme system supports light/dark mode
-✅ RTL support works for Arabic
-✅ Layout components are responsive
-✅ i18n is configured for Arabic and English
-✅ All base infrastructure is ready for Phase 2
+- [ ] React Query provider is set up
+- [ ] React Router is configured with protected routes
+- [ ] Theme system supports light/dark mode
+- [ ] RTL support works for Arabic
+- [ ] Layout components are responsive
+- [ ] i18n is configured for Arabic and English
+- [ ] All base infrastructure is ready for Phase 2
 
 ---
 
