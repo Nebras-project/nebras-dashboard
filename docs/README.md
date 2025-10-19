@@ -152,5 +152,5 @@ For questions or clarifications about the documentation, please contact the deve
 
 ---
 
-**Last Updated:** 2025-01-18  
+**Last Updated:** 2025-10-18  
 **Version:** 1.0.0
