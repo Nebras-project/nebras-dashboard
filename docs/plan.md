@@ -244,12 +244,14 @@ Questions (Ministerial & Enrichment)
 - [x] Install all dependencies
 - [x] Create folder structure
 - [x] Create project plan documentation
+- [x] Setup Redux store for UI state
 
 **In Progress:**
-- [ ] Setup Redux store for UI state
+- [ ] Create theme configuration (light/dark, RTL, custom colors)
+
+**pending:**
 - [ ] Setup React Query provider
 - [ ] Setup React Router with protected routes
-- [ ] Create theme configuration (light/dark, RTL, custom colors)
 - [ ] Create layout components (Sidebar, Header, Main Layout)
 - [ ] Setup i18n for Arabic/English
 

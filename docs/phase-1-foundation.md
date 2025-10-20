@@ -111,6 +111,7 @@ Setup core infrastructure and base configuration for the Nebras Dashboard.
 - `src/theme/colors.js` - Color palette
 - `src/theme/typography.js` - Typography settings
 - `src/theme/components.js` - Component overrides
+- `src/providers/ThemProvider.jsx` - Theme Provider
 
 **Features:**
 
