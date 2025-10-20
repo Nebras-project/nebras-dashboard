@@ -1,17 +1,18 @@
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
 import { createAppTheme } from "../theme";
+import { useReduxTheme } from "./useReduxTheme";
+import { useLanguage } from "./useLanguage";
 
 /**
  * Custom hook to create and manage the MUI theme
  * @returns {Object} MUI theme object
  */
-const useTheme = () => {
+export const useMuiTheme = () => {
   // Get theme mode from Redux
-  const { mode } = useSelector((state) => state.theme);
+  const { mode } = useReduxTheme();
 
   // Get language/direction from Redux
-  const { isRTL } = useSelector((state) => state.language);
+  const { isRTL } = useLanguage();
 
   // Create theme based on mode and direction
   const theme = useMemo(
@@ -21,5 +22,3 @@ const useTheme = () => {
 
   return theme;
 };
-
-export default useTheme;
