@@ -9,3 +9,4 @@ export { useUser } from "./useUser";
 
 // Utility hooks
 export { useDocumentDirection } from "./useDocumentDirection";
+export { useCssVariables } from "./useCssVariables";

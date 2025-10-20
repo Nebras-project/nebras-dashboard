@@ -2,17 +2,17 @@
 
 // Font families
 const fontFamilies = {
+  arabic: ["Cairo"], // Cairo from @fontsource (must be first for Arabic)
   system: [
     "-apple-system",
     "BlinkMacSystemFont",
-    '"Segoe UI"',
+    "Segoe UI",
     "Roboto",
-    '"Helvetica Neue"',
+    "Helvetica Neue",
     "Arial",
     "sans-serif",
   ],
-  emoji: ['"Apple Color Emoji"', '"Segoe UI Emoji"', '"Segoe UI Symbol"'],
-  arabic: ['"Cairo"', '"Tajawal"', '"Almarai"'],
+  emoji: ["Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"],
 };
 
 // Font weights
@@ -49,9 +49,9 @@ export const lineHeights = {
 
 export const typography = {
   fontFamily: [
+    ...fontFamilies.arabic,
     ...fontFamilies.system,
     ...fontFamilies.emoji,
-    ...fontFamilies.arabic,
   ].join(","),
 
   h1: {

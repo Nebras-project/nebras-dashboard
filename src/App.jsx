@@ -1,12 +1,9 @@
 import { Box, Container, Typography, Button, Card, CardContent, Switch, FormControlLabel, Stack, Chip } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { toggleTheme } from './store/slices/themeSlice';
-import { toggleLanguage } from './store/slices/languageSlice';
+import { useLanguage, useReduxTheme } from './hooks';
 
 function App() {
-  const dispatch = useDispatch();
-  const { mode } = useSelector((state) => state.theme);
-  const { currentLanguage, isRTL } = useSelector((state) => state.language);
+const {mode,toggleTheme} = useReduxTheme();
+const {currentLanguage,toggleLanguage, isRTL} = useLanguage();
 
   return (
     <Container maxWidth="desktop" sx={{ py: 4 }}>
@@ -32,7 +29,7 @@ function App() {
                 control={
                   <Switch 
                     checked={mode === 'dark'} 
-                    onChange={() => dispatch(toggleTheme())}
+                    onChange={() => toggleTheme()}
                   />
                 }
                 label={`${mode === 'dark' ? 'Dark' : 'Light'} Mode`}
@@ -41,7 +38,7 @@ function App() {
                 control={
                   <Switch 
                     checked={isRTL} 
-                    onChange={() => dispatch(toggleLanguage())}
+                    onChange={() => toggleLanguage()}
                   />
                 }
                 label={`${currentLanguage === 'ar' ? 'Arabic (RTL)' : 'English (LTR)'}`}
