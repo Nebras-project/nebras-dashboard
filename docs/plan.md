@@ -66,10 +66,20 @@ Content Manager (Bottom Level)
 
 ```text
 src/
-├── components/          # Shared reusable components
-├── contexts/           # React Context providers
-├── data/              # Static data, constants, dummy data
-├── features/          # Feature-based modules
+├── App.jsx                    # Main App component
+├── main.jsx                   # Application entry point
+├── index.css                  # Global styles
+├── components/                # Shared reusable components
+│   └── ReactQueryDemo.jsx
+├── config/                    # Configuration files
+│   ├── queryClient.js         # React Query client configuration
+│   └── README.md
+├── contexts/                  # React Context providers
+├── data/                      # Static data, constants, dummy data
+│   └── images/
+│       ├── Nebras Logo Dark.svg
+│       └── Nebras Logo Light.svg
+├── features/                  # Feature-based modules
 │   ├── admins/
 │   │   ├── components/
 │   │   ├── hooks/
@@ -80,7 +90,32 @@ src/
 │   │   ├── hooks/
 │   │   ├── pages/
 │   │   └── service/
+│   ├── competitions/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   └── services/
 │   ├── dashboard/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   └── service/
+│   ├── enrichment-questions/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   └── service/
+│   ├── lessons/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   └── service/
+│   ├── ministerial-questions/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   └── service/
+│   ├── questions/
 │   │   ├── components/
 │   │   ├── hooks/
 │   │   ├── pages/
@@ -95,43 +130,40 @@ src/
 │   │   ├── hooks/
 │   │   ├── pages/
 │   │   └── service/
-│   ├── units/
-│   │   ├── components/
-│   │   ├── hooks/
-│   │   ├── pages/
-│   │   └── service/
-│   ├── lessons/
-│   │   ├── components/
-│   │   ├── hooks/
-│   │   ├── pages/
-│   │   └── service/
-│   ├── questions/
-│   │   ├── components/
-│   │   ├── hooks/
-│   │   ├── pages/
-│   │   └── service/
-│   ├── ministerial-questions/
-│   │   ├── components/
-│   │   ├── hooks/
-│   │   ├── pages/
-│   │   └── service/
-│   ├── enrichment-questions/
-│   │   ├── components/
-│   │   ├── hooks/
-│   │   ├── pages/
-│   │   └── service/
-│   └── competitions/
+│   └── units/
 │       ├── components/
 │       ├── hooks/
 │       ├── pages/
 │       └── service/
-├── hooks/              # Custom React hooks
-├── layout/             # Layout components (Sidebar, Header, etc.)
-├── pages/              # Main pages
-├── services/           # API services
-├── store/              # Redux store configuration
-├── theme/              # Theme configuration (light/dark, colors)
-└── utils/              # Utility functions
+├── hooks/                     # Custom React hooks
+│   ├── index.js
+│   ├── useCssVariables.js
+│   ├── useDocumentDirection.js
+│   ├── useLanguage.js
+│   ├── useMuiTheme.js
+│   ├── useReduxTheme.js
+│   ├── useSidebar.js
+│   └── useUser.js
+├── layout/                    # Layout components (Sidebar, Header, etc.)
+├── pages/                     # Main pages
+├── providers/                 # Provider components
+│   ├── QueryProvider.jsx      # React Query provider
+│   ├── ReduxProvider.jsx      # Redux provider
+│   └── ThemeProvider.jsx      # MUI Theme provider
+├── services/                  # API services
+├── store/                     # Redux store configuration
+│   ├── index.js               # Store setup
+│   └── slices/
+│       ├── languageSlice.js   # Language state (ar/en)
+│       ├── sidebarSlice.js    # Sidebar state (open/closed)
+│       ├── themeSlice.js      # Theme state (light/dark)
+│       └── userSlice.js       # User state
+├── theme/                     # Theme configuration (light/dark, colors)
+│   ├── index.js               # Main theme configuration
+│   ├── colors.js              # Color palette
+│   ├── typography.js          # Typography settings
+│   └── components.js          # MUI component overrides
+└── utils/                     # Utility functions
 ```
 
 ---

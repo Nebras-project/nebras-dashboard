@@ -204,41 +204,80 @@ npm install i18next react-i18next
 
 ---
 
-## File Structure After Phase 1
+## Current File Structure
 
 ```text
 src/
-├── config/
-│   ├── queryClient.js
-│   └── routes.js
-├── i18n/
+├── App.jsx                    # Main App component
+├── main.jsx                   # Application entry point
+├── index.css                  # Global styles
+├── components/                # Shared reusable components
+│   └── ReactQueryDemo.jsx     # React Query demo/test component
+├── config/                    # Configuration files
+│   ├── queryClient.js         # ✅ React Query client configuration
+│   ├── README.md              # Config documentation
+│   └── routes.js              # 🔄 To be created - Route definitions
+├── contexts/                  # React Context providers (empty for now)
+├── data/                      # Static data, constants
+│   └── images/
+│       ├── Nebras Logo Dark.svg
+│       └── Nebras Logo Light.svg
+├── features/                  # Feature-based modules (all created)
+│   ├── admins/
+│   ├── authentication/
+│   ├── competitions/
+│   ├── dashboard/
+│   ├── enrichment-questions/
+│   ├── lessons/
+│   ├── ministerial-questions/
+│   ├── questions/
+│   ├── students/
+│   ├── subjects/
+│   └── units/
+├── hooks/                     # ✅ Custom React hooks
+│   ├── index.js
+│   ├── useCssVariables.js     # CSS variables hook
+│   ├── useDocumentDirection.js # RTL/LTR direction hook
+│   ├── useLanguage.js         # Language state hook
+│   ├── useMuiTheme.js         # MUI theme hook
+│   ├── useReduxTheme.js       # Theme state hook
+│   ├── useSidebar.js          # Sidebar state hook
+│   └── useUser.js             # User state hook
+├── i18n/                      # 🔄 To be created
 │   ├── index.js
 │   ├── locales/
 │   │   ├── ar.js
 │   │   └── en.js
 │   └── hooks/
 │       └── useTranslation.js
-├── layout/
+├── layout/                    # 🔄 To be created - Layout components
 │   ├── MainLayout.jsx
 │   ├── Sidebar.jsx
 │   ├── Header.jsx
 │   └── Footer.jsx
-├── providers/
-│   └── QueryProvider.jsx
-├── store/
-│   ├── index.js
+├── pages/                     # Main pages (empty for now)
+├── providers/                 # ✅ Provider components
+│   ├── QueryProvider.jsx      # ✅ React Query provider
+│   ├── ReduxProvider.jsx      # ✅ Redux provider
+│   └── ThemeProvider.jsx      # ✅ MUI Theme provider
+├── services/                  # API services (empty for now)
+├── store/                     # ✅ Redux store configuration
+│   ├── index.js               # ✅ Store setup
 │   └── slices/
-│       ├── themeSlice.js
-│       ├── languageSlice.js
-│       ├── sidebarSlice.js
-│       └── userSlice.js
-├── theme/
-│   ├── index.js
-│   ├── colors.js
-│   ├── typography.js
-│   └── components.js
-└── components/
-    └── ProtectedRoute.jsx
+│       ├── languageSlice.js   # ✅ Language state (ar/en)
+│       ├── sidebarSlice.js    # ✅ Sidebar state (open/closed)
+│       ├── themeSlice.js      # ✅ Theme state (light/dark)
+│       └── userSlice.js       # ✅ User state
+├── theme/                     # ✅ Theme configuration
+│   ├── index.js               # ✅ Main theme configuration
+│   ├── colors.js              # ✅ Color palette
+│   ├── typography.js          # ✅ Typography settings
+│   └── components.js          # ✅ MUI component overrides
+└── utils/                     # Utility functions (empty for now)
+
+Legend:
+✅ Completed and working
+🔄 To be created
 ```
 
 ---
