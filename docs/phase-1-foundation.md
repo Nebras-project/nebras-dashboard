@@ -3,7 +3,7 @@
 ## Overview
 Setup core infrastructure and base configuration for the Nebras Dashboard.
 
-## Status: ✅ Complete
+## Status: 🚧 In Progress
 
 ---
 
@@ -17,12 +17,13 @@ Setup core infrastructure and base configuration for the Nebras Dashboard.
 - [x] Create project plan documentation
 - [x] Setup Redux store for UI state
 - [x] Create theme configuration (light/dark, RTL, custom colors)
-- [x] Split Redux hooks into separate files
 - [x] Add Cairo font for Arabic support
 
-### 📋 Pending
 
+### 🔄 In Progress
 - [ ] Setup React Query provider
+
+### 📋 Pending
 - [ ] Setup React Router with protected routes
 - [ ] Create layout components (Sidebar, Header, Main Layout)
 - [ ] Setup i18n for Arabic/English
