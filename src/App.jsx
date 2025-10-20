@@ -1,5 +1,6 @@
 import { Box, Container, Typography, Button, Card, CardContent, Switch, FormControlLabel, Stack, Chip } from '@mui/material';
 import { useLanguage, useReduxTheme } from './hooks';
+import ReactQueryDemo from './components/ReactQueryDemo';
 
 function App() {
 const {mode,toggleTheme} = useReduxTheme();
@@ -154,11 +155,14 @@ const {currentLanguage,toggleLanguage, isRTL} = useLanguage();
           </CardContent>
         </Card>
 
+        {/* React Query Demo */}
+        <ReactQueryDemo />
+
         {/* Feature Summary */}
         <Card sx={{ bgcolor: 'background.primary' }}>
           <CardContent>
             <Typography variant="h5" gutterBottom>
-              ✨ Theme Features
+              ✨ Phase 1 Features Completed
             </Typography>
             <Stack spacing={1} sx={{ mt: 2 }}>
               <Typography>✅ Primary Color: #006239 (Nebras Green)</Typography>
@@ -171,6 +175,7 @@ const {currentLanguage,toggleLanguage, isRTL} = useLanguage();
               <Typography>✅ Surface Elevation Levels (level1-3)</Typography>
               <Typography>✅ No Hardcoded Values</Typography>
               <Typography>✅ Arabic Font Support (Cairo, Tajawal, Almarai)</Typography>
+              <Typography>✅ React Query Setup with Devtools</Typography>
             </Stack>
           </CardContent>
         </Card>
