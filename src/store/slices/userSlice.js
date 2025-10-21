@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { clearPersistedState } from "../middleware/localStorageMiddleware";
 
 const initialState = {
   isAuthenticated: false,
@@ -19,6 +20,8 @@ const userSlice = createSlice({
       state.userData = null;
       state.isAuthenticated = false;
       state.role = null;
+      // Clear persisted state on logout
+      clearPersistedState();
     },
     updateUserProfile: (state, action) => {
       if (state.userData) {
