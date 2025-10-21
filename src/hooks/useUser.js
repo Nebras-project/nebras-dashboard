@@ -1,9 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setUser,
-  clearUser,
-  updateUserProfile,
-} from "../store/slices/userSlice";
+import { login, logout, updateUserProfile } from "../store/slices/userSlice";
 
 /**
  * Custom hook to access and manage user state from Redux
@@ -15,8 +11,9 @@ export const useUser = () => {
 
   return {
     ...user,
-    setUser: (userData) => dispatch(setUser(userData)),
-    clearUser: () => dispatch(clearUser()),
+    user: user.userData,
+    login: (userData) => dispatch(login(userData)),
+    logout: () => dispatch(logout()),
     updateUserProfile: (updates) => dispatch(updateUserProfile(updates)),
   };
 };

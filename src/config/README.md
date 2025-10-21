@@ -25,9 +25,64 @@ import { queryClient } from './config/queryClient';
 </QueryClientProvider>
 ```
 
+### `routes.jsx`
+
+React Router v6 route definitions for the entire application.
+
+**Route Structure:**
+- **Public Routes:** `/login`
+- **Protected Routes:** All other routes (require authentication)
+- **Dynamic Routes:** `/competitions/:id` and nested routes
+- **Fallback:** `*` → 404 Not Found page
+
+**All Routes:**
+```
+Public:
+  /login → LoginPage
+
+Protected:
+  /dashboard → DashboardPage
+  /students → StudentsPage
+  /competitions → CompetitionsPage (list all)
+  /competitions/:id → CompetitionPage (details)
+  /competitions/:id/members → CompetitionMembersPage
+  /competitions/:id/exam → CompetitionExamPage
+  /competitions/:id/result → CompetitionResultPage
+  /curriculums → CurriculumsPage
+  /subjects → SubjectsPage
+  /units → UnitsPage
+  /admins → AdminsPage
+  /questions → QuestionsPage
+  /ministerial-questions → MinisterialQuestionsPage
+  /enrichment-questions → EnrichmentQuestionsPage
+
+Fallback:
+  * → NotFoundPage (404)
+```
+
+**Usage:**
+```javascript
+import routes from './config/routes';
+
+// In App.jsx with React Router
+<Routes>
+  {routes.map((route, index) => (
+    <Route key={index} path={route.path} element={route.element} />
+  ))}
+</Routes>
+```
+
+**Protected Routes:**
+All protected routes are wrapped with `<ProtectedRoute>` component which:
+- Checks if user is authenticated (from Redux store)
+- Redirects to `/login` if not authenticated
+- Allows access if authenticated
+
+---
+
 ## Future Configuration Files
 
-- `routes.js` - React Router route definitions (Phase 1)
 - `axios.js` - Axios configuration with interceptors (Phase 2)
 - `constants.js` - Application-wide constants (Phase 2+)
+- `api.js` - API endpoint definitions (Phase 2+)
 

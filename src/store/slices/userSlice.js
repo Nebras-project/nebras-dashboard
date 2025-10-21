@@ -10,14 +10,12 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser: (state, action) => {
+    login: (state, action) => {
       state.userData = action.payload;
-      state.isAuthenticated = !!action.payload;
-      if (action.payload) {
-        state.role = action.payload.role;
-      }
+      state.isAuthenticated = true;
+      state.role = action.payload.role;
     },
-    clearUser: (state) => {
+    logout: (state) => {
       state.userData = null;
       state.isAuthenticated = false;
       state.role = null;
@@ -30,5 +28,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, clearUser, updateUserProfile } = userSlice.actions;
+export const { login, logout, updateUserProfile } = userSlice.actions;
 export default userSlice.reducer;
