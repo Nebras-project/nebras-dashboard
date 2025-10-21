@@ -3,7 +3,7 @@
 ## Overview
 Setup core infrastructure and base configuration for the Nebras Dashboard.
 
-## Status: 🚧 In Progress
+## Status: ✅ 85% Complete - Router Setup Done!
 
 ---
 
@@ -19,13 +19,13 @@ Setup core infrastructure and base configuration for the Nebras Dashboard.
 - [x] Create theme configuration (light/dark, RTL, custom colors)
 - [x] Add Cairo font for Arabic support
 - [x] Setup React Query provider
+- [x] Setup React Router with protected routes
 
 
 ### 🔄 In Progress
-- [ ] Setup React Router with protected routes
+- [ ] Create layout components (Sidebar, Header, Main Layout)
 
 ### 📋 Pending
-- [ ] Create layout components (Sidebar, Header, Main Layout)
 - [ ] Setup i18n for Arabic/English
 
 ---
@@ -208,32 +208,97 @@ npm install i18next react-i18next
 
 ```text
 src/
-├── App.jsx                    # Main App component
+├── App.jsx                    # ✅ Main App component with React Router
 ├── main.jsx                   # Application entry point
 ├── index.css                  # Global styles
 ├── components/                # Shared reusable components
+│   ├── ProtectedRoute.jsx     # ✅ Protected route authentication guard
 │   └── ReactQueryDemo.jsx     # React Query demo/test component
 ├── config/                    # Configuration files
 │   ├── queryClient.js         # ✅ React Query client configuration
-│   ├── README.md              # Config documentation
-│   └── routes.js              # 🔄 To be created - Route definitions
+│   ├── routes.jsx             # ✅ React Router route definitions
+│   └── README.md              # ✅ Config documentation
 ├── contexts/                  # React Context providers (empty for now)
 ├── data/                      # Static data, constants
 │   └── images/
 │       ├── Nebras Logo Dark.svg
 │       └── Nebras Logo Light.svg
-├── features/                  # Feature-based modules (all created)
+├── features/                  # Feature-based modules
 │   ├── admins/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   │   └── AdminsPage.jsx           # ✅ Admin management
+│   │   └── service/
 │   ├── authentication/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   │   └── LoginPage.jsx            # ✅ Login page
+│   │   └── service/
 │   ├── competitions/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   │   ├── CompetitionsPage.jsx     # ✅ List all competitions
+│   │   │   ├── CompetitionPage.jsx      # ✅ Competition details
+│   │   │   ├── CompetitionMembersPage.jsx # ✅ Participants list
+│   │   │   ├── CompetitionExamPage.jsx  # ✅ Exam management
+│   │   │   └── CompetitionResultPage.jsx # ✅ Results & rankings
+│   │   └── services/
+│   ├── curriculums/           # ✅ NEW FEATURE
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   │   └── CurriculumsPage.jsx      # ✅ Curriculum management
+│   │   └── services/
 │   ├── dashboard/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   │   └── DashboardPage.jsx        # ✅ Main dashboard
+│   │   └── service/
 │   ├── enrichment-questions/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   │   └── EnrichmentQuestionsPage.jsx # ✅ Enrichment questions
+│   │   └── service/
 │   ├── lessons/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   └── service/
 │   ├── ministerial-questions/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   │   └── MinisterialQuestionsPage.jsx # ✅ Ministerial questions
+│   │   └── service/
 │   ├── questions/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   │   └── QuestionsPage.jsx        # ✅ Question bank
+│   │   └── service/
 │   ├── students/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   │   └── StudentsPage.jsx         # ✅ Student management
+│   │   └── service/
 │   ├── subjects/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   │   └── SubjectsPage.jsx         # ✅ Subject management
+│   │   └── service/
 │   └── units/
+│       ├── components/
+│       ├── hooks/
+│       ├── pages/
+│       │   └── UnitsPage.jsx            # ✅ Unit management
+│       └── service/
 ├── hooks/                     # ✅ Custom React hooks
 │   ├── index.js
 │   ├── useCssVariables.js     # CSS variables hook
@@ -242,7 +307,7 @@ src/
 │   ├── useMuiTheme.js         # MUI theme hook
 │   ├── useReduxTheme.js       # Theme state hook
 │   ├── useSidebar.js          # Sidebar state hook
-│   └── useUser.js             # User state hook
+│   └── useUser.js             # ✅ User state hook (with login/logout)
 ├── i18n/                      # 🔄 To be created
 │   ├── index.js
 │   ├── locales/
@@ -255,7 +320,8 @@ src/
 │   ├── Sidebar.jsx
 │   ├── Header.jsx
 │   └── Footer.jsx
-├── pages/                     # Main pages (empty for now)
+├── pages/                     # Main pages
+│   └── NotFoundPage.jsx       # ✅ 404 error page
 ├── providers/                 # ✅ Provider components
 │   ├── QueryProvider.jsx      # ✅ React Query provider
 │   ├── ReduxProvider.jsx      # ✅ Redux provider
@@ -267,7 +333,7 @@ src/
 │       ├── languageSlice.js   # ✅ Language state (ar/en)
 │       ├── sidebarSlice.js    # ✅ Sidebar state (open/closed)
 │       ├── themeSlice.js      # ✅ Theme state (light/dark)
-│       └── userSlice.js       # ✅ User state
+│       └── userSlice.js       # ✅ User state (with login/logout)
 ├── theme/                     # ✅ Theme configuration
 │   ├── index.js               # ✅ Main theme configuration
 │   ├── colors.js              # ✅ Color palette
@@ -278,6 +344,20 @@ src/
 Legend:
 ✅ Completed and working
 🔄 To be created
+
+Total Pages Created: 16
+- LoginPage
+- DashboardPage
+- StudentsPage
+- CompetitionsPage + 4 nested pages (Competition, Members, Exam, Result)
+- CurriculumsPage
+- SubjectsPage
+- UnitsPage
+- AdminsPage
+- QuestionsPage
+- MinisterialQuestionsPage
+- EnrichmentQuestionsPage
+- NotFoundPage
 ```
 
 ---
@@ -289,9 +369,11 @@ Legend:
 - [x] Language switcher works (AR/EN)
 - [ ] Sidebar toggles correctly
 - [x] RTL layout displays properly in Arabic
-- [ ] All routes are accessible
-- [ ] Protected routes redirect to login
+- [x] All routes are accessible (16 routes configured)
+- [x] Protected routes redirect to login
 - [x] React Query fetches data correctly
+- [x] Login/logout functionality works
+- [x] Navigation between pages works
 - [ ] Layout is responsive on all devices
 
 ---
@@ -310,7 +392,14 @@ Legend:
   ✅ QueryProvider component created with devtools
   ✅ Demo component showing queries and mutations
   ✅ Caching and refetching working properly
-- [ ] React Router is configured with protected routes
+✅ React Router is configured with protected routes
+  ✅ 16 routes configured and working
+  ✅ ProtectedRoute component created
+  ✅ Dynamic routes with parameters (/competitions/:id)
+  ✅ Login/logout functionality in userSlice
+  ✅ All page components created
+  ✅ 404 Not Found page
+  ✅ Temporary header with theme/language controls
 - [ ] Layout components are responsive
 - [ ] i18n is configured for Arabic and English
 - [ ] All base infrastructure is ready for Phase 2
