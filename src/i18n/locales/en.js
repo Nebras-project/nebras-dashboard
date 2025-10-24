@@ -1,6 +1,7 @@
 const en = {
   // Common
   common: {
+    brandName: "NEBRAS",
     welcome: "Welcome",
     save: "Save",
     cancel: "Cancel",

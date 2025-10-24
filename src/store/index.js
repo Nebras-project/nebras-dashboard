@@ -8,6 +8,10 @@ import {
   localStorageMiddleware,
   loadPersistedState,
 } from "./middleware/localStorageMiddleware";
+import { migrateLocalStorage } from "../utils/migrateLocalStorage";
+
+// Run migration BEFORE loading state
+migrateLocalStorage();
 
 // Load persisted state from localStorage
 const preloadedState = loadPersistedState(); // Loads state on app startup

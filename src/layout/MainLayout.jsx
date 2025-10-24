@@ -1,6 +1,7 @@
-import { Box } from '@mui/material';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useEffect, useRef } from 'react';
 import { Header } from './header';
 import { Sidebar } from './sidebar';
 import { spacing } from '../theme';
@@ -10,15 +11,37 @@ import { SIDEBAR_WIDTH, SIDEBAR_COLLAPSED_WIDTH } from './constants';
 
 /**
  * Main Layout Component
- * CSS Grid-based layout with:
- * - Sidebar: Spans all rows, adjusts width based on collapsed state
+ * Responsive layout with:
+ * - Desktop: CSS Grid with persistent sidebar
+ * - Mobile: Sidebar becomes a drawer (hamburger menu)
  * - Header: First row, takes remaining space
  * - Main Content: Second row, takes remaining space
  * Only shows layout for authenticated pages (not login page)
  */
 function MainLayout({ children }) {
   const location = useLocation();
-  const { collapsed } = useSidebar();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktop')); // < 1024px = mobile/tablet
+  const { collapsed, setMobileMode, setSidebarOpen } = useSidebar();
+  const prevIsMobile = useRef(isMobile);
+
+  // Update mobile mode and handle sidebar state ONLY when screen size changes
+  useEffect(() => {
+    // Only update if the mobile state actually changed
+    if (prevIsMobile.current !== isMobile) {
+      setMobileMode(isMobile);
+      
+      // If switching to desktop, open sidebar
+      // If switching to mobile, close sidebar
+      if (!isMobile) {
+        setSidebarOpen(true);
+      } else {
+        setSidebarOpen(false);
+      }
+      
+      prevIsMobile.current = isMobile;
+    }
+  }, [isMobile, setMobileMode, setSidebarOpen]);
 
   // Don't show layout on login page
   const isLoginPage = location.pathname === '/login';
@@ -30,6 +53,43 @@ function MainLayout({ children }) {
   const sidebarWidth = collapsed ? SIDEBAR_COLLAPSED_WIDTH : SIDEBAR_WIDTH;
   const contentWidth = `calc(100vw - ${sidebarWidth}px)`;
 
+  // Mobile layout - no persistent sidebar
+  if (isMobile) {
+    return (
+      <Box 
+        sx={{ 
+          minHeight: '100vh', 
+          bgcolor: 'background.default',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        {/* Sidebar as Drawer */}
+        <Sidebar />
+
+        {/* Header */}
+        <Box sx={{ pb: theme => theme.spacing(spacing.sm) }}>
+          <Header />
+        </Box>
+
+        {/* Main Content */}
+        <Box
+          component="main"
+          sx={{
+            bgcolor: 'background.paper',
+            borderTopLeftRadius: `${borderRadius.sm}px`,
+            borderTopRightRadius: `${borderRadius.sm}px`,
+            p: theme => theme.spacing(spacing.xs),
+            flex: 1,
+          }}
+        >
+          {children}
+        </Box>
+      </Box>
+    );
+  }
+
+  // Desktop layout - persistent sidebar with grid
   return (
     <Box 
       sx={{ 

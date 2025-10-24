@@ -37,7 +37,7 @@ function LoginPage() {
       id: 1,
       name: 'Admin User',
       email: formData.email,
-      role: 'curriculum_manager',
+      role: 'owner',
     });
     navigate('/dashboard');
   };

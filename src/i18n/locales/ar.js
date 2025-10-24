@@ -1,6 +1,7 @@
 const ar = {
   // Common
   common: {
+    brandName: "نبراس",
     welcome: "مرحباً",
     save: "حفظ",
     cancel: "إلغاء",

@@ -12,8 +12,33 @@ export const migrateLocalStorage = () => {
     const existingState = localStorage.getItem(NEW_KEY);
 
     if (existingState) {
-      // New system already in use, just clean up old keys
+      // New system already in use, clean up old keys and fix sidebar state
       OLD_KEYS.forEach((key) => localStorage.removeItem(key));
+
+      // Always clean up sidebar state - remove isOpen and isMobile (should not be persisted)
+      try {
+        const state = JSON.parse(existingState);
+        let modified = false;
+
+        if (state.sidebar) {
+          if (state.sidebar.isOpen !== undefined) {
+            delete state.sidebar.isOpen;
+            modified = true;
+          }
+          if (state.sidebar.isMobile !== undefined) {
+            delete state.sidebar.isMobile;
+            modified = true;
+          }
+
+          if (modified) {
+            localStorage.setItem(NEW_KEY, JSON.stringify(state));
+            console.log("✅ Cleaned sidebar drawer state from localStorage");
+          }
+        }
+      } catch (e) {
+        console.error("Error cleaning sidebar state:", e);
+      }
+
       return;
     }
 
