@@ -60,7 +60,7 @@ function Sidebar() {
         display: 'flex', 
         flexDirection: 'column',
         bgcolor: 'background.default',
-        overflow: 'hidden',
+        overflow: 'auto',
       }}
     >
       {/* Logo & Title */}
