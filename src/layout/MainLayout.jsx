@@ -1,7 +1,7 @@
 import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { Header } from './header';
 import { Sidebar } from './sidebar';
 import { spacing } from '../theme';
@@ -23,24 +23,11 @@ function MainLayout({ children }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop')); // < 1024px = mobile/tablet
   const { collapsed, setMobileMode, setSidebarOpen } = useSidebar();
-  const prevIsMobile = useRef(isMobile);
 
-  // Update mobile mode and handle sidebar state ONLY when screen size changes
+  // Update mobile mode and handle sidebar state when screen size changes
   useEffect(() => {
-    // Only update if the mobile state actually changed
-    if (prevIsMobile.current !== isMobile) {
-      setMobileMode(isMobile);
-      
-      // If switching to desktop, open sidebar
-      // If switching to mobile, close sidebar
-      if (!isMobile) {
-        setSidebarOpen(true);
-      } else {
-        setSidebarOpen(false);
-      }
-      
-      prevIsMobile.current = isMobile;
-    }
+    setMobileMode(isMobile);
+    setSidebarOpen(!isMobile); // Open on desktop, close on mobile
   }, [isMobile, setMobileMode, setSidebarOpen]);
 
   // Don't show layout on login page
