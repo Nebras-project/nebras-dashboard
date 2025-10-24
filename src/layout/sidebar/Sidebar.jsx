@@ -1,5 +1,6 @@
 import { Box, Drawer } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useUser, useReduxTheme, useLanguage, useColorScheme, useSidebar } from '../../hooks';
 import { getNavigationItems } from './sidebarConfig';
 import LogoHeader from './components/LogoHeader';
@@ -26,7 +27,13 @@ function Sidebar() {
   // Get menu items for current role
   const menuItems = getNavigationItems(role);
 
-  if (isMobile)  setCollapsed(false);
+  // Disable collapsed mode on mobile
+  useEffect(() => {
+    if (isMobile && collapsed) {
+      setCollapsed(false);
+    }
+  }, [isMobile, collapsed, setCollapsed]);
+
   // Handle navigation
   const handleNavigation = (path) => {
     navigate(path);

@@ -1,7 +1,7 @@
 import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Header } from './header';
 import { Sidebar } from './sidebar';
 import { spacing } from '../theme';
@@ -23,11 +23,25 @@ function MainLayout({ children }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop')); // < 1024px = mobile/tablet
   const { collapsed, setMobileMode, setSidebarOpen } = useSidebar();
+  const isFirstRender = useRef(true);
+  const prevIsMobile = useRef(isMobile);
 
-  // Update mobile mode and handle sidebar state when screen size changes
+  // Update mobile mode and sidebar state ONLY when crossing mobile/desktop breakpoint
   useEffect(() => {
-    setMobileMode(isMobile);
-    setSidebarOpen(!isMobile); // Open on desktop, close on mobile
+    // Handle first render - just set mobile mode without changing sidebar state
+    if (isFirstRender.current) {
+      setMobileMode(isMobile);
+      isFirstRender.current = false;
+      prevIsMobile.current = isMobile;
+      return;
+    }
+
+    // Handle subsequent renders - only when actually crossing the breakpoint
+    if (prevIsMobile.current !== isMobile) {
+      setMobileMode(isMobile);
+      setSidebarOpen(!isMobile); // Open on desktop, close on mobile
+      prevIsMobile.current = isMobile;
+    }
   }, [isMobile, setMobileMode, setSidebarOpen]);
 
   // Don't show layout on login page
