@@ -18,6 +18,7 @@ import {
   getSidebarControlTextProps,
   NAV_TRANSITION,
 } from '../layout/constants';
+import { useTranslation, useLanguage } from '../hooks';
 
 /**
  * Validate and format hex color
@@ -42,6 +43,8 @@ const formatHex = (value) => {
  * Allows users to select a custom color
  */
 function ColorPicker({ currentColor, onColorChange, scheme }) {
+  const { t } = useTranslation();
+  const { isRTL } = useLanguage();
   const [anchorEl, setAnchorEl] = useState(null);
   const [tempColor, setTempColor] = useState(currentColor);
   const [inputValue, setInputValue] = useState(currentColor);
@@ -99,7 +102,7 @@ function ColorPicker({ currentColor, onColorChange, scheme }) {
           <MdPalette />
         </ListItemIcon>
         <ListItemText
-          primary={scheme === 'custom' ? 'Custom Color' : 'Pick a Color'}
+          primary={scheme === 'custom' ? t('common.currentColor') : t('common.pichAColor')}
           primaryTypographyProps={textProps}
         />
         <Box
@@ -123,18 +126,18 @@ function ColorPicker({ currentColor, onColorChange, scheme }) {
         onClose={handleClose}
         anchorOrigin={{
           vertical: 'center',
-          horizontal: 'right',
+          horizontal: isRTL ? 'left' : 'right',
         }}
         transformOrigin={{
           vertical: 'center',
-          horizontal: 'left',
+          horizontal: isRTL ? 'right' : 'left',
         }}
       >
         <Box sx={{ p: 2 }}>
           <Stack spacing={2}>
             {/* Header */}
             <Stack direction="row" justifyContent="space-between" alignItems="center">
-              <Box sx={{ fontWeight: 600, fontSize: '1rem' }}>Pick a Color</Box>
+              <Box sx={{ fontWeight: 600, fontSize: '1rem' }}>{t('common.theme')}</Box>
               <IconButton size="small" onClick={handleClose}>
                 <MdClose />
               </IconButton>
@@ -184,7 +187,7 @@ function ColorPicker({ currentColor, onColorChange, scheme }) {
             {/* Validation Message */}
             {!isValidHex(inputValue) && (
               <Box sx={{ fontSize: '0.75rem', color: 'error.main', textAlign: 'center' }}>
-                Please enter a valid hex color (e.g., #FF0000)
+                {t('forms.invalidFormat')}
               </Box>
             )}
 
@@ -196,7 +199,7 @@ function ColorPicker({ currentColor, onColorChange, scheme }) {
                 fullWidth
                 onClick={handleClose}
               >
-                Cancel
+                {t('common.cancel')}
               </Button>
               <Button
                 variant="contained"
@@ -205,7 +208,7 @@ function ColorPicker({ currentColor, onColorChange, scheme }) {
                 onClick={handleApply}
                 disabled={!isValidHex(tempColor)}
               >
-                Apply
+                {t('common.save')}
               </Button>
             </Stack>
           </Stack>

@@ -1,7 +1,9 @@
 import { Container, Box, Typography, Card, CardContent, Stack, Button, Grid, Chip } from '@mui/material';
 import { MdAdd, MdMenuBook } from 'react-icons/md';
+import { useTranslation } from '../../../hooks';
 
 function SubjectsPage() {
+  const { t } = useTranslation();
   // Mock subjects data
   const subjects = [
     { id: 1, name: 'Algebra', curriculum: 'Math Grade 10', units: 8, lessons: 32 },
@@ -17,14 +19,14 @@ function SubjectsPage() {
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Box>
             <Typography variant="h3" gutterBottom color="primary">
-              المواد / Subjects
+              {t('curriculum.subjects')}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              Manage subjects and course content
+              {t('curriculum.subject')}
             </Typography>
           </Box>
           <Button variant="contained" startIcon={<MdAdd />}>
-            Add Subject
+            {t('curriculum.addSubject')}
           </Button>
         </Box>
 
@@ -43,7 +45,7 @@ function SubjectsPage() {
                     <Stack spacing={1}>
                       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography variant="body2" color="text.secondary">
-                          Units:
+                          {t('curriculum.units')}:
                         </Typography>
                         <Typography variant="body2" fontWeight="medium">
                           {subject.units}
@@ -51,7 +53,7 @@ function SubjectsPage() {
                       </Box>
                       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography variant="body2" color="text.secondary">
-                          Lessons:
+                          {t('curriculum.lessons')}:
                         </Typography>
                         <Typography variant="body2" fontWeight="medium">
                           {subject.lessons}

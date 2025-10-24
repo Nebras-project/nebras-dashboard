@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainLayout from './layout/MainLayout';
 import routes from './config/routes';
+import LanguageSync from './components/LanguageSync';
 
 /**
  * Main App Component
@@ -9,6 +10,7 @@ import routes from './config/routes';
 function App() {
   return (
     <BrowserRouter>
+      <LanguageSync />
       <MainLayout>
         <Routes>
           {routes.map((route, index) => (

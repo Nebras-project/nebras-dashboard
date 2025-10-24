@@ -2,7 +2,8 @@ import { Stack, Avatar, Typography } from '@mui/material';
 import { fontWeights, lineHeights } from '../../../theme/typography';
 import { spacing } from '../../../theme';
 import { AVATAR_SIZE } from '../../constants';
-import { getRoleDisplayName } from '../headerConfig';
+import { getRoleTranslationKey } from '../headerConfig';
+import { useTranslation } from '../../../i18n/hooks/useTranslation';
 import PropTypes from 'prop-types';
 
 /**
@@ -10,6 +11,8 @@ import PropTypes from 'prop-types';
  * Displays user avatar, name, and role in the header
  */
 function UserInfo({ user }) {
+  const { t } = useTranslation();
+  
   if (!user) {
     return null;
   }
@@ -49,7 +52,7 @@ function UserInfo({ user }) {
           color="text.secondary" 
           sx={{ lineHeight: lineHeights.snug }}
         >
-          {getRoleDisplayName(user.role)}
+          {t(getRoleTranslationKey(user.role))}
         </Typography>
       </Stack>
     </Stack>

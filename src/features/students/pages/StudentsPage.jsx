@@ -1,7 +1,9 @@
 import { Container, Box, Typography, Card, CardContent, Stack, Button } from '@mui/material';
 import { MdAdd, MdPeople } from 'react-icons/md';
+import { useTranslation } from '../../../hooks';
 
 function StudentsPage() {
+  const { t } = useTranslation();
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
       <Stack spacing={4}>
@@ -9,14 +11,14 @@ function StudentsPage() {
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Box>
             <Typography variant="h3" gutterBottom color="primary">
-              الطلاب / Students
+              {t('students.students')}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              Manage student records and information
+              {t('students.studentActivity')}
             </Typography>
           </Box>
           <Button variant="contained" startIcon={<MdAdd />}>
-            Add Student
+            {t('students.addStudent')}
           </Button>
         </Box>
 
@@ -25,10 +27,10 @@ function StudentsPage() {
           <CardContent sx={{ textAlign: 'center', py: 8 }}>
             <MdPeople size={64} style={{ opacity: 0.3 }} />
             <Typography variant="h5" sx={{ mt: 2 }} color="text.secondary">
-              Students Management
+              {t('students.students')}
             </Typography>
             <Typography variant="body2" sx={{ mt: 1 }} color="text.secondary">
-              This page will display student list, filters, and management tools
+              {t('common.loading')}
             </Typography>
           </CardContent>
         </Card>

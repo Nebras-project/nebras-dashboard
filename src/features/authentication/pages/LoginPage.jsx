@@ -12,12 +12,13 @@ import {
   InputAdornment,
   IconButton,
 } from '@mui/material';
-import { useUser } from '../../../hooks';
+import { useUser, useTranslation } from '../../../hooks';
 import { MdVisibility, MdVisibilityOff, MdLogin } from 'react-icons/md';
 
 function LoginPage() {
   const navigate = useNavigate();
   const { login, isAuthenticated } = useUser();
+  const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -66,7 +67,7 @@ function LoginPage() {
               Nebras Dashboard
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-              Educational Management System
+              {t('auth.loginSubtitle')}
             </Typography>
           </Box>
 
@@ -74,14 +75,14 @@ function LoginPage() {
           <Card sx={{ width: '100%', maxWidth: 400 }}>
             <CardContent sx={{ p: 4 }}>
               <Typography variant="h5" gutterBottom textAlign="center">
-                تسجيل الدخول / Login
+                {t('auth.loginTitle')}
               </Typography>
 
               <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <Stack spacing={3}>
                   <TextField
                     fullWidth
-                    label="Email"
+                    label={t('common.email')}
                     name="email"
                     type="email"
                     value={formData.email}
@@ -93,7 +94,7 @@ function LoginPage() {
 
                   <TextField
                     fullWidth
-                    label="Password"
+                    label={t('auth.password')}
                     name="password"
                     type={showPassword ? 'text' : 'password'}
                     value={formData.password}
@@ -121,7 +122,7 @@ function LoginPage() {
                     fullWidth
                     startIcon={<MdLogin />}
                   >
-                    Login
+                    {t('auth.loginButton')}
                   </Button>
                 </Stack>
               </Box>
@@ -129,7 +130,7 @@ function LoginPage() {
               {/* Demo credentials */}
               <Box sx={{ mt: 3, p: 2, bgcolor: 'background.surface.level2', borderRadius: 1 }}>
                 <Typography variant="caption" color="text.secondary">
-                  Demo: Use any email/password to login
+                  {t('auth.welcomeBack')}
                 </Typography>
               </Box>
             </CardContent>

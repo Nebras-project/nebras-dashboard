@@ -1,19 +1,19 @@
 /**
  * Header configuration
- * Role display names for the header component
+ * Role translation keys for the header component
  */
-export const roleDisplayNames = {
-  owner: "Owner",
-  general_admin: "General Admin",
-  curriculum_manager: "Curriculum Manager",
-  competition_manager: "Competition Manager",
-  content_manager: "Content Manager",
+export const roleTranslationKeys = {
+  owner: "users.owner",
+  general_admin: "users.generalAdmin",
+  curriculum_manager: "users.curriculumManager",
+  competition_manager: "users.competitionManager",
+  content_manager: "users.contentManager",
 };
 
 /**
- * Get role display name
+ * Get role translation key
  * Falls back to the role key if not found
  */
-export const getRoleDisplayName = (role) => {
-  return roleDisplayNames[role] || role;
+export const getRoleTranslationKey = (role) => {
+  return roleTranslationKeys[role] || role;
 };

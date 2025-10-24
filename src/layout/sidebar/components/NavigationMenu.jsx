@@ -14,12 +14,14 @@ import {
   getSidebarControlIconStyles,
   getSidebarControlTextProps,
 } from '../../constants';
+import { useTranslation } from '../../../i18n/hooks/useTranslation';
 
 /**
  * NavigationMenu Component
  * Renders the navigation menu items with active state highlighting
  */
 function NavigationMenu({ menuItems, currentPath, onNavigate, collapsed }) {
+  const { t } = useTranslation();
   const buttonStyles = getSidebarControlButtonStyles();
   const iconStyles = getSidebarControlIconStyles();
   const textProps = getSidebarControlTextProps();
@@ -63,7 +65,7 @@ function NavigationMenu({ menuItems, currentPath, onNavigate, collapsed }) {
             </ListItemIcon>
             {!collapsed && (
               <ListItemText 
-                primary={item.text}
+                primary={t(item.text)}
                 primaryTypographyProps={{
                   ...textProps,
                   fontWeight: isActive ? fontWeights.semiBold : fontWeights.regular,
@@ -83,7 +85,7 @@ function NavigationMenu({ menuItems, currentPath, onNavigate, collapsed }) {
             }}
           >
             {collapsed ? (
-              <Tooltip title={` ${item.text}`} placement="right" arrow>
+              <Tooltip title={t(item.text)} placement="right" arrow>
                 {button}
               </Tooltip>
             ) : (

@@ -20,6 +20,7 @@ import {
   getSidebarControlIconStyles,
   getSidebarControlTextProps,
 } from '../../constants';
+import { useTranslation } from '../../../i18n/hooks/useTranslation';
 
 /**
  * SidebarControls Component
@@ -37,6 +38,7 @@ function SidebarControls({
   onLogout,
   collapsed,
 }) {
+  const { t } = useTranslation();
   const buttonStyles = getSidebarControlButtonStyles();
   const iconStyles = getSidebarControlIconStyles();
   const textProps = getSidebarControlTextProps();
@@ -99,41 +101,41 @@ function SidebarControls({
 
         {/* Color Indicator - Show current color when collapsed */}
         {collapsed && renderButton(
-          () => onSchemeChange(scheme === 'blue' ? 'green' : scheme === 'green' ? 'blue' : 'blue'),
+          () => onSchemeChange('blue'),
           <Box 
             sx={{ 
               width: 22, 
               height: 22, 
               borderRadius: '50%', 
-              bgcolor: scheme === 'blue' ? '#0075ff' : scheme === 'green' ? '#006239' : customColor,
+              bgcolor: '#0075ff',
               border: 2,
               borderColor: 'divider',
             }}
           />,
-          'Pick a Color'
+          t('common.defaultColor')
         )}
 
-        {/* Color Preset Toggle - Only show when not collapsed to avoid duplication */}
+        {/* Color Preset Reset - Only show when not collapsed to avoid duplication */}
         {!collapsed && renderButton(
-          () => onSchemeChange(scheme === 'blue' ? 'green' : 'blue'),
+          () => onSchemeChange('blue'),
           <Box 
             sx={{ 
               width: 22, 
               height: 22, 
               borderRadius: '50%', 
-              bgcolor: scheme === 'blue' ? '#0075ff' : scheme === 'green' ? '#006239' : customColor,
+              bgcolor: '#0075ff',
               border: 2,
               borderColor: 'divider',
             }}
           />,
-          scheme === 'custom' ? 'Switch to Preset' : `Preset: ${scheme === 'blue' ? 'Blue' : 'Green'}`
+          t('common.defaultColor')
         )}
 
         {/* Language Toggle */}
         {renderButton(
           onLanguageToggle,
           <MdLanguage />,
-          `Language: ${currentLanguage.toUpperCase()}`,
+          `${t('common.language')}: ${currentLanguage === 'ar' ? t('common.arabic') : t('common.english')}`,
           {},
           { color: 'text.secondary' }
         )}
@@ -142,7 +144,7 @@ function SidebarControls({
         {renderButton(
           onThemeToggle,
           mode === 'dark' ? <MdLightMode /> : <MdDarkMode />,
-          `${mode === 'dark' ? 'Dark' : 'Light'} Mode`,
+          mode === 'dark' ? t('common.darkMode') : t('common.lightMode'),
           {},
           { color: 'text.secondary' }
         )}
@@ -151,7 +153,7 @@ function SidebarControls({
         {renderButton(
           onLogout,
           <MdLogout />,
-          'Logout',
+          t('common.logout'),
           {
             color: 'error.main',
             '&:hover': {

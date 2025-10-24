@@ -1,7 +1,9 @@
 import { Container, Box, Typography, Card, CardContent, Stack, Button, Grid, Chip } from '@mui/material';
 import { MdAdd, MdSchool } from 'react-icons/md';
+import { useTranslation } from '../../../hooks';
 
 function CurriculumsPage() {
+  const { t } = useTranslation();
   // Mock curriculums data
   const curriculums = [
     { id: 1, name: 'Math Grade 10', subjects: 5, units: 24, status: 'Active' },
@@ -16,14 +18,14 @@ function CurriculumsPage() {
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Box>
             <Typography variant="h3" gutterBottom color="primary">
-              المناهج / Curriculums
+              {t('navigation.curriculums')}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              Manage educational curriculums and programs
+              {t('curriculum.levels')}
             </Typography>
           </Box>
           <Button variant="contained" startIcon={<MdAdd />}>
-            New Curriculum
+            {t('common.add')}
           </Button>
         </Box>
 
@@ -40,7 +42,7 @@ function CurriculumsPage() {
                     </Box>
                     <Box sx={{ display: 'flex', gap: 1 }}>
                       <Chip
-                        label={curriculum.status}
+                        label={curriculum.status === 'Active' ? t('common.active') : t('common.inactive')}
                         size="small"
                         color={curriculum.status === 'Active' ? 'success' : 'default'}
                       />
@@ -48,7 +50,7 @@ function CurriculumsPage() {
                     <Stack spacing={1}>
                       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography variant="body2" color="text.secondary">
-                          Subjects:
+                          {t('curriculum.subjects')}:
                         </Typography>
                         <Typography variant="body2" fontWeight="medium">
                           {curriculum.subjects}
@@ -56,7 +58,7 @@ function CurriculumsPage() {
                       </Box>
                       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography variant="body2" color="text.secondary">
-                          Units:
+                          {t('curriculum.units')}:
                         </Typography>
                         <Typography variant="body2" fontWeight="medium">
                           {curriculum.units}

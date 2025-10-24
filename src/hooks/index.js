@@ -11,3 +11,6 @@ export { useColorScheme } from "./useColorScheme";
 // Utility hooks
 export { useDocumentDirection } from "./useDocumentDirection";
 export { useCssVariables } from "./useCssVariables";
+
+// i18n hooks
+export { default as useTranslation } from "../i18n/hooks/useTranslation";

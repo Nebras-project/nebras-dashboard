@@ -10,6 +10,24 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* RTL Support */
+html[dir="rtl"] {
+  direction: rtl;
+}
+
+html[dir="ltr"] {
+  direction: ltr;
+}
+
+/* Ensure proper text alignment */
+html[dir="rtl"] body {
+  text-align: right;
+}
+
+html[dir="ltr"] body {
+  text-align: left;
+}
+
 /* Text selection highlighting with primary color */
 ::selection {
   background-color: var(--primary-color);

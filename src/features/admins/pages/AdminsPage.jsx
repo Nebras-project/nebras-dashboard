@@ -1,7 +1,9 @@
 import { Container, Box, Typography, Card, CardContent, Stack, Button, Avatar, Chip } from '@mui/material';
 import { MdAdd, MdAdminPanelSettings } from 'react-icons/md';
+import { useTranslation } from '../../../hooks';
 
 function AdminsPage() {
+  const { t } = useTranslation();
   // Mock admins data
   const admins = [
     { id: 1, name: 'Mohammed Ali', email: 'mohammed@nebras.com', role: 'Super Admin', status: 'Active' },
@@ -17,14 +19,14 @@ function AdminsPage() {
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Box>
             <Typography variant="h3" gutterBottom color="primary">
-              المسؤولين / Admins
+              {t('admins.admins')}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              Manage system administrators and permissions
+              {t('users.permissions')}
             </Typography>
           </Box>
           <Button variant="contained" startIcon={<MdAdd />}>
-            Add Admin
+            {t('admins.addAdmin')}
           </Button>
         </Box>
 
@@ -46,7 +48,7 @@ function AdminsPage() {
                   <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
                     <Chip label={admin.role} size="small" color="primary" variant="outlined" />
                     <Chip
-                      label={admin.status}
+                      label={admin.status === 'Active' ? t('common.active') : t('common.inactive')}
                       size="small"
                       color={admin.status === 'Active' ? 'success' : 'default'}
                     />

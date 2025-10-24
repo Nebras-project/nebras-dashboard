@@ -99,16 +99,16 @@ Displays user avatar, name, and role in the header.
 ---
 
 ### headerConfig.js
-Configuration file containing role display names.
+Configuration file containing role translation keys.
 
 **Exports:**
-- `roleDisplayNames` - Object mapping role keys to display names
-- `getRoleDisplayName(role)` - Helper function to get display name
+- `roleTranslationKeys` - Object mapping role keys to i18n translation keys
+- `getRoleTranslationKey(role)` - Helper function to get translation key for role display name
 
 **Benefits:**
-- Centralized role name configuration
-- Easy to update display names
-- Better maintainability
+- Centralized role name configuration with i18n support
+- Easy to update translations
+- Better maintainability and internationalization
 - Reusable across components
 
 ---

@@ -1,20 +1,20 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  toggleColorScheme,
+  setDefaultColor,
   setColorScheme,
   setCustomColor,
 } from "../store/slices/colorSchemeSlice";
 
 /**
- * Custom hook for managing color scheme (blue/green/custom)
+ * Custom hook for managing color scheme (blue/custom)
  * @returns {Object} Color scheme state and actions
  */
 export const useColorScheme = () => {
   const dispatch = useDispatch();
   const { scheme, customColor } = useSelector((state) => state.colorScheme);
 
-  const toggle = () => {
-    dispatch(toggleColorScheme());
+  const resetToDefault = () => {
+    dispatch(setDefaultColor());
   };
 
   const setScheme = (newScheme) => {
@@ -28,11 +28,10 @@ export const useColorScheme = () => {
   return {
     scheme,
     customColor,
-    toggleColorScheme: toggle,
+    setDefaultColor: resetToDefault, // Resets to default blue scheme
     setColorScheme: setScheme,
     setCustomColor: setColor,
     isBlue: scheme === "blue",
-    isGreen: scheme === "green",
     isCustom: scheme === "custom",
   };
 };

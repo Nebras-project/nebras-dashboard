@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { Container, Box, Typography, Button, Stack } from '@mui/material';
 import { MdHome, MdArrowBack } from 'react-icons/md';
+import { useTranslation } from '../hooks';
 
 function NotFoundPage() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -33,13 +35,10 @@ function NotFoundPage() {
           {/* Message */}
           <Box>
             <Typography variant="h4" gutterBottom>
-              Page Not Found
-            </Typography>
-            <Typography variant="h4" gutterBottom sx={{ fontFamily: 'Cairo' }}>
-              الصفحة غير موجودة
+              {t('messages.error.notFound')}
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mt: 2 }}>
-              The page you're looking for doesn't exist or has been moved.
+              {t('auth.unauthorized')}
             </Typography>
           </Box>
 
@@ -51,7 +50,7 @@ function NotFoundPage() {
               startIcon={<MdHome />}
               onClick={() => navigate('/dashboard')}
             >
-              Go to Dashboard
+              {t('navigation.dashboard')}
             </Button>
             <Button
               variant="outlined"
@@ -59,7 +58,7 @@ function NotFoundPage() {
               startIcon={<MdArrowBack />}
               onClick={() => navigate(-1)}
             >
-              Go Back
+              {t('common.back')}
             </Button>
           </Stack>
         </Stack>

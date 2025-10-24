@@ -6,12 +6,26 @@ import PropTypes from 'prop-types';
 import { LOGO_HEIGHT, LOGO_LETTER_SPACING, BRAND_NAME } from '../../constants';
 import { fontWeights } from '../../../theme/typography';
 import { spacing } from '../../../theme';
+import { useTranslation, useLanguage } from '../../../hooks';
 
 /**
  * LogoHeader Component
  * Displays the Nebras logo and title in the sidebar with collapse toggle
  */
 function LogoHeader({ mode, collapsed, onToggleCollapse }) {
+  const { t } = useTranslation();
+  const { isRTL } = useLanguage();
+  
+  // Determine which icon to show based on collapsed state and direction
+  const getCollapseIcon = () => {
+    if (isRTL) {
+      // RTL mode (Arabic): arrows are reversed
+      return collapsed ? <MdChevronLeft size={18} /> : <MdChevronRight size={18} />;
+    } else {
+      // LTR mode (English): normal arrows
+      return collapsed ? <MdChevronRight size={18} /> : <MdChevronLeft size={18} />;
+    }
+  };
   return (
     <Box 
       sx={{ 
@@ -48,7 +62,7 @@ function LogoHeader({ mode, collapsed, onToggleCollapse }) {
       
       {/* Collapse Toggle Button */}
       <Tooltip 
-        title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"} 
+        title={collapsed ? t('common.expand') : t('common.collapse')} 
         placement="right"
         arrow
       >
@@ -68,7 +82,7 @@ function LogoHeader({ mode, collapsed, onToggleCollapse }) {
             transition: 'all 0.3s ease',
           }}
         >
-          {collapsed ? <MdChevronRight size={18} /> : <MdChevronLeft size={18} />}
+          {getCollapseIcon()}
         </IconButton>
       </Tooltip>
     </Box>

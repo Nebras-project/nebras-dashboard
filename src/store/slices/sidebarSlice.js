@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isOpen: true,
   isMobile: false,
-  width: 280, // Fixed sidebar width
   collapsed: false, // Collapsed state for icon-only mode
 };
 
@@ -23,9 +22,6 @@ const sidebarSlice = createSlice({
       if (action.payload && state.isOpen) {
         state.isOpen = false;
       }
-    },
-    setSidebarWidth: (state, action) => {
-      state.width = action.payload;
     },
     toggleCollapsed: (state) => {
       state.collapsed = !state.collapsed;

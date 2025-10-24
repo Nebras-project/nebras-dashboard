@@ -11,9 +11,11 @@ import {
   Chip,
 } from '@mui/material';
 import { MdAdd, MdEmojiEvents } from 'react-icons/md';
+import { useTranslation } from '../../../hooks';
 
 function CompetitionsPage() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // Mock competitions data
   const competitions = [
@@ -29,14 +31,14 @@ function CompetitionsPage() {
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Box>
             <Typography variant="h3" gutterBottom color="primary">
-              المسابقات / Competitions
+              {t('competitions.competitions')}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              Manage competitions and exams
+              {t('competitions.competition')}
             </Typography>
           </Box>
           <Button variant="contained" startIcon={<MdAdd />}>
-            New Competition
+            {t('competitions.addCompetition')}
           </Button>
         </Box>
 
@@ -60,7 +62,7 @@ function CompetitionsPage() {
                     </Box>
                     <Box sx={{ display: 'flex', gap: 1 }}>
                       <Chip
-                        label={competition.status}
+                        label={t(`competitions.${competition.status.toLowerCase()}Competition`)}
                         size="small"
                         color={
                           competition.status === 'Active'
@@ -70,7 +72,7 @@ function CompetitionsPage() {
                             : 'default'
                         }
                       />
-                      <Chip label={`${competition.participants} participants`} size="small" />
+                      <Chip label={`${competition.participants} ${t('competitions.participants')}`} size="small" />
                     </Box>
                   </Stack>
                 </CardContent>
