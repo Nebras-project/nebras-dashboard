@@ -3,7 +3,7 @@
 ## Overview
 Setup core infrastructure and base configuration for the Nebras Dashboard.
 
-## Status: ✅ 85% Complete - Router Setup Done!
+## Status: ✅ 95% Complete - Layout Components Done!
 
 ---
 
@@ -20,13 +20,14 @@ Setup core infrastructure and base configuration for the Nebras Dashboard.
 - [x] Add Cairo font for Arabic support
 - [x] Setup React Query provider
 - [x] Setup React Router with protected routes
+- [x] Create layout components (Sidebar, Header, Main Layout)
 
 
 ### 🔄 In Progress
-- [ ] Create layout components (Sidebar, Header, Main Layout)
+- [ ] Setup i18n for Arabic/English
 
 ### 📋 Pending
-- [ ] Setup i18n for Arabic/English
+None - Phase 1 nearly complete!
 
 ---
 
@@ -315,11 +316,11 @@ src/
 │   │   └── en.js
 │   └── hooks/
 │       └── useTranslation.js
-├── layout/                    # 🔄 To be created - Layout components
-│   ├── MainLayout.jsx
-│   ├── Sidebar.jsx
-│   ├── Header.jsx
-│   └── Footer.jsx
+├── layout/                    # ✅ Layout components
+│   ├── MainLayout.jsx         # ✅ Main layout wrapper with Header + Sidebar
+│   ├── Sidebar.jsx            # ✅ Role-based navigation sidebar
+│   ├── Header.jsx             # ✅ Unified header (logo, user, theme, language)
+│   └── index.js               # ✅ Layout exports
 ├── pages/                     # Main pages
 │   └── NotFoundPage.jsx       # ✅ 404 error page
 ├── providers/                 # ✅ Provider components
@@ -367,14 +368,16 @@ Total Pages Created: 16
 - [x] Redux store updates correctly
 - [x] Theme toggle works (light/dark)
 - [x] Language switcher works (AR/EN)
-- [ ] Sidebar toggles correctly
+- [x] Sidebar toggles correctly (mobile & desktop)
 - [x] RTL layout displays properly in Arabic
 - [x] All routes are accessible (16 routes configured)
 - [x] Protected routes redirect to login
 - [x] React Query fetches data correctly
 - [x] Login/logout functionality works
 - [x] Navigation between pages works
-- [ ] Layout is responsive on all devices
+- [x] Layout is responsive on all devices
+- [x] Role-based sidebar navigation works
+- [ ] i18n translations working
 
 ---
 
@@ -400,7 +403,12 @@ Total Pages Created: 16
   ✅ All page components created
   ✅ 404 Not Found page
   ✅ Temporary header with theme/language controls
-- [ ] Layout components are responsive
+✅ Layout components are responsive
+  ✅ MainLayout component with Header + Sidebar
+  ✅ Role-based sidebar navigation (different for each role)
+  ✅ Unified header (logo, user info, theme, language)
+  ✅ Mobile-responsive drawer
+  ✅ Logout button in sidebar
 - [ ] i18n is configured for Arabic and English
 - [ ] All base infrastructure is ready for Phase 2
 

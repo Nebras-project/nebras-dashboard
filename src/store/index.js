@@ -3,6 +3,7 @@ import themeReducer from "./slices/themeSlice";
 import languageReducer from "./slices/languageSlice";
 import sidebarReducer from "./slices/sidebarSlice";
 import userReducer from "./slices/userSlice";
+import colorSchemeReducer from "./slices/colorSchemeSlice";
 import {
   localStorageMiddleware,
   loadPersistedState,
@@ -19,6 +20,7 @@ export const store = configureStore({
     language: languageReducer,
     sidebar: sidebarReducer,
     user: userReducer,
+    colorScheme: colorSchemeReducer,
   },
   preloadedState, // 👈 Pre-fill store with saved data
   middleware: (getDefaultMiddleware) =>

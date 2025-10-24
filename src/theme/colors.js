@@ -2,10 +2,17 @@
 
 // Base color values
 export const baseColors = {
-  // Primary - Nebras Green
+  // Primary - Blue
+  blue50: "#e6f3ff",
+  blue400: "#4da3ff",
+  blue500: "#0075ff", // Main brand color
+  blue700: "#005acc",
+  blue900: "#003d99",
+
+  // Nebras Green (kept for reference)
   green50: "#e6f2ed",
   green400: "#33a872",
-  green500: "#006239", // Main brand color
+  green500: "#006239",
   green700: "#004d2d",
   green900: "#003320",
 
@@ -64,15 +71,15 @@ export const baseColors = {
 
 export const colors = {
   primary: {
-    main: baseColors.green500,
-    light: baseColors.green400,
-    dark: baseColors.green700,
+    main: baseColors.blue500,
+    light: baseColors.blue400,
+    dark: baseColors.blue700,
     contrastText: baseColors.white,
   },
   secondary: {
-    main: baseColors.pink700,
-    light: baseColors.pink200,
-    dark: baseColors.pink900,
+    main: baseColors.green500,
+    light: baseColors.green400,
+    dark: baseColors.green700,
     contrastText: baseColors.white,
   },
   success: {
@@ -104,8 +111,8 @@ export const colors = {
 // Custom backgrounds for light and dark modes
 export const customBackgrounds = {
   light: {
-    primary: baseColors.green50,
-    secondary: baseColors.pink50,
+    primary: baseColors.blue50,
+    secondary: baseColors.green50,
     surface: {
       level1: baseColors.white,
       level2: baseColors.gray50,
@@ -113,8 +120,8 @@ export const customBackgrounds = {
     },
   },
   dark: {
-    primary: baseColors.green900,
-    secondary: baseColors.pink950,
+    primary: baseColors.blue900,
+    secondary: baseColors.green900,
     surface: {
       level1: baseColors.dark800, // #171717
       level2: baseColors.dark600, // #2c2c2c
@@ -151,8 +158,8 @@ export const borderColors = {
 // Background defaults
 export const backgroundDefaults = {
   light: {
-    default: baseColors.gray100,
-    paper: baseColors.white,
+    default: baseColors.white,
+    paper: baseColors.gray100,
   },
   dark: {
     default: baseColors.dark900, // #121212

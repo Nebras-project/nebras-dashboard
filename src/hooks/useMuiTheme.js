@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { createAppTheme } from "../theme";
 import { useReduxTheme } from "./useReduxTheme";
 import { useLanguage } from "./useLanguage";
+import { useColorScheme } from "./useColorScheme";
 
 /**
  * Custom hook to create and manage the MUI theme
@@ -14,10 +15,13 @@ export const useMuiTheme = () => {
   // Get language/direction from Redux
   const { isRTL } = useLanguage();
 
-  // Create theme based on mode and direction
+  // Get color scheme from Redux
+  const { scheme, customColor } = useColorScheme();
+
+  // Create theme based on mode, direction, and color scheme
   const theme = useMemo(
-    () => createAppTheme(mode, isRTL ? "rtl" : "ltr"),
-    [mode, isRTL]
+    () => createAppTheme(mode, isRTL ? "rtl" : "ltr", scheme, customColor),
+    [mode, isRTL, scheme, customColor]
   );
 
   return theme;

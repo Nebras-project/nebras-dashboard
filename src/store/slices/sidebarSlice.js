@@ -1,13 +1,14 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isOpen: true,
   isMobile: false,
-  width: 240, // Default sidebar width
+  width: 280, // Fixed sidebar width
+  collapsed: false, // Collapsed state for icon-only mode
 };
 
 const sidebarSlice = createSlice({
-  name: 'sidebar',
+  name: "sidebar",
   initialState,
   reducers: {
     toggleSidebar: (state) => {
@@ -26,8 +27,21 @@ const sidebarSlice = createSlice({
     setSidebarWidth: (state, action) => {
       state.width = action.payload;
     },
+    toggleCollapsed: (state) => {
+      state.collapsed = !state.collapsed;
+    },
+    setCollapsed: (state, action) => {
+      state.collapsed = action.payload;
+    },
   },
 });
 
-export const { toggleSidebar, setSidebarOpen, setMobileMode, setSidebarWidth } = sidebarSlice.actions;
+export const {
+  toggleSidebar,
+  setSidebarOpen,
+  setMobileMode,
+  setSidebarWidth,
+  toggleCollapsed,
+  setCollapsed,
+} = sidebarSlice.actions;
 export default sidebarSlice.reducer;

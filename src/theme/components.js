@@ -6,6 +6,8 @@ import { fontWeights } from "./typography";
 // Border radius values
 export const borderRadius = {
   none: 0,
+  xxs: 1,
+  xs: 2,
   sm: 4,
   md: 8,
   lg: 12,
@@ -96,7 +98,8 @@ export const getComponentOverrides = (mode) => ({
     styleOverrides: {
       root: {
         boxShadow: "none",
-        borderBottom: `1px solid ${borderColors[mode]}`,
+        backgroundImage: "none",
+        // borderBottom: `1px solid ${borderColors[mode]}`,
       },
     },
   },

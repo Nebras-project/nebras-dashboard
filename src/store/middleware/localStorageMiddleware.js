@@ -6,7 +6,13 @@
 const STORAGE_KEY = "nebras_dashboard_state";
 
 // Define which slices should be persisted, what to save
-const PERSISTED_SLICES = ["theme", "language", "sidebar", "user"];
+const PERSISTED_SLICES = [
+  "theme",
+  "language",
+  "sidebar",
+  "user",
+  "colorScheme",
+];
 
 // Define fields to exclude from persistence (sensitive data),  What NOT to save (security!)
 const EXCLUDED_FIELDS = {

@@ -6,6 +6,7 @@ export { useReduxTheme } from "./useReduxTheme";
 export { useLanguage } from "./useLanguage";
 export { useSidebar } from "./useSidebar";
 export { useUser } from "./useUser";
+export { useColorScheme } from "./useColorScheme";
 
 // Utility hooks
 export { useDocumentDirection } from "./useDocumentDirection";

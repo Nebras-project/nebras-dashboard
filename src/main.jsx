@@ -9,6 +9,10 @@ import ThemeProvider from './providers/ThemeProvider.jsx'
 import QueryProvider from './providers/QueryProvider.jsx'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { migrateLocalStorage } from './utils/migrateLocalStorage'
+
+// Migrate old localStorage keys to unified system
+migrateLocalStorage();
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

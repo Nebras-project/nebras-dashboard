@@ -5,12 +5,19 @@ import {
   textColors,
   dividerColors,
   backgroundDefaults,
+  baseColors,
 } from "./colors";
 import { typography } from "./typography";
 import { getComponentOverrides } from "./components";
+import {
+  generateColorPalette,
+  generateBackgroundColor,
+} from "../utils/colorHelpers";
 
 // Spacing system (based on 8px grid)
 export const spacing = {
+  none: 0,
+  xxs: 2, // 2px
   xs: 4, // 4px
   sm: 8, // 8px
   md: 16, // 16px
@@ -61,16 +68,51 @@ const zIndex = {
   tooltip: 1500,
 };
 
-// Create theme based on mode and direction
-export const createAppTheme = (mode = "light", direction = "ltr") => {
+// Create theme based on mode, direction, and color scheme
+export const createAppTheme = (
+  mode = "light",
+  direction = "ltr",
+  colorScheme = "blue",
+  customColor = null
+) => {
+  // Determine primary colors based on color scheme
+  let primaryColors;
+  let primaryBackground;
+
+  if (colorScheme === "custom" && customColor) {
+    // Generate palette from custom color
+    primaryColors = generateColorPalette(customColor);
+    primaryBackground = generateBackgroundColor(customColor, mode);
+  } else if (colorScheme === "blue") {
+    primaryColors = {
+      main: baseColors.blue500,
+      light: baseColors.blue400,
+      dark: baseColors.blue700,
+      contrastText: baseColors.white,
+    };
+    primaryBackground =
+      mode === "light" ? baseColors.blue50 : baseColors.blue900;
+  } else {
+    // green
+    primaryColors = {
+      main: baseColors.green500,
+      light: baseColors.green400,
+      dark: baseColors.green700,
+      contrastText: baseColors.white,
+    };
+    primaryBackground =
+      mode === "light" ? baseColors.green50 : baseColors.green900;
+  }
+
   return createTheme({
     palette: {
       mode,
       ...colors,
+      primary: primaryColors,
       background: {
         default: backgroundDefaults[mode].default,
         paper: backgroundDefaults[mode].paper,
-        primary: customBackgrounds[mode].primary,
+        primary: primaryBackground,
         secondary: customBackgrounds[mode].secondary,
         surface: customBackgrounds[mode].surface,
       },

@@ -4,6 +4,8 @@ import {
   setSidebarOpen,
   setMobileMode,
   setSidebarWidth,
+  toggleCollapsed,
+  setCollapsed,
 } from "../store/slices/sidebarSlice";
 
 /**
@@ -20,5 +22,7 @@ export const useSidebar = () => {
     setSidebarOpen: (isOpen) => dispatch(setSidebarOpen(isOpen)),
     setMobileMode: (isMobile) => dispatch(setMobileMode(isMobile)),
     setSidebarWidth: (width) => dispatch(setSidebarWidth(width)),
+    toggleCollapsed: () => dispatch(toggleCollapsed()),
+    setCollapsed: (collapsed) => dispatch(setCollapsed(collapsed)),
   };
 };
