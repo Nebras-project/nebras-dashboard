@@ -92,18 +92,8 @@ export const createAppTheme = (
     };
     primaryBackground =
       mode === "light" ? baseColors.blue50 : baseColors.blue900;
-  } else {
-    // green
-    primaryColors = {
-      main: baseColors.green500,
-      light: baseColors.green400,
-      dark: baseColors.green700,
-      contrastText: baseColors.white,
-    };
-    primaryBackground =
-      mode === "light" ? baseColors.green50 : baseColors.green900;
-  }
-
+  } 
+  
   return createTheme({
     palette: {
       mode,

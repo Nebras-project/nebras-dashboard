@@ -38,8 +38,8 @@ export const adjustColor = (hex, percent) => {
  */
 export const generateColorPalette = (baseColor) => {
   return {
-    light: adjustColor(baseColor, 40),
     main: baseColor,
+    light: adjustColor(baseColor, 40),
     dark: adjustColor(baseColor, -30),
     contrastText: "#ffffff",
   };
