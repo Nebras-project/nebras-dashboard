@@ -56,6 +56,7 @@ function Sidebar() {
       sx={{ 
         position: isMobile ? 'static' : 'fixed',
         top: 0,
+        width: isMobile ? '100%' : `${sidebarWidth}px`,
         height: '100%',
         display: 'flex', 
         flexDirection: 'column',
