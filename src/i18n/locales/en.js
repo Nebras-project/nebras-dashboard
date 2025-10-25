@@ -66,6 +66,9 @@ const en = {
     info: "Info",
     expand: "Expand",
     collapse: "Collapse",
+    pageNotFound: "Page Not Found",
+    pageNotFoundMessage:
+      "Sorry, the page you are looking for does not exist or has been moved.",
   },
 
   // Navigation

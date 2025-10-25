@@ -66,6 +66,8 @@ const ar = {
     info: "معلومات",
     expand: "توسيع",
     collapse: "طي",
+    pageNotFound: "الصفحة غير موجودة",
+    pageNotFoundMessage: "عذراً، الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
   },
 
   // Navigation

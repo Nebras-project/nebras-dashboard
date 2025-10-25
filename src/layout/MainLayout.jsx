@@ -8,6 +8,7 @@ import { spacing } from '../theme';
 import { borderRadius } from '../theme/components';
 import { useSidebar } from '../hooks';
 import { SIDEBAR_WIDTH, SIDEBAR_COLLAPSED_WIDTH } from './constants';
+import { shouldShowLayout } from '../utils/layoutHelpers';
 
 /**
  * Main Layout Component
@@ -44,10 +45,8 @@ function MainLayout({ children }) {
     }
   }, [isMobile, setMobileMode, openSidebar, closeSidebar]);
 
-  // Don't show layout on login page
-  const isLoginPage = location.pathname === '/login';
-
-  if (isLoginPage) {
+  // Don't show layout on public pages (login, 404, etc.)
+  if (!shouldShowLayout(location.pathname)) {
     return <>{children}</>;
   }
 

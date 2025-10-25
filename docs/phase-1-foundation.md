@@ -16,9 +16,9 @@ Setup core infrastructure and base configuration for the Nebras Dashboard.
 - [x] Create folder structure
 - [x] Create project plan documentation
 - [x] Setup Redux store for UI state
-- [x] Create theme configuration (light/dark, RTL, custom colors) -> stop here
+- [x] Create theme configuration (light/dark, RTL, custom colors)
 - [x] Add Cairo font for Arabic support
-- [x] Setup React Query provider
+- [x] Setup React Query provider -> stop here
 - [x] Setup React Router with protected routes
 - [x] Create layout components (Sidebar, Header, Main Layout)
 - [x] Setup i18n for Arabic/English
@@ -183,138 +183,22 @@ src/
     └── QueryProvider.jsx       # Query provider wrapper with devtools
 ```
 
-**Query Client Configuration:**
+**Status:** ✅ Complete
 
-#### **queryClient.js** - Centralized Configuration
+React Query is configured for server state management with optimized defaults:
+- Stale time: 5 minutes
+- Cache time: 10 minutes
+- Retry: 1 for queries, 0 for mutations
+- DevTools enabled in development
 
-```javascript
-import { QueryClient } from "@tanstack/react-query";
+**Key Features:**
+- ✅ Automatic caching and background refetching
+- ✅ Query invalidation and optimistic updates
+- ✅ Built-in loading and error states
+- ✅ React Query DevTools for debugging
+- ✅ Network efficiency and memory management
 
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,  // Don't refetch on window focus
-      refetchOnReconnect: true,     // Refetch when network reconnects
-      retry: 1,                     // Retry failed queries once
-      staleTime: 5 * 60 * 1000,    // 5 minutes (data freshness)
-      gcTime: 10 * 60 * 1000,      // 10 minutes (garbage collection)
-      refetchInterval: false,       // No automatic polling
-      suspense: false,              // Suspense mode disabled
-      onError: (error) => {
-        console.error("Query Error:", error);
-      },
-    },
-    mutations: {
-      retry: 0,                     // Don't retry mutations
-      onError: (error) => {
-        console.error("Mutation Error:", error);
-      },
-    },
-  },
-});
-```
-
-**Configuration Details:**
-
-#### **Query Options**
-- **refetchOnWindowFocus**: `false`
-  - Prevents unnecessary refetches when user switches tabs
-  - Improves performance and reduces API calls
-  
-- **refetchOnReconnect**: `true`
-  - Automatically refetches data when internet reconnects
-  - Ensures data is fresh after connection loss
-  
-- **retry**: `1`
-  - Retries failed queries once before showing error
-  - Balances reliability with performance
-  
-- **staleTime**: `5 minutes`
-  - Data considered fresh for 5 minutes
-  - Reduces redundant API calls
-  - Improves app responsiveness
-  
-- **gcTime**: `10 minutes`
-  - Cached data removed after 10 minutes of inactivity
-  - Optimizes memory usage
-  - Formerly called `cacheTime` in React Query v4
-  
-- **refetchInterval**: `false`
-  - No automatic polling/refetching
-  - Manual refetch required
-  - Can be overridden per-query if needed
-  
-- **suspense**: `false`
-  - Standard loading states instead of React Suspense
-  - More predictable behavior
-  
-- **onError**: Global error handler
-  - Logs all query errors to console
-  - Can be extended with toast notifications
-
-#### **Mutation Options**
-- **retry**: `0`
-  - Mutations never retry automatically
-  - User must manually retry failed actions
-  - Prevents duplicate submissions
-  
-- **onError**: Global mutation error handler
-  - Logs mutation errors
-  - Can be extended with user feedback
-
-**Query Provider Implementation:**
-
-#### **QueryProvider.jsx** - Provider Wrapper
-
-```javascript
-import { QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { queryClient } from '../config/queryClient';
-
-const QueryProvider = ({ children }) => {
-  return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-      {/* Devtools - Only in development */}
-      {import.meta.env.DEV && (
-        <ReactQueryDevtools initialIsOpen={false} />
-      )}
-    </QueryClientProvider>
-  );
-};
-```
-
-**Provider Features:**
-
-- **QueryClientProvider**: Provides React Query context to app
-- **React Query Devtools**: 
-  - Built-in development tools
-  - Query inspection and debugging
-  - Cache visualization
-  - Network activity monitoring
-  - Only loaded in development mode
-  - Starts minimized (`initialIsOpen={false}`)
-
-- ✅ **Automatic Caching**: Data cached intelligently
-- ✅ **Background Refetching**: Keeps data fresh
-- ✅ **Optimistic Updates**: Instant UI feedback
-- ✅ **Query Invalidation**: Smart cache management
-- ✅ **Loading States**: Built-in loading indicators
-- ✅ **Error Handling**: Comprehensive error management
-- ✅ **DevTools**: Powerful debugging capabilities
-- ✅ **Network Efficiency**: Reduces redundant requests
-- ✅ **Memory Management**: Automatic garbage collection
-
-**Future API Integration:**
-
-All features will use React Query for:
-- Subjects, Units, Lessons CRUD
-- Question management
-- Competition management
-- Student management
-- Admin management
-- Dashboard analytics
-- File uploads
+**📖 Full Documentation:** See [src/config/README.md](../src/config/README.md) for complete configuration details and implementation guide.
 
 ---
 
@@ -332,205 +216,32 @@ src/
 └── App.jsx                     # Router configuration
 ```
 
-**Route Configuration:**
+**Status:** ✅ Complete
 
-#### **routes.jsx** - Centralized Route Definitions
+React Router v6 is configured with 16 routes:
+- 2 public routes (root redirect, login)
+- 13 protected routes (dashboard, management pages, competitions)
+- 1 error route (404 Not Found)
 
-```javascript
-import { Navigate } from 'react-router-dom';
-import ProtectedRoute from '../components/ProtectedRoute';
-
-// Import all page components...
-
-const routes = [
-  // Root redirect
-  { path: '/', element: <Navigate to="/dashboard" replace /> },
-  
-  // Public route
-  { path: '/login', element: <LoginPage /> },
-  
-  // Protected routes
-  { path: '/dashboard', element: <ProtectedRoute><DashboardPage /></ProtectedRoute> },
-  { path: '/students', element: <ProtectedRoute><StudentsPage /></ProtectedRoute> },
-  // ... more routes
-  
-  // 404 fallback
-  { path: '*', element: <NotFoundPage /> },
-];
-```
-
-**All Routes Configured:** (16 routes)
-
-#### **Public Routes** (2 routes)
-| Path | Component | Description |
-|------|-----------|-------------|
-| `/` | Redirect to `/dashboard` | Root redirect |
-| `/login` | LoginPage | User authentication |
-
-#### **Protected Routes** (13 routes)
-| Path | Component | Description |
-|------|-----------|-------------|
-| `/dashboard` | DashboardPage | Role-based dashboard |
-| `/students` | StudentsPage | Student management |
-| `/admins` | AdminsPage | Admin management |
-| `/curriculums` | CurriculumsPage | Curriculum management |
-| `/subjects` | SubjectsPage | Subject management |
-| `/units` | UnitsPage | Unit management |
-| `/questions` | QuestionsPage | General question bank |
-| `/ministerial-questions` | MinisterialQuestionsPage | Ministerial questions |
-| `/enrichment-questions` | EnrichmentQuestionsPage | Enrichment questions |
-| `/competitions` | CompetitionsPage | Competition list |
-| `/competitions/:id` | CompetitionPage | Competition details |
-| `/competitions/:id/members` | CompetitionMembersPage | Competition participants |
-| `/competitions/:id/exam` | CompetitionExamPage | Competition exam |
-| `/competitions/:id/result` | CompetitionResultPage | Competition results |
-
-#### **Error Routes** (1 route)
-| Path | Component | Description |
-|------|-----------|-------------|
-| `*` | NotFoundPage | 404 error page |
-
-**Dynamic Routes:**
-
-Routes with URL parameters:
-- `/competitions/:id` - Competition details (id parameter)
-- `/competitions/:id/members` - Competition members (id parameter)
-- `/competitions/:id/exam` - Competition exam (id parameter)
-- `/competitions/:id/result` - Competition results (id parameter)
-
-**Protected Route Component:**
-
-#### **ProtectedRoute.jsx** - Authentication Guard
-
-```javascript
-import { Navigate } from 'react-router-dom';
-import { useUser } from '../hooks';
-
-function ProtectedRoute({ children }) {
-  const { isAuthenticated } = useUser();
-
-  if (!isAuthenticated) {
-    // Redirect to login if not authenticated
-    return <Navigate to="/login" replace />;
-  }
-
-  // Render protected content
-  return children;
-}
-```
-
-**ProtectedRoute Features:**
-
-- ✅ **Authentication Check**: Verifies user is logged in
-- ✅ **Automatic Redirect**: Sends unauthenticated users to login
-- ✅ **Redux Integration**: Uses `useUser()` hook for auth state
-- ✅ **Replace History**: Uses `replace` to prevent back-button issues
-- ✅ **Clean Syntax**: Simple wrapper component
-- ✅ **Reusable**: Applied to all protected routes
-
-**Router Integration:**
-
-#### **App.jsx** - Router Setup
-
-```javascript
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MainLayout from './layout/MainLayout';
-import routes from './config/routes';
-import LanguageSync from './components/LanguageSync';
-
-function App() {
-  return (
-    <BrowserRouter>
-      <LanguageSync />
-      <MainLayout>
-        <Routes>
-          {routes.map((route, index) => (
-            <Route key={index} path={route.path} element={route.element} />
-          ))}
-        </Routes>
-      </MainLayout>
-    </BrowserRouter>
-  );
-}
-```
-
-**App Component Features:**
-
-- **BrowserRouter**: HTML5 history API routing
-- **LanguageSync**: Redux-i18n synchronization
-- **MainLayout**: Wraps all routes with sidebar/header
-- **Dynamic Routes**: Maps route config to Route components
-- **Clean Structure**: Centralized route definitions
+**Key Features:**
+- ✅ Centralized route configuration
+- ✅ Protected routes with authentication guard
+- ✅ Dynamic parameters (`:id` for competitions)
+- ✅ Nested routes for competition sub-pages
+- ✅ Clean URL structure with HTML5 history
 
 **Route Organization:**
-
 ```text
-Route Structure:
-├── / (redirect to dashboard)
-├── /login (public)
-└── Protected Routes
-    ├── /dashboard (all roles)
-    ├── /students (owner, general_admin, competition_manager)
-    ├── /admins (owner, general_admin)
-    ├── /curriculums (owner, general_admin, curriculum_manager)
-    ├── /subjects (owner, general_admin, curriculum_manager)
-    ├── /units (owner, general_admin, curriculum_manager)
-    ├── /questions (owner, general_admin, curriculum_manager, content_manager)
-    ├── /ministerial-questions (owner, general_admin, content_manager)
-    ├── /enrichment-questions (owner, general_admin, content_manager)
-    └── /competitions
-        ├── /competitions (list)
-        ├── /competitions/:id (details)
-        ├── /competitions/:id/members
-        ├── /competitions/:id/exam
-        └── /competitions/:id/result
+/ → Redirect to /dashboard
+/login → Public (LoginPage)
+/dashboard → Protected (role-based dashboard)
+/students, /admins, /curriculums, /subjects, /units → Protected
+/questions, /ministerial-questions, /enrichment-questions → Protected
+/competitions → Protected (list + 4 nested detail routes)
+* → 404 (NotFoundPage)
 ```
 
-**Navigation Flow:**
-
-```text
-User Journey:
-1. User visits any protected route
-   ↓
-2. ProtectedRoute checks authentication
-   ↓
-3a. If authenticated → Render page
-3b. If not authenticated → Redirect to /login
-   ↓
-4. After login → Redirect to /dashboard
-   ↓
-5. User navigates via sidebar menu
-```
-
-**Route Features:**
-
-- ✅ **Centralized Configuration**: All routes in one file
-- ✅ **Protected Routes**: Authentication guard on sensitive pages
-- ✅ **Dynamic Parameters**: Support for URL parameters (`:id`)
-- ✅ **Nested Routes**: Competition sub-routes
-- ✅ **Redirect Logic**: Root redirects to dashboard
-- ✅ **404 Handling**: Catch-all route for unknown paths
-- ✅ **Clean URLs**: No hash routing, uses HTML5 history
-- ✅ **Type Safety**: PropTypes validation on components
-- ✅ **Lazy Loading Ready**: Structure supports code splitting
-
-**React Router Benefits:**
-
-- ✅ **Declarative Routing**: Easy to understand route structure
-- ✅ **Programmatic Navigation**: `useNavigate()` hook available
-- ✅ **URL Parameters**: Easy access via `useParams()`
-- ✅ **Location State**: Pass data between routes
-- ✅ **Nested Routing**: Support for complex route hierarchies
-- ✅ **Route Guards**: ProtectedRoute pattern
-- ✅ **Browser History**: Back/forward button support
-
-**Future Enhancements:**
-
-- [ ] Role-based route access (currently auth-only)
-- [ ] Route-level code splitting (lazy loading)
-- [ ] Route transition animations
-- [ ] Breadcrumb navigation
-- [ ] Route metadata (titles, descriptions)
+**📖 Full Documentation:** See [src/config/README.md](../src/config/README.md) for complete route configuration, ProtectedRoute implementation, and navigation flow details.
 
 ---
 
@@ -545,380 +256,54 @@ src/
 │   ├── index.js           # Main theme factory function
 │   ├── colors.js          # Complete color palette
 │   ├── typography.js      # Typography system with Cairo font
-│   └── components.js      # MUI component overrides
+│   ├── components.js      # MUI component overrides
+│   └── README.md          # Theme system documentation
 ├── providers/
 │   └── ThemeProvider.jsx  # Theme provider with RTL support
 └── utils/
     └── colorHelpers.js    # Color manipulation utilities
 ```
 
-**Theme System Architecture:**
+**Status:** ✅ Complete
 
-#### **index.js** - Theme Factory Function
-
-```javascript
-import { createTheme } from "@mui/material/styles";
-
-export const createAppTheme = (
-  mode = "light",           // 'light' | 'dark'
-  direction = "ltr",        // 'ltr' | 'rtl'
-  colorScheme = "blue",     // 'blue' | 'custom'
-  customColor = null        // hex color for custom scheme
-) => {
-  return createTheme({
-    palette: { mode, primary, background, text, divider },
-    typography,
-    direction,
-    spacing: 8,               // 8px base unit
-    breakpoints,
-    components,
-    transitions,
-    zIndex,
-  });
-};
-```
-
-**Theme Features:**
-
-- **Dynamic Theme Creation**: Generated based on user preferences
-- **Multiple Color Schemes**: Blue (default), Custom
-- **Light/Dark Modes**: Full support with optimized colors
-- **RTL Support**: Automatic direction switching for Arabic
-- **Custom Color Generation**: Creates full palette from single color
-- **Responsive Breakpoints**: Mobile, Tablet, Desktop, Widescreen
-
----
+Material-UI theme system with comprehensive customization:
 
 **Color System:**
+- Blue default color scheme
+- Custom color scheme with automatic palette generation
+- Full light/dark mode support
+- WCAG compliant color contrasts
 
-#### **colors.js** - Comprehensive Color Palette
+**Typography:**
+- Cairo font for excellent Arabic support
+- Complete type scale (h1-h6, body, button, caption, etc.)
+- Font weights: 400, 500, 600, 700
 
-**Base Colors:**
-```javascript
-export const baseColors = {
-  // Primary - Blue
-  blue50: "#e6f3ff",
-  blue400: "#4da3ff",
-  blue500: "#0075ff",        // Default primary
-  blue700: "#005acc",
-  blue900: "#003d99",
+**Layout & Design:**
+- Responsive breakpoints: mobile (0px), tablet (768px), desktop (1024px), widescreen (1440px)
+- 8px base spacing unit with custom spacing scale
+- Border radius system (none to full rounded)
+- Z-index layers for proper stacking
 
-  // Success, Error, Warning, Info
-  // Gray scales for light mode
-  // Dark mode backgrounds
-  // White & Black
-};
-```
-
-**Color Schemes:**
-
-1. **Blue Scheme** (Default)
-   - Primary: `#0075ff`
-   - Light: `#4da3ff`
-   - Dark: `#005acc`
-   - Background: `#e6f3ff` (light) / `#003d99` (dark)
-   
-3. **Custom Scheme**
-   - User-selected color
-   - Auto-generated palette (light, main, dark variants)
-   - Calculated background colors
-
-**Semantic Colors:**
-
-```javascript
-export const colors = {
-  primary: { main, light, dark, contrastText },
-  secondary: { main, light, dark, contrastText },
-  success: { main: '#2e7d32', light, dark },
-  error: { main: '#d32f2f', light, dark },
-  warning: { main: '#ed6c02', light, dark },
-  info: { main: '#0288d1', light, dark },
-};
-```
-
-**Background Colors:**
-
-- **Light Mode**: 
-  - Default: `#ffffff`
-  - Paper: `#f5f5f5`
-  - Surface levels: white, gray50, gray100
-
-- **Dark Mode**:
-  - Default: `#121212`
-  - Paper: `#171717`
-  - Surface levels: dark800, dark600, dark500
-
-**Text Colors:**
-
-- **Light Mode**: 
-  - Primary: `#212121` (gray900)
-  - Secondary: `#757575` (gray700)
-  - Disabled: `#bdbdbd` (gray800)
-
-- **Dark Mode**:
-  - Primary: `#ffffff`
-  - Secondary: `#b0b0b0`
-  - Disabled: `#666666`
-
----
-
-**Typography System:**
-
-#### **typography.js** - Cairo Font & Type Scale
-
-**Font Stack:**
-```javascript
-fontFamily: "Cairo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
-```
-
-**Font Weights:**
-- Regular: 400
-- Medium: 500
-- Semi-Bold: 600
-- Bold: 700
-
-**Type Scale:**
-
-| Variant | Size | Weight | Line Height |
-|---------|------|--------|-------------|
-| h1 | 40px | 700 | 1.2 |
-| h2 | 32px | 700 | 1.3 |
-| h3 | 28px | 600 | 1.4 |
-| h4 | 24px | 600 | 1.4 |
-| h5 | 20px | 600 | 1.5 |
-| h6 | 16px | 600 | 1.5 |
-| subtitle1 | 16px | 500 | 1.75 |
-| subtitle2 | 14px | 500 | 1.57 |
-| body1 | 16px | 400 | 1.5 |
-| body2 | 14px | 400 | 1.4 |
-| button | 14px | 600 | 1.75 |
-| caption | 12px | 400 | 1.66 |
-| overline | 12px | 600 | 2.66 |
-
-**Typography Features:**
-
-- ✅ **Cairo Font**: Installed via `@fontsource/cairo`
-- ✅ **Arabic Support**: Excellent Arabic rendering
-- ✅ **Consistent Scale**: Harmonious type hierarchy
-- ✅ **No Text Transform**: Buttons use natural casing
-- ✅ **Readable Line Heights**: Optimized for readability
-
----
-
-**Spacing System:**
-
-```javascript
-export const spacing = {
-  none: 0,      // 0px
-  xxs: 2,       // 2px
-  xs: 4,        // 4px
-  sm: 8,        // 8px
-  md: 16,       // 16px
-  lg: 24,       // 24px
-  xl: 32,       // 32px
-  xxl: 48,      // 48px
-  xxxl: 64,     // 64px
-};
-```
-
-**Base Unit**: 8px (Material Design standard)
-
-**Usage**: `theme.spacing(2)` = 16px
-
----
-
-**Breakpoint System:**
-
-```javascript
-const breakpoints = {
-  mobile: 0,         // 0px - 767px
-  tablet: 768,       // 768px - 1023px
-  desktop: 1024,     // 1024px - 1439px
-  widescreen: 1440,  // 1440px+
-};
-```
-
-**Responsive Usage:**
-```javascript
-sx={{
-  width: { mobile: '100%', tablet: '50%', desktop: '33%' }
-}}
-```
-
----
+**RTL Support:**
+- Separate Emotion caches for LTR/RTL
+- Automatic direction switching based on language
+- RTL plugin for CSS transformation
 
 **Component Overrides:**
+- Custom MUI component styling
+- Button, Card, TextField, Drawer, AppBar, DataGrid, and more
+- Consistent design system across all components
 
-#### **components.js** - MUI Component Customization
+**Benefits:**
+- ✅ Fully customizable with multiple color schemes
+- ✅ Complete RTL/LTR support for Arabic/English
+- ✅ Cairo font for beautiful Arabic typography
+- ✅ Responsive and mobile-first
+- ✅ Accessible with proper color contrasts
+- ✅ Performance optimized with memoization
 
-**Border Radius:**
-```javascript
-export const borderRadius = {
-  none: 0,
-  xxs: 1,
-  xs: 2,
-  sm: 4,
-  md: 8,        // Default for buttons, cards
-  lg: 12,
-  xl: 16,
-  full: 9999,   // Fully rounded
-};
-```
-
-**Custom Shadows:**
-- Light mode: Subtle shadows
-- Dark mode: Elevated shadows
-
-**Component Style Overrides:**
-
-- **MuiButton**: Custom border radius, padding, font weight
-- **MuiCard**: Elevated surface, border radius
-- **MuiTextField**: Outlined style customization
-- **MuiDrawer**: Smooth transitions
-- **MuiAppBar**: Elevation and colors
-- **MuiDataGrid**: Table styling
-- And more...
-
----
-
-**Theme Provider Implementation:**
-
-#### **ThemeProvider.jsx** - Provider with RTL Support
-
-```javascript
-import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
-import { CacheProvider } from '@emotion/react';
-import createCache from '@emotion/cache';
-import rtlPlugin from 'stylis-plugin-rtl';
-
-// RTL cache for Arabic
-const cacheRtl = createCache({
-  key: 'muirtl',
-  stylisPlugins: [prefixer, rtlPlugin],
-});
-
-// LTR cache for English
-const cacheLtr = createCache({
-  key: 'muiltr',
-});
-
-const ThemeProvider = ({ children }) => {
-  const theme = useMuiTheme();          // Get dynamic theme
-  const { isRTL } = useLanguage();      // Check direction
-  useDocumentDirection();               // Update HTML dir
-  useCssVariables(theme);               // Set CSS variables
-  
-  const cache = isRTL ? cacheRtl : cacheLtr;
-  
-  return (
-    <CacheProvider value={cache}>
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline />
-        {children}
-      </MuiThemeProvider>
-    </CacheProvider>
-  );
-};
-```
-
-**ThemeProvider Features:**
-
-- ✅ **Dynamic Theme**: Reacts to mode, language, and color changes
-- ✅ **RTL Support**: Separate Emotion caches for LTR/RTL
-- ✅ **CssBaseline**: Material UI baseline styles
-- ✅ **Document Direction**: Auto-updates HTML `dir` attribute
-- ✅ **CSS Variables**: Sets custom properties for scrollbar, selection
-- ✅ **Performance**: Memoized cache selection
-
----
-
-**Color Helpers:**
-
-#### **colorHelpers.js** - Custom Color Generation
-
-```javascript
-// Adjust brightness
-export const adjustColor = (hex, percent) => {
-  // Lightens (positive) or darkens (negative) a color
-};
-
-// Generate full palette
-export const generateColorPalette = (baseColor) => {
-  return {
-    light: adjustColor(baseColor, 40),   // +40% lighter
-    main: baseColor,                     // Original
-    dark: adjustColor(baseColor, -30),   // -30% darker
-    contrastText: "#ffffff",
-  };
-};
-
-// Generate background
-export const generateBackgroundColor = (baseColor, mode) => {
-  return mode === 'light' 
-    ? adjustColor(baseColor, 85)   // Very light
-    : adjustColor(baseColor, -60); // Very dark
-};
-```
-
-**Usage Example:**
-```javascript
-// User picks #ff5983
-// Generates: 
-// - light: #ff8ba8
-// - main: #ff5983
-// - dark: #b33e5c
-// - background: #ffeef3 (light) / #660024 (dark)
-```
-
----
-
-**Theme Transitions:**
-
-```javascript
-const transitions = {
-  duration: {
-    shortest: 150,
-    shorter: 200,
-    short: 250,
-    standard: 300,      // Default
-    complex: 375,
-    enteringScreen: 225,
-    leavingScreen: 195,
-  },
-};
-```
-
----
-
-**Z-Index Layers:**
-
-```javascript
-const zIndex = {
-  mobileStepper: 1000,
-  fab: 1050,
-  speedDial: 1050,
-  appBar: 1100,
-  drawer: 1200,
-  modal: 1300,
-  snackbar: 1400,
-  tooltip: 1500,
-};
-```
-
----
-
-**Theme Benefits:**
-
-- ✅ **Fully Customizable**: Three color schemes + custom
-- ✅ **Dark Mode**: Optimized colors for both modes
-- ✅ **RTL Ready**: Complete Arabic/RTL support
-- ✅ **Consistent**: Unified design system
-- ✅ **Accessible**: WCAG compliant color contrasts
-- ✅ **Responsive**: Mobile-first breakpoints
-- ✅ **Type Safe**: PropTypes validation
-- ✅ **Performance**: Memoized theme generation
-- ✅ **Cairo Font**: Beautiful Arabic typography
-- ✅ **Material Design**: Based on Material Design 3
+**📖 Full Documentation:** See [src/theme/README.md](../src/theme/README.md) for complete theme system details, color palettes, typography scales, component overrides, and usage examples.
 
 ---
 
