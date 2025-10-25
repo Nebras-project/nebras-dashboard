@@ -16,9 +16,7 @@ import { useTranslation, useLanguage, useSidebar } from '../../../hooks';
 function LogoHeader({ mode, collapsed, onToggleCollapse }) {
   const { t } = useTranslation();
   const { isRTL } = useLanguage();
-  
-
-  const {isMobile, setSidebarOpen} = useSidebar();
+  const { isMobile, closeSidebar } = useSidebar();
 
   // Determine which icon to show based on collapsed state and direction
   const getCollapseIcon = () => {
@@ -65,7 +63,7 @@ function LogoHeader({ mode, collapsed, onToggleCollapse }) {
       )}
       
        {isMobile ? <IconButton size="small"
-       onClick={() => setSidebarOpen(false)}
+       onClick={closeSidebar}
            sx={{
              ml: collapsed ? 0 : 'auto',
              bgcolor: 'background.paper',
@@ -77,7 +75,8 @@ function LogoHeader({ mode, collapsed, onToggleCollapse }) {
                bgcolor: 'action.hover',
              },
              transition: 'all 0.3s ease',
-           }}><IoClose size={20} /></IconButton> :
+           }}><IoClose size={20} /></IconButton> 
+           :
          <Tooltip 
         title={collapsed ? t('common.expand') : t('common.collapse')} 
         placement="right"

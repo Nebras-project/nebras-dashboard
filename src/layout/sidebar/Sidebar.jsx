@@ -1,6 +1,6 @@
 import { Box, Drawer } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useUser, useReduxTheme, useLanguage, useColorScheme, useSidebar } from '../../hooks';
 import { getNavigationItems } from './sidebarConfig';
 import LogoHeader from './components/LogoHeader';
@@ -22,7 +22,7 @@ function Sidebar() {
   const { mode, toggleTheme } = useReduxTheme();
   const { currentLanguage, toggleLanguage } = useLanguage();
   const { scheme, customColor, setCustomColor, setColorScheme } = useColorScheme();
-  const { collapsed, toggleCollapsed, isMobile, isOpen, setSidebarOpen,setCollapsed } = useSidebar();
+  const { collapsed, toggleCollapsed, isMobile, isOpen, closeSidebar, expandSidebar } = useSidebar();
 
   // Get menu items for current role
   const menuItems = getNavigationItems(role);
@@ -30,23 +30,23 @@ function Sidebar() {
   // Disable collapsed mode on mobile
   useEffect(() => {
     if (isMobile && collapsed) {
-      setCollapsed(false);
+      expandSidebar();
     }
-  }, [isMobile, collapsed, setCollapsed]);
+  }, [isMobile, collapsed, expandSidebar]);
 
   // Handle navigation
-  const handleNavigation = (path) => {
+  const handleNavigation = useCallback((path) => {
     navigate(path);
     // Close drawer on mobile after navigation
     if (isMobile) {
-      setSidebarOpen(false);
+      closeSidebar();
     }
-  };
+  }, [navigate, isMobile, closeSidebar]);
 
   // Handle drawer close
-  const handleDrawerClose = () => {
-    setSidebarOpen(false);
-  };
+  const handleDrawerClose = useCallback(() => {
+    closeSidebar();
+  }, [closeSidebar]);
 
   const sidebarWidth = collapsed ? SIDEBAR_COLLAPSED_WIDTH : SIDEBAR_WIDTH;
 
@@ -125,6 +125,7 @@ function Sidebar() {
       position="sticky"
       sx={{ 
         height: '100vh',
+        width: `${sidebarWidth}px`,
         display: 'flex', 
         flexDirection: 'column',
         bgcolor: 'background.default',
@@ -132,8 +133,7 @@ function Sidebar() {
         left: 0,
         bottom: 0,
         zIndex: (theme) => theme.zIndex.drawer,
-        width: `${sidebarWidth}px`,
-        overflow: 'hidden',
+        overflow: 'auto',
         transition: 'width 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
       }}
     >

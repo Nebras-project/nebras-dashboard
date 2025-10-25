@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
  * UserInfo Component
  * Displays user avatar, name, and role in the header
  */
-function UserInfo({ user }) {
+function UserInfo({ user = null }) {
   const { t } = useTranslation();
   
   if (!user) {
@@ -64,10 +64,6 @@ UserInfo.propTypes = {
     name: PropTypes.string,
     role: PropTypes.string,
   }),
-};
-
-UserInfo.defaultProps = {
-  user: null,
 };
 
 export default UserInfo;

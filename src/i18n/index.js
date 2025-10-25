@@ -2,9 +2,10 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import ar from "./locales/ar";
 import en from "./locales/en";
+import { getInitialLanguage } from "../utils/getInitialLanguage";
 
-// Get initial language from localStorage or default to 'ar'
-const savedLanguage = localStorage.getItem("language") || "ar";
+// Get initial language from persisted state
+const savedLanguage = getInitialLanguage();
 
 i18n
   .use(initReactI18next) // Passes i18n down to react-i18next

@@ -1,11 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Get initial language from localStorage or default to 'ar'
-const savedLanguage = localStorage.getItem("language") || "ar";
-
 const initialState = {
-  currentLanguage: savedLanguage, // 'en' or 'ar'
-  isRTL: savedLanguage === "ar",
+  currentLanguage: "ar", // 'en' or 'ar' - Will be overridden by preloadedState
+  isRTL: true,
 };
 
 const languageSlice = createSlice({
@@ -15,15 +12,11 @@ const languageSlice = createSlice({
     setLanguage: (state, action) => {
       state.currentLanguage = action.payload;
       state.isRTL = action.payload === "ar";
-      // Persist to localStorage
-      localStorage.setItem("language", action.payload);
     },
     toggleLanguage: (state) => {
       const newLang = state.currentLanguage === "en" ? "ar" : "en";
       state.currentLanguage = newLang;
       state.isRTL = newLang === "ar";
-      // Persist to localStorage
-      localStorage.setItem("language", newLang);
     },
   },
 });

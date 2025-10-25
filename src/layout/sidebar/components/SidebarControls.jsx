@@ -13,6 +13,7 @@ import {
   MdLightMode,
   MdLanguage,
 } from 'react-icons/md';
+import { CiLogout } from "react-icons/ci";
 import PropTypes from 'prop-types';
 import ColorPicker from '../../../components/ColorPicker';
 import { 
@@ -21,6 +22,7 @@ import {
   getSidebarControlTextProps,
 } from '../../constants';
 import { useTranslation } from '../../../i18n/hooks/useTranslation';
+import { useLanguage } from '../../../hooks';
 
 /**
  * SidebarControls Component
@@ -39,6 +41,7 @@ function SidebarControls({
   collapsed,
 }) {
   const { t } = useTranslation();
+  const { isRTL } = useLanguage();
   const buttonStyles = getSidebarControlButtonStyles();
   const iconStyles = getSidebarControlIconStyles();
   const textProps = getSidebarControlTextProps();
@@ -152,7 +155,7 @@ function SidebarControls({
         {/* Logout Button */}
         {renderButton(
           onLogout,
-          <MdLogout />,
+          isRTL ? <MdLogout /> : <CiLogout />,
           t('common.logout'),
           {
             color: 'error.main',

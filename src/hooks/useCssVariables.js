@@ -16,5 +16,23 @@ export const useCssVariables = (theme) => {
       "--primary-contrast-text",
       theme.palette.primary.contrastText
     );
+    root.style.setProperty("--primary-dark", theme.palette.primary.dark);
+
+    // Set grey colors for scrollbar from theme
+    if (theme.palette.mode === "light") {
+      root.style.setProperty("--scrollbar-thumb", theme.palette.grey[400]);
+      root.style.setProperty(
+        "--scrollbar-thumb-hover",
+        theme.palette.grey[600]
+      );
+      root.style.setProperty("--scrollbar-track", theme.palette.grey[200]);
+    } else {
+      root.style.setProperty("--scrollbar-thumb", theme.palette.grey[700]);
+      root.style.setProperty(
+        "--scrollbar-thumb-hover",
+        theme.palette.grey[600]
+      );
+      root.style.setProperty("--scrollbar-track", theme.palette.grey[900]);
+    }
   }, [theme]);
 };

@@ -1,0 +1,21 @@
+/**
+ * Get initial language from persisted state
+ *
+ * This utility reads from the unified localStorage key used by the Redux middleware.
+ * It's needed for i18n initialization which happens before Redux is available.
+ *
+ * @returns {string} Language code ('ar' or 'en')
+ */
+export const getInitialLanguage = () => {
+  try {
+    const state = localStorage.getItem("nebras_dashboard_state");
+    if (state) {
+      const parsed = JSON.parse(state);
+      return parsed?.language?.currentLanguage || "ar";
+    }
+    return "ar";
+  } catch (error) {
+    console.error("Error loading initial language:", error);
+    return "ar";
+  }
+};

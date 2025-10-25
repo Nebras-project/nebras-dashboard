@@ -17,7 +17,7 @@ export const useTranslation = () => {
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
     dispatch(setLanguage(lng));
-    localStorage.setItem("language", lng);
+    // localStorage is handled automatically by localStorageMiddleware
   };
 
   /**

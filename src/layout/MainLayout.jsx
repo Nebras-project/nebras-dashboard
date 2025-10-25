@@ -22,7 +22,7 @@ function MainLayout({ children }) {
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop')); // < 1024px = mobile/tablet
-  const { collapsed, setMobileMode, setSidebarOpen } = useSidebar();
+  const { collapsed, setMobileMode, openSidebar, closeSidebar } = useSidebar();
   const isFirstRender = useRef(true);
   const prevIsMobile = useRef(isMobile);
 
@@ -39,10 +39,10 @@ function MainLayout({ children }) {
     // Handle subsequent renders - only when actually crossing the breakpoint
     if (prevIsMobile.current !== isMobile) {
       setMobileMode(isMobile);
-      setSidebarOpen(!isMobile); // Open on desktop, close on mobile
+      isMobile ? closeSidebar() : openSidebar(); // Open on desktop, close on mobile
       prevIsMobile.current = isMobile;
     }
-  }, [isMobile, setMobileMode, setSidebarOpen]);
+  }, [isMobile, setMobileMode, openSidebar, closeSidebar]);
 
   // Don't show layout on login page
   const isLoginPage = location.pathname === '/login';

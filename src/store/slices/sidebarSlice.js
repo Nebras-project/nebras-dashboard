@@ -10,34 +10,40 @@ const sidebarSlice = createSlice({
   name: "sidebar",
   initialState,
   reducers: {
+    // Sidebar open/close actions
+    openSidebar: (state) => {
+      state.isOpen = true;
+    },
+    closeSidebar: (state) => {
+      state.isOpen = false;
+    },
     toggleSidebar: (state) => {
       state.isOpen = !state.isOpen;
     },
-    setSidebarOpen: (state, action) => {
-      state.isOpen = action.payload;
+    // Sidebar collapse/expand actions
+    collapseSidebar: (state) => {
+      state.collapsed = true;
     },
-    setMobileMode: (state, action) => {
-      state.isMobile = action.payload;
-      // Auto-close sidebar on mobile when switching to mobile mode
-      if (action.payload && state.isOpen) {
-        state.isOpen = false;
-      }
+    expandSidebar: (state) => {
+      state.collapsed = false;
     },
     toggleCollapsed: (state) => {
       state.collapsed = !state.collapsed;
     },
-    setCollapsed: (state, action) => {
-      state.collapsed = action.payload;
+    // Mobile mode
+    setMobileMode: (state, action) => {
+      state.isMobile = action.payload;
     },
   },
 });
 
 export const {
+  openSidebar,
+  closeSidebar,
   toggleSidebar,
-  setSidebarOpen,
-  setMobileMode,
-  setSidebarWidth,
+  collapseSidebar,
+  expandSidebar,
   toggleCollapsed,
-  setCollapsed,
+  setMobileMode,
 } = sidebarSlice.actions;
 export default sidebarSlice.reducer;

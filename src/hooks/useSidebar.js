@@ -1,11 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
 import {
+  openSidebar,
+  closeSidebar,
   toggleSidebar,
-  setSidebarOpen,
-  setMobileMode,
-  setSidebarWidth,
+  collapseSidebar,
+  expandSidebar,
   toggleCollapsed,
-  setCollapsed,
+  setMobileMode,
 } from "../store/slices/sidebarSlice";
 
 /**
@@ -18,11 +19,12 @@ export const useSidebar = () => {
 
   return {
     ...sidebar,
+    openSidebar: () => dispatch(openSidebar()),
+    closeSidebar: () => dispatch(closeSidebar()),
     toggleSidebar: () => dispatch(toggleSidebar()),
-    setSidebarOpen: (isOpen) => dispatch(setSidebarOpen(isOpen)),
-    setMobileMode: (isMobile) => dispatch(setMobileMode(isMobile)),
-    setSidebarWidth: (width) => dispatch(setSidebarWidth(width)),
+    collapseSidebar: () => dispatch(collapseSidebar()),
+    expandSidebar: () => dispatch(expandSidebar()),
     toggleCollapsed: () => dispatch(toggleCollapsed()),
-    setCollapsed: (collapsed) => dispatch(setCollapsed(collapsed)),
+    setMobileMode: (isMobile) => dispatch(setMobileMode(isMobile)),
   };
 };
