@@ -1,38 +1,24 @@
-import {
-  Box,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Collapse,
-} from '@mui/material';
-import { MdExpandMore, MdExpandLess, MdCheck } from 'react-icons/md';
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import {
-  getSidebarControlButtonStyles,
-  getSidebarControlIconStyles,
-  getSidebarControlTextProps,
-} from '../../constants';
+import { getSidebarControlButtonStyles } from '../../constants';
 import SidebarButton from './SidebarButton';
+import Dropdown from '../../../components/Dropdown';
 
 /**
  * DropdownControl Component
- * Reusable dropdown control for sidebar with collapsed/expanded behavior
+ * Sidebar-specific dropdown wrapper that adds collapsed mode behavior
+ * Uses the generic Dropdown component for expanded mode
  * 
  * @param {Object} props
  * @param {React.ReactNode} props.icon - Icon to display
  * @param {string} props.label - Label text for the dropdown
- * @param {Array} props.options - Array of {value, label, icon} objects
+ * @param {Array} props.options - Array of {value, label, icon, onClick} objects
  * @param {string} props.currentValue - Currently selected value
- * @param {Function} props.onChange - Callback when option is selected
  * @param {boolean} props.collapsed - Whether sidebar is collapsed
  */
-function DropdownControl({ icon, label, options, currentValue, onChange, collapsed }) {
-  const [isOpen, setIsOpen] = useState(false);
+
+function DropdownControl({ icon, label, options, currentValue, collapsed }) {
   const buttonStyles = useMemo(() => getSidebarControlButtonStyles(), []);
-  const iconStyles = useMemo(() => getSidebarControlIconStyles(), []);
-  const textProps = useMemo(() => getSidebarControlTextProps(), []);
 
   // Get current option
   const currentOption = options.find(opt => opt.value === currentValue);
@@ -43,7 +29,10 @@ function DropdownControl({ icon, label, options, currentValue, onChange, collaps
     const handleToggle = () => {
       const currentIndex = options.findIndex(opt => opt.value === currentValue);
       const nextIndex = (currentIndex + 1) % options.length;
-      onChange(options[nextIndex].value);
+      const nextOption = options[nextIndex];
+      if (nextOption?.onClick) {
+        nextOption.onClick();
+      }
     };
 
     return (
@@ -57,71 +46,24 @@ function DropdownControl({ icon, label, options, currentValue, onChange, collaps
     );
   }
 
-  // When expanded, show dropdown list
+  // When expanded, use the generic Dropdown component with sidebar-specific styles
   return (
-    <Box>
-      <ListItemButton
-        onClick={() => setIsOpen(!isOpen)}
-        sx={{
-          ...buttonStyles,
-          justifyContent: 'flex-start',
-          px: 2,
-        }}
-      >
-        <ListItemIcon
-          sx={{
-            ...iconStyles,
-            minWidth: iconStyles.minWidth,
-            color: 'text.secondary',
-          }}
-        >
-          {currentOption?.icon || icon}
-        </ListItemIcon>
-        <ListItemText
-          primary={label}
-          primaryTypographyProps={textProps}
-        />
-        {isOpen ? <MdExpandLess /> : <MdExpandMore />}
-      </ListItemButton>
-
-      <Collapse in={isOpen} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          {options.map((option) => {
-            const isSelected = option.value === currentValue;
-            return (
-              <ListItemButton
-                key={option.value}
-                onClick={() => !isSelected && onChange(option.value)}
-                sx={{
-                  ...buttonStyles,
-                  pl: 4,
-                  '&:hover': {
-                    bgcolor: isSelected ? 'action.selected' : 'action.hover',
-                  },
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    ...iconStyles,
-                    minWidth: 40,
-                    color: isSelected ? 'primary.main' : 'text.secondary',
-                  }}
-                >
-                  {isSelected ? <MdCheck /> : option.icon}
-                </ListItemIcon>
-                <ListItemText
-                  primary={option.label}
-                  primaryTypographyProps={{
-                    ...textProps,
-                    fontWeight: isSelected ? 600 : 400,
-                  }}
-                />
-              </ListItemButton>
-            );
-          })}
-        </List>
-      </Collapse>
-    </Box>
+    <Dropdown
+      icon={icon}
+      label={label}
+      options={options}
+      currentValue={currentValue}
+      showCheckmark={true}
+      buttonSx={{
+        ...buttonStyles,
+        justifyContent: 'flex-start',
+        px: 2,
+      }}
+      listItemSx={{
+        ...buttonStyles,
+      }}
+      indentLevel={4}
+    />
   );
 }
 
@@ -132,9 +74,9 @@ DropdownControl.propTypes = {
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     icon: PropTypes.node,
+    onClick: PropTypes.func.isRequired,
   })).isRequired,
   currentValue: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
   collapsed: PropTypes.bool.isRequired,
 };
 

@@ -1,14 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import { Container, Box, Typography, Button, Stack } from '@mui/material';
+import { Container, Box, Typography, Button, Stack, useTheme } from '@mui/material';
 import { MdHome, MdArrowBack, MdSentimentDissatisfied } from 'react-icons/md';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 import { useTranslation } from '../hooks';
 
 /**
- * Animation Variants
+ * Animation Variants Factory
+ * Creates animation configurations using theme transitions
  */
-const animations = {
+const createAnimations = (theme) => ({
   icon: {
     initial: { scale: 0, rotate: -180 },
     animate: { scale: 1, rotate: 0 },
@@ -16,11 +17,11 @@ const animations = {
       type: 'spring',
       stiffness: 200,
       damping: 20,
-      duration: 0.6,
+      duration: theme.transitions.duration.standard / 1000,
     },
   },
   number: {
-    initial: { opacity: 0, y: 50 },
+    initial: { opacity: 0, y: theme.spacing(6) },
     animate: { opacity: 1, y: 0 },
     transition: {
       delay: 0.2,
@@ -30,16 +31,22 @@ const animations = {
     },
   },
   content: {
-    initial: { opacity: 0, y: 30 },
+    initial: { opacity: 0, y: theme.spacing(4) },
     animate: { opacity: 1, y: 0 },
-    transition: { delay: 0.4, duration: 0.5 },
+    transition: { 
+      delay: 0.4, 
+      duration: theme.transitions.duration.short / 1000,
+    },
   },
   buttons: {
-    initial: { opacity: 0, y: 30 },
+    initial: { opacity: 0, y: theme.spacing(4) },
     animate: { opacity: 1, y: 0 },
-    transition: { delay: 0.6, duration: 0.5 },
+    transition: { 
+      delay: 0.6, 
+      duration: theme.transitions.duration.short / 1000,
+    },
   },
-};
+});
 
 /**
  * NotFoundPage Component
@@ -48,6 +55,7 @@ const animations = {
 function NotFoundPage() {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const theme = useTheme();
 
   return (
     <Box
@@ -57,11 +65,15 @@ function NotFoundPage() {
         alignItems: 'center',
         justifyContent: 'center',
         bgcolor: 'background.default',
-        px: 3,
+        px: theme.spacing(3),
       }}
     >
       <Container maxWidth="md">
-        <Stack spacing={6} alignItems="center" textAlign="center">
+        <Stack 
+          spacing={theme.spacing(6)} 
+          alignItems="center" 
+          textAlign="center"
+        >
           <IconBadge />
           <ErrorNumber />
           <ErrorMessage t={t} />
@@ -77,23 +89,26 @@ function NotFoundPage() {
  * Displays the sad face icon in a circular badge
  */
 function IconBadge() {
+  const theme = useTheme();
+  const animations = createAnimations(theme);
+  
   return (
     <motion.div {...animations.icon}>
       <Box
         sx={{
-          width: { xs: 120, md: 150 },
-          height: { xs: 120, md: 150 },
+          width: { xs: theme.spacing(15), md: theme.spacing(18.75) },
+          height: { xs: theme.spacing(15), md: theme.spacing(18.75) },
           borderRadius: '50%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          bgcolor: (theme) => `${theme.palette.primary.main}15`,
-          border: (theme) => `3px solid ${theme.palette.primary.main}30`,
+          bgcolor: `${theme.palette.primary.main}15`,
+          border: `${theme.spacing(0.375)} solid ${theme.palette.primary.main}30`,
         }}
       >
         <MdSentimentDissatisfied
           style={{
-            fontSize: '5rem',
+            fontSize: '80px',
             color: 'var(--mui-palette-primary-main)',
           }}
         />
@@ -107,14 +122,21 @@ function IconBadge() {
  * Displays the large 404 number
  */
 function ErrorNumber() {
+  const theme = useTheme();
+  const animations = createAnimations(theme);
+  
   return (
     <motion.div {...animations.number}>
       <Typography
         variant="h1"
         sx={{
-          fontSize: { xs: '6rem', sm: '8rem', md: '10rem' },
-          fontWeight: 900,
-          lineHeight: 1,
+          fontSize: { 
+            xs: `${theme.spacing(12)}`, 
+            sm: `${theme.spacing(16)}`, 
+            md: `${theme.spacing(20)}` 
+          },
+          fontWeight: theme.typography.fontWeightBold || theme.typography.h1.fontWeight,
+          lineHeight: theme.typography.h1.lineHeight,
           color: 'text.primary',
           letterSpacing: '-0.02em',
         }}
@@ -130,13 +152,19 @@ function ErrorNumber() {
  * Displays title and description
  */
 function ErrorMessage({ t }) {
+  const theme = useTheme();
+  const animations = createAnimations(theme);
+  
   return (
     <motion.div {...animations.content}>
-      <Stack spacing={2} sx={{ maxWidth: 600 }}>
+      <Stack 
+        spacing={theme.spacing(2)} 
+        sx={{ maxWidth: theme.spacing(75) }}
+      >
         <Typography
           variant="h4"
           sx={{
-            fontWeight: 600,
+            fontWeight: theme.typography.h4.fontWeight,
             color: 'text.primary',
           }}
         >
@@ -145,9 +173,9 @@ function ErrorMessage({ t }) {
         <Typography
           variant="body1"
           sx={{
-            fontSize: '1.125rem',
+            fontSize: theme.typography.h5.fontSize,
             color: 'text.secondary',
-            lineHeight: 1.7,
+            lineHeight: theme.typography.body1.lineHeight,
           }}
         >
           {t('common.pageNotFoundMessage')}
@@ -166,13 +194,16 @@ ErrorMessage.propTypes = {
  * Navigation buttons for dashboard and back
  */
 function ActionButtons({ navigate, t }) {
+  const theme = useTheme();
+  const animations = createAnimations(theme);
+  
   return (
     <motion.div {...animations.buttons} style={{ width: '100%' }}>
       <Stack
         direction={{ mobile: 'column', tablet: 'row' }}
-        spacing={2}
+        spacing={theme.spacing(2)}
         sx={{
-          maxWidth: 500,
+          maxWidth: theme.spacing(62.5),
           mx: 'auto',
         }}
       >
@@ -183,11 +214,11 @@ function ActionButtons({ navigate, t }) {
           onClick={() => navigate('/dashboard')}
           startIcon={<MdHome />}
           sx={{
-            py: 1.5,
-            fontSize: '1rem',
-            fontWeight: 600,
+            py: theme.spacing(1.5),
+            fontSize: theme.typography.body1.fontSize,
+            fontWeight: theme.typography.button.fontWeight,
             textTransform: 'none',
-            borderRadius: 2,
+            borderRadius: theme.shape.borderRadius,
           }}
         >
           {t('navigation.dashboard')}
@@ -200,11 +231,11 @@ function ActionButtons({ navigate, t }) {
           onClick={() => navigate(-1)}
           startIcon={<MdArrowBack />}
           sx={{
-            py: 1.5,
-            fontSize: '1rem',
-            fontWeight: 600,
+            py: theme.spacing(1.5),
+            fontSize: theme.typography.body1.fontSize,
+            fontWeight: theme.typography.button.fontWeight,
             textTransform: 'none',
-            borderRadius: 2,
+            borderRadius: theme.shape.borderRadius,
           }}
         >
           {t('common.back')}

@@ -88,14 +88,6 @@ SidebarButton.propTypes = {
   textProps: PropTypes.object,
 };
 
-SidebarButton.defaultProps = {
-  collapsed: false,
-  selected: false,
-  tooltipPlacement: 'right',
-  sx: {},
-  iconSx: {},
-  textProps: {},
-};
 
 export default SidebarButton;
 

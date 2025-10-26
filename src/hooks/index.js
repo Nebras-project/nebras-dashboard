@@ -12,6 +12,7 @@ export { useColorScheme } from "./useColorScheme";
 export { useDocumentDirection } from "./useDocumentDirection";
 export { useCssVariables } from "./useCssVariables";
 export { useResponsiveSidebar } from "./useResponsiveSidebar";
+export { useSidebarNavigation } from "./useSidebarNavigation";
 
 // i18n hooks
 export { default as useTranslation } from "../i18n/hooks/useTranslation";

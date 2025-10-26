@@ -17,6 +17,7 @@ const containerBaseStyles = {
 };
 
 function MainLayout({ children }) {
+
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop')); // < 1024px = mobile/tablet
@@ -40,10 +41,14 @@ function MainLayout({ children }) {
   if (isMobile) {
     return (
       <Box sx={{ ...containerBaseStyles, display: 'flex', flexDirection: 'column' }}>
+
+      {/* // sidebar as drawer overlay */}
         <Sidebar />
+        
         <Box sx={{ pb: theme => theme.spacing(spacing.sm) }}>
           <Header />
         </Box>
+
         <Box
           component="main"
           sx={{
@@ -53,6 +58,7 @@ function MainLayout({ children }) {
         >
           {children}
         </Box>
+        
       </Box>
     );
   }
@@ -74,10 +80,11 @@ function MainLayout({ children }) {
       <Box sx={{ gridRow: '1 / 3', gridColumn: '1' }}>
         <Sidebar />
       </Box>
-      
+
       <Box sx={{ gridRow: '1', gridColumn: '2', pb: theme => theme.spacing(spacing.sm) }}>
         <Header />
       </Box>
+
       <Box
         component="main"
         sx={{

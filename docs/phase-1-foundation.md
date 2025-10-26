@@ -11,17 +11,17 @@ Setup core infrastructure and base configuration for the Nebras Dashboard.
 
 ### ✅ Completed
 
-- [x] Project setup with Vite
-- [x] Install all dependencies
-- [x] Create folder structure
-- [x] Create project plan documentation
-- [x] Setup Redux store for UI state
-- [x] Create theme configuration (light/dark, RTL, custom colors)
-- [x] Add Cairo font for Arabic support
-- [x] Setup React Query provider -> stop here
-- [x] Setup React Router with protected routes
-- [x] Create layout components (Sidebar, Header, Main Layout)
-- [x] Setup i18n for Arabic/English
+- ✅ Project setup with Vite
+- ✅ Install all dependencies
+- ✅ Create folder structure
+- ✅ Create project plan documentation
+- ✅ Setup Redux store for UI state
+- ✅ Create theme configuration (light/dark, RTL, custom colors)
+- ✅ Add Cairo font for Arabic support
+- ✅ Setup React Query provider 
+- ✅ Setup React Router with protected routes
+- ✅ Create layout components (Sidebar, Header, Main Layout) 
+- ✅ Setup i18n for Arabic/English -> stop here
 
 
 ---
@@ -336,298 +336,27 @@ src/layout/
         └── SidebarControls.jsx    # Bottom controls panel
 ```
 
----
+**Status:** ✅ Complete
+
+The layout system provides a fully responsive, role-based navigation structure with:
+
+**Key Features:**
+- ✅ **Responsive Design**: CSS Grid (desktop) + Flexbox (mobile)
+- ✅ **Role-Based Menus**: Different navigation items per user role
+- ✅ **Collapsible Sidebar**: 280px ↔ 80px (desktop only)
+- ✅ **Mobile Drawer**: Overlay sidebar for mobile devices
+- ✅ **Theme Controls**: Built-in color, theme, and language switchers
+- ✅ **RTL Support**: Complete Arabic layout support
+- ✅ **Smooth Animations**: Professional transitions and effects
+- ✅ **Active Route Highlighting**: Visual feedback for current page
+- ✅ **Modern Design**: Clean, card-style layout
 
 **Layout Architecture:**
+- **MainLayout**: Responsive wrapper with grid/flexbox layouts
+- **Header**: Top bar with user info and mobile menu toggle
+- **Sidebar**: Navigation panel with logo, menu, and controls
 
-#### **MainLayout.jsx** - Responsive Layout Wrapper
-
-**Purpose**: Main layout container that adapts between mobile and desktop views
-
-**Features:**
-- ✅ **Responsive Design**: Different layouts for mobile/desktop
-- ✅ **CSS Grid** (Desktop): Persistent sidebar with dynamic width
-- ✅ **Flexbox** (Mobile): Stacked layout with drawer sidebar
-- ✅ **Login Exclusion**: No layout on login page
-- ✅ **Smooth Transitions**: Animated sidebar collapse
-- ✅ **Rounded Content**: Modern card-style main content
-
-**Layout Structure:**
-
-```
-Desktop (≥1024px):
-┌─────────────────────────────────────┐
-│ Sidebar │ Header                    │
-│ (280px) ├───────────────────────────┤
-│         │ Main Content              │
-│         │ (Remaining space)         │
-└─────────────────────────────────────┘
-
-Mobile (<1024px):
-┌─────────────────────────────────────┐
-│ Header (with hamburger)             │
-├─────────────────────────────────────┤
-│ Main Content (full width)           │
-│                                     │
-└─────────────────────────────────────┘
-[Drawer Sidebar] (overlay when open)
-```
-
-**Breakpoint Detection:**
-```javascript
-const isMobile = useMediaQuery(theme.breakpoints.down('desktop')); // < 1024px
-```
-
-**Grid Layout (Desktop):**
-```javascript
-gridTemplateColumns: `${sidebarWidth}px calc(100vw - ${sidebarWidth}px)`
-gridTemplateRows: 'auto 1fr'
-```
-
-**Sidebar Width Calculation:**
-- Expanded: `280px`
-- Collapsed: `80px`
-- Dynamic transition on collapse toggle
-
----
-
-#### **Header Component**
-
-**Location:** `src/layout/header/Header.jsx`
-
-**Purpose**: Top navigation bar with user info and mobile menu
-
-**Features:**
-- ✅ **Fixed Position**: Stays at top when scrolling
-- ✅ **Mobile Menu**: Hamburger icon for drawer toggle
-- ✅ **User Info**: Avatar, name, role display
-- ✅ **RTL Support**: Menu icon changes for Arabic
-- ✅ **Elevation**: Subtle shadow for depth
-- ✅ **Theme-Aware**: Adapts to light/dark mode
-
-**Components:**
-
-1. **Header.jsx** - Main header container
-   - Hamburger menu (mobile only)
-   - User info display
-   - AppBar with Toolbar
-
-2. **UserInfo.jsx** - User profile component
-   - User avatar
-   - User name
-   - User role (translated)
-   - Profile menu (future)
-
-**Mobile Menu Icon:**
-- LTR: `HiMenuAlt2` (opens left)
-- RTL: `HiMenuAlt3` (opens right)
-
-**Styling:**
-```javascript
-position: "fixed"
-top: 0
-bgcolor: 'background.default'
-color: 'text.primary'
-elevation: 0
-```
-
----
-
-#### **Sidebar Component**
-
-**Location:** `src/layout/sidebar/Sidebar.jsx`
-
-**Purpose**: Main navigation panel with role-based menu and controls
-
-**Features:**
-- ✅ **Role-Based Navigation**: Different menus per user role
-- ✅ **Collapsible** (Desktop): Toggle between 280px ↔ 80px
-- ✅ **Drawer** (Mobile): Overlay sidebar
-- ✅ **Active Highlighting**: Current route indicated
-- ✅ **Smooth Animations**: Transition effects
-- ✅ **Bottom Controls**: Theme, language, color, logout
-- ✅ **Auto-Close** (Mobile): Closes after navigation
-
-**Sidebar Structure:**
-
-```
-┌─────────────────────────────┐
-│ LogoHeader                  │ ← Logo, brand name, collapse button
-├─────────────────────────────┤
-│ NavigationMenu              │ ← Role-based menu items
-│  • Dashboard                │
-│  • Students                 │
-│  • Competitions            │
-│  • ...                      │
-│                             │
-│ (scrollable)                │
-│                             │
-├─────────────────────────────┤
-│ SidebarControls             │ ← Bottom panel
-│  • Color picker             │
-│  • Language toggle          │
-│  • Theme toggle             │
-│  • Logout                   │
-└─────────────────────────────┘
-```
-
-**Sidebar Components:**
-
-1. **LogoHeader.jsx** - Brand Identity
-   - Nebras logo (theme-aware)
-   - Brand name (hidden when collapsed)
-   - Collapse toggle button (desktop)
-   - Close button (mobile)
-   - RTL icon support
-
-2. **NavigationMenu.jsx** - Navigation Items
-   - Role-based menu items
-   - Active route highlighting
-   - Icons + text labels
-   - Tooltips in collapsed mode
-   - Smooth hover effects
-
-3. **SidebarControls.jsx** - Control Panel
-   - Color picker (custom theme)
-   - Default color reset
-   - Language toggle (AR/EN)
-   - Theme toggle (light/dark)
-   - Logout button
-
-**Role-Based Menus:**
-
-| Role | Menu Items |
-|------|------------|
-| **Owner** | All 10 items (full access) |
-| **General Admin** | All 10 items (full access) |
-| **Curriculum Manager** | 5 items (curriculum focus) |
-| **Competition Manager** | 3 items (competitions focus) |
-| **Content Manager** | 4 items (questions focus) |
-
-**Navigation Configuration:**
-
-```javascript
-// src/layout/sidebar/sidebarConfig.jsx
-export const navigationItems = {
-  owner: [
-    { text: "navigation.dashboard", icon: <TbLayoutDashboardFilled />, path: "/dashboard" },
-    { text: "navigation.students", icon: <MdGroups />, path: "/students" },
-    // ... 8 more items
-  ],
-  // ... other roles
-};
-```
-
-**Desktop vs Mobile Behavior:**
-
-| Feature | Desktop | Mobile |
-|---------|---------|--------|
-| **Type** | Persistent | Drawer (overlay) |
-| **Width** | 280px / 80px | 280px |
-| **Collapse** | ✅ Yes | ❌ No |
-| **Close** | N/A | ✅ After navigation |
-| **Toggle** | Collapse button | Hamburger menu |
-| **Position** | Fixed left | Overlay |
-
-**Collapsed Mode (Desktop):**
-- Width: `80px`
-- Icons only
-- Tooltips on hover
-- Brand name hidden
-- Control labels hidden
-
-**Expanded Mode (Desktop):**
-- Width: `280px`
-- Icons + text labels
-- Full controls visible
-- Brand name shown
-
----
-
-**Layout Constants:**
-
-```javascript
-// src/layout/constants.js
-
-// Sidebar dimensions
-export const SIDEBAR_WIDTH = 280;
-export const SIDEBAR_COLLAPSED_WIDTH = 80;
-
-// Logo & branding
-export const LOGO_HEIGHT = 40;
-export const LOGO_LETTER_SPACING = "0.1rem";
-
-// Navigation items
-export const NAV_ITEM_HEIGHT = 48;
-export const NAV_ICON_MIN_WIDTH = 40;
-export const NAV_ICON_SIZE = "1.375rem";
-export const NAV_TEXT_SIZE = "0.875rem";
-
-// Avatar
-export const AVATAR_SIZE = 35;
-```
-
----
-
-**Layout Benefits:**
-
-- ✅ **Fully Responsive**: Adapts to all screen sizes
-- ✅ **Role-Based Access**: Dynamic menu based on user role
-- ✅ **Modern Design**: Clean, card-style layout
-- ✅ **Smooth Animations**: Professional transitions
-- ✅ **RTL Support**: Complete Arabic layout support
-- ✅ **Accessible**: Proper ARIA labels
-- ✅ **Performance**: Optimized re-renders
-- ✅ **Customizable**: Easy to modify and extend
-- ✅ **Mobile-First**: Touch-friendly on mobile
-- ✅ **Keyboard Navigation**: Full keyboard support
-
----
-
-**Custom Hooks Used:**
-
-- `useSidebar()` - Sidebar state management
-- `useUser()` - User authentication & role
-- `useReduxTheme()` - Theme mode (light/dark)
-- `useLanguage()` - Language & direction
-- `useColorScheme()` - Color customization
-- `useNavigate()` - Programmatic navigation
-- `useLocation()` - Current route detection
-- `useMediaQuery()` - Responsive breakpoints
-
----
-
-**Layout Flow:**
-
-```text
-App Initialization
-    ↓
-MainLayout renders
-    ↓
-Detects mobile/desktop
-    ↓
-├─ Mobile: Flexbox layout
-│  ├─ Drawer sidebar (overlay)
-│  ├─ Header (with hamburger)
-│  └─ Main content (full width)
-│
-└─ Desktop: Grid layout
-   ├─ Persistent sidebar (280px/80px)
-   ├─ Header (remaining width)
-   └─ Main content (remaining space)
-```
-
----
-
-**Future Enhancements:**
-
-- [ ] Breadcrumb navigation
-- [ ] Notifications center
-- [ ] Global search bar
-- [ ] Quick actions menu
-- [ ] Keyboard shortcuts
-- [ ] Layout presets
-- [ ] Customizable sidebar width
+**📖 Full Documentation:** See [src/layout/README.md](../src/layout/README.md) for complete layout system details, component architecture, responsive behavior, role-based menus, and integration guide.
 
 ---
 

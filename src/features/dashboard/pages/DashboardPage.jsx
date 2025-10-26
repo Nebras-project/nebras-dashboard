@@ -1,21 +1,20 @@
-import { Box, Card, CardContent, Typography } from '@mui/material';
+import { Container } from '@mui/material';
 import { useUser } from '../../../hooks/useUser';
 import OwnerDashboard from '../components/OwnerDashboard';
 import CurriculumDashboard from '../components/CurriculumDashboard';
 import CompetitionDashboard from '../components/CompetitionDashboard';
 import ContentDashboard from '../components/ContentDashboard';
 import { spacing } from '../../../theme';
-import { borderRadius } from '../../../theme/components';
 
 /**
  * Main Dashboard Page
  * Conditionally renders different dashboard components based on user role
- * Lives in the 8-column main content area of MainLayout Grid
+ * Uses Container with maxWidth="xl" for optimal readability and layout
  * 
  * Route: /dashboard (single route for all roles)
  */
 function DashboardPage() {
-  const { role, user } = useUser();
+  const { role } = useUser();
 
   // Render appropriate dashboard based on role
   const renderDashboard = () => {
@@ -40,12 +39,9 @@ function DashboardPage() {
   };
 
   return (
-    <Box bgcolor="background.paper" padding={spacing.xxs} borderRadius={borderRadius.xxs}>
-
-
-      {/* Main Dashboard Content */}
+    <Container maxWidth="xl" sx={{ p: spacing.xs }}>
       {renderDashboard()}
-    </Box>
+    </Container>
   );
 }
 

@@ -152,7 +152,7 @@ const routes = [
     ),
   },
 
-  // Protected Routes - Questions
+  // Protected Routes - Questions (Nested Routes)
   {
     path: '/questions',
     element: (
@@ -162,7 +162,7 @@ const routes = [
     ),
   },
   {
-    path: '/ministerial-questions',
+    path: '/questions/ministerial',
     element: (
       <ProtectedRoute>
         <MinisterialQuestionsPage />
@@ -170,7 +170,7 @@ const routes = [
     ),
   },
   {
-    path: '/enrichment-questions',
+    path: '/questions/enrichment',
     element: (
       <ProtectedRoute>
         <EnrichmentQuestionsPage />

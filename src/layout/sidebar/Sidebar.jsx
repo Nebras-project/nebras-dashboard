@@ -1,31 +1,35 @@
 import { Box, Drawer } from '@mui/material';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useCallback, useEffect } from 'react';
-import { useUser, useReduxTheme, useLanguage, useColorScheme, useSidebar } from '../../hooks';
-import { getNavigationItems } from './sidebarConfig';
+import { useEffect, useMemo } from 'react';
+import { useSidebar } from '../../hooks';
 import LogoHeader from './components/LogoHeader';
 import NavigationMenu from './components/NavigationMenu';
 import SidebarControls from './components/SidebarControls';
 import { SIDEBAR_WIDTH, SIDEBAR_COLLAPSED_WIDTH } from '../constants';
 
+// Common container styles
+const containerBaseStyles = {
+  display: 'flex',
+  flexDirection: 'column',
+  bgcolor: 'background.default',
+};
+
 /**
  * Sidebar Component
- * Role-based navigation sidebar with theme controls
- * Different menu items based on user role
- * Supports collapsed mode to show only icons
- * Responsive: Drawer on mobile, persistent sidebar on desktop
+ *
+ * Responsive navigation sidebar with role-based menu items and theme controls.
+ * Container component that coordinates child components - all data is managed by child components via hooks.
+ *
+ * Features:
+ * - Role-based navigation (different menus for different user roles)
+ * - Collapsible mode (desktop only - shows icons only)
+ * - Mobile: Drawer (hamburger menu)
+ * - Desktop: Persistent sidebar
+ * - Theme controls (color scheme, language, dark/light mode)
+ *
+ * @returns {JSX.Element} Sidebar component (Drawer on mobile, Box on desktop)
  */
 function Sidebar() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { role, logout } = useUser();
-  const { mode, toggleTheme } = useReduxTheme();
-  const { currentLanguage, toggleLanguage } = useLanguage();
-  const { scheme, customColor, setCustomColor, setColorScheme } = useColorScheme();
-  const { collapsed, toggleCollapsed, isMobile, isOpen, closeSidebar, expandSidebar } = useSidebar();
-
-  // Get menu items for current role
-  const menuItems = getNavigationItems(role);
+  const { collapsed, isMobile, isOpen, closeSidebar, expandSidebar } = useSidebar();
 
   // Disable collapsed mode on mobile
   useEffect(() => {
@@ -34,74 +38,32 @@ function Sidebar() {
     }
   }, [isMobile, collapsed, expandSidebar]);
 
-  // Handle navigation
-  const handleNavigation = useCallback((path) => {
-    navigate(path);
-    // Close drawer on mobile after navigation
-    if (isMobile) {
-      closeSidebar();
-    }
-  }, [navigate, isMobile, closeSidebar]);
+  // Memoize sidebar width calculation
+  const sidebarWidth = useMemo(
+    () => (collapsed ? SIDEBAR_COLLAPSED_WIDTH : SIDEBAR_WIDTH),
+    [collapsed]
+  );
 
-  // Handle drawer close
-  const handleDrawerClose = useCallback(() => {
-    closeSidebar();
-  }, [closeSidebar]);
-
-  const sidebarWidth = collapsed ? SIDEBAR_COLLAPSED_WIDTH : SIDEBAR_WIDTH;
-
-  // Sidebar content (shared between mobile drawer and desktop sidebar)
-  const sidebarContent = (
-    <Box 
-      sx={{ 
-        position: isMobile ? 'static' : 'fixed',
-        top: 0,
-        width: isMobile ? '100%' : `${sidebarWidth}px`,
-        height: '100%',
-        display: 'flex', 
-        flexDirection: 'column',
-        bgcolor: 'background.default',
-        overflow: 'auto',
-      }}
-    >
-      {/* Logo & Title */}
-      <LogoHeader 
-        mode={mode} 
-        collapsed={collapsed}
-        onToggleCollapse={toggleCollapsed}
-      />
-
-      {/* Navigation Menu */}
-      <NavigationMenu 
-        menuItems={menuItems}
-        currentPath={location.pathname}
-        onNavigate={handleNavigation}
-        collapsed={collapsed}
-      />
-
-      {/* Bottom Controls */}
-      <SidebarControls
-        mode={mode}
-        currentLanguage={currentLanguage}
-        scheme={scheme}
-        customColor={customColor}
-        onColorChange={setCustomColor}
-        onSchemeChange={setColorScheme}
-        onLanguageToggle={toggleLanguage}
-        onThemeToggle={toggleTheme}
-        onLogout={logout}
-        collapsed={collapsed}
-      />
-    </Box>
+  // Memoize sidebar content to avoid re-creating JSX on every render
+  const sidebarContent = useMemo(
+    () => (
+      <>
+        <LogoHeader />
+        <NavigationMenu />
+        <SidebarControls />
+      </>
+    ),
+    [] // Components manage their own state, so no dependencies needed
   );
 
   // Mobile: Render as Drawer
   if (isMobile) {
     return (
       <Drawer
-        anchor='left'
+        anchor="left"
         open={isOpen}
-        onClose={handleDrawerClose}
+        onClose={closeSidebar}
+        elevation={0}
         ModalProps={{
           keepMounted: true, // Better mobile performance
         }}
@@ -110,8 +72,9 @@ function Sidebar() {
           '& .MuiDrawer-paper': {
             width: SIDEBAR_WIDTH,
             boxSizing: 'border-box',
-            bgcolor: 'background.default',
+            backgroundImage: 'none',
             border: 'none',
+            ...containerBaseStyles,
           },
         }}
       >
@@ -122,20 +85,19 @@ function Sidebar() {
 
   // Desktop: Render as persistent sidebar
   return (
-    <Box 
+    <Box
       position="sticky"
-      sx={{ 
+      sx={{
+        ...containerBaseStyles,
         height: '100vh',
         width: `${sidebarWidth}px`,
-        display: 'flex', 
-        flexDirection: 'column',
-        bgcolor: 'background.default',
         top: 0,
         left: 0,
         bottom: 0,
         zIndex: (theme) => theme.zIndex.drawer,
         overflow: 'auto',
-        transition: 'width 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        transition: (theme) =>
+          `width ${theme.transitions.duration.standard}ms ${theme.transitions.easing.easeInOut}`,
       }}
     >
       {sidebarContent}
@@ -144,4 +106,3 @@ function Sidebar() {
 }
 
 export default Sidebar;
-

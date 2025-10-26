@@ -1,10 +1,5 @@
 import { Box, Stack, Divider } from '@mui/material';
-import {
-  MdLogout,
-  MdDarkMode,
-  MdLightMode,
-  MdLanguage,
-} from 'react-icons/md';
+import { MdDarkMode, MdLanguage, MdLightMode, MdLogout } from 'react-icons/md';
 import { CiLogout } from "react-icons/ci";
 import ColorPicker from '../../../components/ColorPicker';
 import {
@@ -31,14 +26,34 @@ function SidebarControls() {
 
   // Language options for dropdown
   const languageOptions = [
-    { value: 'ar', label: t('common.arabic'), icon: <MdLanguage /> },
-    { value: 'en', label: t('common.english'), icon: <MdLanguage /> },
+    { 
+      value: 'ar', 
+      label: t('common.arabic'), 
+      icon: <MdLanguage />,
+      onClick: () => setLanguage('ar')
+    },
+    { 
+      value: 'en', 
+      label: t('common.english'), 
+      icon: <MdLanguage />,
+      onClick: () => setLanguage('en')
+    },
   ];
 
   // Theme options for dropdown
   const themeOptions = [
-    { value: 'light', label: t('common.lightMode'), icon: <MdLightMode /> },
-    { value: 'dark', label: t('common.darkMode'), icon: <MdDarkMode /> },
+    { 
+      value: 'light', 
+      label: t('common.lightMode'), 
+      icon: <MdLightMode />,
+      onClick: () => setThemeMode('light')
+    },
+    { 
+      value: 'dark', 
+      label: t('common.darkMode'), 
+      icon: <MdDarkMode />,
+      onClick: () => setThemeMode('dark')
+    },
   ];
 
   return (
@@ -86,7 +101,6 @@ function SidebarControls() {
           label={t('common.language')}
           options={languageOptions}
           currentValue={currentLanguage}
-          onChange={setLanguage}
           collapsed={collapsed}
         />
 
@@ -96,7 +110,6 @@ function SidebarControls() {
           label={t('common.theme')}
           options={themeOptions}
           currentValue={mode}
-          onChange={setThemeMode}
           collapsed={collapsed}
         />
 
