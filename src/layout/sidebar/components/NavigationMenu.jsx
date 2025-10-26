@@ -40,7 +40,8 @@ function NavigationMenu() {
     >
       {menuItems.map((item, index) => {
         // Check if item has children (dropdown navigation)
-        if (item.children && item.children.length > 0) {
+        const hasNestedItems = item.children && item.children.length > 0;
+        if (hasNestedItems) {
           return (
             <ListItem
               key={`dropdown-${index}`}

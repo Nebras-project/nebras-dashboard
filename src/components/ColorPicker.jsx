@@ -11,7 +11,8 @@ import {
   Stack,
   Button,
 } from '@mui/material';
-import { MdPalette, MdClose } from 'react-icons/md';
+import {  MdClose } from 'react-icons/md';
+import { TbPalette } from "react-icons/tb";
 import { 
   getSidebarControlButtonStyles, 
   getSidebarControlIconStyles,
@@ -19,6 +20,7 @@ import {
   NAV_TRANSITION,
 } from '@constants';
 import { useTranslation, useLanguage } from '@hooks';
+import ColorSwatch from './ColorSwatch';
 
 /**
  * Validate and format hex color
@@ -99,22 +101,18 @@ function ColorPicker({ currentColor, onColorChange, scheme }) {
           ...iconStyles,
           color: 'text.secondary',
         }}>
-          <MdPalette />
+          <TbPalette />
         </ListItemIcon>
         <ListItemText
           primary={scheme === 'custom' ? t('common.currentColor') : t('common.pichAColor')}
           primaryTypographyProps={textProps}
         />
-        <Box
+        <ColorSwatch
+          color={scheme === 'custom' ? currentColor : 'action.hover'}
+          size={22}
           sx={{
-            width: 22,
-            height: 22,
             borderRadius: 1,
-            bgcolor: scheme === 'custom' ? currentColor : 'action.hover',
-            border: 2,
-            borderColor: 'divider',
             ml: 1,
-            flexShrink: 0,
             transition: NAV_TRANSITION,
           }}
         />
@@ -148,15 +146,11 @@ function ColorPicker({ currentColor, onColorChange, scheme }) {
 
             {/* Color Preview & Input */}
             <Stack direction="row" spacing={1} alignItems="center">
-              <Box
+              <ColorSwatch
+                color={tempColor}
+                size={40}
                 sx={{
-                  width: 40,
-                  height: 40,
                   borderRadius: 1,
-                  bgcolor: tempColor,
-                  border: 2,
-                  borderColor: 'divider',
-                  flexShrink: 0,
                 }}
               />
               <Box

@@ -24,6 +24,7 @@ function SidebarButton({
   onClick,
   icon,
   text,
+  endContent = null,
   collapsed = false,
   selected = false,
   tooltipPlacement = 'right',
@@ -55,6 +56,7 @@ function SidebarButton({
       >
         {icon}
       </ListItemIcon>
+
       {!collapsed && (
         <ListItemText
           primary={text}
@@ -64,6 +66,8 @@ function SidebarButton({
           }}
         />
       )}
+
+      {!collapsed && endContent}
     </ListItemButton>
   );
 
@@ -83,6 +87,7 @@ SidebarButton.propTypes = {
   onClick: PropTypes.func.isRequired,
   icon: PropTypes.node.isRequired,
   text: PropTypes.string.isRequired,
+  endContent: PropTypes.node,
   collapsed: PropTypes.bool,
   selected: PropTypes.bool,
   tooltipPlacement: PropTypes.string,

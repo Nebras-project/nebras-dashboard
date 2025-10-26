@@ -20,34 +20,43 @@ import { Dropdown } from '@components';
  * @param {Array} props.items - Array of child navigation items {text, icon, path}
  * @param {boolean} props.collapsed - Whether sidebar is collapsed
  */
+
 function NavigationDropdown({ icon, label, items, collapsed }) {
   const { t } = useTranslation();
   const location = useLocation();
   const { handleNavigation } = useSidebarNavigation();
   const buttonStyles = useMemo(() => getSidebarControlButtonStyles(), []);
 
-  // Check if any child is active
-  const isAnyChildActive = items.some(child => location.pathname === child.path);
+  // Check if any child is active - memoized to avoid recalculation
+  const isAnyChildActive = useMemo(
+    () => items.some(child => location.pathname === child.path),
+    [items, location.pathname]
+  );
 
-  // Convert items to dropdown options
-  const options = items.map(child => ({
-    value: child.path,
-    label: t(child.text),
-    icon: child.icon,
-    onClick: () => handleNavigation(child.path),
-  }));
+  // Convert items to dropdown options - memoized for performance
+  const options = useMemo(
+    () => items.map(child => ({
+      value: child.path,
+      label: t(child.text),
+      icon: child.icon,
+      onClick: () => handleNavigation(child.path),
+    })),
+    [items, t, handleNavigation]
+  );
 
   // Get current active option - only set if there's an actual match
-  const currentValue = items.find(child => location.pathname === child.path)?.path || '';
+  const currentValue = useMemo(
+    () => items.find(child => location.pathname === child.path)?.path || '',
+    [items, location.pathname]
+  );
 
   // When collapsed, show simple button that navigates to first child
   if (collapsed) {
+    // Only navigate if not already on an active child
     const handleClick = () => {
-      // If a child is active, stay there, otherwise go to first child
-      const targetPath = isAnyChildActive 
-        ? location.pathname 
-        : items[0]?.path;
-      handleNavigation(targetPath);
+      if (!isAnyChildActive && items[0]?.path) {
+        handleNavigation(items[0].path);
+      }
     };
 
     return (

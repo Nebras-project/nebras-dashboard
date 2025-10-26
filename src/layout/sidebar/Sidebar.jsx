@@ -6,7 +6,7 @@ import { useEffect, useMemo } from 'react';
 import { useSidebar } from '@hooks';
 import LogoHeader from './components/LogoHeader';
 import NavigationMenu from './components/NavigationMenu';
-import SidebarControls from './components/SidebarControls';
+import SidebarSettings from './components/SidebarSettings';
 import { SIDEBAR_WIDTH } from '@constants';
 
 // Common container styles
@@ -47,7 +47,7 @@ function Sidebar() {
       <>
         <LogoHeader />
         <NavigationMenu />
-        <SidebarControls />
+        <SidebarSettings />
       </>
     ),
     [] // Components manage their own state, so no dependencies needed

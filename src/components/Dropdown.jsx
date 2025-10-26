@@ -6,7 +6,7 @@ import {
   ListItemText,
   Collapse,
 } from '@mui/material';
-import { MdExpandMore, MdExpandLess, MdCheck } from 'react-icons/md';
+import { MdExpandMore, MdExpandLess, MdCheck } from 'react-icons/md'; 
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -20,7 +20,6 @@ import PropTypes from 'prop-types';
  * @param {Array} props.options - Array of {value, label, icon, onClick} objects
  * @param {string} props.currentValue - Currently selected value
  * @param {boolean} props.showCheckmark - Whether to show checkmark on selected item (default: true)
- * @param {Function} props.onTriggerClick - Optional callback when trigger button is clicked
  * @param {Object} props.sx - Custom styles for the root element
  * @param {Object} props.buttonSx - Custom styles for the trigger button
  * @param {Object} props.listItemSx - Custom styles for dropdown items
@@ -33,7 +32,6 @@ function Dropdown({
   options, 
   currentValue, 
   showCheckmark = true,
-  onTriggerClick,
   sx = {},
   buttonSx = {},
   listItemSx = {},
@@ -63,19 +61,11 @@ function Dropdown({
     justifyContent: 'center',
   };
 
-  // Handle trigger button click
-  const handleTriggerClick = () => {
-    setIsOpen(!isOpen);
-    if (onTriggerClick) {
-      onTriggerClick();
-    }
-  };
-
   return (
     <Box sx={sx}>
       {/* Dropdown Trigger Button */}
       <ListItemButton
-        onClick={handleTriggerClick}
+        onClick={() => setIsOpen(!isOpen)}
         sx={{
           ...defaultButtonStyles,
           justifyContent: 'flex-start',
@@ -148,7 +138,6 @@ function Dropdown({
                   primaryTypographyProps={{
                     fontSize: '0.875rem',
                     fontWeight: isSelected ? 600 : 400,
-                    color: isSelected ? 'primary.main' : 'text.primary',
                   }}
                   secondaryTypographyProps={{
                     fontSize: '0.75rem',
@@ -176,7 +165,6 @@ Dropdown.propTypes = {
   })).isRequired,
   currentValue: PropTypes.string.isRequired,
   showCheckmark: PropTypes.bool,
-  onTriggerClick: PropTypes.func,
   sx: PropTypes.object,
   buttonSx: PropTypes.object,
   listItemSx: PropTypes.object,

@@ -1,10 +1,11 @@
 // external imports
 import { Box, Stack, Divider } from '@mui/material';
 import { MdDarkMode, MdLanguage, MdLightMode, MdLogout, MdContrast } from 'react-icons/md';
+import { CgColorBucket } from "react-icons/cg";
 import { CiLogout } from "react-icons/ci";
 
 // internal imports
-import { ColorPicker } from '@components';
+import { ColorSwatch, ColorPicker } from '@components';
 import {
   COLOR_INDICATOR_SIZE,
   LOGOUT_BUTTON_STYLES,
@@ -12,14 +13,14 @@ import {
 } from '@constants';
 import { useTranslation, useLanguage, useReduxTheme, useColorScheme, useUser, useSidebar } from '@hooks';
 import SidebarButton from './SidebarButton';
-import DropdownControl from './DropdownControl';
+import SettingsDropdown from './SettingsDropdown';
 
 /**
- * SidebarControls Component
- * Bottom controls section with color picker, language toggle, theme toggle, and logout
+ * SidebarSettings Component
+ * Bottom settings section with color picker, language selector, theme selector, and logout
  * Self-contained component that manages its own state and actions via hooks
  */
-function SidebarControls() {
+function SidebarSettings() {
   const { t } = useTranslation();
   const { mode, setThemeMode } = useReduxTheme();
   const { currentLanguage, isRTL, setLanguage } = useLanguage();
@@ -76,6 +77,22 @@ function SidebarControls() {
           py: 1,
         }}
       >
+
+                {/* Color Reset Button - Works for both collapsed and expanded */}
+        <SidebarButton
+          onClick={() => setColorScheme('blue')}
+          icon={<CgColorBucket />}
+          text={t('common.defaultColor')}
+          endContent={
+            <ColorSwatch 
+              color="#0075ff"
+              size={COLOR_INDICATOR_SIZE}
+              sx={{ ml: 'auto' }}
+            />
+          }
+          collapsed={collapsed}
+        />
+        
         {/* Color Picker - Show only when expanded */}
         {!collapsed && (
           <ColorPicker
@@ -85,27 +102,10 @@ function SidebarControls() {
           />
         )}
 
-        {/* Color Reset Button - Works for both collapsed and expanded */}
-        <SidebarButton
-          onClick={() => setColorScheme('blue')}
-          icon={
-            <Box 
-              sx={{ 
-                width: COLOR_INDICATOR_SIZE, 
-                height: COLOR_INDICATOR_SIZE, 
-                borderRadius: '50%', 
-                bgcolor: '#0075ff',
-                border: 2,
-                borderColor: 'divider',
-              }}
-            />
-          }
-          text={t('common.defaultColor')}
-          collapsed={collapsed}
-        />
+
 
         {/* Language Selection Dropdown */}
-        <DropdownControl
+        <SettingsDropdown
           icon={<MdLanguage />}
           label={t('common.language')}
           options={languageOptions}
@@ -114,7 +114,7 @@ function SidebarControls() {
         />
 
         {/* Theme Selection Dropdown */}
-        <DropdownControl
+        <SettingsDropdown
           icon={
             mode === 'system' ? <MdContrast /> :
             mode === 'dark' ? <MdDarkMode /> : 
@@ -140,5 +140,5 @@ function SidebarControls() {
   );
 }
 
-export default SidebarControls;
+export default SidebarSettings;
 

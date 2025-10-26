@@ -10,7 +10,7 @@ import UserInfo from './components/UserInfo';
 
 function Header() {
   const { user } = useUser();
-  const { toggleSidebar, isMobile } = useSidebar();
+  const { openSidebar, isMobile } = useSidebar();
   const { isRTL } = useLanguage();
 
   // Memoize menu icon based on direction
@@ -36,7 +36,7 @@ function Header() {
             edge="start"
             color="inherit"
             aria-label="menu"
-            onClick={toggleSidebar}
+            onClick={openSidebar}
             sx={{
               marginInlineEnd: spacing.md / 8,
             }}

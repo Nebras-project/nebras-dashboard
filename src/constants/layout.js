@@ -13,6 +13,9 @@ export const SIDEBAR_COLLAPSED_WIDTH = 80;
 // Logo Header constants
 export const LOGO_HEIGHT = 40;
 export const LOGO_LETTER_SPACING = "0.1rem";
+export const COLLAPSE_ICON_SIZE = 24;
+export const CLOSE_ICON_SIZE = 20;
+export const CLOSE_BUTTON_SIZE = 32;
 
 // Navigation Menu constants
 export const NAV_ITEM_HEIGHT = 48;

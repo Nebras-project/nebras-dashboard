@@ -7,14 +7,15 @@ import { useMemo } from 'react';
 // internal imports
 import NebrasLogoLight from '@data/images/Nebras Logo Light.svg';
 import NebrasLogoDark from '@data/images/Nebras Logo Dark.svg';
-import { LOGO_HEIGHT, LOGO_LETTER_SPACING } from '@constants';
+import { 
+  LOGO_HEIGHT, 
+  LOGO_LETTER_SPACING,
+  COLLAPSE_ICON_SIZE,
+  CLOSE_ICON_SIZE,
+  CLOSE_BUTTON_SIZE
+} from '@constants';
 import { fontWeights, spacing } from '@theme';
 import { useTranslation, useLanguage, useSidebar, useReduxTheme } from '@hooks';
-
-// Icon sizes
-const COLLAPSE_ICON_SIZE = 24;
-const CLOSE_ICON_SIZE = 20;
-const CLOSE_BUTTON_SIZE = 32;
 
 /**
  * LogoHeader Component

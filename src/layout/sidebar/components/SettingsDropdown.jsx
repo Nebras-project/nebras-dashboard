@@ -8,8 +8,8 @@ import SidebarButton from './SidebarButton';
 import { Dropdown } from '@components';
 
 /**
- * DropdownControl Component
- * Sidebar-specific dropdown wrapper that adds collapsed mode behavior
+ * SettingsDropdown Component
+ * Sidebar-specific dropdown wrapper for settings controls (theme, language, etc.)
  * Uses the generic Dropdown component for expanded mode
  * 
  * @param {Object} props
@@ -20,7 +20,7 @@ import { Dropdown } from '@components';
  * @param {boolean} props.collapsed - Whether sidebar is collapsed
  */
 
-function DropdownControl({ icon, label, options, currentValue, collapsed }) {
+function SettingsDropdown({ icon, label, options, currentValue, collapsed }) {
   const buttonStyles = useMemo(() => getSidebarControlButtonStyles(), []);
 
   // Get current option
@@ -70,7 +70,7 @@ function DropdownControl({ icon, label, options, currentValue, collapsed }) {
   );
 }
 
-DropdownControl.propTypes = {
+SettingsDropdown.propTypes = {
   icon: PropTypes.node.isRequired,
   label: PropTypes.string.isRequired,
   options: PropTypes.arrayOf(PropTypes.shape({
@@ -83,5 +83,5 @@ DropdownControl.propTypes = {
   collapsed: PropTypes.bool.isRequired,
 };
 
-export default DropdownControl;
+export default SettingsDropdown;
 
