@@ -110,7 +110,8 @@ function Dropdown({
       <Collapse in={isOpen} timeout="auto" unmountOnExit>
         <List component="div" disablePadding sx={{ pl: 2 }}>
           {options.map((option) => {
-            const isSelected = option.value === currentValue;
+            // Only mark as selected if there's a valid currentValue and it matches
+            const isSelected = currentValue && option.value === currentValue;
             return (
               <ListItemButton
                 key={option.value}

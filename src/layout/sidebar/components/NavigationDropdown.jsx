@@ -34,8 +34,8 @@ function NavigationDropdown({ icon, label, items, collapsed }) {
     onClick: () => handleNavigation(child.path),
   }));
 
-  // Get current active option
-  const currentValue = items.find(child => location.pathname === child.path)?.path || items[0]?.path;
+  // Get current active option - only set if there's an actual match
+  const currentValue = items.find(child => location.pathname === child.path)?.path || '';
 
   // When collapsed, show simple button that navigates to first child
   if (collapsed) {
@@ -61,14 +61,6 @@ function NavigationDropdown({ icon, label, items, collapsed }) {
     );
   }
 
-  // Handle dropdown trigger click - navigate to first option
-  const handleTriggerClick = () => {
-    // Navigate to first option when clicking the dropdown trigger
-    if (items[0]?.path) {
-      handleNavigation(items[0].path);
-    }
-  };
-
   // When expanded, use the generic Dropdown component with unified styles
   return (
     <Dropdown
@@ -77,7 +69,6 @@ function NavigationDropdown({ icon, label, items, collapsed }) {
       options={options}
       currentValue={currentValue}
       showCheckmark={true}
-      onTriggerClick={handleTriggerClick}
       sx={{
         width: '100%',
       }}
