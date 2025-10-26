@@ -8,7 +8,7 @@ import {
   localStorageMiddleware,
   loadPersistedState,
 } from "./middleware/localStorageMiddleware";
-import { migrateLocalStorage } from "../utils/migrateLocalStorage";
+import { migrateLocalStorage } from "@utils";
 
 // Run migration BEFORE loading state
 migrateLocalStorage();

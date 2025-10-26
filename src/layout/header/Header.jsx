@@ -1,8 +1,11 @@
+// external imports
 import { AppBar, Toolbar, IconButton } from '@mui/material';
 import { HiMenuAlt2, HiMenuAlt3 } from 'react-icons/hi';
 import { useMemo } from 'react';
-import { useUser, useSidebar, useLanguage } from '../../hooks';
-import { spacing } from '../../theme';
+
+// internal imports
+import { useUser, useSidebar, useLanguage } from '@hooks';
+import { spacing } from '@theme';
 import UserInfo from './components/UserInfo';
 
 function Header() {

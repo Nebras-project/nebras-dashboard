@@ -7,7 +7,6 @@ This directory contains the main layout components for the Nebras Dashboard appl
 ```text
 src/layout/
 ├── MainLayout.jsx                 # Main layout wrapper
-├── constants.js                   # Layout constants (widths, sizes)
 ├── index.js                       # Layout exports
 ├── README.md                      # This file
 │
@@ -26,6 +25,9 @@ src/layout/
         ├── LogoHeader.jsx         # Logo & brand section
         ├── NavigationMenu.jsx     # Navigation menu items
         └── SidebarControls.jsx    # Bottom controls panel
+
+Note: Layout constants have been moved to src/constants/layout.js
+Import using: import { SIDEBAR_WIDTH } from '@constants';
 ```
 
 ---
@@ -238,26 +240,36 @@ export const navigationItems = {
 
 ## Layout Constants
 
-```javascript
-// src/layout/constants.js
+Layout constants have been moved to `src/constants/layout.js` for better organization.
 
+**Import constants using:**
+
+```javascript
+import { SIDEBAR_WIDTH, NAV_ITEM_HEIGHT, AVATAR_SIZE } from '@constants';
+```
+
+**Available constants:**
+
+```javascript
 // Sidebar dimensions
-export const SIDEBAR_WIDTH = 280;
-export const SIDEBAR_COLLAPSED_WIDTH = 80;
+SIDEBAR_WIDTH = 280;
+SIDEBAR_COLLAPSED_WIDTH = 80;
 
 // Logo & branding
-export const LOGO_HEIGHT = 40;
-export const LOGO_LETTER_SPACING = "0.1rem";
+LOGO_HEIGHT = 40;
+LOGO_LETTER_SPACING = "0.1rem";
 
 // Navigation items
-export const NAV_ITEM_HEIGHT = 48;
-export const NAV_ICON_MIN_WIDTH = 40;
-export const NAV_ICON_SIZE = "1.375rem";
-export const NAV_TEXT_SIZE = "0.875rem";
+NAV_ITEM_HEIGHT = 48;
+NAV_ICON_MIN_WIDTH = 40;
+NAV_ICON_SIZE = "1.375rem";
+NAV_TEXT_SIZE = "0.875rem";
 
 // Avatar
-export const AVATAR_SIZE = 35;
+AVATAR_SIZE = 35;
 ```
+
+See `src/constants/README.md` for full documentation.
 
 ---
 

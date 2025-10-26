@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { setLanguage, toggleLanguage } from "../store/slices/languageSlice";
+import { setLanguage, toggleLanguage } from "@store/slices/languageSlice";
 
 /**
  * Custom hook to access and manage language state from Redux

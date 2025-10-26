@@ -1,30 +1,32 @@
 import { Navigate } from 'react-router-dom';
-import ProtectedRoute from '../components/ProtectedRoute';
+import { ProtectedRoute } from '@components';
 
 // Authentication Pages
-import LoginPage from '../features/authentication/pages/LoginPage';
+import { LoginPage } from '@features/authentication';
 
 // Main Pages
-import DashboardPage from '../features/dashboard/pages/DashboardPage';
-import StudentsPage from '../features/students/pages/StudentsPage';
-import AdminsPage from '../features/admins/pages/AdminsPage';
+import { DashboardPage } from '@features/dashboard';
+import { StudentsPage } from '@features/students';
+import { AdminsPage } from '@features/admins';
 
 // Competition Pages
-import CompetitionsPage from '../features/competitions/pages/CompetitionsPage';
-import CompetitionPage from '../features/competitions/pages/CompetitionPage';
-import CompetitionMembersPage from '../features/competitions/pages/CompetitionMembersPage';
-import CompetitionExamPage from '../features/competitions/pages/CompetitionExamPage';
-import CompetitionResultPage from '../features/competitions/pages/CompetitionResultPage';
+import {
+  CompetitionsPage,
+  CompetitionPage,
+  CompetitionMembersPage,
+  CompetitionExamPage,
+  CompetitionResultPage,
+} from '@features/competitions';
 
 // Curriculum Pages
-import CurriculumsPage from '../features/curriculums/pages/CurriculumsPage';
-import SubjectsPage from '../features/subjects/pages/SubjectsPage';
-import UnitsPage from '../features/units/pages/UnitsPage';
+import { CurriculumsPage } from '@features/curriculums';
+import { SubjectsPage } from '@features/subjects';
+import { UnitsPage } from '@features/units';
 
 // Question Pages
-import QuestionsPage from '../features/questions/pages/QuestionsPage';
-import MinisterialQuestionsPage from '../features/ministerial-questions/pages/MinisterialQuestionsPage';
-import EnrichmentQuestionsPage from '../features/enrichment-questions/pages/EnrichmentQuestionsPage';
+import { QuestionsPage } from '@features/questions';
+import { MinisterialQuestionsPage } from '@features/ministerial-questions';
+import { EnrichmentQuestionsPage } from '@features/enrichment-questions';
 
 // Error Pages
 import NotFoundPage from '../pages/NotFoundPage';

@@ -58,6 +58,7 @@ const ar = {
     defaultColor: "اللون الافتراضي",
     darkMode: "الوضع الداكن",
     lightMode: "الوضع الفاتح",
+    systemMode: "الافتراضي للنظام",
     arabic: "العربية",
     english: "English",
     success: "نجح",

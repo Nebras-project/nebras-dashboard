@@ -1,9 +1,11 @@
+// external imports
 import { Stack, Avatar, Typography } from '@mui/material';
-import { fontWeights, lineHeights } from '../../../theme/typography';
-import { spacing } from '../../../theme';
-import { AVATAR_SIZE } from '../../constants';
+
+// internal imports
+import { fontWeights, lineHeights, spacing } from '@theme';
+import { AVATAR_SIZE } from '@constants';
 import { getRoleTranslationKey } from '../headerConfig';
-import { useTranslation } from '../../../i18n/hooks/useTranslation';
+import { useTranslation } from '@hooks';
 import PropTypes from 'prop-types';
 
 // Avatar styles

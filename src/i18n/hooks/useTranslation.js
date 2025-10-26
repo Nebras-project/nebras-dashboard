@@ -1,6 +1,6 @@
 import { useTranslation as useI18nextTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { setLanguage } from "../../store/slices/languageSlice";
+import { setLanguage } from "@store/slices/languageSlice";
 
 /**
  * Custom hook for translations with Redux integration

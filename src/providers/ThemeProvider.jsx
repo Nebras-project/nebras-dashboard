@@ -5,10 +5,7 @@ import createCache from '@emotion/cache';
 import CssBaseline from '@mui/material/CssBaseline';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { prefixer } from 'stylis';
-import {useMuiTheme} from '../hooks/useMuiTheme';
-import {useDocumentDirection} from '../hooks/useDocumentDirection';
-import {useCssVariables} from '../hooks/useCssVariables';
-import {useLanguage} from '../hooks/useLanguage';
+import { useMuiTheme, useDocumentDirection, useCssVariables, useLanguage } from '@hooks';
 import { useMemo } from 'react';
 
 // Create RTL cache

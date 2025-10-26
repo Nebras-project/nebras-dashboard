@@ -1,3 +1,4 @@
+// external imports
 import {
   ListItemButton,
   ListItemIcon,
@@ -6,11 +7,13 @@ import {
 } from '@mui/material';
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
+
+// internal imports
 import {
   getSidebarControlButtonStyles,
   getSidebarControlIconStyles,
   getSidebarControlTextProps,
-} from '../../constants';
+} from '@constants';
 
 /**
  * SidebarButton Component

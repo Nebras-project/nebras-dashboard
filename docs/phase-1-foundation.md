@@ -368,110 +368,44 @@ The layout system provides a fully responsive, role-based navigation structure w
 ```text
 src/i18n/
 ├── index.js                   # i18n initialization & configuration
-├── README.md                  # i18n documentation
+├── README.md                  # Comprehensive i18n documentation
 ├── hooks/
 │   └── useTranslation.js      # Custom translation hook with Redux
 └── locales/
     ├── index.js               # Locale exports
-    ├── ar.js                  # Arabic translations (200+ keys)
-    └── en.js                  # English translations (200+ keys)
+    ├── ar.js                  # Arabic translations (254+ keys)
+    └── en.js                  # English translations (254+ keys)
 
 src/components/
 └── LanguageSync.jsx           # Redux-i18n synchronization component
 ```
 
----
+**Status:** ✅ Complete
 
-**i18n Configuration:**
+A comprehensive internationalization system supporting Arabic (RTL) and English (LTR) with seamless language switching, Redux integration, and persistent state management.
 
-#### **index.js** - i18next Initialization
+**Key Features:**
 
+- ✅ **Dual Language Support**: Arabic (RTL) and English (LTR)
+- ✅ **254+ Translation Keys**: Organized into 17 namespaces
+- ✅ **Redux Integration**: Centralized state management
+- ✅ **Automatic RTL/LTR Switching**: Based on language selection
+- ✅ **Persistent State**: Language preference saved to localStorage
+- ✅ **Custom Hook**: Enhanced `useTranslation()` with Redux sync
+- ✅ **Interpolation Support**: Dynamic content in translations
+- ✅ **Comprehensive Coverage**: All UI elements, navigation, forms, messages
+
+**Translation Namespaces:**
+- `common` (67 keys) - UI elements, buttons, labels
+- `navigation` (11 keys) - Menu items
+- `auth` (8 keys) - Authentication
+- `dashboard` (8 keys) - Dashboard content
+- `curriculum`, `questions`, `competitions`, `students`, `admins`
+- And 8 more specialized namespaces
+
+**Quick Usage:**
 ```javascript
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import ar from "./locales/ar";
-import en from "./locales/en";
-
-// Get initial language from localStorage or default to 'ar'
-const savedLanguage = localStorage.getItem("language") || "ar";
-
-i18n
-  .use(initReactI18next)
-  .init({
-    resources: {
-      ar: { translation: ar },
-      en: { translation: en },
-    },
-    lng: savedLanguage,           // Default language
-    fallbackLng: "ar",            // Fallback if translation missing
-    interpolation: {
-      escapeValue: false,         // React already escapes
-    },
-    react: {
-      useSuspense: false,         // Disable suspense mode
-    },
-  });
-```
-
-**Configuration Features:**
-
-- ✅ **Two Languages**: Arabic (default) and English
-- ✅ **LocalStorage Persistence**: Saves user preference
-- ✅ **Fallback Language**: Arabic as fallback
-- ✅ **React Integration**: react-i18next bindings
-- ✅ **No Suspense**: Standard loading approach
-- ✅ **Safe Escaping**: Disabled (React handles it)
-
----
-
-**Custom Translation Hook:**
-
-#### **useTranslation.js** - Redux-Integrated Hook
-
-```javascript
-import { useTranslation as useI18nextTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
-import { setLanguage } from "../../store/slices/languageSlice";
-
-export const useTranslation = () => {
-  const { t, i18n } = useI18nextTranslation();
-  const dispatch = useDispatch();
-
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-    dispatch(setLanguage(lng));
-    localStorage.setItem("language", lng);
-  };
-
-  const toggleLanguage = () => {
-    const newLang = i18n.language === "ar" ? "en" : "ar";
-    changeLanguage(newLang);
-  };
-
-  return {
-    t,                              // Translation function
-    i18n,                           // i18n instance
-    currentLanguage: i18n.language, // Current language code
-    isArabic: i18n.language === "ar",
-    isEnglish: i18n.language === "en",
-    changeLanguage,                 // Change language
-    toggleLanguage,                 // Toggle AR/EN
-  };
-};
-```
-
-**Hook Features:**
-
-- ✅ **Translation Function**: `t('key')` for translations
-- ✅ **Redux Sync**: Updates Redux state on language change
-- ✅ **LocalStorage**: Persists language preference
-- ✅ **Language Info**: Current language and boolean checks
-- ✅ **Easy Toggle**: One function to switch languages
-- ✅ **Type-Safe**: PropTypes validation in components
-
-**Usage Example:**
-```javascript
-import { useTranslation } from '../i18n/hooks/useTranslation';
+import { useTranslation } from '@/hooks';
 
 function MyComponent() {
   const { t, currentLanguage, toggleLanguage } = useTranslation();
@@ -479,7 +413,6 @@ function MyComponent() {
   return (
     <div>
       <h1>{t('common.welcome')}</h1>
-      <p>{t('navigation.dashboard')}</p>
       <button onClick={toggleLanguage}>
         {currentLanguage === 'ar' ? 'English' : 'العربية'}
       </button>
@@ -488,300 +421,14 @@ function MyComponent() {
 }
 ```
 
----
-
-**Language Synchronization:**
-
-#### **LanguageSync.jsx** - Redux-i18n Sync
-
-```javascript
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { setLanguage } from '../store/slices/languageSlice';
-
-const LanguageSync = () => {
-  const { i18n } = useTranslation();
-  const dispatch = useDispatch();
-  const currentLanguage = useSelector(state => state.language.currentLanguage);
-
-  // Sync on mount
-  useEffect(() => {
-    if (i18n.language !== currentLanguage) {
-      i18n.changeLanguage(currentLanguage);
-    }
-  }, []);
-
-  // Redux → i18n
-  useEffect(() => {
-    if (i18n.language !== currentLanguage) {
-      i18n.changeLanguage(currentLanguage);
-    }
-  }, [currentLanguage, i18n]);
-
-  // i18n → Redux
-  useEffect(() => {
-    const handleLanguageChange = (lng) => {
-      if (lng !== currentLanguage) {
-        dispatch(setLanguage(lng));
-      }
-    };
-
-    i18n.on('languageChanged', handleLanguageChange);
-    return () => i18n.off('languageChanged', handleLanguageChange);
-  }, [currentLanguage, dispatch, i18n]);
-
-  return null; // No UI
-};
-```
-
-**Synchronization Flow:**
-
-```text
-Language Change Event
-    ↓
-LanguageSync Component
-    ↓
-├─ Redux state changes
-│  └─ Triggers i18n.changeLanguage()
-│
-└─ i18n changes
-   └─ Triggers Redux dispatch
-    ↓
-Document direction updates (useDocumentDirection)
-    ↓
-Theme regenerates with new direction (useMuiTheme)
-    ↓
-All components re-render with translations
-```
-
----
-
-**Translation Structure:**
-
-#### **Translation Categories** (200+ keys)
-
-**1. Common** (~69 keys)
-```javascript
-common: {
-  brandName: "نبراس" / "NEBRAS",
-  welcome: "مرحباً" / "Welcome",
-  save: "حفظ" / "Save",
-  cancel: "إلغاء" / "Cancel",
-  // ... CRUD actions, status labels, UI elements
-}
-```
-
-**2. Navigation** (~13 keys)
-```javascript
-navigation: {
-  dashboard: "لوحة التحكم" / "Dashboard",
-  subjects: "المواد" / "Subjects",
-  competitions: "المسابقات" / "Competitions",
-  // ... all menu items
-}
-```
-
-**3. Authentication** (~11 keys)
-```javascript
-auth: {
-  loginTitle: "تسجيل الدخول" / "Login",
-  username: "اسم المستخدم" / "Username",
-  password: "كلمة المرور" / "Password",
-  // ... login/logout labels
-}
-```
-
-**4. User Roles** (~6 keys)
-```javascript
-roles: {
-  owner: "المالك" / "Owner",
-  general_admin: "مدير عام" / "General Admin",
-  curriculum_manager: "مدير المناهج" / "Curriculum Manager",
-  // ... all role translations
-}
-```
-
-**5. Dashboard** (~18 keys)
-```javascript
-dashboard: {
-  title: "لوحة التحكم" / "Dashboard",
-  totalStudents: "إجمالي الطلاب" / "Total Students",
-  activeCompetitions: "المسابقات النشطة" / "Active Competitions",
-  // ... dashboard statistics
-}
-```
-
-**6. Students** (~12 keys)
-```javascript
-students: {
-  title: "إدارة الطلاب" / "Student Management",
-  studentName: "اسم الطالب" / "Student Name",
-  grade: "الصف" / "Grade",
-  // ... student-related labels
-}
-```
-
-**7. Competitions** (~17 keys)
-```javascript
-competitions: {
-  title: "المسابقات" / "Competitions",
-  createCompetition: "إنشاء مسابقة" / "Create Competition",
-  startDate: "تاريخ البدء" / "Start Date",
-  // ... competition labels
-}
-```
-
-**8. Curriculums** (~10 keys)
-```javascript
-curriculums: {
-  title: "المناهج" / "Curriculums",
-  curriculumName: "اسم المنهج" / "Curriculum Name",
-  // ... curriculum labels
-}
-```
-
-**9. Subjects** (~9 keys)
-**10. Units** (~8 keys)
-**11. Questions** (~15 keys)
-**12. Ministerial Questions** (~8 keys)
-**13. Enrichment Questions** (~8 keys)
-**14. Admins** (~10 keys)
-**15. Forms** (~7 keys)
-
----
-
-**Translation Keys Organization:**
-
-```javascript
-// ar.js & en.js structure
-const translations = {
-  common: { ... },           // 69 keys - Universal UI elements
-  navigation: { ... },       // 13 keys - Menu items
-  auth: { ... },            // 11 keys - Authentication
-  roles: { ... },           // 6 keys - User roles
-  dashboard: { ... },       // 18 keys - Dashboard
-  students: { ... },        // 12 keys - Student management
-  competitions: { ... },    // 17 keys - Competitions
-  curriculums: { ... },     // 10 keys - Curriculums
-  subjects: { ... },        // 9 keys - Subjects
-  units: { ... },           // 8 keys - Units
-  questions: { ... },       // 15 keys - Questions
-  ministerialQuestions: { ... }, // 8 keys
-  enrichmentQuestions: { ... },  // 8 keys
-  admins: { ... },          // 10 keys - Admin management
-  forms: { ... },           // 7 keys - Form validation
-};
-```
-
-**Total Translation Keys:** 200+ covering entire application
-
----
-
-**RTL Support Integration:**
-
-**i18n triggers:**
-1. Language changes to Arabic
-2. `useDocumentDirection()` detects change
-3. Updates HTML `dir="rtl"`
-4. Updates HTML `lang="ar"`
-5. `useMuiTheme()` regenerates theme with `direction: 'rtl'`
-6. Emotion cache switches to RTL
-7. All CSS transforms applied (padding, margin, positioning)
-
-**Related Hooks:**
-- `useLanguage()` - Language state from Redux
-- `useDocumentDirection()` - Updates HTML attributes
-- `useMuiTheme()` - Regenerates theme with direction
-- `useCssVariables()` - Sets CSS custom properties
-
-**Related Components:**
-- `LanguageSync` - Synchronizes Redux ↔ i18next
-- `ThemeProvider` - Switches Emotion cache (RTL/LTR)
-
----
-
-**i18n Features:**
-
-- ✅ **Bilingual Support**: Arabic (RTL) and English (LTR)
-- ✅ **200+ Translation Keys**: Complete app coverage
-- ✅ **Redux Integration**: Synced with global state
-- ✅ **LocalStorage Persistence**: Remembers user preference
-- ✅ **Automatic RTL**: Direction switches automatically
-- ✅ **Fallback Language**: Arabic as default
-- ✅ **Custom Hook**: Enhanced useTranslation
-- ✅ **Easy Toggle**: One-click language switch
-- ✅ **Type-Safe**: PropTypes validation
-- ✅ **Organized Structure**: Categorized translations
-- ✅ **No Suspense**: Standard loading approach
-- ✅ **React Escaping**: Safe HTML rendering
-
----
-
-**Translation Best Practices:**
-
-**1. Key Naming Convention:**
-```javascript
-// Good: category.specificKey
-t('common.save')
-t('navigation.dashboard')
-t('auth.loginTitle')
-
-// Bad: flat structure
-t('save')
-t('dashboard')
-```
-
-**2. Interpolation:**
-```javascript
-// Translation with variables
-t('dashboard.welcomeUser', { name: 'Ahmed' })
-// Arabic: "مرحباً {{name}}"
-// English: "Welcome {{name}}"
-```
-
-**3. Pluralization:**
-```javascript
-// Plural forms
-t('students.count', { count: 5 })
-// Uses: count_zero, count_one, count_two, count_other
-```
-
-**4. Context-Aware:**
-```javascript
-// Different contexts
-t('common.save')           // Button text
-t('forms.saveSuccess')     // Success message
-t('validation.required')   // Error message
-```
-
----
-
-**i18n Benefits:**
-
-- ✅ **User Experience**: Native language support
-- ✅ **Accessibility**: Better comprehension
-- ✅ **Market Reach**: Serves Arabic and English users
-- ✅ **Professional**: Proper RTL implementation
-- ✅ **Maintainable**: Centralized translations
-- ✅ **Scalable**: Easy to add more languages
-- ✅ **Consistent**: Same key structure across languages
-- ✅ **Performance**: No runtime translation overhead
-- ✅ **SEO Ready**: Language attribute support
-- ✅ **Cultural**: Respects language-specific formatting
-
----
-
-**Future Enhancements:**
-
-- [ ] Add more languages (French, Spanish, etc.)
-- [ ] Implement plural forms
-- [ ] Add date/time formatting per locale
-- [ ] Number formatting (Arabic/English numerals)
-- [ ] Currency formatting
-- [ ] Translation management UI
-- [ ] Export/import translations
-- [ ] Translation validation tool
+**📖 Full Documentation:** See **[src/i18n/README.md](../src/i18n/README.md)** for:
+- Complete API reference
+- Translation structure and organization
+- Best practices and conventions
+- Adding new translations guide
+- Troubleshooting and advanced topics
+- Interpolation and pluralization examples
+- RTL/LTR implementation details
 
 ---
 

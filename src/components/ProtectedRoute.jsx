@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { useUser } from '../hooks';
+import { useUser } from '@hooks';
 
 /**
  * ProtectedRoute component

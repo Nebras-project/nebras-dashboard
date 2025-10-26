@@ -3,7 +3,7 @@ import {
   setDefaultColor,
   setColorScheme,
   setCustomColor,
-} from "../store/slices/colorSchemeSlice";
+} from "@store/slices/colorSchemeSlice";
 
 /**
  * Custom hook for managing color scheme (blue/custom)

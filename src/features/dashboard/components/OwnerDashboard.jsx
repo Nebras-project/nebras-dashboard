@@ -32,7 +32,7 @@ function OwnerDashboard() {
       {/* Stats Grid */}
       <Grid container spacing={3}>
         {stats.map((stat) => (
-          <Grid item xs={12} sm={6} md={4} key={stat.title}>
+          <Grid xs={12} sm={6} md={4} key={stat.title}>
             <StatCard {...stat} />
           </Grid>
         ))}
@@ -47,7 +47,7 @@ function OwnerDashboard() {
           <Stack spacing={2} sx={{ mt: 2 }}>
             <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
               <Typography variant="body2">
-                📚 New curriculum "Math Grade 10" added by Curriculum Manager
+                {`📚 New curriculum "Math Grade 10" added by Curriculum Manager`}
               </Typography>
               <Typography variant="caption" color="text.secondary">
                 2 hours ago
@@ -55,7 +55,7 @@ function OwnerDashboard() {
             </Box>
             <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
               <Typography variant="body2">
-                🏆 Competition "Science Quiz 2025" started
+                {`🏆 Competition "Science Quiz 2025" started`}
               </Typography>
               <Typography variant="caption" color="text.secondary">
                 5 hours ago

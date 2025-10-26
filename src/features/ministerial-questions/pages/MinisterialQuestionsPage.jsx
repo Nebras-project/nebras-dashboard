@@ -30,7 +30,7 @@ function MinisterialQuestionsPage() {
 
         {/* Stats */}
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={4}>
+          <Grid xs={12} sm={4}>
             <Card>
               <CardContent>
                 <Typography variant="h4" color="primary" fontWeight="bold">
@@ -42,7 +42,7 @@ function MinisterialQuestionsPage() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid xs={12} sm={4}>
             <Card>
               <CardContent>
                 <Typography variant="h4" color="success.main" fontWeight="bold">
@@ -54,7 +54,7 @@ function MinisterialQuestionsPage() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid xs={12} sm={4}>
             <Card>
               <CardContent>
                 <Typography variant="h4" color="info.main" fontWeight="bold">

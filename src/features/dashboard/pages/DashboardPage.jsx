@@ -1,10 +1,12 @@
 import { Container } from '@mui/material';
-import { useUser } from '../../../hooks/useUser';
-import OwnerDashboard from '../components/OwnerDashboard';
-import CurriculumDashboard from '../components/CurriculumDashboard';
-import CompetitionDashboard from '../components/CompetitionDashboard';
-import ContentDashboard from '../components/ContentDashboard';
-import { spacing } from '../../../theme';
+import { useUser } from '@hooks';
+import {
+  OwnerDashboard,
+  CurriculumDashboard,
+  CompetitionDashboard,
+  ContentDashboard,
+} from '../components';
+import { spacing } from '@theme';
 
 /**
  * Main Dashboard Page

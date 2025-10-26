@@ -1,6 +1,6 @@
 import { Container, Box, Typography, Card, CardContent, Stack, Button, Avatar, Chip } from '@mui/material';
 import { MdAdd, MdAdminPanelSettings } from 'react-icons/md';
-import { useTranslation } from '../../../hooks';
+import { useTranslation } from '@hooks';
 
 function AdminsPage() {
   const { t } = useTranslation();

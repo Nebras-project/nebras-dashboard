@@ -3,7 +3,7 @@ import { Container, Box, Typography, Button, Stack, useTheme } from '@mui/materi
 import { MdHome, MdArrowBack, MdSentimentDissatisfied } from 'react-icons/md';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
-import { useTranslation } from '../hooks';
+import { useTranslation } from '@hooks';
 
 /**
  * Animation Variants Factory

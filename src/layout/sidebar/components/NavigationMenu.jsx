@@ -1,14 +1,16 @@
+// external imports
 import { List, ListItem } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { useMemo } from 'react';
-import { spacing } from '../../../theme';
-import { fontWeights } from '../../../theme/typography';
+
+// internal imports
+import { spacing, fontWeights } from '@theme';
 import {
   SELECTED_NAV_ITEM_STYLES,
   NAV_ITEM_MARGIN_BOTTOM,
   LIST_ITEM_MB_OFFSET,
-} from '../../constants';
-import { useTranslation, useUser, useSidebar, useSidebarNavigation } from '../../../hooks';
+} from '@constants';
+import { useTranslation, useUser, useSidebar, useSidebarNavigation } from '@hooks';
 import { getNavigationItems } from '../sidebarConfig';
 import SidebarButton from './SidebarButton';
 import NavigationDropdown from './NavigationDropdown';

@@ -35,7 +35,7 @@ function ContentDashboard() {
       {/* Stats Grid */}
       <Grid container spacing={3}>
         {stats.map((stat) => (
-          <Grid item xs={12} sm={6} md={3} key={stat.title}>
+          <Grid xs={12} sm={6} md={3} key={stat.title}>
             <StatCard {...stat} />
           </Grid>
         ))}
@@ -81,7 +81,7 @@ function ContentDashboard() {
           <Stack spacing={2} sx={{ mt: 2 }}>
             <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
               <Typography variant="body2">
-                ✏️ Added 25 new questions to "Physics Grade 11"
+                {`✏️ Added 25 new questions to "Physics Grade 11"`}
               </Typography>
               <Typography variant="caption" color="text.secondary">
                 2 hours ago
@@ -89,7 +89,7 @@ function ContentDashboard() {
             </Box>
             <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
               <Typography variant="body2">
-                📝 Updated 12 ministerial questions for "Math Grade 10"
+                {`📝 Updated 12 ministerial questions for "Math Grade 10"`}
               </Typography>
               <Typography variant="caption" color="text.secondary">
                 6 hours ago
@@ -97,7 +97,7 @@ function ContentDashboard() {
             </Box>
             <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
               <Typography variant="body2">
-                🎯 Created 18 enrichment questions for "Chemistry"
+                {`🎯 Created 18 enrichment questions for "Chemistry"`}
               </Typography>
               <Typography variant="caption" color="text.secondary">
                 Yesterday

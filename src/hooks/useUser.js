@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { login, logout, updateUserProfile } from "../store/slices/userSlice";
+import { login, logout, updateUserProfile } from "@store/slices/userSlice";
 
 /**
  * Custom hook to access and manage user state from Redux

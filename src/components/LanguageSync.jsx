@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { setLanguage } from '../store/slices/languageSlice';
+import { setLanguage } from '@store/slices/languageSlice';
 
 /**
  * LanguageSync Component

@@ -1,8 +1,11 @@
+// external imports
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { getSidebarControlButtonStyles } from '../../constants';
+
+// internal imports
+import { getSidebarControlButtonStyles } from '@constants';
 import SidebarButton from './SidebarButton';
-import Dropdown from '../../../components/Dropdown';
+import { Dropdown } from '@components';
 
 /**
  * DropdownControl Component

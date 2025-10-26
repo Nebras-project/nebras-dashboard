@@ -58,6 +58,7 @@ const en = {
     defaultColor: "Default Color",
     darkMode: "Dark Mode",
     lightMode: "Light Mode",
+    systemMode: "System Default",
     arabic: "العربية",
     english: "English",
     success: "Success",

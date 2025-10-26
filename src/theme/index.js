@@ -9,13 +9,10 @@ import {
 } from "./colors";
 import { typography } from "./typography";
 import { getComponentOverrides } from "./components";
-import {
-  generateColorPalette,
-  generateBackgroundColor,
-} from "../utils/colorHelpers";
+import { generateColorPalette, generateBackgroundColor } from "@utils";
 
 // Spacing system (based on 8px grid)
-export const spacing = {
+ const spacing = {
   none: 0,
   xxs: 2, // 2px
   xs: 4, // 4px
@@ -92,8 +89,8 @@ export const createAppTheme = (
     };
     primaryBackground =
       mode === "light" ? baseColors.blue50 : baseColors.blue900;
-  } 
-  
+  }
+
   return createTheme({
     palette: {
       mode,
@@ -123,4 +120,24 @@ export const createAppTheme = (
   });
 };
 
+// Export theme creator as default
 export default createAppTheme;
+
+// Re-export commonly used theme utilities
+export { spacing, breakpoints, shape, transitions, zIndex };
+
+// Re-export from colors
+export {
+  baseColors,
+  colors,
+  customBackgrounds,
+  textColors,
+  dividerColors,
+  backgroundDefaults,
+} from "./colors";
+
+// Re-export from typography
+export { fontWeights, fontSizes, lineHeights } from "./typography";
+
+// Re-export from components
+export { borderRadius, shadows } from "./components";

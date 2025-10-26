@@ -1,10 +1,13 @@
+// external imports
 import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { getSidebarControlButtonStyles } from '../../constants';
-import { useTranslation, useSidebarNavigation } from '../../../hooks';
+
+// internal imports
+import { getSidebarControlButtonStyles } from '@constants';
+import { useTranslation, useSidebarNavigation } from '@hooks';
 import SidebarButton from './SidebarButton';
-import Dropdown from '../../../components/Dropdown';
+import { Dropdown } from '@components';
 
 /**
  * NavigationDropdown Component

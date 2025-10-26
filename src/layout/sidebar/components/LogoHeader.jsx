@@ -1,13 +1,15 @@
+// external imports
 import { Box, Typography, IconButton, Tooltip } from '@mui/material';
 import { LuPanelRightClose, LuPanelLeftClose } from 'react-icons/lu';
 import { IoClose } from "react-icons/io5";
 import { useMemo } from 'react';
-import NebrasLogoLight from '../../../data/images/Nebras Logo Light.svg';
-import NebrasLogoDark from '../../../data/images/Nebras Logo Dark.svg';
-import { LOGO_HEIGHT, LOGO_LETTER_SPACING } from '../../constants';
-import { fontWeights } from '../../../theme/typography';
-import { spacing } from '../../../theme';
-import { useTranslation, useLanguage, useSidebar, useReduxTheme } from '../../../hooks';
+
+// internal imports
+import NebrasLogoLight from '@data/images/Nebras Logo Light.svg';
+import NebrasLogoDark from '@data/images/Nebras Logo Dark.svg';
+import { LOGO_HEIGHT, LOGO_LETTER_SPACING } from '@constants';
+import { fontWeights, spacing } from '@theme';
+import { useTranslation, useLanguage, useSidebar, useReduxTheme } from '@hooks';
 
 // Icon sizes
 const COLLAPSE_ICON_SIZE = 24;

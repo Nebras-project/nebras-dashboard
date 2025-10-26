@@ -1,6 +1,6 @@
 import { Container, Box, Typography, Card, CardContent, Stack, Button, Chip } from '@mui/material';
 import { MdAdd, MdFolder } from 'react-icons/md';
-import { useTranslation } from '../../../hooks';
+import { useTranslation } from '@hooks';
 
 function UnitsPage() {
   const { t } = useTranslation();

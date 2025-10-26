@@ -1,14 +1,15 @@
+
+// external imports
 import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useMemo } from 'react';
+
+// internal imports
 import { Header } from './header';
 import { Sidebar } from './sidebar';
-import { spacing } from '../theme';
-import { borderRadius } from '../theme/components';
-import { useSidebar, useResponsiveSidebar } from '../hooks';
-import { SIDEBAR_WIDTH, SIDEBAR_COLLAPSED_WIDTH } from './constants';
-import { isPublicPage } from '../utils/layoutHelpers';
+import { spacing, borderRadius } from '@theme';
+import { useSidebar, useResponsiveSidebar } from '@hooks';
+import { isPublicPage } from '@utils';
 
 // Common container styles
 const containerBaseStyles = {
@@ -21,16 +22,10 @@ function MainLayout({ children }) {
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('desktop')); // < 1024px = mobile/tablet
-  const { collapsed } = useSidebar();
+  const { sidebarWidth } = useSidebar();
 
   // Handle responsive sidebar behavior
   useResponsiveSidebar(isMobile);
-
-  // Memoize layout calculations
-  const sidebarWidth = useMemo(
-    () => (collapsed ? SIDEBAR_COLLAPSED_WIDTH : SIDEBAR_WIDTH),
-    [collapsed]
-  );
 
   // Don't show layout on public pages (login, 404, etc.)
   if (isPublicPage(location.pathname)) {

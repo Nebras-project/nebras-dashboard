@@ -19,12 +19,13 @@ export function useSidebarNavigation() {
   const handleNavigation = useCallback(
     (path) => {
       // Only navigate if the path is different from current location
-      if (location.pathname !== path) {
+      const isDifferentPath = path !== location.pathname;
+      if (isDifferentPath) {
         navigate(path);
       }
 
       // Always close sidebar on mobile, even if already on the page
-      if (isMobile) {
+      if (isMobile && isDifferentPath) {
         closeSidebar();
       }
     },

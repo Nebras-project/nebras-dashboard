@@ -11,7 +11,7 @@ import {
   Chip,
 } from '@mui/material';
 import { MdAdd, MdEmojiEvents } from 'react-icons/md';
-import { useTranslation } from '../../../hooks';
+import { useTranslation } from '@hooks';
 
 function CompetitionsPage() {
   const navigate = useNavigate();
@@ -45,7 +45,7 @@ function CompetitionsPage() {
         {/* Competitions Grid */}
         <Grid container spacing={3}>
           {competitions.map((competition) => (
-            <Grid item xs={12} md={6} lg={4} key={competition.id}>
+            <Grid xs={12} md={6} lg={4} key={competition.id}>
               <Card
                 sx={{
                   cursor: 'pointer',

@@ -12,7 +12,7 @@ import {
   InputAdornment,
   IconButton,
 } from '@mui/material';
-import { useUser, useTranslation } from '../../../hooks';
+import { useUser, useTranslation } from '@hooks';
 import { MdVisibility, MdVisibilityOff, MdLogin } from 'react-icons/md';
 
 function LoginPage() {

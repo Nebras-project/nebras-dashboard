@@ -1,10 +1,13 @@
+// external imports
 import { Box, Drawer } from '@mui/material';
 import { useEffect, useMemo } from 'react';
-import { useSidebar } from '../../hooks';
+
+// internal imports
+import { useSidebar } from '@hooks';
 import LogoHeader from './components/LogoHeader';
 import NavigationMenu from './components/NavigationMenu';
 import SidebarControls from './components/SidebarControls';
-import { SIDEBAR_WIDTH, SIDEBAR_COLLAPSED_WIDTH } from '../constants';
+import { SIDEBAR_WIDTH } from '@constants';
 
 // Common container styles
 const containerBaseStyles = {
@@ -29,7 +32,7 @@ const containerBaseStyles = {
  * @returns {JSX.Element} Sidebar component (Drawer on mobile, Box on desktop)
  */
 function Sidebar() {
-  const { collapsed, isMobile, isOpen, closeSidebar, expandSidebar } = useSidebar();
+  const { collapsed, isMobile, isOpen, closeSidebar, expandSidebar, sidebarWidth } = useSidebar();
 
   // Disable collapsed mode on mobile
   useEffect(() => {
@@ -37,12 +40,6 @@ function Sidebar() {
       expandSidebar();
     }
   }, [isMobile, collapsed, expandSidebar]);
-
-  // Memoize sidebar width calculation
-  const sidebarWidth = useMemo(
-    () => (collapsed ? SIDEBAR_COLLAPSED_WIDTH : SIDEBAR_WIDTH),
-    [collapsed]
-  );
 
   // Memoize sidebar content to avoid re-creating JSX on every render
   const sidebarContent = useMemo(
@@ -74,6 +71,7 @@ function Sidebar() {
             boxSizing: 'border-box',
             backgroundImage: 'none',
             border: 'none',
+            scrollbarGutter: 'stable', // Reserve space for scrollbar to prevent layout shift
             ...containerBaseStyles,
           },
         }}
@@ -96,6 +94,7 @@ function Sidebar() {
         bottom: 0,
         zIndex: (theme) => theme.zIndex.drawer,
         overflow: 'auto',
+        scrollbarGutter: 'stable', // Reserve space for scrollbar to prevent layout shift
         transition: (theme) =>
           `width ${theme.transitions.duration.standard}ms ${theme.transitions.easing.easeInOut}`,
       }}

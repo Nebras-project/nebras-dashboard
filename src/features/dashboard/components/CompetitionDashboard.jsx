@@ -29,7 +29,7 @@ function CompetitionDashboard() {
       {/* Stats Grid */}
       <Grid container spacing={3}>
         {stats.map((stat) => (
-          <Grid item xs={12} sm={6} md={3} key={stat.title}>
+          <Grid xs={12} sm={6} md={3} key={stat.title}>
             <StatCard {...stat} />
           </Grid>
         ))}
@@ -44,7 +44,7 @@ function CompetitionDashboard() {
           <Stack spacing={2} sx={{ mt: 2 }}>
             <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
               <Typography variant="body2">
-                🏆 "Science Quiz 2025" registration opened - 234 registrations
+                {`🏆 "Science Quiz 2025" registration opened - 234 registrations`}
               </Typography>
               <Typography variant="caption" color="text.secondary">
                 1 hour ago
@@ -52,7 +52,7 @@ function CompetitionDashboard() {
             </Box>
             <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
               <Typography variant="body2">
-                ✅ Published results for "Math Olympiad" - 156 participants
+                {`✅ Published results for "Math Olympiad" - 156 participants`}
               </Typography>
               <Typography variant="caption" color="text.secondary">
                 5 hours ago
@@ -60,7 +60,7 @@ function CompetitionDashboard() {
             </Box>
             <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
               <Typography variant="body2">
-                📅 Created new competition "Arabic Literature Challenge"
+                {`📅 Created new competition "Arabic Literature Challenge"`}
               </Typography>
               <Typography variant="caption" color="text.secondary">
                 Yesterday

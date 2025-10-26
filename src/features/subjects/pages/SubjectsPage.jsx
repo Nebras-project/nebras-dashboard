@@ -1,6 +1,6 @@
 import { Container, Box, Typography, Card, CardContent, Stack, Button, Grid, Chip } from '@mui/material';
 import { MdAdd, MdMenuBook } from 'react-icons/md';
-import { useTranslation } from '../../../hooks';
+import { useTranslation } from '@hooks';
 
 function SubjectsPage() {
   const { t } = useTranslation();
@@ -33,7 +33,7 @@ function SubjectsPage() {
         {/* Subjects Grid */}
         <Grid container spacing={3}>
           {subjects.map((subject) => (
-            <Grid item xs={12} md={6} key={subject.id}>
+            <Grid xs={12} md={6} key={subject.id}>
               <Card>
                 <CardContent>
                   <Stack spacing={2}>

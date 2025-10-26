@@ -17,8 +17,8 @@ import {
   getSidebarControlIconStyles,
   getSidebarControlTextProps,
   NAV_TRANSITION,
-} from '../layout/constants';
-import { useTranslation, useLanguage } from '../hooks';
+} from '@constants';
+import { useTranslation, useLanguage } from '@hooks';
 
 /**
  * Validate and format hex color

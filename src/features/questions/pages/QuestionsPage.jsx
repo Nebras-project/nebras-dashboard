@@ -41,7 +41,7 @@ function QuestionsPage() {
         {/* Questions Grid */}
         <Grid container spacing={3}>
           {questions.map((q) => (
-            <Grid item xs={12} md={6} key={q.id}>
+            <Grid xs={12} md={6} key={q.id}>
               <Card>
                 <CardContent>
                   <Stack spacing={2}>

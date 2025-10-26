@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import { createAppTheme } from "../theme";
+import { useMediaQuery } from "@mui/material";
+import { createAppTheme } from "@theme";
 import { useReduxTheme } from "./useReduxTheme";
 import { useLanguage } from "./useLanguage";
 import { useColorScheme } from "./useColorScheme";
@@ -18,10 +19,24 @@ export const useMuiTheme = () => {
   // Get color scheme from Redux
   const { scheme, customColor } = useColorScheme();
 
+  // Detect system preference for dark mode
+  const systemPrefersDark = useMediaQuery("(prefers-color-scheme: dark)", {
+    noSsr: true,
+  });
+
+  // Determine the actual mode to use
+  const effectiveMode = useMemo(() => {
+    if (mode === "system") {
+      return systemPrefersDark ? "dark" : "light";
+    }
+    return mode;
+  }, [mode, systemPrefersDark]);
+
   // Create theme based on mode, direction, and color scheme
   const theme = useMemo(
-    () => createAppTheme(mode, isRTL ? "rtl" : "ltr", scheme, customColor),
-    [mode, isRTL, scheme, customColor]
+    () =>
+      createAppTheme(effectiveMode, isRTL ? "rtl" : "ltr", scheme, customColor),
+    [effectiveMode, isRTL, scheme, customColor]
   );
 
   return theme;

@@ -20,14 +20,14 @@ export const useCssVariables = (theme) => {
 
     // Set grey colors for scrollbar from theme
     if (theme.palette.mode === "light") {
-      root.style.setProperty("--scrollbar-thumb", theme.palette.grey[400]);
+      root.style.setProperty("--scrollbar-thumb", theme.palette.grey[500]);
       root.style.setProperty(
         "--scrollbar-thumb-hover",
         theme.palette.grey[600]
       );
-      root.style.setProperty("--scrollbar-track", theme.palette.grey[200]);
+      root.style.setProperty("--scrollbar-track", theme.palette.grey[300]);
     } else {
-      root.style.setProperty("--scrollbar-thumb", theme.palette.grey[700]);
+      root.style.setProperty("--scrollbar-thumb", theme.palette.grey[800]);
       root.style.setProperty(
         "--scrollbar-thumb-hover",
         theme.palette.grey[600]

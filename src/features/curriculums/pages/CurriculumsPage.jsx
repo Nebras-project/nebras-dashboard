@@ -1,6 +1,6 @@
 import { Container, Box, Typography, Card, CardContent, Stack, Button, Grid, Chip } from '@mui/material';
 import { MdAdd, MdSchool } from 'react-icons/md';
-import { useTranslation } from '../../../hooks';
+import { useTranslation } from '@hooks';
 
 function CurriculumsPage() {
   const { t } = useTranslation();
@@ -32,7 +32,7 @@ function CurriculumsPage() {
         {/* Curriculums Grid */}
         <Grid container spacing={3}>
           {curriculums.map((curriculum) => (
-            <Grid item xs={12} md={6} lg={4} key={curriculum.id}>
+            <Grid xs={12} md={6} lg={4} key={curriculum.id}>
               <Card sx={{ height: '100%' }}>
                 <CardContent>
                   <Stack spacing={2}>

@@ -29,7 +29,7 @@ function CurriculumDashboard() {
       {/* Stats Grid */}
       <Grid container spacing={3}>
         {stats.map((stat) => (
-          <Grid item xs={12} sm={6} md={3} key={stat.title}>
+          <Grid xs={12} sm={6} md={3} key={stat.title}>
             <StatCard {...stat} />
           </Grid>
         ))}
@@ -44,7 +44,7 @@ function CurriculumDashboard() {
           <Stack spacing={2} sx={{ mt: 2 }}>
             <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
               <Typography variant="body2">
-                📖 Added 5 new lessons to "Physics Grade 11"
+                {`📖 Added 5 new lessons to "Physics Grade 11"`}
               </Typography>
               <Typography variant="caption" color="text.secondary">
                 3 hours ago
@@ -52,7 +52,7 @@ function CurriculumDashboard() {
             </Box>
             <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
               <Typography variant="body2">
-                📚 Updated "Chemistry" curriculum structure
+                {`📚 Updated "Chemistry" curriculum structure`}
               </Typography>
               <Typography variant="caption" color="text.secondary">
                 1 day ago
@@ -60,7 +60,7 @@ function CurriculumDashboard() {
             </Box>
             <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
               <Typography variant="body2">
-                ✅ Completed "Biology Grade 10" curriculum
+                {`✅ Completed "Biology Grade 10" curriculum`}
               </Typography>
               <Typography variant="caption" color="text.secondary">
                 2 days ago

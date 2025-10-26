@@ -1,13 +1,16 @@
+// external imports
 import { Box, Stack, Divider } from '@mui/material';
-import { MdDarkMode, MdLanguage, MdLightMode, MdLogout } from 'react-icons/md';
+import { MdDarkMode, MdLanguage, MdLightMode, MdLogout, MdContrast } from 'react-icons/md';
 import { CiLogout } from "react-icons/ci";
-import ColorPicker from '../../../components/ColorPicker';
+
+// internal imports
+import { ColorPicker } from '@components';
 import {
   COLOR_INDICATOR_SIZE,
   LOGOUT_BUTTON_STYLES,
   LOGOUT_ICON_STYLES,
-} from '../../constants';
-import { useTranslation, useLanguage, useReduxTheme, useColorScheme, useUser, useSidebar } from '../../../hooks';
+} from '@constants';
+import { useTranslation, useLanguage, useReduxTheme, useColorScheme, useUser, useSidebar } from '@hooks';
 import SidebarButton from './SidebarButton';
 import DropdownControl from './DropdownControl';
 
@@ -42,6 +45,12 @@ function SidebarControls() {
 
   // Theme options for dropdown
   const themeOptions = [
+    { 
+      value: 'system', 
+      label: t('common.systemMode'), 
+      icon: <MdContrast />,
+      onClick: () => setThemeMode('system')
+    },
     { 
       value: 'light', 
       label: t('common.lightMode'), 
@@ -106,7 +115,11 @@ function SidebarControls() {
 
         {/* Theme Selection Dropdown */}
         <DropdownControl
-          icon={mode === 'dark' ? <MdDarkMode /> : <MdLightMode />}
+          icon={
+            mode === 'system' ? <MdContrast /> :
+            mode === 'dark' ? <MdDarkMode /> : 
+            <MdLightMode />
+          }
           label={t('common.theme')}
           options={themeOptions}
           currentValue={mode}
