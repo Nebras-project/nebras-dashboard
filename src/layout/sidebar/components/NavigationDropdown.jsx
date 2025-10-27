@@ -4,9 +4,8 @@ import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // internal imports
-import { getSidebarControlButtonStyles } from '@constants';
 import { useTranslation, useSidebarNavigation } from '@hooks';
-import SidebarButton from './SidebarButton';
+import { ListButton } from '@components';
 import { Dropdown } from '@components';
 
 /**
@@ -25,7 +24,6 @@ function NavigationDropdown({ icon, label, items, collapsed }) {
   const { t } = useTranslation();
   const location = useLocation();
   const { handleNavigation } = useSidebarNavigation();
-  const buttonStyles = useMemo(() => getSidebarControlButtonStyles(), []);
 
   // Check if any child is active - memoized to avoid recalculation
   const isAnyChildActive = useMemo(
@@ -60,7 +58,7 @@ function NavigationDropdown({ icon, label, items, collapsed }) {
     };
 
     return (
-      <SidebarButton
+      <ListButton
         onClick={handleClick}
         icon={icon}
         text={label}
@@ -85,13 +83,8 @@ function NavigationDropdown({ icon, label, items, collapsed }) {
         width: '100%',
       }}
       buttonSx={{
-        ...buttonStyles,
         justifyContent: 'flex-start',
         px: 2,
-        width: '100%',
-      }}
-      listItemSx={{
-        ...buttonStyles,
       }}
       indentLevel={6}  // Increased indentation for nested items
     />

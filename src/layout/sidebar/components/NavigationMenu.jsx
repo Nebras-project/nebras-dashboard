@@ -12,7 +12,7 @@ import {
 } from '@constants';
 import { useTranslation, useUser, useSidebar, useSidebarNavigation } from '@hooks';
 import { getNavigationItems } from '../sidebarConfig';
-import SidebarButton from './SidebarButton';
+import { ListButton } from '@components';
 import NavigationDropdown from './NavigationDropdown';
 
 /**
@@ -73,7 +73,7 @@ function NavigationMenu() {
               mb: NAV_ITEM_MARGIN_BOTTOM - LIST_ITEM_MB_OFFSET, // 0.5 units
             }}
           >
-            <SidebarButton
+            <ListButton
               onClick={() => handleNavigation(item.path)}
               icon={item.icon}
               text={t(item.text)}

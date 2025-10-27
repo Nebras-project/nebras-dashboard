@@ -1,27 +1,22 @@
-
 // external imports
-import { Box, useMediaQuery, useTheme } from '@mui/material';
+import { useMediaQuery, useTheme } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // internal imports
-import { Header } from './header';
-import { Sidebar } from './sidebar';
-import { spacing, borderRadius } from '@theme';
+import { MobileLayout, DesktopLayout } from './mainlayout/components';
 import { useSidebar, useResponsiveSidebar } from '@hooks';
 import { isPublicPage } from '@utils';
 
-// Common container styles
-const containerBaseStyles = {
-  minHeight: '100vh',
-  bgcolor: 'background.default',
-};
-
+/**
+ * Main Layout Component
+ * Handles layout switching between mobile and desktop views
+ * Manages responsive sidebar behavior and public page routing
+ */
 function MainLayout({ children }) {
-
   const location = useLocation();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('desktop')); // < 1024px = mobile/tablet
+  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const { sidebarWidth } = useSidebar();
 
   // Handle responsive sidebar behavior
@@ -32,66 +27,11 @@ function MainLayout({ children }) {
     return <>{children}</>;
   }
 
-  // Mobile layout - no persistent sidebar
-  if (isMobile) {
-    return (
-      <Box sx={{ ...containerBaseStyles, display: 'flex', flexDirection: 'column' }}>
-
-      {/* // sidebar as drawer overlay */}
-        <Sidebar />
-        
-        <Box sx={{ pb: theme => theme.spacing(spacing.sm) }}>
-          <Header />
-        </Box>
-
-        <Box
-          component="main"
-          sx={{
-            bgcolor: 'background.paper',
-            flex: 1,
-          }}
-        >
-          {children}
-        </Box>
-        
-      </Box>
-    );
-  }
-
-  // Desktop layout - persistent sidebar with grid
-  const contentWidth = `calc(100vw - ${sidebarWidth}px)`;
-
-  return (
-    <Box
-      sx={{
-        ...containerBaseStyles,
-        display: 'grid',
-        gridTemplateColumns: `${sidebarWidth}px ${contentWidth}`,
-        gridTemplateRows: 'auto 1fr',
-        transition: theme => 
-          `grid-template-columns ${theme.transitions.duration.standard}ms ${theme.transitions.easing.easeInOut}`,
-      }}
-    >
-      <Box sx={{ gridRow: '1 / 3', gridColumn: '1' }}>
-        <Sidebar />
-      </Box>
-
-      <Box sx={{ gridRow: '1', gridColumn: '2', pb: theme => theme.spacing(spacing.sm) }}>
-        <Header />
-      </Box>
-
-      <Box
-        component="main"
-        sx={{
-          bgcolor: 'background.paper',
-          borderTopLeftRadius: `${borderRadius.sm}px`,
-          gridRow: '2',
-          gridColumn: '2',
-        }}
-      >
-        {children}
-      </Box>
-    </Box>
+  // Render appropriate layout based on screen size
+  return isMobile ? (
+    <MobileLayout>{children}</MobileLayout>
+  ) : (
+    <DesktopLayout sidebarWidth={sidebarWidth}>{children}</DesktopLayout>
   );
 }
 

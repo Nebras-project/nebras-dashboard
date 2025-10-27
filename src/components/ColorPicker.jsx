@@ -4,22 +4,15 @@ import { HexColorPicker } from 'react-colorful';
 import {
   Box,
   Popover,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   IconButton,
   Stack,
   Button,
 } from '@mui/material';
 import {  MdClose } from 'react-icons/md';
 import { TbPalette } from "react-icons/tb";
-import { 
-  getSidebarControlButtonStyles, 
-  getSidebarControlIconStyles,
-  getSidebarControlTextProps,
-  NAV_TRANSITION,
-} from '@constants';
+import { NAV_TRANSITION } from '@constants';
 import { useTranslation, useLanguage } from '@hooks';
+import { ListButton } from '@components';
 import ColorSwatch from './ColorSwatch';
 
 /**
@@ -51,9 +44,6 @@ function ColorPicker({ currentColor, onColorChange, scheme }) {
   const [tempColor, setTempColor] = useState(currentColor);
   const [inputValue, setInputValue] = useState(currentColor);
 
-  const buttonStyles = getSidebarControlButtonStyles();
-  const iconStyles = getSidebarControlIconStyles();
-  const textProps = getSidebarControlTextProps();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -93,30 +83,23 @@ function ColorPicker({ currentColor, onColorChange, scheme }) {
 
   return (
     <>
-      <ListItemButton
+      <ListButton
         onClick={handleClick}
-        sx={buttonStyles}
-      >
-        <ListItemIcon sx={{ 
-          ...iconStyles,
-          color: 'text.secondary',
-        }}>
-          <TbPalette />
-        </ListItemIcon>
-        <ListItemText
-          primary={scheme === 'custom' ? t('common.currentColor') : t('common.pichAColor')}
-          primaryTypographyProps={textProps}
-        />
-        <ColorSwatch
-          color={scheme === 'custom' ? currentColor : 'action.hover'}
-          size={22}
-          sx={{
-            borderRadius: 1,
-            ml: 1,
-            transition: NAV_TRANSITION,
-          }}
-        />
-      </ListItemButton>
+        icon={<TbPalette />}
+        text={scheme === 'custom' ? t('common.currentColor') : t('common.pichAColor')}
+        endContent={
+          <ColorSwatch
+            color={scheme === 'custom' ? currentColor : 'action.hover'}
+            size={22}
+            sx={{
+              borderRadius: 1,
+              ml: 1,
+              transition: NAV_TRANSITION,
+            }}
+          />
+        }
+        iconSx={{ color: 'text.secondary' }}
+      />
 
       <Popover
         open={open}

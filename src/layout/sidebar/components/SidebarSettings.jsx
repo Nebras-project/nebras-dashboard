@@ -1,8 +1,11 @@
 // external imports
 import { Box, Stack, Divider } from '@mui/material';
-import { MdDarkMode, MdLanguage, MdLightMode, MdLogout, MdContrast } from 'react-icons/md';
+import { MdDarkMode, MdLightMode, MdLogout, MdContrast } from 'react-icons/md';
 import { CgColorBucket } from "react-icons/cg";
 import { CiLogout } from "react-icons/ci";
+import { HiTranslate } from "react-icons/hi";
+import { RiTranslate, RiEnglishInput } from "react-icons/ri";
+import { FaEarthAmericas } from "react-icons/fa6";
 
 // internal imports
 import { ColorSwatch, ColorPicker } from '@components';
@@ -12,8 +15,9 @@ import {
   LOGOUT_ICON_STYLES,
 } from '@constants';
 import { useTranslation, useLanguage, useReduxTheme, useColorScheme, useUser, useSidebar } from '@hooks';
-import SidebarButton from './SidebarButton';
+import { ListButton } from '@components';
 import SettingsDropdown from './SettingsDropdown';
+import { spacing } from '../../../theme';
 
 /**
  * SidebarSettings Component
@@ -30,16 +34,22 @@ function SidebarSettings() {
 
   // Language options for dropdown
   const languageOptions = [
+    {
+      value: 'default',
+      label: t('common.systemMode'),
+      icon: < FaEarthAmericas/>,
+      onClick: () => setLanguage('default'),
+    },
     { 
       value: 'ar', 
       label: t('common.arabic'), 
-      icon: <MdLanguage />,
+      icon: <RiTranslate />,
       onClick: () => setLanguage('ar')
     },
     { 
       value: 'en', 
       label: t('common.english'), 
-      icon: <MdLanguage />,
+      icon: <RiEnglishInput />,
       onClick: () => setLanguage('en')
     },
   ];
@@ -73,13 +83,13 @@ function SidebarSettings() {
       <Stack 
         spacing={0.75} 
         sx={{ 
-          px: collapsed ? 1 : 2, 
+          px: collapsed ? 1 :  spacing.md / 8, 
           py: 1,
         }}
       >
 
                 {/* Color Reset Button - Works for both collapsed and expanded */}
-        <SidebarButton
+        <ListButton
           onClick={() => setColorScheme('blue')}
           icon={<CgColorBucket />}
           text={t('common.defaultColor')}
@@ -106,7 +116,7 @@ function SidebarSettings() {
 
         {/* Language Selection Dropdown */}
         <SettingsDropdown
-          icon={<MdLanguage />}
+          icon={<HiTranslate />}
           label={t('common.language')}
           options={languageOptions}
           currentValue={currentLanguage}
@@ -127,7 +137,7 @@ function SidebarSettings() {
         />
 
         {/* Logout Button */}
-        <SidebarButton
+        <ListButton
           onClick={logout}
           icon={isRTL ? <MdLogout /> : <CiLogout />}
           text={t('common.logout')}

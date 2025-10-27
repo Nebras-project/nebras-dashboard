@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { setLanguage, toggleLanguage } from "@store/slices/languageSlice";
+import { resolveLanguage } from "@utils";
 
 /**
  * Custom hook to access and manage language state from Redux
@@ -11,6 +12,8 @@ export const useLanguage = () => {
 
   return {
     ...language,
+    // Return resolved language for components that need the actual language
+    resolvedLanguage: resolveLanguage(language.currentLanguage),
     setLanguage: (lang) => dispatch(setLanguage(lang)),
     toggleLanguage: () => dispatch(toggleLanguage()),
   };

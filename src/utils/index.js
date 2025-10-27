@@ -14,7 +14,11 @@ export {
 } from "./colorHelpers";
 
 // Language utilities
-export { getInitialLanguage } from "./getInitialLanguage";
+export {
+  getInitialLanguage,
+  getBrowserLanguage,
+  resolveLanguage,
+} from "./getInitialLanguage";
 
 // Layout utilities
 export { isPublicPage } from "./layoutHelpers";

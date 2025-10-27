@@ -12,7 +12,7 @@ import { getComponentOverrides } from "./components";
 import { generateColorPalette, generateBackgroundColor } from "@utils";
 
 // Spacing system (based on 8px grid)
- const spacing = {
+const spacing = {
   none: 0,
   xxs: 2, // 2px
   xs: 4, // 4px

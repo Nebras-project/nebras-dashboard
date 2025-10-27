@@ -1,14 +1,9 @@
-import {
-  Box,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Collapse,
-} from '@mui/material';
+import { Box, List, Collapse } from '@mui/material';
 import { MdExpandMore, MdExpandLess, MdCheck } from 'react-icons/md'; 
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+// Note: Previously used sidebar control styles are no longer needed here
+import { ListButton } from '@components';
 
 /**
  * Reusable Dropdown Component
@@ -43,107 +38,50 @@ function Dropdown({
   // Get current option
   const currentOption = options.find(opt => opt.value === currentValue);
 
-  // Default button styles
-  const defaultButtonStyles = {
-    borderRadius: 1,
-    minHeight: 40,
-    transition: 'all 0.2s',
-    '&:hover': {
-      bgcolor: 'action.hover',
-    },
-  };
-
-  // Default icon styles
-  const defaultIconStyles = {
-    minWidth: 36,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  };
-
   return (
     <Box sx={sx}>
       {/* Dropdown Trigger Button */}
-      <ListItemButton
+      <ListButton
         onClick={() => setIsOpen(!isOpen)}
+        icon={currentOption?.icon || icon}
+        text={label}
+        iconSx={{ color: 'text.secondary' }}
+        endContent={
+          <Box sx={{ display: 'flex', alignItems: 'center', color: 'text.secondary', ml: 'auto', pl: 1 }}>
+            {isOpen ? <MdExpandLess size={20} /> : <MdExpandMore size={20} />}
+          </Box>
+        }
         sx={{
-          ...defaultButtonStyles,
           justifyContent: 'flex-start',
           px: 2,
+          width: '100%',
           ...buttonSx,
         }}
-      >
-        {icon && (
-          <ListItemIcon
-            sx={{
-              ...defaultIconStyles,
-              color: 'text.secondary',
-            }}
-          >
-            {currentOption?.icon || icon}
-          </ListItemIcon>
-        )}
-        
-        <ListItemText
-          primary={label}
-          primaryTypographyProps={{
-            fontSize: '0.875rem',
-            fontWeight: 500,
-          }}
-        />
-        <Box sx={{ display: 'flex', alignItems: 'center', color: 'text.secondary', ml: 'auto', pl: 1 }}>
-          {isOpen ? <MdExpandLess size={20} /> : <MdExpandMore size={20} />}
-        </Box>
-      </ListItemButton>
+      />
 
       {/* Dropdown Options List */}
       <Collapse in={isOpen} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding sx={{ pl: 2 }}>
+        <List component="div" disablePadding sx={{ pl: 1 }}>
           {options.map((option) => {
             // Only mark as selected if there's a valid currentValue and it matches
             const isSelected = currentValue && option.value === currentValue;
             return (
-              <ListItemButton
+              <ListButton
                 key={option.value}
                 onClick={() => {
-                  if (option.onClick) {
-                    option.onClick();
-                  }
+                  if (option.onClick) option.onClick();
                 }}
                 disabled={option?.disabled}
+                icon={showCheckmark && isSelected ? <MdCheck size={20} /> : option.icon}
+                text={option.label}
+                iconSx={{ color: isSelected ? 'primary.main' : 'text.secondary' }}
+                textProps={{ fontWeight: isSelected ? 600 : 400, fontSize: '0.875rem' }}
                 sx={{
-                  ...defaultButtonStyles,
                   pl: indentLevel,
-                  '&:hover': {
-                    bgcolor: isSelected ? 'action.selected' : 'action.hover',
-                  },
-                  '&.Mui-disabled': {
-                    opacity: 0.5,
-                  },
+                  '&.Mui-disabled': { opacity: 0.5 },
                   ...listItemSx,
                 }}
-              >
-                <ListItemIcon
-                  sx={{
-                    ...defaultIconStyles,
-                    minWidth: 40,
-                    color: isSelected ? 'primary.main' : 'text.secondary',
-                  }}
-                >
-                  {showCheckmark && isSelected ? <MdCheck size={20} /> : option.icon}
-                </ListItemIcon>
-                <ListItemText
-                  primary={option.label}
-                  secondary={option.description}
-                  primaryTypographyProps={{
-                    fontSize: '0.875rem',
-                    fontWeight: isSelected ? 600 : 400,
-                  }}
-                  secondaryTypographyProps={{
-                    fontSize: '0.75rem',
-                  }}
-                />
-              </ListItemButton>
+              />
             );
           })}
         </List>

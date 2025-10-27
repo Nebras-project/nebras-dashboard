@@ -19,3 +19,26 @@ export const getInitialLanguage = () => {
     return "ar";
   }
 };
+
+/**
+ * Get browser language preference
+ * @returns {string} Language code ('ar' or 'en')
+ */
+export const getBrowserLanguage = () => {
+  const browserLang = (
+    navigator.language ||
+    navigator.userLanguage ||
+    ""
+  ).toLowerCase();
+  return browserLang.startsWith("ar") ? "ar" : "en";
+};
+
+/**
+ * Resolve language from stored value
+ * If stored value is 'default', returns browser language
+ * @param {string} storedLanguage - Language stored in state
+ * @returns {string} Resolved language code ('ar' or 'en')
+ */
+export const resolveLanguage = (storedLanguage) => {
+  return storedLanguage === "default" ? getBrowserLanguage() : storedLanguage;
+};

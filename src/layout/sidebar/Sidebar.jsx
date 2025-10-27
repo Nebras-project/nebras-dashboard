@@ -84,7 +84,7 @@ function Sidebar() {
   // Desktop: Render as persistent sidebar
   return (
     <Box
-      position="sticky"
+      position="fixed"
       sx={{
         ...containerBaseStyles,
         height: '100vh',

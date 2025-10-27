@@ -1,10 +1,8 @@
 // external imports
-import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 // internal imports
-import { getSidebarControlButtonStyles } from '@constants';
-import SidebarButton from './SidebarButton';
+import { ListButton } from '@components';
 import { Dropdown } from '@components';
 
 /**
@@ -21,7 +19,6 @@ import { Dropdown } from '@components';
  */
 
 function SettingsDropdown({ icon, label, options, currentValue, collapsed }) {
-  const buttonStyles = useMemo(() => getSidebarControlButtonStyles(), []);
 
   // Get current option
   const currentOption = options.find(opt => opt.value === currentValue);
@@ -39,7 +36,7 @@ function SettingsDropdown({ icon, label, options, currentValue, collapsed }) {
     };
 
     return (
-      <SidebarButton
+      <ListButton
         onClick={handleToggle}
         icon={currentOption?.icon || icon}
         text={`${label}: ${currentOption?.label || ''}`}
@@ -58,12 +55,8 @@ function SettingsDropdown({ icon, label, options, currentValue, collapsed }) {
       currentValue={currentValue}
       showCheckmark={true}
       buttonSx={{
-        ...buttonStyles,
         justifyContent: 'flex-start',
         px: 2,
-      }}
-      listItemSx={{
-        ...buttonStyles,
       }}
       indentLevel={4}
     />

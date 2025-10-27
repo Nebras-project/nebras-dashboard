@@ -7,6 +7,7 @@ import { useMemo } from 'react';
 import { useUser, useSidebar, useLanguage } from '@hooks';
 import { spacing } from '@theme';
 import UserInfo from './components/UserInfo';
+import { HEADER_HEIGHT } from '../../constants/layout';
 
 function Header() {
   const { user } = useUser();
@@ -25,8 +26,12 @@ function Header() {
       elevation={0}
       sx={{
         top: 0,
+        height: HEADER_HEIGHT,
         bgcolor: 'background.default',
         color: 'text.primary',
+        zIndex: (theme) => theme.zIndex.appBar,
+        transition: (theme) =>
+          `left ${theme.transitions.duration.standard}ms ${theme.transitions.easing.easeInOut}, width ${theme.transitions.duration.standard}ms ${theme.transitions.easing.easeInOut}`,
       }}
     >
       <Toolbar sx={{ gap: spacing.md / 8 }}>
