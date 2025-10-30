@@ -17,6 +17,7 @@ const PROTECTED_ROUTES = [
   "/questions",
   "/ministerial-questions",
   "/enrichment-questions",
+  "/settings",
 ];
 
 /**

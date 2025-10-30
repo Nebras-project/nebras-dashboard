@@ -1,19 +1,14 @@
 // external imports
 import { List, ListItem } from '@mui/material';
-import { useLocation } from 'react-router-dom';
 import { useMemo } from 'react';
 
 // internal imports
-import { spacing, fontWeights } from '@theme';
-import {
-  SELECTED_NAV_ITEM_STYLES,
-  NAV_ITEM_MARGIN_BOTTOM,
-  LIST_ITEM_MB_OFFSET,
-} from '@constants';
-import { useTranslation, useUser, useSidebar, useSidebarNavigation } from '@hooks';
+import { spacing } from '@theme';
+import { NAV_ITEM_MARGIN_BOTTOM, LIST_ITEM_MB_OFFSET } from '@constants';
+import { useTranslation, useUser, useSidebar } from '@hooks';
 import { getNavigationItems } from '../sidebarConfig';
-import { ListButton } from '@components';
 import NavigationDropdown from './NavigationDropdown';
+import NavigationItem from './NavigationItem';
 
 /**
  * NavigationMenu Component
@@ -22,10 +17,8 @@ import NavigationDropdown from './NavigationDropdown';
  */
 function NavigationMenu() {
   const { t } = useTranslation();
-  const location = useLocation();
   const { role } = useUser();
   const { collapsed } = useSidebar();
-  const { handleNavigation } = useSidebarNavigation();
 
   // Memoize menu items for current role
   const menuItems = useMemo(() => getNavigationItems(role), [role]);
@@ -33,6 +26,8 @@ function NavigationMenu() {
   return (
     <List
       sx={{
+        display: 'flex',
+        flexDirection: 'column',
         flexGrow: 1,
         px: spacing.md / 8, // 2 units (16px)
         pb: spacing.none,
@@ -62,32 +57,14 @@ function NavigationMenu() {
         }
 
         // Regular navigation item
-        const isActive = location.pathname === item.path;
-
         return (
-          <ListItem
+          <NavigationItem
             key={item.path}
-            disablePadding
-            sx={{
-              width: '100%',
-              mb: NAV_ITEM_MARGIN_BOTTOM - LIST_ITEM_MB_OFFSET, // 0.5 units
-            }}
-          >
-            <ListButton
-              onClick={() => handleNavigation(item.path)}
-              icon={item.icon}
-              text={t(item.text)}
-              collapsed={collapsed}
-              selected={isActive}
-              sx={SELECTED_NAV_ITEM_STYLES}
-              iconSx={{
-                color: isActive ? 'inherit' : 'text.secondary',
-              }}
-              textProps={{
-                fontWeight: isActive ? fontWeights.semiBold : fontWeights.regular,
-              }}
-            />
-          </ListItem>
+            path={item.path}
+            icon={item.icon}
+            text={t(item.text)}
+            isSettings={item.path === '/settings'}
+          />
         );
       })}
     </List>

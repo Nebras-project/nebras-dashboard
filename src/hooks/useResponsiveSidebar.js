@@ -1,4 +1,7 @@
+// external imports
 import { useEffect, useRef } from "react";
+
+// internal imports
 import { useSidebar } from "./useSidebar";
 
 /**
@@ -11,12 +14,19 @@ import { useSidebar } from "./useSidebar";
  * @param {boolean} isMobile - Whether the current viewport is mobile size
  */
 export function useResponsiveSidebar(isMobile) {
-  const { setMobileMode, openSidebar, closeSidebar } = useSidebar();
+  const { setMobileMode, openSidebar, closeSidebar, collapsed, expandSidebar } =
+    useSidebar();
   const isFirstRender = useRef(true);
   const prevIsMobile = useRef(isMobile);
 
   // Update mobile mode and sidebar state ONLY when crossing mobile/desktop breakpoint
   useEffect(() => {
+    
+    // Disable collapsed mode on mobile
+    if (isMobile && collapsed) {
+      expandSidebar();
+    }
+
     // Handle first render - just set mobile mode without changing sidebar state
     if (isFirstRender.current) {
       setMobileMode(isMobile);
@@ -31,5 +41,12 @@ export function useResponsiveSidebar(isMobile) {
       isMobile ? closeSidebar() : openSidebar(); // Open on desktop, close on mobile
       prevIsMobile.current = isMobile;
     }
-  }, [isMobile, setMobileMode, openSidebar, closeSidebar]);
+  }, [
+    isMobile,
+    setMobileMode,
+    openSidebar,
+    closeSidebar,
+    expandSidebar,
+    collapsed,
+  ]);
 }

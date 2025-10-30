@@ -1,5 +1,8 @@
+// external imports
 import { useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+
+// internal imports
 import { useSidebar } from "./useSidebar";
 
 /**

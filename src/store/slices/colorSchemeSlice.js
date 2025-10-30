@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const DEFAULT_COLOR = "#0075ff"; // Default blue color
 
 const initialState = {
-  scheme: "blue", // 'blue' or 'custom'
+  scheme: "default", // 'blue' or 'custom'
   customColor: DEFAULT_COLOR, // Custom color value
 };
 
@@ -13,7 +13,7 @@ const colorSchemeSlice = createSlice({
   reducers: {
     setDefaultColor: (state) => {
       // Reset to default blue scheme
-      state.scheme = "blue";
+      state.scheme = "default";
       state.customColor = DEFAULT_COLOR;
     },
     setColorScheme: (state, action) => {

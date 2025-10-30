@@ -1,12 +1,12 @@
 import { Container } from '@mui/material';
-import { useUser } from '@hooks';
+import { useUser, useTranslation } from '@hooks';
+import { PageLayout } from '@components';
 import {
   OwnerDashboard,
   CurriculumDashboard,
   CompetitionDashboard,
   ContentDashboard,
 } from '../components';
-import { spacing } from '@theme';
 
 /**
  * Main Dashboard Page
@@ -17,6 +17,7 @@ import { spacing } from '@theme';
  */
 function DashboardPage() {
   const { role } = useUser();
+  const { t } = useTranslation();
 
   // Render appropriate dashboard based on role
   const renderDashboard = () => {
@@ -41,9 +42,11 @@ function DashboardPage() {
   };
 
   return (
-    <Container maxWidth="xl" sx={{ p: spacing.xs }}>
-      {renderDashboard()}
-    </Container>
+    <PageLayout title={t('navigation.dashboard')} description={t('dashboard.overview')} maxWidth="xl">
+      <Container maxWidth="xl">
+        {renderDashboard()}
+      </Container>
+    </PageLayout>
   );
 }
 

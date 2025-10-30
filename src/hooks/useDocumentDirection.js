@@ -1,5 +1,7 @@
+// external imports
 import { useEffect } from "react";
 
+// internal imports
 import { useLanguage } from "./useLanguage";
 
 /**

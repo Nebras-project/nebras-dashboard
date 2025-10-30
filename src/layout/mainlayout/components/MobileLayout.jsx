@@ -3,8 +3,7 @@ import { Box } from "@mui/material";
 import PropTypes from "prop-types";
 
 // internal imports
-import { Header } from "../../header";
-import { Sidebar } from "../../sidebar";
+import { Header, Sidebar } from "@layout";
 import {
   CONTAINER_BASE_STYLES,
   MAIN_CONTENT_BASE_STYLES,
@@ -15,6 +14,7 @@ import {
  * Uses flexbox layout with drawer overlay sidebar
  * Optimized for screens < 1024px (mobile/tablet)
  */
+
 function MobileLayout({ children }) {
   return (
     <>

@@ -28,6 +28,9 @@ import { QuestionsPage } from '@features/questions';
 import { MinisterialQuestionsPage } from '@features/ministerial-questions';
 import { EnrichmentQuestionsPage } from '@features/enrichment-questions';
 
+// Settings Pages
+import { SettingsPage } from '@features/settings';
+
 // Error Pages
 import NotFoundPage from '../pages/NotFoundPage';
 
@@ -176,6 +179,16 @@ const routes = [
     element: (
       <ProtectedRoute>
         <EnrichmentQuestionsPage />
+      </ProtectedRoute>
+    ),
+  },
+
+  // Protected Routes - Settings
+  {
+    path: '/settings',
+    element: (
+      <ProtectedRoute>
+        <SettingsPage />
       </ProtectedRoute>
     ),
   },

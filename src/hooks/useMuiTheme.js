@@ -1,9 +1,10 @@
+// external imports
 import { useMemo } from "react";
 import { useMediaQuery } from "@mui/material";
+
+// internal imports
 import { createAppTheme } from "@theme";
-import { useReduxTheme } from "./useReduxTheme";
-import { useLanguage } from "./useLanguage";
-import { useColorScheme } from "./useColorScheme";
+import { useReduxTheme, useLanguage, useColorScheme } from "@hooks";
 
 /**
  * Custom hook to create and manage the MUI theme

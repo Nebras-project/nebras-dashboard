@@ -6,10 +6,15 @@
  * import { ColorPicker, ColorSwatch, ProtectedRoute, Dropdown, Button, ListButton } from '@components';
  */
 
-export { default as Button } from "./Button";
-export { default as ColorPicker } from "./ColorPicker";
-export { default as ColorSwatch } from "./ColorSwatch";
-export { default as Dropdown } from "./Dropdown";
-export { default as LanguageSync } from "./LanguageSync";
-export { default as ListButton } from "./ListButton";
-export { default as ProtectedRoute } from "./ProtectedRoute";
+export { default as Button } from "./inputs/Button";
+export { default as ColorPicker } from "./inputs/ColorPicker";
+export { default as Dropdown } from "./inputs/Dropdown";
+export { default as ListButton } from "./inputs/ListButton";
+
+export { default as ColorSwatch } from "./display/ColorSwatch";
+
+export { default as LanguageSync } from "./i18n/LanguageSync";
+
+export { default as PageLayout } from "./layout/PageLayout";
+
+export { default as ProtectedRoute } from "./routing/ProtectedRoute";

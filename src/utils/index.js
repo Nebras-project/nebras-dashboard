@@ -18,7 +18,7 @@ export {
   getInitialLanguage,
   getBrowserLanguage,
   resolveLanguage,
-} from "./getInitialLanguage";
+} from "./languageHelpers";
 
 // Layout utilities
 export { isPublicPage } from "./layoutHelpers";

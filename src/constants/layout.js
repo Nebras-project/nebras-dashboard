@@ -3,20 +3,26 @@
  * Shared constants for layout components
  */
 
-
 // Header constants
 export const AVATAR_SIZE = 35;
 export const HEADER_HEIGHT = 64;
 
+// User menu constants
+export const USER_MENU_MIN_WIDTH = 250;
+export const USER_MENU_BORDER_RADIUS = 2;
+export const USER_MENU_MARGIN_TOP = 1.5;
+export const USER_MENU_ARROW_SIZE = 10;
+export const USER_MENU_ARROW_RIGHT_POSITION = 14;
+
 // Logo Header constants
-export const LOGO_HEIGHT = 40;
+export const LOGO_HEIGHT = 35;
 export const LOGO_LETTER_SPACING = "0.1rem";
 export const COLLAPSE_ICON_SIZE = 24;
 export const CLOSE_ICON_SIZE = 20;
 export const CLOSE_BUTTON_SIZE = 32;
 
 // Sidebar constants
-export const SIDEBAR_WIDTH = 280;
+export const SIDEBAR_WIDTH = 290;
 export const SIDEBAR_COLLAPSED_WIDTH = 80;
 
 // Navigation Menu constants
@@ -28,21 +34,26 @@ export const NAV_ITEM_MARGIN_BOTTOM = 0.75; // units (6px)
 export const LIST_ITEM_MB_OFFSET = 0.25;
 
 // Color picker constants
-export const COLOR_INDICATOR_SIZE = 22;
+export const COLOR_INDICATOR_SIZE = 23;
 
 // Selected navigation item styles
-export const SELECTED_NAV_ITEM_STYLES = {
+export const SELECTED_NAV_ITEM_STYLES = (theme) => ({
   "&.Mui-selected": {
-    bgcolor: "primary.main",
-    color: "primary.contrastText",
+    bgcolor:
+      theme.palette.mode === "dark" ? "background.paper" : "background.primary",
+    color: theme.palette.mode === "dark" ? "text.primary" : "primary.main",
     "&:hover": {
-      bgcolor: "primary.dark",
+      bgcolor:
+        theme.palette.mode === "dark"
+          ? "background.surface.level2"
+          : "primary.light",
+      color: theme.palette.mode === "dark" ? "text.primary" : "primary.dark",
     },
     "& .MuiListItemIcon-root": {
-      color: "primary.contrastText",
+      color: theme.palette.mode === "dark" ? "text.primary" : "primary.main",
     },
   },
-};
+});
 
 // Logout button styles
 export const LOGOUT_BUTTON_STYLES = {
@@ -60,6 +71,29 @@ export const LOGOUT_ICON_STYLES = {
   color: "error.main",
 };
 
+// User menu dropdown styles
+export const USER_MENU_PAPER_PROPS = {
+  elevation: 3,
+  sx: {
+    mt: 1.5,
+    minWidth: 250,
+    borderRadius: 2,
+    overflow: "visible",
+    "&:before": {
+      content: '""',
+      display: "block",
+      position: "absolute",
+      top: 0,
+      right: 14,
+      width: 10,
+      height: 10,
+      bgcolor: "background.paper",
+      transform: "translateY(-50%) rotate(45deg)",
+      zIndex: 0,
+    },
+  },
+};
+
 // ============================================================================
 // MainLayout Styles
 // ============================================================================
@@ -71,6 +105,7 @@ export const LOGOUT_ICON_STYLES = {
 export const CONTAINER_BASE_STYLES = {
   minHeight: "100vh",
   bgcolor: "background.default",
+  overflowX: "hidden",
 };
 
 /**
@@ -81,4 +116,5 @@ export const MAIN_CONTENT_BASE_STYLES = {
   bgcolor: "background.paper",
   flex: 1,
   pt: `${HEADER_HEIGHT}px`,
+  overflowX: "hidden",
 };

@@ -8,7 +8,9 @@ import {
   MdGavel,
   MdLightbulb,
   MdManageAccounts,
+  MdSettings,
 } from "react-icons/md";
+import {BiSolidSelectMultiple} from 'react-icons/bi'
 import { TbLayoutDashboardFilled } from "react-icons/tb";
 
 /**
@@ -20,6 +22,11 @@ const menuItems = {
     text: "navigation.dashboard",
     icon: <TbLayoutDashboardFilled />,
     path: "/dashboard",
+  },
+    admins: {
+    text: "admins.managers",
+    icon: <MdManageAccounts />,
+    path: "/admins",
   },
   students: {
     text: "navigation.students",
@@ -53,7 +60,7 @@ const menuItems = {
     children: [
       {
         text: "navigation.allQuestions",
-        icon: <MdQuestionAnswer />,
+        icon: <BiSolidSelectMultiple />,
         path: "/questions",
       },
       {
@@ -68,11 +75,12 @@ const menuItems = {
       },
     ],
   },
-  admins: {
-    text: "navigation.admins",
-    icon: <MdManageAccounts />,
-    path: "/admins",
+  settings: {
+    text: "common.settings",
+    icon: <MdSettings />,
+    path: "/settings",
   },
+
 };
 
 /**
@@ -81,13 +89,14 @@ const menuItems = {
  */
 const fullAccessItems = [
   menuItems.dashboard,
+  menuItems.admins,
   menuItems.students,
   menuItems.competitions,
   menuItems.curriculums,
   menuItems.subjects,
   menuItems.units,
   menuItems.questionsDropdown,
-  menuItems.admins,
+  menuItems.settings,
 ];
 
 export const navigationItems = {
@@ -99,15 +108,18 @@ export const navigationItems = {
     menuItems.subjects,
     menuItems.units,
     menuItems.questionsDropdown,
+    menuItems.settings,
   ],
   competition_manager: [
     menuItems.dashboard,
     menuItems.competitions,
     menuItems.students,
+    menuItems.settings,
   ],
   content_manager: [
     menuItems.dashboard,
     menuItems.questionsDropdown,
+    menuItems.settings,
   ],
 };
 

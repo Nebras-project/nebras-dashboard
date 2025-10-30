@@ -13,37 +13,25 @@ import { TbPalette } from "react-icons/tb";
 import { NAV_TRANSITION } from '@constants';
 import { useTranslation, useLanguage } from '@hooks';
 import { ListButton } from '@components';
-import ColorSwatch from './ColorSwatch';
+import ColorSwatch from '../display/ColorSwatch';
+import { COLOR_INDICATOR_SIZE } from '../../constants/layout';
 
-/**
- * Validate and format hex color
- */
 const isValidHex = (color) => {
   return /^#[0-9A-F]{6}$/i.test(color);
 };
 
 const formatHex = (value) => {
-  // Remove any non-hex characters
   let hex = value.replace(/[^0-9A-Fa-f]/g, '');
-  
-  // Limit to 6 characters
   hex = hex.substring(0, 6);
-  
-  // Add # prefix
   return '#' + hex;
 };
 
-/**
- * Color Picker Component
- * Allows users to select a custom color
- */
 function ColorPicker({ currentColor, onColorChange, scheme }) {
   const { t } = useTranslation();
   const { isRTL } = useLanguage();
   const [anchorEl, setAnchorEl] = useState(null);
   const [tempColor, setTempColor] = useState(currentColor);
   const [inputValue, setInputValue] = useState(currentColor);
-
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -63,8 +51,6 @@ function ColorPicker({ currentColor, onColorChange, scheme }) {
   const handleInputChange = (e) => {
     const value = e.target.value;
     setInputValue(value);
-    
-    // Only update color if it's a valid hex
     const formatted = formatHex(value);
     if (isValidHex(formatted)) {
       setTempColor(formatted);
@@ -72,7 +58,6 @@ function ColorPicker({ currentColor, onColorChange, scheme }) {
   };
 
   const handleApply = () => {
-    // Only apply if valid hex color
     if (isValidHex(tempColor)) {
       onColorChange(tempColor);
       handleClose();
@@ -90,9 +75,8 @@ function ColorPicker({ currentColor, onColorChange, scheme }) {
         endContent={
           <ColorSwatch
             color={scheme === 'custom' ? currentColor : 'action.hover'}
-            size={22}
+            size={COLOR_INDICATOR_SIZE}
             sx={{
-              borderRadius: 1,
               ml: 1,
               transition: NAV_TRANSITION,
             }}
@@ -116,7 +100,6 @@ function ColorPicker({ currentColor, onColorChange, scheme }) {
       >
         <Box sx={{ p: 2 }}>
           <Stack spacing={2}>
-            {/* Header */}
             <Stack direction="row" justifyContent="space-between" alignItems="center">
               <Box sx={{ fontWeight: 600, fontSize: '1rem' }}>{t('common.theme')}</Box>
               <IconButton size="small" onClick={handleClose}>
@@ -124,17 +107,12 @@ function ColorPicker({ currentColor, onColorChange, scheme }) {
               </IconButton>
             </Stack>
 
-            {/* Color Picker */}
             <HexColorPicker color={tempColor} onChange={handleColorChange} />
 
-            {/* Color Preview & Input */}
             <Stack direction="row" spacing={1} alignItems="center">
               <ColorSwatch
                 color={tempColor}
-                size={40}
-                sx={{
-                  borderRadius: 1,
-                }}
+                size={COLOR_INDICATOR_SIZE}
               />
               <Box
                 component="input"
@@ -161,14 +139,12 @@ function ColorPicker({ currentColor, onColorChange, scheme }) {
               />
             </Stack>
 
-            {/* Validation Message */}
             {!isValidHex(inputValue) && (
               <Box sx={{ fontSize: '0.75rem', color: 'error.main', textAlign: 'center' }}>
                 {t('forms.invalidFormat')}
               </Box>
             )}
 
-            {/* Action Buttons */}
             <Stack direction="row" spacing={1}>
               <Button
                 variant="outlined"
@@ -202,3 +178,5 @@ ColorPicker.propTypes = {
 };
 
 export default ColorPicker;
+
+

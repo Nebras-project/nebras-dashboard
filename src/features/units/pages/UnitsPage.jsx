@@ -1,74 +1,17 @@
-import { Container, Box, Typography, Card, CardContent, Stack, Button, Chip } from '@mui/material';
-import { MdAdd, MdFolder } from 'react-icons/md';
+import { Container, Box, Typography} from '@mui/material';
+import { PageLayout } from '@components';
 import { useTranslation } from '@hooks';
 
 function UnitsPage() {
   const { t } = useTranslation();
-  // Mock units data
-  const units = [
-    { id: 1, name: 'Linear Equations', subject: 'Algebra', lessons: 4, status: 'Published' },
-    { id: 2, name: 'Quadratic Equations', subject: 'Algebra', lessons: 6, status: 'Published' },
-    { id: 3, name: 'Triangles', subject: 'Geometry', lessons: 5, status: 'Draft' },
-    { id: 4, name: 'Circles', subject: 'Geometry', lessons: 4, status: 'Published' },
-    { id: 5, name: 'Motion and Forces', subject: 'Physics', lessons: 7, status: 'Published' },
-  ];
-
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Stack spacing={4}>
-        {/* Page Header */}
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Box>
-            <Typography variant="h3" gutterBottom color="primary">
-              {t('curriculum.units')}
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              {t('curriculum.unit')}
-            </Typography>
-          </Box>
-          <Button variant="contained" startIcon={<MdAdd />}>
-            {t('curriculum.addUnit')}
-          </Button>
+    <PageLayout title={t('curriculum.units')} description={t('curriculum.unit')} maxWidth="lg">
+      <Container maxWidth="lg" sx={{ py: 4 }}>
+        <Box sx={{ textAlign: 'center', py: 8, color: 'text.secondary' }}>
+          <Typography variant="body2" sx={{ mt: 1 }}>Content coming soon</Typography>
         </Box>
-
-        {/* Units List */}
-        <Stack spacing={2}>
-          {units.map((unit) => (
-            <Card key={unit.id}>
-              <CardContent>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                  <Box
-                    sx={{
-                      width: 48,
-                      height: 48,
-                      borderRadius: 1,
-                      bgcolor: 'primary.main',
-                      color: 'white',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <MdFolder size={24} />
-                  </Box>
-                  <Box sx={{ flex: 1 }}>
-                    <Typography variant="h6">{unit.name}</Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {unit.subject} • {unit.lessons} {t('curriculum.lessons')}
-                    </Typography>
-                  </Box>
-                  <Chip
-                    label={unit.status === 'Published' ? t('common.active') : t('common.inactive')}
-                    size="small"
-                    color={unit.status === 'Published' ? 'success' : 'default'}
-                  />
-                </Box>
-              </CardContent>
-            </Card>
-          ))}
-        </Stack>
-      </Stack>
-    </Container>
+      </Container>
+    </PageLayout>
   );
 }
 

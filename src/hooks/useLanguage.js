@@ -1,5 +1,8 @@
+// external imports
 import { useSelector, useDispatch } from "react-redux";
-import { setLanguage, toggleLanguage } from "@store/slices/languageSlice";
+
+// internal imports
+import { setLanguage, toggleLanguage } from "@store/slices";
 import { resolveLanguage } from "@utils";
 
 /**

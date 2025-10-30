@@ -1,5 +1,8 @@
+// external imports
 import { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
+// internal imports
 import {
   openSidebar,
   closeSidebar,
@@ -8,7 +11,7 @@ import {
   expandSidebar,
   toggleCollapsed,
   setMobileMode,
-} from "@store/slices/sidebarSlice";
+} from "@store/slices";
 import { SIDEBAR_WIDTH, SIDEBAR_COLLAPSED_WIDTH } from "@constants";
 
 /**

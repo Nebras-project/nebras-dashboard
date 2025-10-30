@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 import {
   colors,
   customBackgrounds,
@@ -69,7 +69,7 @@ const zIndex = {
 export const createAppTheme = (
   mode = "light",
   direction = "ltr",
-  colorScheme = "blue",
+  colorScheme = "default",
   customColor = null
 ) => {
   // Determine primary colors based on color scheme
@@ -80,7 +80,7 @@ export const createAppTheme = (
     // Generate palette from custom color
     primaryColors = generateColorPalette(customColor);
     primaryBackground = generateBackgroundColor(customColor, mode);
-  } else if (colorScheme === "blue") {
+  } else if (colorScheme === "default") {
     primaryColors = {
       main: baseColors.blue500,
       light: baseColors.blue400,
@@ -91,7 +91,7 @@ export const createAppTheme = (
       mode === "light" ? baseColors.blue50 : baseColors.blue900;
   }
 
-  return createTheme({
+  const baseTheme = createTheme({
     palette: {
       mode,
       ...colors,
@@ -117,6 +117,10 @@ export const createAppTheme = (
     components: getComponentOverrides(mode),
     transitions,
     zIndex,
+  });
+
+  return responsiveFontSizes(baseTheme, {
+    breakpoints: ["tablet", "desktop", "widescreen"],
   });
 };
 

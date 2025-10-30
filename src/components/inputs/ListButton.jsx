@@ -1,4 +1,3 @@
-// external imports
 import {
   ListItemButton,
   ListItemIcon,
@@ -9,15 +8,11 @@ import {
 } from '@mui/material';
 import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-
-// internal imports
 import { borderRadius, fontWeights } from '@theme';
 
-// Styled ListItemButton component
 const StyledListItemButton = styled(ListItemButton, {
   shouldForwardProp: (prop) => !['customVariant', 'customColor', 'collapsed'].includes(prop),
-})(({ customVariant, customColor, selected, collapsed }) => {
-  // Get variant-specific styles
+})(({ theme, customVariant, customColor, selected, collapsed }) => {
   const getVariantStyles = (variant) => {
     const variantMap = {
       default: {
@@ -39,19 +34,18 @@ const StyledListItemButton = styled(ListItemButton, {
     return variantMap[variant] || variantMap.default;
   };
 
-  // Get color-specific styles
   const getColorStyles = (color, selected) => {
     if (selected) {
       const colorMap = {
         primary: {
-          backgroundColor: 'primary.main',
-          color: 'primary.contrastText',
+          backgroundColor: theme.palette.mode === 'dark' ? 'background.paper' : 'background.primary',
+          color: theme.palette.mode === 'dark' ? 'text.primary' : 'primary.main',
           '&:hover': {
-            backgroundColor: 'primary.dark',
-            color: 'primary.contrastText',
+            backgroundColor: theme.palette.mode === 'dark' ? 'background.surface.level2' : 'primary.light',
+            color: theme.palette.mode === 'dark' ? 'text.primary' : 'primary.dark',
           },
           '& .MuiListItemIcon-root': {
-            color: 'primary.contrastText',
+            color: theme.palette.mode === 'dark' ? 'text.primary' : 'primary.main',
           },
         },
         secondary: {
@@ -81,6 +75,7 @@ const StyledListItemButton = styled(ListItemButton, {
     return {
       '&:hover': {
         backgroundColor: 'action.hover',
+        
       },
     };
   };
@@ -100,7 +95,6 @@ const StyledListItemButton = styled(ListItemButton, {
   };
 });
 
-// Styled ListItemIcon component
 const StyledListItemIcon = styled(ListItemIcon, {
   shouldForwardProp: (prop) => prop !== 'collapsed',
 })(({ collapsed }) => ({
@@ -116,7 +110,6 @@ const StyledListItemIcon = styled(ListItemIcon, {
   },
 }));
 
-// Styled ListItemText component
 const StyledListItemText = styled(ListItemText, {
   shouldForwardProp: (prop) => prop !== 'customVariant',
 })(({ customVariant }) => ({
@@ -126,28 +119,6 @@ const StyledListItemText = styled(ListItemText, {
   },
 }));
 
-/**
- * General ListButton Component
- * A reusable list button component for navigation and list-based interactions
- * 
- * @param {Object} props - Component props
- * @param {Function} props.onClick - Click handler
- * @param {React.ReactNode} props.icon - Icon to display
- * @param {string} props.text - Text content
- * @param {React.ReactNode} props.endContent - Content to display at the end
- * @param {boolean} props.selected - Whether the button is selected
- * @param {boolean} props.disabled - Whether the button is disabled
- * @param {boolean} props.loading - Show loading spinner
- * @param {boolean} props.collapsed - Whether the button is in collapsed state
- * @param {boolean} props.showTooltip - Whether to show tooltip (defaults to true when collapsed)
- * @param {string} props.tooltipPlacement - Tooltip placement when collapsed
- * @param {string} props.variant - Button variant ('default', 'dense', 'comfortable')
- * @param {string} props.color - Button color theme
- * @param {Object} props.sx - Additional styles
- * @param {Object} props.iconSx - Additional icon styles
- * @param {Object} props.textProps - Additional text props
- * @param {Object} props.rest - Additional props passed to ListItemButton
- */
 const ListButton = forwardRef(({
   onClick,
   icon,
@@ -157,7 +128,7 @@ const ListButton = forwardRef(({
   disabled = false,
   loading = false,
   collapsed = false,
-  showTooltip = null, // null means auto-detect based on collapsed state
+  showTooltip = null,
   tooltipPlacement = 'right',
   variant = 'default',
   color = 'primary',
@@ -166,7 +137,6 @@ const ListButton = forwardRef(({
   textProps = {},
   ...rest
 }, ref) => {
-  // Determine if button should be disabled
   const isDisabled = disabled || loading;
 
   const button = (
@@ -204,10 +174,8 @@ const ListButton = forwardRef(({
     </StyledListItemButton>
   );
 
-  // Determine if tooltip should be shown
   const shouldShowTooltip = showTooltip !== null ? showTooltip : (collapsed && text && !loading);
 
-  // Wrap with tooltip when needed
   if (shouldShowTooltip && text) {
     return (
       <Tooltip title={text} placement={tooltipPlacement} arrow>
@@ -240,3 +208,5 @@ ListButton.propTypes = {
 };
 
 export default ListButton;
+
+

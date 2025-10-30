@@ -7,6 +7,7 @@ const en = {
     cancel: "Cancel",
     delete: "Delete",
     edit: "Edit",
+    change: "Change",
     add: "Add",
     search: "Search",
     filter: "Filter",
@@ -369,6 +370,9 @@ const en = {
 
   // Settings
   settings: {
+    title: "Settings",
+    description:
+      "Personalize your experience and manage your account settings. Customize the appearance, language, and preferences to make the dashboard work best for you.",
     settings: "Settings",
     generalSettings: "General Settings",
     systemSettings: "System Settings",
@@ -378,6 +382,18 @@ const en = {
     backupSettings: "Backup Settings",
     appearance: "Appearance",
     preferences: "Preferences",
+    changePassword: "Change Password",
+    chooseMainColor: "Choose Main App Color",
+    languageDescription: "Choose your preferred language",
+    themeDescription: "Select light, dark, or system mode",
+    colorDescription: "Customize your app color",
+    pageDescription:
+      "Personalize your experience and manage your account settings. Customize the appearance, language, and preferences to make the dashboard work best for you.",
+    editProfileDescription: "Update your personal information",
+    changePasswordDescription: "Keep your account secure",
+    logoutDescription: "Sign out from your account",
+    personalInformation: "Personal Information",
+    accountActions: "Account Actions",
   },
 };
 

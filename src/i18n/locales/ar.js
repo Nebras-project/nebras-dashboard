@@ -7,6 +7,7 @@ const ar = {
     cancel: "إلغاء",
     delete: "حذف",
     edit: "تعديل",
+    change: "تغيير",
     add: "إضافة",
     search: "بحث",
     filter: "تصفية",
@@ -368,6 +369,9 @@ const ar = {
 
   // Settings
   settings: {
+    title: "الإعدادات",
+    description:
+      "خصص تجربتك وأدر إعدادات حسابك. قم بتخصيص المظهر واللغة والتفضيلات لجعل لوحة التحكم تعمل بشكل أفضل لك.",
     settings: "الإعدادات",
     generalSettings: "الإعدادات العامة",
     systemSettings: "إعدادات النظام",
@@ -377,6 +381,18 @@ const ar = {
     backupSettings: "إعدادات النسخ الاحتياطي",
     appearance: "المظهر",
     preferences: "التفضيلات",
+    changePassword: "تغيير كلمة المرور",
+    chooseMainColor: "اختر اللون الرئيسي للتطبيق",
+    languageDescription: "اختر لغتك المفضلة",
+    themeDescription: "اختر الوضع الفاتح أو الداكن أو النظام",
+    colorDescription: "خصص لون التطبيق",
+    pageDescription:
+      "خصص تجربتك وأدر إعدادات حسابك. قم بتخصيص المظهر واللغة والتفضيلات لجعل لوحة التحكم تعمل بشكل أفضل لك.",
+    editProfileDescription: "قم بتحديث معلوماتك الشخصية",
+    changePasswordDescription: "حافظ على أمان حسابك",
+    logoutDescription: "تسجيل الخروج من حسابك",
+    personalInformation: "المعلومات الشخصية",
+    accountActions: "إجراءات الحساب",
   },
 };
 

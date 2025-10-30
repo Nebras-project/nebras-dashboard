@@ -13,7 +13,8 @@ import {
   IconButton,
 } from '@mui/material';
 import { useUser, useTranslation } from '@hooks';
-import { MdVisibility, MdVisibilityOff, MdLogin } from 'react-icons/md';
+import { MdLogin } from 'react-icons/md';
+import { LuEye, LuEyeClosed } from 'react-icons/lu';
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -108,7 +109,7 @@ function LoginPage() {
                             onClick={() => setShowPassword(!showPassword)}
                             edge="end"
                           >
-                            {showPassword ? <MdVisibilityOff /> : <MdVisibility />}
+                            {showPassword ? <LuEye/>: <LuEyeClosed />}
                           </IconButton>
                         </InputAdornment>
                       ),

@@ -1,5 +1,8 @@
+// external imports
 import { useSelector, useDispatch } from "react-redux";
-import { toggleTheme, setThemeMode } from "@store/slices/themeSlice";
+
+// internal imports
+import { toggleTheme, setThemeMode } from "@store/slices";
 
 /**
  * Custom hook to access and manage theme state from Redux

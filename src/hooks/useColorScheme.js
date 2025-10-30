@@ -1,9 +1,8 @@
+// external imports
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setDefaultColor,
-  setColorScheme,
-  setCustomColor,
-} from "@store/slices/colorSchemeSlice";
+
+// internal imports
+import { setDefaultColor, setColorScheme, setCustomColor } from "@store/slices";
 
 /**
  * Custom hook for managing color scheme (blue/custom)
@@ -31,7 +30,7 @@ export const useColorScheme = () => {
     setDefaultColor: resetToDefault, // Resets to default blue scheme
     setColorScheme: setScheme,
     setCustomColor: setColor,
-    isBlue: scheme === "blue",
+    isDefault: scheme === "default",
     isCustom: scheme === "custom",
   };
 };

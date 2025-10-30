@@ -82,25 +82,6 @@ const StyledButton = styled(MuiButton, {
   };
 });
 
-/**
- * General Button Component
- * A reusable button component with multiple variants and states
- * 
- * @param {Object} props - Component props
- * @param {string} props.variant - Button variant ('contained', 'outlined', 'text')
- * @param {string} props.size - Button size ('small', 'medium', 'large')
- * @param {string} props.color - Button color ('primary', 'secondary', 'error', 'warning', 'info', 'success')
- * @param {boolean} props.loading - Show loading spinner
- * @param {boolean} props.disabled - Disable button
- * @param {boolean} props.fullWidth - Take full width of container
- * @param {React.ReactNode} props.startIcon - Icon before text
- * @param {React.ReactNode} props.endIcon - Icon after text
- * @param {string} props.children - Button text content
- * @param {Object} props.sx - Additional styles
- * @param {Function} props.onClick - Click handler
- * @param {string} props.type - Button type ('button', 'submit', 'reset')
- * @param {Object} props.rest - Additional props passed to MUI Button
- */
 const Button = forwardRef(({
   variant = 'contained',
   size = 'medium',
@@ -116,7 +97,6 @@ const Button = forwardRef(({
   type = 'button',
   ...rest
 }, ref) => {
-  // Determine if button should be disabled
   const isDisabled = disabled || loading;
 
   return (
@@ -160,3 +140,5 @@ Button.propTypes = {
 };
 
 export default Button;
+
+

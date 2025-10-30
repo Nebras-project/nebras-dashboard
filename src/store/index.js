@@ -1,9 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import themeReducer from "./slices/themeSlice";
-import languageReducer from "./slices/languageSlice";
-import sidebarReducer from "./slices/sidebarSlice";
-import userReducer from "./slices/userSlice";
-import colorSchemeReducer from "./slices/colorSchemeSlice";
+import {
+  themeReducer,
+  languageReducer,
+  userReducer,
+  colorSchemeReducer,
+  sidebarReducer,
+} from "./slices";
+
 import {
   localStorageMiddleware,
   loadPersistedState,

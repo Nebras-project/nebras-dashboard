@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MainLayout from './layout/MainLayout';
-import routes from './config/routes';
-import LanguageSync from './components/LanguageSync';
+import {MainLayout} from '@layout';
+import {routes} from '@config';
+import {LanguageSync} from '@components';
 
 /**
  * Main App Component

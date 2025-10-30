@@ -3,13 +3,12 @@ import { Box } from "@mui/material";
 import PropTypes from "prop-types";
 
 // internal imports
-import { Header } from "../../header";
-import { Sidebar } from "../../sidebar";
+import { Header, Sidebar } from "@layout";
 import { borderRadius } from "@theme";
 import {
   CONTAINER_BASE_STYLES,
   MAIN_CONTENT_BASE_STYLES,
-} from "@constants/layout";
+} from "@constants";
 
 /**
  * Desktop Layout Component
@@ -49,7 +48,7 @@ function DesktopLayout({ children, sidebarWidth }) {
         component="main"
         sx={{
           gridArea: "content",
-          borderTopLeftRadius: `${borderRadius.sm}px`,
+          borderTopRightRadius: `${borderRadius.sm}px`,
           ...MAIN_CONTENT_BASE_STYLES,
         }}
       >
