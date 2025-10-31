@@ -25,6 +25,7 @@ function LogoutButton({
   size = 'medium',
   color = 'error',
   fullWidth = false,
+  width = 'auto',
   onLogout,
   sx = {},
   showIcon = true,
@@ -55,6 +56,7 @@ function LogoutButton({
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
+        width: fullWidth ? '100%' : `${width}px`,
         ...(disableHover && {
           '&:hover': {
             transform: 'none !important',
@@ -87,6 +89,7 @@ LogoutButton.propTypes = {
     'inherit',
   ]),
   fullWidth: PropTypes.bool,
+  width: PropTypes.string,
   onLogout: PropTypes.func,
   sx: PropTypes.object,
   showIcon: PropTypes.bool,
