@@ -1,17 +1,15 @@
 // external imports
-import { Box, Typography, Button } from '@mui/material';
-import { MdLogout } from 'react-icons/md';
+import { Box, Typography } from '@mui/material';
 
 // internal imports
-import { Card, UserAvatar } from '@components';
+import { Card, UserAvatar, LogoutButton } from '@components';
 import { gap, margin, padding } from '@constants';
-import { useTranslation, useLanguage, useUser } from '@hooks';
+import { useTranslation, useUser } from '@hooks';
 import { fontWeights, borderRadius } from '@theme';
 
 function ProfileHero() {
   const { t } = useTranslation();
-  const { isRTL } = useLanguage();
-  const { user, logout } = useUser();
+  const { user } = useUser();
 
   return (
     <Card hoverable contentSx={{ ...padding.top.none }}>
@@ -57,24 +55,7 @@ function ProfileHero() {
           </Typography>
         </Box>
 
-        <Box
-          sx={{ display: 'flex', alignItems: 'center', width: { mobile: '100%', tablet: 'auto' } }}
-        >
-          <Button
-            variant="outlined"
-            color="error"
-            startIcon={<MdLogout style={{ transform: isRTL ? 'scaleX(-1)' : 'none' }} />}
-            onClick={logout}
-            fullWidth={true}
-            sx={{
-              textTransform: 'none',
-              fontWeight: fontWeights.medium,
-              width: { mobile: '100%', tablet: 'auto' },
-            }}
-          >
-            {t('common.logout')}
-          </Button>
-        </Box>
+        <LogoutButton variant="outlined" width="200" />
       </Box>
     </Card>
   );
