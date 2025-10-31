@@ -15,6 +15,16 @@ export const borderRadius = {
   full: 9999,
 };
 
+// Border width values
+export const borderWidth = {
+  none: 0,
+  xxs: 1,
+  xs: 2,
+  sm: 4,
+  md: 8,
+  lg: 12,
+};
+
 // Shadow values
 export const shadows = {
   light: {

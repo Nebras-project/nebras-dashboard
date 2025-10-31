@@ -1,4 +1,4 @@
-import { createTheme, responsiveFontSizes } from "@mui/material/styles";
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 import {
   colors,
   customBackgrounds,
@@ -6,10 +6,10 @@ import {
   dividerColors,
   backgroundDefaults,
   baseColors,
-} from "./colors";
-import { typography } from "./typography";
-import { getComponentOverrides } from "./components";
-import { generateColorPalette, generateBackgroundColor } from "@utils";
+} from './colors';
+import { typography } from './typography';
+import { getComponentOverrides } from './components';
+import { generateColorPalette, generateBackgroundColor } from '@utils';
 
 // Spacing system (based on 8px grid)
 const spacing = {
@@ -67,28 +67,27 @@ const zIndex = {
 
 // Create theme based on mode, direction, and color scheme
 export const createAppTheme = (
-  mode = "light",
-  direction = "ltr",
-  colorScheme = "default",
+  mode = 'light',
+  direction = 'ltr',
+  colorScheme = 'default',
   customColor = null
 ) => {
   // Determine primary colors based on color scheme
   let primaryColors;
   let primaryBackground;
 
-  if (colorScheme === "custom" && customColor) {
+  if (colorScheme === 'custom' && customColor) {
     // Generate palette from custom color
     primaryColors = generateColorPalette(customColor);
     primaryBackground = generateBackgroundColor(customColor, mode);
-  } else if (colorScheme === "default") {
+  } else if (colorScheme === 'default') {
     primaryColors = {
-      main: baseColors.blue500,
-      light: baseColors.blue400,
-      dark: baseColors.blue700,
+      main: baseColors.teal500,
+      light: baseColors.teal400,
+      dark: baseColors.teal700,
       contrastText: baseColors.white,
     };
-    primaryBackground =
-      mode === "light" ? baseColors.blue50 : baseColors.blue900;
+    primaryBackground = mode === 'light' ? baseColors.teal50 : baseColors.teal900;
   }
 
   const baseTheme = createTheme({
@@ -120,7 +119,7 @@ export const createAppTheme = (
   });
 
   return responsiveFontSizes(baseTheme, {
-    breakpoints: ["tablet", "desktop", "widescreen"],
+    breakpoints: ['tablet', 'desktop', 'widescreen'],
   });
 };
 
@@ -138,10 +137,10 @@ export {
   textColors,
   dividerColors,
   backgroundDefaults,
-} from "./colors";
+} from './colors';
 
 // Re-export from typography
-export { fontWeights, fontSizes, lineHeights } from "./typography";
+export { fontWeights, fontSizes, lineHeights } from './typography';
 
 // Re-export from components
-export { borderRadius, shadows } from "./components";
+export { borderRadius, shadows } from './components';

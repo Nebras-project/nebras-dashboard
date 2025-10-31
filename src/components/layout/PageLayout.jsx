@@ -1,14 +1,19 @@
+// external imports
 import PropTypes from 'prop-types';
 import { Box, Container } from '@mui/material';
-import PageHeader from './pagelayout/PageHeader';
 
-function PageLayout({ title, description, children, maxWidth = "lg" }) {
+// internal imports
+import {PageHeader} from '@components';
+import { padding } from '@constants';
+
+function PageLayout({ title, description, children, maxWidth = "widescreen" }) {
   return (
-      <Container maxWidth={maxWidth} sx={{ pb: 6, px: { mobil: 2, tablet: 3 } }}>
-      <PageHeader title={title} description={description} maxWidth={maxWidth} />
-    <Box>
-        {children}
-    </Box>
+      <Container maxWidth={maxWidth} sx={{...padding.y.xl, mobile: { ...padding.x.md}, desktop: { ...padding.x.lg}}} 
+      >
+        <PageHeader title={title} description={description} />
+        <Box>
+          {children}
+        </Box>
       </Container>
   );
 }
@@ -17,7 +22,7 @@ PageLayout.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
   children: PropTypes.node.isRequired,
-  maxWidth: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl']),
+  maxWidth: PropTypes.oneOf(['mobile', 'tablet', 'desktop', 'widescreen']),
 };
 
 export default PageLayout;

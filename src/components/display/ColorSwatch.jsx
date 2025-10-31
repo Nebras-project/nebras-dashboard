@@ -1,5 +1,9 @@
+// external imports
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
+
+// internal imports
+import { borderRadius } from '@theme';
 
 function ColorSwatch({ color, size = 20, sx = {} }) {
   return (
@@ -7,7 +11,7 @@ function ColorSwatch({ color, size = 20, sx = {} }) {
       sx={{ 
         width: size, 
         height: size, 
-        borderRadius: '50%',
+        borderRadius: borderRadius.full,
         bgcolor: color,
         border: 1,
         borderColor: 'divider',

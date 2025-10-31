@@ -5,6 +5,7 @@ import { Paper } from '@mui/material';
 // internal imports
 import { PageLayout } from '@components';
 import { useTranslation } from '@hooks';
+import { borderWidth } from '@theme/components';
 import { TabPanel, SettingsTabsHeader } from '../components';
 import { getSettingsTabs } from '../settingsConfig';
 
@@ -19,25 +20,20 @@ function SettingsPage() {
   const tabs = getSettingsTabs(t);
 
   return (
-    <PageLayout
-      title={t('settings.title')}
-      description={t('settings.description')}
-      maxWidth="lg"
-    >
-      <SettingsTabsHeader 
-        value={currentTab} 
-        onChange={handleTabChange} 
-        items={tabs.map(({ label, icon }) => ({ label, icon }))} 
+    <PageLayout title={t('settings.title')} description={t('settings.description')}>
+      <SettingsTabsHeader
+        value={currentTab}
+        onChange={handleTabChange}
+        items={tabs.map(({ label, icon }) => ({ label, icon }))}
       />
 
-      <Paper elevation={0} sx={{ border: 1, borderColor: 'divider' }}>
+      <Paper  sx={{ border: borderWidth.xxs, borderColor: 'divider' }}>
         {tabs.map((tab, index) => (
           <TabPanel key={index} value={currentTab} index={index}>
             {tab.content}
           </TabPanel>
         ))}
       </Paper>
-      
     </PageLayout>
   );
 }

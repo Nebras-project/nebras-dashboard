@@ -3,70 +3,77 @@
 // Base color values
 export const baseColors = {
   // Primary - Blue
-  blue50: "#e6f3ff",
-  blue400: "#4da3ff",
-  blue500: "#0075ff", // Main brand color
-  blue700: "#005acc",
-  blue900: "#003d99",
+  blue50: '#e6f3ff',
+  blue400: '#4da3ff',
+  blue500: '#0075ff', // Blue brand color
+  blue700: '#005acc',
+  blue900: '#003d99',
+
+  // Primary - Teal
+  teal50: '#e6f9f3',
+  teal400: '#4dddb0',
+  teal500: '#17cd96', // Teal brand color
+  teal700: '#12a376',
+  teal900: '#0d7a58',
 
   // Nebras Green (kept for reference)
-  green50: "#e6f2ed",
-  green400: "#33a872",
-  green500: "#006239",
-  green700: "#004d2d",
-  green900: "#003320",
+  green50: '#e6f2ed',
+  green400: '#33a872',
+  green500: '#006239',
+  green700: '#004d2d',
+  green900: '#003320',
 
   // Pinks/Reds (Secondary)
-  pink50: "#fce4ec",
-  pink200: "#ff5983",
-  pink700: "#dc004e",
-  pink900: "#9a0036",
-  pink950: "#880e4f",
+  pink50: '#fce4ec',
+  pink200: '#ff5983',
+  pink700: '#dc004e',
+  pink900: '#9a0036',
+  pink950: '#880e4f',
 
   // Greens (Success)
-  successGreen400: "#4caf50",
-  successGreen600: "#2e7d32",
-  successGreen900: "#1b5e20",
+  successGreen400: '#4caf50',
+  successGreen600: '#2e7d32',
+  successGreen900: '#1b5e20',
 
   // Reds (Error)
-  red300: "#ef5350",
-  red500: "#d32f2f",
-  red600: "#c62828",
-  red700: "#f44336",
+  red300: '#ef5350',
+  red500: '#d32f2f',
+  red600: '#c62828',
+  red700: '#f44336',
 
   // Oranges (Warning)
-  orange400: "#ff9800",
-  orange600: "#ed6c02",
-  orange800: "#e65100",
-  orange900: "#f57c00",
+  orange400: '#ff9800',
+  orange600: '#ed6c02',
+  orange800: '#e65100',
+  orange900: '#f57c00',
 
   // Light Blues (Info)
-  lightBlue300: "#03a9f4",
-  lightBlue500: "#0288d1",
-  lightBlue900: "#01579b",
+  lightBlue300: '#03a9f4',
+  lightBlue500: '#0288d1',
+  lightBlue900: '#01579b',
 
   // Grays (Light mode)
-  gray50: "#fafafa",
-  gray100: "#f5f5f5",
-  gray200: "#e0e0e0",
-  gray700: "#757575",
-  gray800: "#bdbdbd",
-  gray900: "#212121",
+  gray50: '#fafafa',
+  gray100: '#f5f5f5',
+  gray200: '#e0e0e0',
+  gray700: '#757575',
+  gray800: '#bdbdbd',
+  gray900: '#212121',
 
   // Dark mode backgrounds
-  dark900: "#121212", // Main dark background
-  dark800: "#171717", // Dark surface
-  dark700: "#1e1e1e", // Elevated surface
-  dark600: "#2c2c2c", // More elevated
-  dark500: "#383838", // Most elevated
+  dark900: '#121212', // Main dark background
+  dark800: '#171717', // Dark surface
+  dark700: '#1e1e1e', // Elevated surface
+  dark600: '#2c2c2c', // More elevated
+  dark500: '#383838', // Most elevated
 
   // White & Black
-  white: "#ffffff",
-  black: "#000000",
+  white: '#ffffff',
+  black: '#000000',
 
   // Dark mode text
-  darkText100: "#b0b0b0",
-  darkText200: "#666666",
+  darkText100: '#b0b0b0',
+  darkText200: '#666666',
 };
 
 export const colors = {

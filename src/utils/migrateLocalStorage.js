@@ -3,8 +3,8 @@
  * This should be called once when the app loads
  */
 
-const OLD_KEYS = ["colorScheme", "customColor", "theme", "language"];
-const NEW_KEY = "nebras_dashboard_state";
+const OLD_KEYS = ['colorScheme', 'customColor', 'theme', 'language'];
+const NEW_KEY = 'nebras_dashboard_state';
 
 export const migrateLocalStorage = () => {
   try {
@@ -32,11 +32,11 @@ export const migrateLocalStorage = () => {
 
           if (modified) {
             localStorage.setItem(NEW_KEY, JSON.stringify(state));
-            console.log("✅ Cleaned sidebar drawer state from localStorage");
+            console.log('✅ Cleaned sidebar drawer state from localStorage');
           }
         }
       } catch (e) {
-        console.error("Error cleaning sidebar state:", e);
+        console.error('Error cleaning sidebar state:', e);
       }
 
       return;
@@ -47,12 +47,12 @@ export const migrateLocalStorage = () => {
     let hasOldData = false;
 
     // Check for old colorScheme data
-    const oldScheme = localStorage.getItem("colorScheme");
-    const oldCustomColor = localStorage.getItem("customColor");
+    const oldScheme = localStorage.getItem('colorScheme');
+    const oldCustomColor = localStorage.getItem('customColor');
     if (oldScheme || oldCustomColor) {
       migratedState.colorScheme = {
-        scheme: oldScheme || "blue",
-        customColor: oldCustomColor || "#0075ff",
+        scheme: oldScheme || 'default',
+        customColor: oldCustomColor || '#17cd96',
       };
       hasOldData = true;
     }
@@ -64,9 +64,9 @@ export const migrateLocalStorage = () => {
       // Clean up old keys
       OLD_KEYS.forEach((key) => localStorage.removeItem(key));
 
-      console.log("✅ Migrated localStorage to unified key");
+      console.log('✅ Migrated localStorage to unified key');
     }
   } catch (error) {
-    console.error("Error migrating localStorage:", error);
+    console.error('Error migrating localStorage:', error);
   }
 };

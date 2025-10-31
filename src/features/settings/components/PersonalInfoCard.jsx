@@ -1,7 +1,12 @@
-import { Box, Paper, Typography, Stack, Divider } from '@mui/material';
+// external imports
+import { Box, Typography, Stack, Divider } from '@mui/material';
 import { MdPerson, MdEmail, MdPhone } from 'react-icons/md';
+
+// internal imports
+import { Card } from '@components';
 import { useTranslation, useUser } from '@hooks';
-import { baseColors } from '../../../theme/colors';
+import { baseColors, borderRadius, fontWeights } from '@theme';
+import { spacing, gap, margin } from '@constants';
 
 function PersonalInfoCard() {
   const { t } = useTranslation();
@@ -29,14 +34,19 @@ function PersonalInfoCard() {
   ];
 
   return (
-    <Paper elevation={0} sx={{ p: 4, border: 1, borderColor: 'divider', borderRadius: 2 }}>
-      <Typography variant="overline" color="primary.main" sx={{ fontWeight: 700, letterSpacing: 1.5, display: 'block', mb: 3 }}>
-        {t('settings.personalInformation')}
-      </Typography>
-      <Stack spacing={3}>
+    <Card
+      title={t('settings.personalInformation')}
+      titleTypographyProps={{
+        variant: 'overline',
+        color: 'primary.main',
+        sx: { fontWeight: 700, letterSpacing: 1.5 },
+      }}
+      hoverable
+    >
+      <Stack spacing={spacing.values.lg}>
         {infoItems.map((item, index) => (
           <Box key={index}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', ...gap.md }}>
               <Box
                 sx={{
                   display: 'flex',
@@ -44,7 +54,7 @@ function PersonalInfoCard() {
                   justifyContent: 'center',
                   width: 48,
                   height: 48,
-                  borderRadius: 2,
+                  borderRadius: borderRadius.xs,
                   bgcolor: `${item.color}15`,
                   color: item.color,
                   flexShrink: 0,
@@ -58,17 +68,16 @@ function PersonalInfoCard() {
                   color="text.secondary"
                   sx={{
                     textTransform: 'uppercase',
-                    fontWeight: 700,
-                    letterSpacing: 1,
+                    fontWeight: fontWeights.semiBold,
                     display: 'block',
-                    mb: 0.5,
+                    ...margin.bottom.xxs,
                   }}
                 >
                   {item.label}
                 </Typography>
                 <Typography
                   variant="body1"
-                  fontWeight="600"
+                  fontWeight={fontWeights.medium}
                   sx={{
                     wordBreak: item.label === t('common.email') ? 'break-all' : 'normal',
                     color: 'text.primary',
@@ -78,14 +87,12 @@ function PersonalInfoCard() {
                 </Typography>
               </Box>
             </Box>
-            {index < infoItems.length - 1 && <Divider sx={{ mt: 3 }} />}
+            {index < infoItems.length - 1 && <Divider sx={{ ...margin.top.md }} />}
           </Box>
         ))}
       </Stack>
-    </Paper>
+    </Card>
   );
 }
 
 export default PersonalInfoCard;
-
-

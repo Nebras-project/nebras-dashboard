@@ -1,14 +1,18 @@
+// external imports
 import { Box, List, Collapse } from '@mui/material';
-import { MdExpandMore, MdExpandLess, MdCheck } from 'react-icons/md'; 
+import { MdExpandMore, MdExpandLess, MdCheck } from 'react-icons/md';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { ListButton } from '@components';
 
-function Dropdown({ 
-  icon, 
-  label, 
-  options, 
-  currentValue, 
+// internal imports
+import { ListButton } from '@components';
+import { padding } from '@constants';
+
+function Dropdown({
+  icon,
+  label,
+  options,
+  currentValue,
   showCheckmark = true,
   sx = {},
   buttonSx = {},
@@ -19,7 +23,7 @@ function Dropdown({
 }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
-  const currentOption = options.find(opt => opt.value === currentValue);
+  const currentOption = options.find((opt) => opt.value === currentValue);
 
   return (
     <Box sx={sx}>
@@ -29,7 +33,15 @@ function Dropdown({
         text={currentOption?.label || label}
         iconSx={{ color: 'text.secondary' }}
         endContent={
-          <Box sx={{ display: 'flex', alignItems: 'center', color: 'text.secondary', ml: 'auto', pl: 1 }}>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              color: 'text.secondary',
+              ml: 'auto',
+              pl: 1,
+            }}
+          >
             {isOpen ? <MdExpandLess size={20} /> : <MdExpandMore size={20} />}
           </Box>
         }
@@ -42,7 +54,7 @@ function Dropdown({
       />
 
       <Collapse in={isOpen} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding sx={{ pl: 1, ...listContainerSx }}>
+        <List component="div" disablePadding sx={{ ...padding.x.xs, ...listContainerSx }}>
           {options.map((option) => {
             const isSelected = currentValue && option.value === currentValue;
             return (
@@ -73,14 +85,16 @@ function Dropdown({
 Dropdown.propTypes = {
   icon: PropTypes.node,
   label: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    icon: PropTypes.node,
-    onClick: PropTypes.func.isRequired,
-    disabled: PropTypes.bool,
-    description: PropTypes.string,
-  })).isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+      icon: PropTypes.node,
+      onClick: PropTypes.func.isRequired,
+      disabled: PropTypes.bool,
+      description: PropTypes.string,
+    })
+  ).isRequired,
   currentValue: PropTypes.string.isRequired,
   showCheckmark: PropTypes.bool,
   sx: PropTypes.object,
@@ -92,5 +106,3 @@ Dropdown.propTypes = {
 };
 
 export default Dropdown;
-
-

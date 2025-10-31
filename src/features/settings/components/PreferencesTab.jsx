@@ -2,10 +2,11 @@ import { Stack } from '@mui/material';
 import LanguageCard from './LanguageCard';
 import ThemeCard from './ThemeCard';
 import ColorSettingsCard from './ColorSettingsCard';
+import {spacing, padding} from '@constants';
 
 function PreferencesTab() {
   return (
-    <Stack spacing={3} sx={{ p: 4 }}>
+    <Stack spacing={spacing.values.lg} sx={{...padding.all.lg}}>
       <LanguageCard />
       <ThemeCard />
       <ColorSettingsCard />

@@ -1,23 +1,38 @@
-import { Paper, Typography } from '@mui/material';
+// external imports
+import { Typography } from '@mui/material';
+
+// internal imports
+import { Card } from '@components';
+import { padding, margin } from '@constants';
 import { useTranslation } from '@hooks';
+import { fontWeights } from '@theme';
 
 function SecurityCard() {
   const { t } = useTranslation();
   return (
-    <Paper elevation={0} sx={{ p: 3, border: 1, borderColor: 'divider', borderRadius: 2 }}>
-      <Typography variant="overline" color="warning.main" sx={{ fontWeight: 700, letterSpacing: 1.5, display: 'block', mb: 1.5 }}>
-        {t('settings.securitySettings')}
-      </Typography>
-      <Typography variant="body2" color="text.primary" sx={{ lineHeight: 1.7, fontWeight: 500 }}>
+    <Card
+      title={t('settings.securitySettings')}
+      hoverable
+      titleTypographyProps={{
+        variant: 'overline',
+        color: 'warning.main',
+        sx: { fontWeight: fontWeights.semiBold },
+      }}
+      contentSx={{ ...padding.top.none }}
+    >
+      <Typography variant="body2" color="text.primary">
         {t('settings.changePasswordDescription')}
       </Typography>
-      <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 1.5, fontStyle: 'italic' }}>
-        Last changed: Never
+
+      <Typography
+        variant="caption"
+        color="text.secondary"
+        sx={{ display: 'block', ...margin.top.sm, fontStyle: 'italic' }}
+      >
+        {t('settings.lastChanged')}
       </Typography>
-    </Paper>
+    </Card>
   );
 }
 
 export default SecurityCard;
-
-

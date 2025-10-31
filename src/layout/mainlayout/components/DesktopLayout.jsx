@@ -1,14 +1,11 @@
 // external imports
-import { Box } from "@mui/material";
-import PropTypes from "prop-types";
+import { Box } from '@mui/material';
+import PropTypes from 'prop-types';
 
 // internal imports
-import { Header, Sidebar } from "@layout";
-import { borderRadius } from "@theme";
-import {
-  CONTAINER_BASE_STYLES,
-  MAIN_CONTENT_BASE_STYLES,
-} from "@constants";
+import { Header, Sidebar } from '@layout';
+import { borderRadius } from '@theme';
+import { CONTAINER_BASE_STYLES, MAIN_CONTENT_BASE_STYLES } from '@constants';
 
 /**
  * Desktop Layout Component
@@ -22,9 +19,9 @@ function DesktopLayout({ children, sidebarWidth }) {
     <Box
       sx={{
         ...CONTAINER_BASE_STYLES,
-        display: "grid",
+        display: 'grid',
         gridTemplateColumns: `${sidebarWidth}px ${contentWidth}`,
-        gridTemplateRows: "auto 1fr",
+        gridTemplateRows: 'auto 1fr',
         gridTemplateAreas: `
           "sidebar header"
           "sidebar content"
@@ -34,12 +31,12 @@ function DesktopLayout({ children, sidebarWidth }) {
       }}
     >
       {/* Sidebar - spans both rows */}
-      <Box sx={{ gridArea: "sidebar" }}>
+      <Box sx={{ gridArea: 'sidebar' }}>
         <Sidebar />
       </Box>
 
       {/* Header - Fixed position */}
-      <Box sx={{ gridArea: "header" }}>
+      <Box sx={{ gridArea: 'header' }}>
         <Header />
       </Box>
 
@@ -47,8 +44,7 @@ function DesktopLayout({ children, sidebarWidth }) {
       <Box
         component="main"
         sx={{
-          gridArea: "content",
-          borderTopRightRadius: `${borderRadius.sm}px`,
+          gridArea: 'content',
           ...MAIN_CONTENT_BASE_STYLES,
         }}
       >
@@ -64,4 +60,3 @@ DesktopLayout.propTypes = {
 };
 
 export default DesktopLayout;
-

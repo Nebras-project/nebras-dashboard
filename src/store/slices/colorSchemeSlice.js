@@ -1,19 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
+import { baseColors } from '@theme/colors';
 
-const DEFAULT_COLOR = "#0075ff"; // Default blue color
+const DEFAULT_COLOR = baseColors.teal500; // Default teal color
 
 const initialState = {
-  scheme: "default", // 'blue' or 'custom'
+  scheme: 'default', // 'default' or 'custom'
   customColor: DEFAULT_COLOR, // Custom color value
 };
 
 const colorSchemeSlice = createSlice({
-  name: "colorScheme",
+  name: 'colorScheme',
   initialState,
   reducers: {
     setDefaultColor: (state) => {
-      // Reset to default blue scheme
-      state.scheme = "default";
+      // Reset to default teal scheme
+      state.scheme = 'default';
       state.customColor = DEFAULT_COLOR;
     },
     setColorScheme: (state, action) => {
@@ -21,11 +22,10 @@ const colorSchemeSlice = createSlice({
     },
     setCustomColor: (state, action) => {
       state.customColor = action.payload;
-      state.scheme = "custom";
+      state.scheme = 'custom';
     },
   },
 });
 
-export const { setDefaultColor, setColorScheme, setCustomColor } =
-  colorSchemeSlice.actions;
+export const { setDefaultColor, setColorScheme, setCustomColor } = colorSchemeSlice.actions;
 export default colorSchemeSlice.reducer;
