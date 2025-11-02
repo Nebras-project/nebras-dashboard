@@ -27,7 +27,7 @@ function SettingsPage() {
         items={tabs.map(({ label, icon }) => ({ label, icon }))}
       />
 
-      <Paper  sx={{ border: borderWidth.xxs, borderColor: 'divider' }}>
+      <Paper sx={{ border: borderWidth.xxs, borderColor: 'divider' }}>
         {tabs.map((tab, index) => (
           <TabPanel key={index} value={currentTab} index={index}>
             {tab.content}

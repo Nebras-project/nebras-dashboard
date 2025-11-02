@@ -173,3 +173,9 @@ export const backgroundDefaults = {
     paper: baseColors.dark800, // #171717
   },
 };
+
+// Navigation Hover Effect Colors
+export const NAV_HOVER_BORDER_INDICATOR = 'primary.main';
+export const NAV_HOVER_ICON_COLOR = 'primary.main';
+export const NAV_HOVER_SHIMMER_LIGHT = 'rgba(255, 255, 255, 0.3)';
+export const NAV_HOVER_SHIMMER_DARK = 'rgba(255, 255, 255, 0.1)';

@@ -5,24 +5,29 @@ import PropTypes from 'prop-types';
 
 // internal imports
 import { fontWeights } from '@theme';
-import {
-  SELECTED_NAV_ITEM_STYLES,
-  NAV_ITEM_MARGIN_BOTTOM,
-  LIST_ITEM_MB_OFFSET,
-} from '@constants';
+import { margin, padding } from '@constants';
 import { ListButton } from '@components';
 import { useSidebar, useSidebarNavigation } from '@hooks';
+import { getNavigationHoverStyles } from '@constants';
 
-/**
- * NavigationItem Component
- * Renders a single navigation item with active state highlighting
- * 
- * @param {Object} props
- * @param {string} props.path - The navigation path
- * @param {React.ReactNode} props.icon - The icon to display
- * @param {string} props.text - The translated text to display
- * @param {boolean} props.isSettings - Whether this is the settings item
- */
+const getListItemStyles = (isSettings) => ({
+  width: '100%',
+  ...margin.bottom.xs,
+  ...(isSettings && {
+    ...margin.top.auto,
+    ...margin.bottom.md,
+    ...padding.top.sm,
+  }),
+});
+
+const getIconStyles = (isActive) => ({
+  color: isActive ? 'inherit' : 'text.secondary',
+});
+
+const getTextProps = (isActive) => ({
+  fontWeight: isActive ? fontWeights.semiBold : fontWeights.regular,
+});
+
 function NavigationItem({ path, icon, text, isSettings = false }) {
   const location = useLocation();
   const theme = useTheme();
@@ -30,29 +35,21 @@ function NavigationItem({ path, icon, text, isSettings = false }) {
   const { handleNavigation } = useSidebarNavigation();
 
   const isActive = location.pathname === path;
+  const hoverStyles = getNavigationHoverStyles(theme, isActive, collapsed);
 
   return (
-    <ListItem
-      disablePadding
-      sx={{
-        width: '100%',
-        mb: NAV_ITEM_MARGIN_BOTTOM - LIST_ITEM_MB_OFFSET, // 0.5 units
-        ...(isSettings && { mt: 'auto', mb: 2, pt: 1 }), // Push settings to bottom
-      }}
-    >
+    <ListItem disablePadding sx={getListItemStyles(isSettings)}>
       <ListButton
         onClick={() => handleNavigation(path)}
         icon={icon}
         text={text}
         collapsed={collapsed}
         selected={isActive}
-        sx={SELECTED_NAV_ITEM_STYLES(theme)}
-        iconSx={{
-          color: isActive ? 'inherit' : 'text.secondary',
+        sx={{
+          ...hoverStyles,
         }}
-        textProps={{
-          fontWeight: isActive ? fontWeights.semiBold : fontWeights.regular,
-        }}
+        iconSx={getIconStyles(isActive)}
+        textProps={getTextProps(isActive)}
       />
     </ListItem>
   );
@@ -66,4 +63,3 @@ NavigationItem.propTypes = {
 };
 
 export default NavigationItem;
-

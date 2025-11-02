@@ -7,6 +7,20 @@ import { padding, margin } from '@constants';
 import { useTranslation } from '@hooks';
 import { fontWeights } from '@theme';
 
+const getTitleStyles = () => ({
+  fontWeight: fontWeights.semiBold,
+});
+
+const getContentStyles = () => ({
+  ...padding.top.none,
+});
+
+const getLastChangedStyles = () => ({
+  display: 'block',
+  ...margin.top.sm,
+  fontStyle: 'italic',
+});
+
 function SecurityCard() {
   const { t } = useTranslation();
   return (
@@ -16,19 +30,15 @@ function SecurityCard() {
       titleTypographyProps={{
         variant: 'overline',
         color: 'warning.main',
-        sx: { fontWeight: fontWeights.semiBold },
+        sx: getTitleStyles(),
       }}
-      contentSx={{ ...padding.top.none }}
+      contentSx={getContentStyles()}
     >
       <Typography variant="body2" color="text.primary">
         {t('settings.changePasswordDescription')}
       </Typography>
 
-      <Typography
-        variant="caption"
-        color="text.secondary"
-        sx={{ display: 'block', ...margin.top.sm, fontStyle: 'italic' }}
-      >
+      <Typography variant="caption" color="text.secondary" sx={getLastChangedStyles()}>
         {t('settings.lastChanged')}
       </Typography>
     </Card>

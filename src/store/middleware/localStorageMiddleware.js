@@ -1,8 +1,3 @@
-/**
- * Redux middleware to persist specific slices to localStorage
- * Automatically saves state changes to localStorage
- */
-
 const STORAGE_KEY = "nebras_dashboard_state";
 
 // Define which slices should be persisted, what to save
@@ -20,9 +15,6 @@ const EXCLUDED_FIELDS = {
   sidebar: ["isOpen", "isMobile"], // Don't persist drawer state - determined by screen size
 };
 
-/**
- * Load persisted state from localStorage
- */
 export const loadPersistedState = () => {
   try {
     // 1. Read from localStorage
@@ -41,9 +33,6 @@ export const loadPersistedState = () => {
   }
 };
 
-/**
- * Filter out sensitive fields from a slice
- */
 const filterSensitiveData = (sliceName, sliceData) => {
   const excludedFields = EXCLUDED_FIELDS[sliceName];
 
@@ -63,9 +52,6 @@ const filterSensitiveData = (sliceName, sliceData) => {
   return filtered;
 };
 
-/**
- * Save state to localStorage
- */
 const saveToLocalStorage = (state) => {
   try {
     // Only save the slices we want to persist
@@ -86,9 +72,6 @@ const saveToLocalStorage = (state) => {
   }
 };
 
-/**
- * Middleware that saves state to localStorage after each action
- */
 export const localStorageMiddleware = (store) => (next) => (action) => {
   const result = next(action);
 
@@ -99,9 +82,6 @@ export const localStorageMiddleware = (store) => (next) => (action) => {
   return result;
 };
 
-/**
- * Clear all persisted data (useful for logout)
- */
 export const clearPersistedState = () => {
   try {
     localStorage.removeItem(STORAGE_KEY);

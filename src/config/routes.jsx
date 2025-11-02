@@ -1,47 +1,76 @@
+import { lazy, Suspense } from 'react';
 import { Navigate } from 'react-router-dom';
-import { ProtectedRoute } from '@components';
+import ProtectedRoute from '../components/routing/ProtectedRoute';
+import Loader from '../components/feedback/Loader';
+
+// Lazy load pages for code splitting
 
 // Authentication Pages
-import { LoginPage } from '@features/authentication';
+const LoginPage = lazy(() =>
+  import('@features/authentication').then((m) => ({ default: m.LoginPage }))
+);
 
 // Main Pages
-import { DashboardPage } from '@features/dashboard';
-import { StudentsPage } from '@features/students';
-import { AdminsPage } from '@features/admins';
+const DashboardPage = lazy(() =>
+  import('@features/dashboard').then((m) => ({ default: m.DashboardPage }))
+);
+const StudentsPage = lazy(() =>
+  import('@features/students').then((m) => ({ default: m.StudentsPage }))
+);
+const AdminsPage = lazy(() => import('@features/admins').then((m) => ({ default: m.AdminsPage })));
 
 // Competition Pages
-import {
-  CompetitionsPage,
-  CompetitionPage,
-  CompetitionMembersPage,
-  CompetitionExamPage,
-  CompetitionResultPage,
-} from '@features/competitions';
+const CompetitionsPage = lazy(() =>
+  import('@features/competitions').then((m) => ({ default: m.CompetitionsPage }))
+);
+const CompetitionPage = lazy(() =>
+  import('@features/competitions').then((m) => ({ default: m.CompetitionPage }))
+);
+const CompetitionMembersPage = lazy(() =>
+  import('@features/competitions').then((m) => ({ default: m.CompetitionMembersPage }))
+);
+const CompetitionExamPage = lazy(() =>
+  import('@features/competitions').then((m) => ({ default: m.CompetitionExamPage }))
+);
+const CompetitionResultPage = lazy(() =>
+  import('@features/competitions').then((m) => ({ default: m.CompetitionResultPage }))
+);
 
 // Curriculum Pages
-import { CurriculumsPage } from '@features/curriculums';
-import { SubjectsPage } from '@features/subjects';
-import { UnitsPage } from '@features/units';
+const CurriculumsPage = lazy(() =>
+  import('@features/curriculums').then((m) => ({ default: m.CurriculumsPage }))
+);
+const SubjectsPage = lazy(() =>
+  import('@features/subjects').then((m) => ({ default: m.SubjectsPage }))
+);
+const UnitsPage = lazy(() => import('@features/units').then((m) => ({ default: m.UnitsPage })));
 
 // Question Pages
-import { QuestionsPage } from '@features/questions';
-import { MinisterialQuestionsPage } from '@features/ministerial-questions';
-import { EnrichmentQuestionsPage } from '@features/enrichment-questions';
+const QuestionsPage = lazy(() =>
+  import('@features/questions').then((m) => ({ default: m.QuestionsPage }))
+);
+const MinisterialQuestionsPage = lazy(() =>
+  import('@features/ministerial-questions').then((m) => ({ default: m.MinisterialQuestionsPage }))
+);
+const EnrichmentQuestionsPage = lazy(() =>
+  import('@features/enrichment-questions').then((m) => ({ default: m.EnrichmentQuestionsPage }))
+);
 
 // Settings Pages
-import { SettingsPage } from '@features/settings';
+const SettingsPage = lazy(() =>
+  import('@features/settings').then((m) => ({ default: m.SettingsPage }))
+);
 
 // Error Pages
-import NotFoundPage from '../pages/NotFoundPage';
+const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
 
-/**
- * Application Routes Configuration
- * 
- * Route Structure:
- * - Public Routes: Accessible without authentication
- * - Protected Routes: Require authentication (wrapped with ProtectedRoute)
- * - Dynamic Routes: Use URL parameters (e.g., /competitions/:id)
- */
+// Helper to wrap component with Suspense
+const withSuspense = (Component) => (
+  <Suspense fallback={<Loader variant="page" />}>
+    <Component />
+  </Suspense>
+);
+
 const routes = [
   // Root - Redirect to dashboard
   {
@@ -52,153 +81,92 @@ const routes = [
   // Public Routes
   {
     path: '/login',
-    element: <LoginPage />,
+    element: withSuspense(LoginPage),
   },
 
   // Protected Routes - Dashboard
   {
     path: '/dashboard',
-    element: (
-      <ProtectedRoute>
-        <DashboardPage />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute>{withSuspense(DashboardPage)}</ProtectedRoute>,
   },
 
   // Protected Routes - Students
   {
     path: '/students',
-    element: (
-      <ProtectedRoute>
-        <StudentsPage />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute>{withSuspense(StudentsPage)}</ProtectedRoute>,
   },
 
   // Protected Routes - Competitions
   {
     path: '/competitions',
-    element: (
-      <ProtectedRoute>
-        <CompetitionsPage />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute>{withSuspense(CompetitionsPage)}</ProtectedRoute>,
   },
   {
     path: '/competitions/:id',
-    element: (
-      <ProtectedRoute>
-        <CompetitionPage />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute>{withSuspense(CompetitionPage)}</ProtectedRoute>,
   },
   {
     path: '/competitions/:id/members',
-    element: (
-      <ProtectedRoute>
-        <CompetitionMembersPage />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute>{withSuspense(CompetitionMembersPage)}</ProtectedRoute>,
   },
   {
     path: '/competitions/:id/exam',
-    element: (
-      <ProtectedRoute>
-        <CompetitionExamPage />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute>{withSuspense(CompetitionExamPage)}</ProtectedRoute>,
   },
   {
     path: '/competitions/:id/result',
-    element: (
-      <ProtectedRoute>
-        <CompetitionResultPage />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute>{withSuspense(CompetitionResultPage)}</ProtectedRoute>,
   },
 
   // Protected Routes - Curriculums
   {
     path: '/curriculums',
-    element: (
-      <ProtectedRoute>
-        <CurriculumsPage />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute>{withSuspense(CurriculumsPage)}</ProtectedRoute>,
   },
 
   // Protected Routes - Subjects
   {
     path: '/subjects',
-    element: (
-      <ProtectedRoute>
-        <SubjectsPage />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute>{withSuspense(SubjectsPage)}</ProtectedRoute>,
   },
 
   // Protected Routes - Units
   {
     path: '/units',
-    element: (
-      <ProtectedRoute>
-        <UnitsPage />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute>{withSuspense(UnitsPage)}</ProtectedRoute>,
   },
 
   // Protected Routes - Admins
   {
     path: '/admins',
-    element: (
-      <ProtectedRoute>
-        <AdminsPage />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute>{withSuspense(AdminsPage)}</ProtectedRoute>,
   },
 
   // Protected Routes - Questions (Nested Routes)
   {
     path: '/questions',
-    element: (
-      <ProtectedRoute>
-        <QuestionsPage />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute>{withSuspense(QuestionsPage)}</ProtectedRoute>,
   },
   {
     path: '/questions/ministerial',
-    element: (
-      <ProtectedRoute>
-        <MinisterialQuestionsPage />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute>{withSuspense(MinisterialQuestionsPage)}</ProtectedRoute>,
   },
   {
     path: '/questions/enrichment',
-    element: (
-      <ProtectedRoute>
-        <EnrichmentQuestionsPage />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute>{withSuspense(EnrichmentQuestionsPage)}</ProtectedRoute>,
   },
 
   // Protected Routes - Settings
   {
     path: '/settings',
-    element: (
-      <ProtectedRoute>
-        <SettingsPage />
-      </ProtectedRoute>
-    ),
+    element: <ProtectedRoute>{withSuspense(SettingsPage)}</ProtectedRoute>,
   },
 
   // 404 - Not Found (must be last)
   {
     path: '*',
-    element: <NotFoundPage />,
+    element: withSuspense(NotFoundPage),
   },
 ];
 
 export default routes;
-

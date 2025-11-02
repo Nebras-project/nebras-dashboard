@@ -1,11 +1,12 @@
 import { borderWidth } from '@theme/components';
 import { margin, padding } from './spacing';
 import { borderRadius } from '@theme';
-/**
- * Layout Constants
- * Shared constants for layout components
- */
-
+import {
+  NAV_HOVER_BORDER_INDICATOR,
+  NAV_HOVER_ICON_COLOR,
+  NAV_HOVER_SHIMMER_LIGHT,
+  NAV_HOVER_SHIMMER_DARK,
+} from '@theme/colors';
 // Header constants
 export const AVATAR_SIZE = 35;
 export const HEADER_HEIGHT = 80;
@@ -33,26 +34,81 @@ export const NAV_ITEM_HEIGHT = 48;
 export const NAV_ICON_MIN_WIDTH = 40;
 export const NAV_ICON_SIZE = '1.3rem';
 export const NAV_TRANSITION = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
-export const NAV_ITEM_MARGIN_BOTTOM = 0.75; // units (6px)
-export const LIST_ITEM_MB_OFFSET = 0.25;
+export const NAV_HOVER_BORDER_WIDTH = '3px';
+export const NAV_HOVER_BORDER_HEIGHT = '100%';
 
 // Color picker constants
 export const COLOR_INDICATOR_SIZE = 23;
 
-// Selected navigation item styles
-export const SELECTED_NAV_ITEM_STYLES = (theme) => ({
-  '&.Mui-selected': {
-    bgcolor: theme.palette.mode === 'dark' ? 'background.paper' : 'background.primary',
-    color: theme.palette.mode === 'dark' ? 'text.primary' : 'primary.main',
+// Navigation Hover Styles
+// Centralized hover effects for sidebar navigation items
+
+export const getNavigationHoverStyles = (theme, isActive, collapsed) => {
+  return {
+    position: 'relative',
+    overflow: 'hidden',
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      left: 0,
+      top: '50%',
+      transform: 'translateY(-50%) scaleY(0)',
+      width: collapsed ? 0 : NAV_HOVER_BORDER_WIDTH,
+      height: collapsed ? 0 : NAV_HOVER_BORDER_HEIGHT,
+      backgroundColor: NAV_HOVER_BORDER_INDICATOR,
+      borderRadius: '0 4px 4px 0',
+      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      opacity: 0,
+    },
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      top: 0,
+      left: '-100%',
+      width: '100%',
+      height: '100%',
+      background: `linear-gradient(90deg, transparent, ${
+        theme.palette.mode === 'dark' ? NAV_HOVER_SHIMMER_DARK : NAV_HOVER_SHIMMER_LIGHT
+      }, transparent)`,
+      transition: 'left 0.5s ease',
+      zIndex: 0,
+    },
     '&:hover': {
-      bgcolor: theme.palette.mode === 'dark' ? 'background.surface.level2' : 'primary.light',
-      color: theme.palette.mode === 'dark' ? 'text.primary' : 'primary.dark',
+      transform: 'translateX(4px)',
+      boxShadow: theme.shadows[2],
+      '&::before': {
+        opacity: 1,
+        transform: 'translateY(-50%) scaleY(1)',
+      },
+      '&::after': {
+        left: '100%',
+      },
+      '& .MuiListItemIcon-root': {
+        transform: 'scale(1.1) rotate(-5deg)',
+        color: NAV_HOVER_ICON_COLOR,
+      },
     },
     '& .MuiListItemIcon-root': {
-      color: theme.palette.mode === 'dark' ? 'text.primary' : 'primary.main',
+      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      position: 'relative',
+      zIndex: 1,
+      ...(isActive && {
+        color: NAV_HOVER_ICON_COLOR,
+      }),
     },
-  },
-});
+    '& .MuiListItemText-root': {
+      position: 'relative',
+      zIndex: 1,
+    },
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+    ...(isActive && {
+      '&::before': {
+        opacity: 1,
+        transform: 'translateY(-50%) scaleY(1)',
+      },
+    }),
+  };
+};
 
 // Logout button styles
 export const LOGOUT_BUTTON_STYLES = {
@@ -84,20 +140,12 @@ export const USER_MENU_PAPER_PROPS = {
 };
 
 // MainLayout Styles
-/**
- * Base styles for layout containers
- * Applied to both mobile and desktop layouts
- */
 export const CONTAINER_BASE_STYLES = {
   minHeight: '100vh',
   bgcolor: 'background.paper',
   overflowX: 'hidden',
 };
 
-/**
- * Styles for main content area
- * Includes top padding to account for fixed header
- */
 export const MAIN_CONTENT_BASE_STYLES = {
   bgcolor: 'background.paper',
   flex: 1,

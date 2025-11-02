@@ -4,15 +4,6 @@ import { useEffect, useRef } from "react";
 // internal imports
 import { useSidebar } from "./useSidebar";
 
-/**
- * Custom hook to handle responsive sidebar behavior
- *
- * Manages sidebar state when crossing mobile/desktop breakpoint:
- * - First render: Sets mobile mode without changing sidebar state
- * - Subsequent renders: Opens sidebar on desktop, closes on mobile
- *
- * @param {boolean} isMobile - Whether the current viewport is mobile size
- */
 export function useResponsiveSidebar(isMobile) {
   const { setMobileMode, openSidebar, closeSidebar, collapsed, expandSidebar } =
     useSidebar();

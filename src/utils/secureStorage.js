@@ -1,14 +1,3 @@
-/**
- * Secure storage utilities for sensitive data like JWT tokens
- *
- * Security Options (from most to least secure):
- * 1. HttpOnly Cookies (recommended) - immune to XSS
- * 2. Memory storage (current implementation) - clears on refresh
- * 3. sessionStorage - clears when tab closes
- *
- * Note: For production, consider using HttpOnly cookies set by your backend
- */
-
 // In-memory storage for tokens (most secure client-side option)
 // Trade-off: Tokens are lost on page refresh (user needs to re-login)
 let tokenStore = {
@@ -16,40 +5,24 @@ let tokenStore = {
   refreshToken: null,
 };
 
-/**
- * Store JWT token securely in memory
- * More secure than localStorage (immune to XSS attacks on storage)
- */
 export const setSecureToken = (accessToken, refreshToken = null) => {
   tokenStore.accessToken = accessToken;
   tokenStore.refreshToken = refreshToken;
 };
 
-/**
- * Get access token from secure storage
- */
 export const getSecureToken = () => {
   return tokenStore.accessToken;
 };
 
-/**
- * Get refresh token from secure storage
- */
 export const getRefreshToken = () => {
   return tokenStore.refreshToken;
 };
 
-/**
- * Clear all tokens (on logout)
- */
 export const clearSecureTokens = () => {
   tokenStore.accessToken = null;
   tokenStore.refreshToken = null;
 };
 
-/**
- * Check if user has valid token
- */
 export const hasValidToken = () => {
   return tokenStore.accessToken !== null;
 };

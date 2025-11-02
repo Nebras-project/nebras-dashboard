@@ -1,9 +1,10 @@
 # Phase 1: Foundation
 
 ## Overview
+
 Setup core infrastructure and base configuration for the Nebras Dashboard.
 
-## Status: ✅ 100% Complete - Phase 1 Finished!
+## Status: ✅ 100% Complete - Phase 1 Finished
 
 ---
 
@@ -18,17 +19,17 @@ Setup core infrastructure and base configuration for the Nebras Dashboard.
 - ✅ Setup Redux store for UI state
 - ✅ Create theme configuration (light/dark, RTL, custom colors)
 - ✅ Add Cairo font for Arabic support
-- ✅ Setup React Query provider 
+- ✅ Setup React Query provider
 - ✅ Setup React Router with protected routes
-- ✅ Create layout components (Sidebar, Header, Main Layout) 
+- ✅ Create layout components (Sidebar, Header, Main Layout)
 - ✅ Setup i18n for Arabic/English -> stop here
-
 
 ---
 
 ## Detailed Tasks
 
 ### 1. Redux Store Setup
+
 **Location:** `src/store/`
 
 **Files Created:** ✅
@@ -50,16 +51,18 @@ src/store/
 **Redux Slices Implemented:**
 
 #### 1. **themeSlice.js** - Theme Mode Management
+
 - **State**: `mode` ('light' | 'dark')
-- **Actions**: 
+- **Actions**:
   - `toggleTheme()` - Toggles between light/dark
   - `setTheme(mode)` - Sets specific theme mode
 - **Persistence**: Saved to localStorage
 - **Initial State**: Reads from localStorage or defaults to 'light'
 
 #### 2. **colorSchemeSlice.js** - Color Scheme Management
-- **State**: 
-  - `scheme` ('blue' | 'green' | 'custom')
+
+- **State**:
+  - `scheme` ( 'default' | 'custom')
   - `customColor` (hex color string)
 - **Actions**:
   - `setColorScheme(scheme)` - Sets color scheme
@@ -68,6 +71,7 @@ src/store/
 - **Persistence**: Both scheme and custom color saved to localStorage
 
 #### 3. **languageSlice.js** - Language Management
+
 - **State**: `currentLanguage` ('ar' | 'en')
 - **Actions**:
   - `toggleLanguage()` - Switches between Arabic/English
@@ -77,6 +81,7 @@ src/store/
 - **RTL Support**: Triggers direction change in UI
 
 #### 4. **sidebarSlice.js** - Sidebar State Management
+
 - **State**:
   - `isOpen` (boolean) - Sidebar visibility
   - `collapsed` (boolean) - Collapsed mode (desktop only)
@@ -89,12 +94,13 @@ src/store/
   - `collapseSidebar()` - Collapses sidebar (icon only)
   - `toggleCollapsed()` - Toggles collapsed mode
   - `setMobileMode(isMobile)` - Sets mobile mode
-- **Features**: 
+- **Features**:
   - Desktop: Persistent sidebar with collapse
   - Mobile: Drawer overlay
   - Automatic mobile detection
 
 #### 5. **userSlice.js** - User State Management
+
 - **State**:
   - `isAuthenticated` (boolean)
   - `user` (object | null) - User information
@@ -114,6 +120,7 @@ src/store/
 **Middleware Implemented:**
 
 #### **localStorageMiddleware.js**
+
 - **Purpose**: Automatically persists Redux state to localStorage
 - **Persisted Slices**:
   - Theme mode
@@ -147,8 +154,7 @@ export const store = configureStore({
     sidebar: sidebarReducer,
     user: userReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(localStorageMiddleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware),
 });
 ```
 
@@ -171,6 +177,7 @@ export const store = configureStore({
 ---
 
 ### 2. React Query Setup
+
 **Location:** `src/config/` & `src/providers/`
 
 **Files Created:** ✅
@@ -186,12 +193,14 @@ src/
 **Status:** ✅ Complete
 
 React Query is configured for server state management with optimized defaults:
+
 - Stale time: 5 minutes
 - Cache time: 10 minutes
 - Retry: 1 for queries, 0 for mutations
 - DevTools enabled in development
 
 **Key Features:**
+
 - ✅ Automatic caching and background refetching
 - ✅ Query invalidation and optimistic updates
 - ✅ Built-in loading and error states
@@ -203,6 +212,7 @@ React Query is configured for server state management with optimized defaults:
 ---
 
 ### 3. React Router Setup
+
 **Location:** `src/config/` & `src/components/`
 
 **Files Created:** ✅
@@ -219,11 +229,13 @@ src/
 **Status:** ✅ Complete
 
 React Router v6 is configured with 16 routes:
+
 - 2 public routes (root redirect, login)
 - 13 protected routes (dashboard, management pages, competitions)
 - 1 error route (404 Not Found)
 
 **Key Features:**
+
 - ✅ Centralized route configuration
 - ✅ Protected routes with authentication guard
 - ✅ Dynamic parameters (`:id` for competitions)
@@ -231,6 +243,7 @@ React Router v6 is configured with 16 routes:
 - ✅ Clean URL structure with HTML5 history
 
 **Route Organization:**
+
 ```text
 / → Redirect to /dashboard
 /login → Public (LoginPage)
@@ -245,7 +258,52 @@ React Router v6 is configured with 16 routes:
 
 ---
 
-### 4. Theme Configuration
+### 4. Constants Organization
+
+**Location:** `src/constants/`
+
+**Files Created:** ✅
+
+```text
+src/constants/
+├── index.js          # Constants exports
+├── layout.js         # Layout constants (widths, heights, z-index)
+├── spacing.js        # Spacing constants
+└── README.md         # Constants documentation
+```
+
+**Status:** ✅ Complete
+
+Centralized constants for consistent values across the application:
+
+**Key Features:**
+
+- ✅ **Layout Constants**: Sidebar widths, header heights, z-index layers
+- ✅ **Spacing System**: Consistent spacing values for padding and margins
+- ✅ **Centralized Management**: Single source of truth for magic numbers
+- ✅ **Easy Maintenance**: Update values in one place to affect entire app
+- ✅ **Type Safety**: Documented constants with clear naming
+
+**Layout Constants Include:**
+
+- Sidebar widths (expanded: 280px, collapsed: 80px)
+- Header heights (desktop: 64px, mobile: 56px)
+- Z-index layers (sidebar: 1200, header: 1100, drawer: 1300)
+- Breakpoints and responsive values
+
+**Spacing Constants Include:**
+
+- Base spacing unit (8px)
+- Spacing scale (xs, sm, md, lg, xl, xxl)
+- Common padding and margin values
+- Gap values for flex and grid layouts
+
+**📖 Full Documentation:** See [src/constants/README.md](../src/constants/README.md) for complete constants reference and usage guidelines.
+
+---
+
+### 5. Theme Configuration
+
 **Location:** `src/theme/` & `src/providers/`
 
 **Files Created:** ✅
@@ -261,7 +319,7 @@ src/
 ├── providers/
 │   └── ThemeProvider.jsx  # Theme provider with RTL support
 └── utils/
-    └── colorHelpers.js    # Color manipulation utilities
+    └── colorUtils.js      # Color manipulation utilities
 ```
 
 **Status:** ✅ Complete
@@ -269,33 +327,39 @@ src/
 Material-UI theme system with comprehensive customization:
 
 **Color System:**
+
 - Blue default color scheme
 - Custom color scheme with automatic palette generation
 - Full light/dark mode support
 - WCAG compliant color contrasts
 
 **Typography:**
+
 - Cairo font for excellent Arabic support
 - Complete type scale (h1-h6, body, button, caption, etc.)
 - Font weights: 400, 500, 600, 700
 
 **Layout & Design:**
+
 - Responsive breakpoints: mobile (0px), tablet (768px), desktop (1024px), widescreen (1440px)
 - 8px base spacing unit with custom spacing scale
 - Border radius system (none to full rounded)
 - Z-index layers for proper stacking
 
 **RTL Support:**
+
 - Separate Emotion caches for LTR/RTL
 - Automatic direction switching based on language
 - RTL plugin for CSS transformation
 
 **Component Overrides:**
+
 - Custom MUI component styling
 - Button, Card, TextField, Drawer, AppBar, DataGrid, and more
 - Consistent design system across all components
 
 **Benefits:**
+
 - ✅ Fully customizable with multiple color schemes
 - ✅ Complete RTL/LTR support for Arabic/English
 - ✅ Cairo font for beautiful Arabic typography
@@ -307,7 +371,8 @@ Material-UI theme system with comprehensive customization:
 
 ---
 
-### 5. Layout Components
+### 6. Layout Components
+
 **Location:** `src/layout/`
 
 **Files Created:** ✅
@@ -315,7 +380,6 @@ Material-UI theme system with comprehensive customization:
 ```text
 src/layout/
 ├── MainLayout.jsx                 # Main layout wrapper
-├── constants.js                   # Layout constants (widths, sizes)
 ├── index.js                       # Layout exports
 ├── README.md                      # Layout documentation
 │
@@ -326,14 +390,24 @@ src/layout/
 │   └── components/
 │       └── UserInfo.jsx           # User profile display
 │
+├── mainlayout/                    # MainLayout components
+│   ├── index.js                   # MainLayout exports
+│   └── components/
+│       ├── DesktopLayout.jsx      # Desktop layout grid
+│       ├── MobileLayout.jsx       # Mobile layout flexbox
+│       └── index.js               # Component exports
+│
 └── sidebar/                       # Sidebar components
     ├── Sidebar.jsx                # Main sidebar component
     ├── sidebarConfig.jsx          # Role-based menu configuration
     ├── index.js
     └── components/
+        ├── DesktopSidebar.jsx     # Desktop sidebar implementation
         ├── LogoHeader.jsx         # Logo & brand section
-        ├── NavigationMenu.jsx     # Navigation menu items
-        └── SidebarControls.jsx    # Bottom controls panel
+        ├── MobileDrawer.jsx       # Mobile drawer overlay
+        ├── NavigationDropdown.jsx # Navigation dropdown item
+        ├── NavigationItem.jsx     # Navigation item component
+        └── NavigationMenu.jsx     # Navigation menu container
 ```
 
 **Status:** ✅ Complete
@@ -341,6 +415,7 @@ src/layout/
 The layout system provides a fully responsive, role-based navigation structure with:
 
 **Key Features:**
+
 - ✅ **Responsive Design**: CSS Grid (desktop) + Flexbox (mobile)
 - ✅ **Role-Based Menus**: Different navigation items per user role
 - ✅ **Collapsible Sidebar**: 280px ↔ 80px (desktop only)
@@ -352,6 +427,7 @@ The layout system provides a fully responsive, role-based navigation structure w
 - ✅ **Modern Design**: Clean, card-style layout
 
 **Layout Architecture:**
+
 - **MainLayout**: Responsive wrapper with grid/flexbox layouts
 - **Header**: Top bar with user info and mobile menu toggle
 - **Sidebar**: Navigation panel with logo, menu, and controls
@@ -360,7 +436,8 @@ The layout system provides a fully responsive, role-based navigation structure w
 
 ---
 
-### 6. i18n Setup
+### 7. i18n Setup
+
 **Location:** `src/i18n/`
 
 **Files Created:** ✅
@@ -396,6 +473,7 @@ A comprehensive internationalization system supporting Arabic (RTL) and English 
 - ✅ **Comprehensive Coverage**: All UI elements, navigation, forms, messages
 
 **Translation Namespaces:**
+
 - `common` (67 keys) - UI elements, buttons, labels
 - `navigation` (11 keys) - Menu items
 - `auth` (8 keys) - Authentication
@@ -404,24 +482,24 @@ A comprehensive internationalization system supporting Arabic (RTL) and English 
 - And 8 more specialized namespaces
 
 **Quick Usage:**
+
 ```javascript
 import { useTranslation } from '@/hooks';
 
 function MyComponent() {
   const { t, currentLanguage, toggleLanguage } = useTranslation();
-  
+
   return (
     <div>
       <h1>{t('common.welcome')}</h1>
-      <button onClick={toggleLanguage}>
-        {currentLanguage === 'ar' ? 'English' : 'العربية'}
-      </button>
+      <button onClick={toggleLanguage}>{currentLanguage === 'ar' ? 'English' : 'العربية'}</button>
     </div>
   );
 }
 ```
 
 **📖 Full Documentation:** See **[src/i18n/README.md](../src/i18n/README.md)** for:
+
 - Complete API reference
 - Translation structure and organization
 - Best practices and conventions
@@ -432,6 +510,72 @@ function MyComponent() {
 
 ---
 
+### 8. Settings Feature
+
+**Location:** `src/features/settings/`
+
+**Files Created:** ✅
+
+```text
+src/features/settings/
+├── components/
+│   ├── AccountActionsCard.jsx        # Account actions display
+│   ├── ColorSettingsCard.jsx         # Color customization card
+│   ├── index.js                      # Component exports
+│   ├── LanguageCard.jsx              # Language selection card
+│   ├── PersonalInfoCard.jsx          # Personal information display
+│   ├── PreferencesTab.jsx            # Preferences tab container
+│   ├── ProfileHero.jsx               # Profile hero section with avatar
+│   ├── ProfileTab.jsx                # Profile tab container
+│   ├── SecurityCard.jsx              # Security settings card
+│   ├── SettingsTabsHeader.jsx        # Tab navigation header
+│   ├── TabPanel.jsx                  # Tab panel component
+│   └── ThemeCard.jsx                 # Theme mode selection card
+├── hooks/
+├── index.js                          # Feature exports
+├── pages/
+│   ├── index.js                      # Page exports
+│   └── SettingsPage.jsx              # Main settings page
+├── services/
+└── settingsConfig.jsx                # Settings configuration
+```
+
+**Status:** ✅ Complete
+
+A comprehensive settings page with two main sections: Profile and Preferences.
+
+**Key Features:**
+
+- ✅ **Tabbed Interface**: Clean tab navigation for Profile and Preferences
+- ✅ **Profile Tab**: User information, security settings, account actions
+- ✅ **Preferences Tab**: Language, theme mode, and color customization
+- ✅ **Card-based Layout**: Organized settings cards with hover effects
+- ✅ **Integrated Controls**: Color picker, language dropdown, theme selector
+- ✅ **User Information Display**: Avatar, name, role badge
+- ✅ **Responsive Design**: Works seamlessly on all screen sizes
+- ✅ **RTL Support**: Full Arabic layout support
+
+**Profile Tab Components:**
+
+- **ProfileHero**: User avatar, name, role, and logout button
+- **PersonalInfoCard**: Name, email, phone display with icons
+- **SecurityCard**: Password change information and last changed date
+- **AccountActionsCard**: Account management information
+
+**Preferences Tab Components:**
+
+- **LanguageCard**: System/English/Arabic language selection
+- **ThemeCard**: System/Light/Dark theme mode selection
+- **ColorSettingsCard**: Default color reset and custom color picker
+
+**Integration:**
+
+- Uses centralized components (Card, Dropdown, ColorPicker, etc.)
+- Fully integrated with Redux state (theme, language, color scheme)
+- Uses translation system for all text content
+- Follows consistent spacing and styling patterns
+
+---
 
 ## Current File Structure
 
@@ -442,15 +586,40 @@ src/
 ├── index.css                            # ✅ Global styles
 │
 ├── components/                          # ✅ Shared reusable components
-│   ├── ColorPicker.jsx                  # ✅ Custom color picker with hex input
-│   ├── LanguageSync.jsx                 # ✅ Redux-i18n synchronization
-│   ├── ProtectedRoute.jsx               # ✅ Route authentication guard
+│   ├── display/                         # ✅ Display components
+│   │   ├── Card.jsx                     # ✅ Reusable card with header/content/actions
+│   │   ├── ColorSwatch.jsx              # ✅ Color indicator component
+│   │   ├── DateTime.jsx                 # ✅ Localized date/time display
+│   │   ├── Logo.jsx                     # ✅ Theme-aware logo component
+│   │   └── UserAvatar.jsx               # ✅ User avatar with initials
+│   ├── inputs/                          # ✅ Input components
+│   │   ├── Button.jsx                   # ✅ Enhanced MUI button
+│   │   ├── ColorPicker.jsx              # ✅ Custom color picker with hex input
+│   │   ├── Dropdown.jsx                 # ✅ Collapsible dropdown/select
+│   │   ├── ListButton.jsx               # ✅ Button styled for list items
+│   │   ├── LogoutButton.jsx             # ✅ Specialized logout button
+│   │   └── Menu.jsx                     # ✅ Context menu component
+│   ├── layout/                          # ✅ Layout components
+│   │   ├── PageHeader.jsx               # ✅ Page header component
+│   │   └── PageLayout.jsx               # ✅ Page wrapper with title/description
+│   ├── routing/                         # ✅ Routing components
+│   │   └── ProtectedRoute.jsx           # ✅ Route authentication guard
+│   ├── i18n/                            # ✅ i18n components
+│   │   └── LanguageSync.jsx             # ✅ Redux-i18n synchronization
+│   ├── index.js                         # ✅ Component exports
 │   └── README.md                        # ✅ Components documentation
 │
 ├── config/                              # ✅ Configuration files
+│   ├── index.js                         # ✅ Config exports
 │   ├── queryClient.js                   # ✅ React Query client configuration
 │   ├── routes.jsx                       # ✅ React Router route definitions
 │   └── README.md                        # ✅ Config documentation
+│
+├── constants/                           # ✅ Application constants
+│   ├── index.js                         # ✅ Constants exports
+│   ├── layout.js                        # ✅ Layout constants (widths, heights, z-index)
+│   ├── spacing.js                       # ✅ Spacing constants
+│   └── README.md                        # ✅ Constants documentation
 │
 ├── contexts/                            # React Context providers (reserved)
 │
@@ -463,104 +632,153 @@ src/
 │   ├── admins/
 │   │   ├── components/
 │   │   ├── hooks/
+│   │   ├── index.js                     # ✅ Feature exports
 │   │   ├── pages/
-│   │   │   └── AdminsPage.jsx           # ✅ Admin management
-│   │   └── service/
+│   │   │   ├── AdminsPage.jsx           # ✅ Admin management
+│   │   │   └── index.js                 # ✅ Page exports
+│   │   └── services/
+│   │
+│   ├── settings/                        # ✅ Settings feature
+│   │   ├── components/
+│   │   │   ├── AccountActionsCard.jsx   # ✅ Account actions card
+│   │   │   ├── ColorSettingsCard.jsx    # ✅ Color settings card
+│   │   │   ├── index.js                 # ✅ Component exports
+│   │   │   ├── LanguageCard.jsx         # ✅ Language settings card
+│   │   │   ├── PersonalInfoCard.jsx     # ✅ Personal information card
+│   │   │   ├── PreferencesTab.jsx       # ✅ Preferences tab
+│   │   │   ├── ProfileHero.jsx          # ✅ Profile hero section
+│   │   │   ├── ProfileTab.jsx           # ✅ Profile tab
+│   │   │   ├── SecurityCard.jsx         # ✅ Security settings card
+│   │   │   ├── SettingsTabsHeader.jsx   # ✅ Settings tabs header
+│   │   │   ├── TabPanel.jsx             # ✅ Tab panel component
+│   │   │   └── ThemeCard.jsx            # ✅ Theme settings card
+│   │   ├── hooks/
+│   │   ├── index.js                     # ✅ Feature exports
+│   │   ├── pages/
+│   │   │   ├── index.js                 # ✅ Page exports
+│   │   │   └── SettingsPage.jsx         # ✅ Settings page
+│   │   ├── services/
+│   │   └── settingsConfig.jsx           # ✅ Settings configuration
 │   │
 │   ├── authentication/
 │   │   ├── components/
 │   │   ├── hooks/
+│   │   ├── index.js                     # ✅ Feature exports
 │   │   ├── pages/
+│   │   │   ├── index.js                 # ✅ Page exports
 │   │   │   └── LoginPage.jsx            # ✅ Login page with validation
-│   │   └── service/
+│   │   └── services/
 │   │
 │   ├── competitions/
 │   │   ├── components/
 │   │   ├── hooks/
+│   │   ├── index.js                     # ✅ Feature exports
 │   │   ├── pages/
-│   │   │   ├── CompetitionsPage.jsx     # ✅ List all competitions
-│   │   │   ├── CompetitionPage.jsx      # ✅ Competition details
-│   │   │   ├── CompetitionMembersPage.jsx # ✅ Participants list
-│   │   │   ├── CompetitionExamPage.jsx  # ✅ Exam management
-│   │   │   └── CompetitionResultPage.jsx # ✅ Results & rankings
+│   │   │   ├── CompetitionExamPage.jsx        # ✅ Exam management
+│   │   │   ├── CompetitionMembersPage.jsx     # ✅ Participants list
+│   │   │   ├── CompetitionPage.jsx            # ✅ Competition details
+│   │   │   ├── CompetitionResultPage.jsx      # ✅ Results & rankings
+│   │   │   ├── CompetitionsPage.jsx           # ✅ List all competitions
+│   │   │   └── index.js                       # ✅ Page exports
 │   │   └── services/
 │   │
 │   ├── curriculums/
 │   │   ├── components/
 │   │   ├── hooks/
+│   │   ├── index.js                     # ✅ Feature exports
 │   │   ├── pages/
-│   │   │   └── CurriculumsPage.jsx      # ✅ Curriculum management
+│   │   │   ├── CurriculumsPage.jsx      # ✅ Curriculum management
+│   │   │   └── index.js                 # ✅ Page exports
 │   │   └── services/
 │   │
 │   ├── dashboard/
 │   │   ├── components/
-│   │   │   ├── CompetitionDashboard.jsx # ✅ Competition stats
-│   │   │   ├── ContentDashboard.jsx     # ✅ Content stats
-│   │   │   ├── CurriculumDashboard.jsx  # ✅ Curriculum stats
-│   │   │   ├── OwnerDashboard.jsx       # ✅ Owner overview
-│   │   │   └── StatCard.jsx             # ✅ Reusable stat card
+│   │   │   ├── CompetitionDashboard.jsx       # ✅ Competition stats
+│   │   │   ├── ContentDashboard.jsx           # ✅ Content stats
+│   │   │   ├── CurriculumDashboard.jsx        # ✅ Curriculum stats
+│   │   │   ├── index.js                       # ✅ Component exports
+│   │   │   ├── OwnerDashboard.jsx             # ✅ Owner overview
+│   │   │   └── StatCard.jsx                   # ✅ Reusable stat card
 │   │   ├── hooks/
+│   │   ├── index.js                     # ✅ Feature exports
 │   │   ├── pages/
-│   │   │   └── DashboardPage.jsx        # ✅ Role-based dashboard
-│   │   └── service/
+│   │   │   ├── DashboardPage.jsx        # ✅ Role-based dashboard
+│   │   │   └── index.js                 # ✅ Page exports
+│   │   └── services/
 │   │
 │   ├── enrichment-questions/
 │   │   ├── components/
 │   │   ├── hooks/
+│   │   ├── index.js                     # ✅ Feature exports
 │   │   ├── pages/
-│   │   │   └── EnrichmentQuestionsPage.jsx # ✅ Enrichment questions
-│   │   └── service/
+│   │   │   ├── EnrichmentQuestionsPage.jsx    # ✅ Enrichment questions
+│   │   │   └── index.js                       # ✅ Page exports
+│   │   └── services/
 │   │
 │   ├── lessons/
 │   │   ├── components/
 │   │   ├── hooks/
 │   │   ├── pages/
-│   │   └── service/
+│   │   └── services/
 │   │
 │   ├── ministerial-questions/
 │   │   ├── components/
 │   │   ├── hooks/
+│   │   ├── index.js                     # ✅ Feature exports
 │   │   ├── pages/
-│   │   │   └── MinisterialQuestionsPage.jsx # ✅ Ministerial questions
-│   │   └── service/
+│   │   │   ├── index.js                       # ✅ Page exports
+│   │   │   └── MinisterialQuestionsPage.jsx   # ✅ Ministerial questions
+│   │   └── services/
 │   │
 │   ├── questions/
 │   │   ├── components/
 │   │   ├── hooks/
+│   │   ├── index.js                     # ✅ Feature exports
 │   │   ├── pages/
+│   │   │   ├── index.js                 # ✅ Page exports
 │   │   │   └── QuestionsPage.jsx        # ✅ Question bank
-│   │   └── service/
+│   │   └── services/
 │   │
 │   ├── students/
 │   │   ├── components/
 │   │   ├── hooks/
+│   │   ├── index.js                     # ✅ Feature exports
 │   │   ├── pages/
+│   │   │   ├── index.js                 # ✅ Page exports
 │   │   │   └── StudentsPage.jsx         # ✅ Student management
-│   │   └── service/
+│   │   └── services/
 │   │
 │   ├── subjects/
 │   │   ├── components/
 │   │   ├── hooks/
+│   │   ├── index.js                     # ✅ Feature exports
 │   │   ├── pages/
+│   │   │   ├── index.js                 # ✅ Page exports
 │   │   │   └── SubjectsPage.jsx         # ✅ Subject management
-│   │   └── service/
+│   │   └── services/
 │   │
 │   └── units/
 │       ├── components/
 │       ├── hooks/
+│       ├── index.js                     # ✅ Feature exports
 │       ├── pages/
+│       │   ├── index.js                 # ✅ Page exports
 │       │   └── UnitsPage.jsx            # ✅ Unit management
-│       └── service/
+│       └── services/
 │
 ├── hooks/                               # ✅ Custom React hooks
 │   ├── index.js                         # ✅ Hook exports
 │   ├── useColorScheme.js                # ✅ Color scheme state hook
 │   ├── useCssVariables.js               # ✅ CSS custom properties hook
+│   ├── useDateTime.js                   # ✅ Date/time formatting hook
 │   ├── useDocumentDirection.js          # ✅ RTL/LTR direction hook
 │   ├── useLanguage.js                   # ✅ Language state hook
+│   ├── useMenu.js                       # ✅ Menu state management hook
 │   ├── useMuiTheme.js                   # ✅ MUI theme hook
 │   ├── useReduxTheme.js                 # ✅ Theme state hook
+│   ├── useResponsiveSidebar.js          # ✅ Responsive sidebar detection hook
 │   ├── useSidebar.js                    # ✅ Sidebar state hook
+│   ├── useSidebarNavigation.js          # ✅ Sidebar navigation hook
 │   └── useUser.js                       # ✅ User state hook (auth)
 │
 ├── i18n/                                # ✅ Internationalization
@@ -570,14 +788,13 @@ src/
 │   │   └── useTranslation.js            # ✅ Custom translation hook
 │   └── locales/
 │       ├── index.js                     # ✅ Locale exports
-│       ├── ar.js                        # ✅ Arabic translations (200+ keys)
-│       └── en.js                        # ✅ English translations (200+ keys)
+│       ├── ar.js                        # ✅ Arabic translations (254+ keys)
+│       └── en.js                        # ✅ English translations (254+ keys)
 │
 ├── layout/                              # ✅ Layout components
-│   ├── constants.js                     # ✅ Layout constants & style helpers
+│   ├── index.js                         # ✅ Layout exports
 │   ├── MainLayout.jsx                   # ✅ Main layout wrapper
 │   ├── README.md                        # ✅ Layout documentation
-│   ├── index.js                         # ✅ Layout exports
 │   │
 │   ├── header/
 │   │   ├── Header.jsx                   # ✅ App header component
@@ -586,19 +803,31 @@ src/
 │   │   └── components/
 │   │       └── UserInfo.jsx             # ✅ User info display
 │   │
+│   ├── mainlayout/                      # ✅ MainLayout components
+│   │   ├── index.js                     # ✅ MainLayout exports
+│   │   └── components/
+│   │       ├── DesktopLayout.jsx        # ✅ Desktop layout grid
+│   │       ├── index.js                 # ✅ Component exports
+│   │       └── MobileLayout.jsx         # ✅ Mobile layout flexbox
+│   │
 │   └── sidebar/
+│       ├── index.js                     # ✅ Sidebar exports
 │       ├── Sidebar.jsx                  # ✅ Role-based navigation sidebar
 │       ├── sidebarConfig.jsx            # ✅ Navigation menu config
-│       ├── index.js                     # ✅ Sidebar exports
 │       └── components/
-│           ├── LogoHeader.jsx           # ✅ Sidebar logo & controls
-│           ├── NavigationMenu.jsx       # ✅ Navigation menu items
-│           └── SidebarControls.jsx      # ✅ Theme/language/logout controls
+│           ├── DesktopSidebar.jsx       # ✅ Desktop sidebar implementation
+│           ├── LogoHeader.jsx           # ✅ Sidebar logo & brand header
+│           ├── MobileDrawer.jsx         # ✅ Mobile drawer overlay
+│           ├── NavigationDropdown.jsx   # ✅ Navigation dropdown item
+│           ├── NavigationItem.jsx       # ✅ Navigation item component
+│           └── NavigationMenu.jsx       # ✅ Navigation menu container
 │
 ├── pages/                               # ✅ Main pages
+│   ├── index.js                         # ✅ Page exports
 │   └── NotFoundPage.jsx                 # ✅ 404 error page
 │
 ├── providers/                           # ✅ Provider components
+│   ├── index.js                         # ✅ Provider exports
 │   ├── QueryProvider.jsx                # ✅ React Query provider
 │   ├── ReduxProvider.jsx                # ✅ Redux provider
 │   └── ThemeProvider.jsx                # ✅ MUI Theme provider with RTL
@@ -612,6 +841,7 @@ src/
 │   │   └── STORAGE_SECURITY.md          # ✅ Security documentation
 │   └── slices/
 │       ├── colorSchemeSlice.js          # ✅ Color scheme state
+│       ├── index.js                     # ✅ Slice exports
 │       ├── languageSlice.js             # ✅ Language state (ar/en)
 │       ├── sidebarSlice.js              # ✅ Sidebar state (collapsed/open)
 │       ├── themeSlice.js                # ✅ Theme state (light/dark)
@@ -620,27 +850,34 @@ src/
 ├── theme/                               # ✅ Theme configuration
 │   ├── index.js                         # ✅ Main theme factory
 │   ├── colors.js                        # ✅ Color palette & schemes
-│   ├── typography.js                    # ✅ Typography settings (Cairo font)
-│   └── components.js                    # ✅ MUI component overrides
+│   ├── components.js                    # ✅ MUI component overrides
+│   ├── README.md                        # ✅ Theme documentation
+│   └── typography.js                    # ✅ Typography settings (Cairo font)
 │
 └── utils/                               # ✅ Utility functions
-    ├── colorHelpers.js                  # ✅ Color manipulation utilities
+    ├── colorUtils.js                    # ✅ Color manipulation utilities
+    ├── dateUtils.js                     # ✅ Date formatting and dayjs utilities
+    ├── index.js                         # ✅ Utility exports
+    ├── languageUtils.js                 # ✅ Language-related utilities
+    ├── layoutUtils.js                   # ✅ Layout-related utilities
     ├── migrateLocalStorage.js           # ✅ Storage migration tool
+    ├── README.md                        # ✅ Utility documentation
     ├── rtl.js                           # ✅ RTL/LTR utilities
     └── secureStorage.js                 # ✅ Secure localStorage wrapper
 
 Legend:
 ✅ Completed and working
 
-Total Pages Created: 16
-Total Components: 25+
-Total Hooks: 9
+Total Pages Created: 17
+Total Components: 35+
+Total Hooks: 13
 Total Redux Slices: 5
-Total i18n Keys: 200+
+Total i18n Keys: 254+
 
-Feature Pages (16):
+Feature Pages (17):
 - LoginPage
 - DashboardPage (role-based with 4 dashboard variants)
+- SettingsPage (Profile & Preferences tabs)
 - StudentsPage
 - CompetitionsPage + 4 nested pages (Competition, Members, Exam, Result)
 - CurriculumsPage
@@ -651,6 +888,13 @@ Feature Pages (16):
 - MinisterialQuestionsPage
 - EnrichmentQuestionsPage
 - NotFoundPage
+
+Reusable Components (35+):
+- Display: Card, Logo, DateTime, UserAvatar, ColorSwatch
+- Inputs: Button, Dropdown, ListButton, ColorPicker, LogoutButton, Menu
+- Layout: PageLayout, PageHeader
+- Routing: ProtectedRoute
+- i18n: LanguageSync
 ```
 
 ---
@@ -662,7 +906,7 @@ Feature Pages (16):
 - [x] Language switcher works (AR/EN)
 - [x] Sidebar toggles correctly (mobile & desktop)
 - [x] RTL layout displays properly in Arabic
-- [x] All routes are accessible (16 routes configured)
+- [x] All routes are accessible (17 routes configured)
 - [x] Protected routes redirect to login
 - [x] React Query fetches data correctly
 - [x] Login/logout functionality works
@@ -687,7 +931,7 @@ Feature Pages (16):
   - ✅ Demo component showing queries and mutations
   - ✅ Caching and refetching working properly
 - ✅ React Router is configured with protected routes
-  - ✅ 16 routes configured and working
+  - ✅ 17 routes configured and working (includes Settings page)
   - ✅ ProtectedRoute component created
   - ✅ Dynamic routes with parameters (/competitions/:id)
   - ✅ Login/logout functionality in userSlice
@@ -701,14 +945,36 @@ Feature Pages (16):
   - ✅ Mobile-responsive drawer
   - ✅ Logout button in sidebar
 - ✅ i18n is configured for Arabic and English
-  - ✅ 200+ translation keys covering all UI elements
+  - ✅ 254+ translation keys covering all UI elements
   - ✅ Custom useTranslation hook with Redux integration
   - ✅ Automatic language detection and persistence
   - ✅ All components updated to use translations
   - ✅ Navigation menu translated
   - ✅ Sidebar controls translated
   - ✅ User roles translated
-- ✅All base infrastructure is ready for Phase 2
+  - ✅ Settings page translated
+- ✅ Settings feature implemented with Profile and Preferences tabs
+  - ✅ SettingsPage with tabbed interface
+  - ✅ ProfileTab with personal info, security, and account actions
+  - ✅ PreferencesTab with language, theme, and color settings
+  - ✅ All settings components created and functional
+- ✅ Additional reusable components created
+  - ✅ Logo component for theme-aware branding
+  - ✅ DateTime component for localized date/time display
+  - ✅ UserAvatar component with size presets
+  - ✅ ColorSwatch component for color indicators
+  - ✅ PageLayout and PageHeader for consistent page structure
+- ✅ Custom hooks expanded
+  - ✅ useDateTime hook for date/time formatting
+  - ✅ useMenu hook for menu state management
+  - ✅ useSidebarNavigation hook for navigation logic
+  - ✅ useResponsiveSidebar hook for responsive detection
+- ✅ Utility functions added
+  - ✅ dateUtils.js for centralized date formatting
+  - ✅ languageUtils.js for language utilities
+  - ✅ layoutUtils.js for layout utilities
+  - ✅ colorUtils.js for color manipulation utilities
+- ✅ All base infrastructure is ready for Phase 2
 
 ---
 
@@ -721,23 +987,28 @@ After completing Phase 1, proceed to **[Phase 2: Authentication](phase-2-authent
 ## 🌍 RTL/LTR Support Details
 
 ### Packages Installed
+
 - `i18next` - Core internationalization framework
 - `react-i18next` - React bindings for i18next
 - `stylis-plugin-rtl` - RTL support for Emotion/MUI
 - `rtl-detect` - RTL language detection utility
 
 ### Features Implemented
+
 1. **Automatic Direction Switching**
+
    - HTML `dir` attribute updates based on language
    - Document `lang` attribute synchronized
    - MUI theme direction changes automatically
 
 2. **Emotion Cache Management**
+
    - Separate caches for RTL and LTR
    - Automatic cache switching when language changes
    - Proper CSS-in-JS RTL transformation
 
 3. **State Synchronization**
+
    - Redux stores language state
    - i18n updates when Redux changes
    - Redux updates when i18n changes
@@ -750,7 +1021,7 @@ After completing Phase 1, proceed to **[Phase 2: Authentication](phase-2-authent
 
 ### How It Works
 
-```
+```text
 Language Change
     ↓
 LanguageSync detects
@@ -768,4 +1039,4 @@ All components re-render
 
 ---
 
-**Last Updated:** 2025-10-24
+**Last Updated:** 2025-11-1

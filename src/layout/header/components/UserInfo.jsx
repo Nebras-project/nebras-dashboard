@@ -1,110 +1,119 @@
 // external imports
-import { useState } from 'react';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
-import { IconButton, Menu, MenuItem, Typography, Divider, Box } from '@mui/material';
+import { IconButton, Typography, Box } from '@mui/material';
 import PropTypes from 'prop-types';
 
 // internal imports
-import { UserAvatar, LogoutButton } from '@components';
+import { UserAvatar, LogoutButton, Menu } from '@components';
 import { AVATAR_SIZE, USER_MENU_PAPER_PROPS, margin, padding } from '@constants';
 import { getRoleTranslationKey } from '../headerConfig';
 import { useTranslation } from '@hooks';
 import { fontWeights, borderRadius } from '@theme';
 import { baseColors } from '@theme/colors';
-/**
- * UserInfo Component
- * Displays user avatar with dropdown menu
- */
+
+// Extract static styles
+const AVATAR_BUTTON_STYLES = {
+  ...margin.left.auto,
+  ...padding.all.xs,
+};
+
+const MENU_CONTAINER_STYLES = {
+  ...padding.x.md,
+  ...padding.y.xxs,
+};
+
+const NAME_MENU_ITEM_STYLES = {
+  ...padding.all.none,
+  minHeight: 'auto',
+  '&:hover': {
+    backgroundColor: 'transparent',
+  },
+};
+
+const NAME_TYPOGRAPHY_STYLES = {
+  cursor: 'pointer',
+  '&:hover': {
+    color: 'primary.main',
+  },
+};
+
+const EMAIL_TYPOGRAPHY_STYLES = {
+  ...margin.bottom.xs,
+};
+
+const ROLE_BADGE_STYLES = {
+  display: 'inline-block',
+  bgcolor: 'action.hover',
+  borderRadius: borderRadius.xxs,
+  fontWeight: 600,
+  ...padding.y.xxs,
+  ...padding.x.md,
+};
+
+const DIVIDER_STYLES = {
+  borderColor: baseColors.gray700,
+  ...margin.top.sm,
+};
+
+// Menu transform/anchor origins
+const MENU_TRANSFORM_ORIGIN = { horizontal: 'right', vertical: 'top' };
+const MENU_ANCHOR_ORIGIN = { horizontal: 'right', vertical: 'bottom' };
+
 function UserInfo({ user = null }) {
   const { t } = useTranslation();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
+  // Early return if no user data
   if (!user) {
     return null;
   }
 
   return (
-    <>
-      <IconButton
-        onClick={handleClick}
-        sx={{
-          ...margin.left.auto,
-          ...padding.all.xs,
-        }}
-      >
-        <UserAvatar user={user} size={AVATAR_SIZE} />
-      </IconButton>
+    <Menu id="user-menu">
+      {/* Avatar Trigger */}
+      <Menu.Trigger>
+        <IconButton aria-label="user menu" sx={AVATAR_BUTTON_STYLES}>
+          <UserAvatar user={user} size={AVATAR_SIZE} />
+        </IconButton>
+      </Menu.Trigger>
 
-      <Menu
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      {/* Menu Content */}
+      <Menu.Content
+        transformOrigin={MENU_TRANSFORM_ORIGIN}
+        anchorOrigin={MENU_ANCHOR_ORIGIN}
         slotProps={{ paper: USER_MENU_PAPER_PROPS }}
       >
-        <Box sx={{ ...padding.x.md, ...padding.y.xxs }}>
-
-          <MenuItem
-            component={Link}
-            to="/settings"
-            onClick={handleClose}
-            sx={{
-              ...padding.all.none,
-              minHeight: 'auto',
-              '&:hover': {
-                backgroundColor: 'transparent',
-              },
-            }}
-          >
+        {/* User Info Section */}
+        <Box sx={MENU_CONTAINER_STYLES}>
+          {/* User Name - Links to settings page */}
+          <Menu.Item component={Link} to="/settings" sx={NAME_MENU_ITEM_STYLES}>
             <Typography
               variant="subtitle1"
               fontWeight={fontWeights.semiBold}
-              sx={{
-                cursor: 'pointer',
-                '&:hover': {
-                  color: 'primary.main',
-                },
-              }}
+              sx={NAME_TYPOGRAPHY_STYLES}
             >
               {user.name}
             </Typography>
-          </MenuItem>
+          </Menu.Item>
 
-          <Typography variant="body2" color="text.secondary" sx={{ ...margin.bottom.xs }}>
+          {/* User Email */}
+          <Typography variant="body2" color="text.secondary" sx={EMAIL_TYPOGRAPHY_STYLES}>
             {user.email}
           </Typography>
-          
-          <Typography
-            variant="caption"
-            sx={{
-              display: 'inline-block',
-              bgcolor: 'action.hover',
-              borderRadius: borderRadius.xxs,
-              fontWeight: 600,
-              ...padding.y.xxs,
-              ...padding.x.md,
-            }}
-          >
+
+          {/* Role Badge */}
+          <Typography variant="caption" sx={ROLE_BADGE_STYLES}>
             {t(getRoleTranslationKey(user.role))}
           </Typography>
         </Box>
 
-        <Divider sx={{ borderColor: baseColors.gray700, ...margin.top.sm }} />
+        {/* Divider */}
+        <Menu.Divider sx={DIVIDER_STYLES} />
 
-        <LogoutButton fullWidth={true} onLogout={handleClose} />
-        
-      </Menu>
-    </>
+        {/* Logout Button */}
+        <LogoutButton fullWidth />
+      </Menu.Content>
+    </Menu>
   );
 }
 
@@ -116,4 +125,5 @@ UserInfo.propTypes = {
   }),
 };
 
-export default UserInfo;
+// Memoize component - only re-renders when user prop changes
+export default memo(UserInfo);

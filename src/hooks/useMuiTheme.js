@@ -6,10 +6,6 @@ import { useMediaQuery } from "@mui/material";
 import { createAppTheme } from "@theme";
 import { useReduxTheme, useLanguage, useColorScheme } from "@hooks";
 
-/**
- * Custom hook to create and manage the MUI theme
- * @returns {Object} MUI theme object
- */
 export const useMuiTheme = () => {
   // Get theme mode from Redux
   const { mode } = useReduxTheme();

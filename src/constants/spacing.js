@@ -1,14 +1,3 @@
-/**
- * Spacing Constants
- *
- * This file provides semantic spacing variables for consistent spacing across the application.
- * Based on 8px grid system: 1 unit = 8px
- *
- * Usage:
- * import { spacing } from '@constants/spacing';
- * <Box sx={{ ...spacing.padding.bottom.xl, ...spacing.padding.x.md }} />
- */
-
 // Base spacing values (multipliers for 8px grid)
 export const SPACING_VALUES = {
   none: 0, // 0px

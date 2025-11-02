@@ -1,12 +1,5 @@
 import { QueryClient } from "@tanstack/react-query";
 
-/**
- * React Query Client Configuration
- *
- * This configuration defines the default behavior for all queries and mutations
- * in the application.
- */
-
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

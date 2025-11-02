@@ -13,8 +13,7 @@ import {
   IconButton,
 } from '@mui/material';
 import { useUser, useTranslation } from '@hooks';
-import { MdLogin } from 'react-icons/md';
-import { LuEye, LuEyeClosed } from 'react-icons/lu';
+import { Icon } from '@components';
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -105,11 +104,8 @@ function LoginPage() {
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
-                          <IconButton
-                            onClick={() => setShowPassword(!showPassword)}
-                            edge="end"
-                          >
-                            {showPassword ? <LuEye/>: <LuEyeClosed />}
+                          <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                            {showPassword ? <Icon name="eye" /> : <Icon name="eyeClosed" />}
                           </IconButton>
                         </InputAdornment>
                       ),
@@ -121,7 +117,7 @@ function LoginPage() {
                     variant="contained"
                     size="large"
                     fullWidth
-                    startIcon={<MdLogin />}
+                    startIcon={<Icon name="login" />}
                   >
                     {t('auth.loginButton')}
                   </Button>
@@ -143,4 +139,3 @@ function LoginPage() {
 }
 
 export default LoginPage;
-

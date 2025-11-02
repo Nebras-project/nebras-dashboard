@@ -38,10 +38,12 @@ const StyledListItemButton = styled(ListItemButton, {
     if (selected) {
       const colorMap = {
         primary: {
-          backgroundColor: theme.palette.mode === 'dark' ? 'background.paper' : 'background.primary',
+          backgroundColor:
+            theme.palette.mode === 'dark' ? 'background.paper' : 'background.primary',
           color: theme.palette.mode === 'dark' ? 'text.primary' : 'primary.main',
           '&:hover': {
-            backgroundColor: theme.palette.mode === 'dark' ? 'background.surface.level2' : 'primary.light',
+            backgroundColor:
+              theme.palette.mode === 'dark' ? 'background.surface.level2' : 'primary.light',
             color: theme.palette.mode === 'dark' ? 'text.primary' : 'primary.dark',
           },
           '& .MuiListItemIcon-root': {
@@ -75,7 +77,6 @@ const StyledListItemButton = styled(ListItemButton, {
     return {
       '&:hover': {
         backgroundColor: 'action.hover',
-        
       },
     };
   };
@@ -119,73 +120,71 @@ const StyledListItemText = styled(ListItemText, {
   },
 }));
 
-const ListButton = forwardRef(({
-  onClick,
-  icon,
-  text,
-  endContent = null,
-  selected = false,
-  disabled = false,
-  loading = false,
-  collapsed = false,
-  showTooltip = null,
-  tooltipPlacement = 'right',
-  variant = 'default',
-  color = 'primary',
-  sx = {},
-  iconSx = {},
-  textProps = {},
-  ...rest
-}, ref) => {
-  const isDisabled = disabled || loading;
+const ListButton = forwardRef(
+  (
+    {
+      onClick,
+      icon,
+      text,
+      endContent = null,
+      selected = false,
+      disabled = false,
+      loading = false,
+      collapsed = false,
+      showTooltip = null,
+      tooltipPlacement = 'right',
+      variant = 'default',
+      color = 'primary',
+      sx = {},
+      iconSx = {},
+      textProps = {},
+      ...rest
+    },
+    ref
+  ) => {
+    const isDisabled = disabled || loading;
 
-  const button = (
-    <StyledListItemButton
-      ref={ref}
-      onClick={onClick}
-      selected={selected}
-      disabled={isDisabled}
-      customVariant={variant}
-      customColor={color}
-      collapsed={collapsed}
-      sx={sx}
-      {...rest}
-    >
-      <StyledListItemIcon 
+    const button = (
+      <StyledListItemButton
+        ref={ref}
+        onClick={onClick}
+        selected={selected}
+        disabled={isDisabled}
+        customVariant={variant}
+        customColor={color}
         collapsed={collapsed}
-        sx={iconSx}
+        sx={sx}
+        {...rest}
       >
-        {loading ? (
-          <CircularProgress size={20} color="inherit" />
-        ) : (
-          icon
+        <StyledListItemIcon collapsed={collapsed} sx={iconSx}>
+          {loading ? <CircularProgress size={20} color="inherit" /> : icon}
+        </StyledListItemIcon>
+
+        {!collapsed && text && (
+          <StyledListItemText
+            primary={text}
+            customVariant={variant}
+            primaryTypographyProps={textProps}
+          />
         )}
-      </StyledListItemIcon>
 
-      {!collapsed && text && (
-        <StyledListItemText
-          primary={text}
-          customVariant={variant}
-          primaryTypographyProps={textProps}
-        />
-      )}
-
-      {!collapsed && endContent}
-    </StyledListItemButton>
-  );
-
-  const shouldShowTooltip = showTooltip !== null ? showTooltip : (collapsed && text && !loading);
-
-  if (shouldShowTooltip && text) {
-    return (
-      <Tooltip title={text} placement={tooltipPlacement} arrow>
-        {button}
-      </Tooltip>
+        {!collapsed && endContent}
+      </StyledListItemButton>
     );
-  }
 
-  return button;
-});
+    const shouldShowTooltip = showTooltip !== null ? showTooltip : collapsed && text && !loading;
+
+    if (shouldShowTooltip && text) {
+      return (
+        <Tooltip title={text} placement={tooltipPlacement} arrow>
+          {button}
+        </Tooltip>
+      );
+    }
+
+    return button;
+  }
+);
 
 ListButton.displayName = 'ListButton';
 
@@ -208,5 +207,3 @@ ListButton.propTypes = {
 };
 
 export default ListButton;
-
-

@@ -1,62 +1,42 @@
 // external imports
-import { useState, useEffect } from 'react';
 import { Typography, Box } from '@mui/material';
-import dayjs from 'dayjs';
-import 'dayjs/locale/ar';
-import 'dayjs/locale/en';
-import localizedFormat from 'dayjs/plugin/localizedFormat';
-import updateLocale from 'dayjs/plugin/updateLocale';
 import PropTypes from 'prop-types';
 
 // internal imports
-import { useLanguage } from '@hooks';
+import { useLanguage, useDateTime } from '@hooks';
 import { gap } from '@constants';
 import { fontWeights } from '@theme';
 
-// Extend dayjs with plugins
-dayjs.extend(localizedFormat);
-dayjs.extend(updateLocale);
+const getFlexAlignment = (align, isRTL) => {
+  if (align === 'center') return 'center';
 
-// Configure Arabic locale to use Arabic-Indic numerals
-dayjs.updateLocale('ar', {
-  postformat: (string) => {
-    return string.replace(/\d/g, (match) => '٠١٢٣٤٥٦٧٨٩'[match]);
-  },
-});
+  // In RTL mode, flexbox directions are reversed
+  if (isRTL) {
+    return align === 'left' ? 'flex-end' : 'flex-start';
+  }
+
+  // In LTR mode, standard flexbox behavior
+  return align === 'left' ? 'flex-start' : 'flex-end';
+};
+
+const getTextAlignment = (align, isRTL) => {
+  if (align === 'center') return 'center';
+  return isRTL ? 'left' : align;
+};
 
 function DateTime({ align = 'right' }) {
   const { isRTL, resolvedLanguage } = useLanguage();
-  const [currentTime, setCurrentTime] = useState(dayjs()); // current time
+  const { formattedDate, timeWithDay } = useDateTime(resolvedLanguage);
 
-  useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(dayjs()), 60000); // update current time every minute
-    return () => clearInterval(timer);
-  }, []);
-
-  const locale = resolvedLanguage; // 'ar' or 'en'
-  const formattedDate = currentTime.locale(locale).format('D MMMM YYYY');
-  const dayName = currentTime.locale(locale).format('dddd');
-  const formattedTime = currentTime.locale(locale).format('h:mm A');
-  const timeWithDay = `${dayName}، ${formattedTime}`;
-
-  const getAlignment = () => {
-    if (align === 'center') return 'center';
-
-    // In RTL mode, flexbox directions are reversed
-    if (isRTL) {
-      return align === 'left' ? 'flex-end' : 'flex-start';
-    }
-
-    // In LTR mode, standard flexbox behavior
-    return align === 'left' ? 'flex-start' : 'flex-end';
-  };
+  const flexAlignment = getFlexAlignment(align, isRTL);
+  const textAlignment = getTextAlignment(align, isRTL);
 
   return (
     <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        alignItems: getAlignment(),
+        alignItems: flexAlignment,
         ...gap.xxs,
         minWidth: 200,
       }}
@@ -66,7 +46,7 @@ function DateTime({ align = 'right' }) {
         color="text.secondary"
         sx={{
           fontWeight: fontWeights.medium,
-          textAlign: align === 'center' ? 'center' : isRTL ? 'left' : align,
+          textAlign: textAlignment,
         }}
       >
         {formattedDate}

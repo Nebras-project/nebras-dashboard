@@ -3,12 +3,6 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { queryClient } from '@config';
 
-/**
- * QueryProvider Component
- * 
- * Wraps the application with React Query's QueryClientProvider
- * and includes the React Query Devtools for development.
- */
 const QueryProvider = ({ children }) => {
   return (
     <QueryClientProvider client={queryClient}>

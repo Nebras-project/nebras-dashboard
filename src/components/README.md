@@ -4,11 +4,68 @@ This directory contains shared/reusable components used across the application.
 
 ## Components
 
+This directory is organized into subdirectories:
+
+### `display/` - Display Components
+
+- **Card** - Reusable card component with header, content, and actions
+- **Icon** - Global icon component with centralized icon registry (60+ icons)
+  - Supports both predefined icons via `name` prop and custom icons via `component` prop
+  - Centralized registry for all project icons
+  - Consistent API: `<Icon name="iconName" size={24} color="red" />`
+- **Logo** - Theme-aware logo component that switches between light/dark variants
+- **DateTime** - Displays formatted date and time with RTL support
+- **UserAvatar** - User avatar with initials fallback and size presets
+- **ColorSwatch** - Small color indicator for theme color selection
+
+### `inputs/` - Input Components
+
+- **Button** - Enhanced Material-UI button with custom styling
+- **Dropdown** - Collapsible dropdown/select component for options selection
+- **ListButton** - Button component styled for list items with icon support
+- **ColorPicker** - Custom color picker with HEX input for theme customization
+- **LogoutButton** - Specialized logout button with icon and error styling
+- **Menu** - Context menu component with menu items and dividers
+
+### `layout/` - Layout Components
+
+- **PageLayout** - Page wrapper with title and description
+- **PageHeader** - Page header component for consistent page titles
+
+### `routing/` - Routing Components
+
+- **ProtectedRoute** - Route guard for authenticated routes
+
+### `i18n/` - Internationalization Components
+
+- **LanguageSync** - Synchronizes i18n language state with Redux state
+
+### `errors/` - Error Handling Components
+
+- **ErrorBoundary** - Catches React errors and shows fallback UI
+- **ErrorFallback** - Composes error UI from sub-components
+- **ErrorIcon** - Error icon display
+- **ErrorMessage** - Error title and description
+- **ErrorActions** - Recovery action buttons
+- **ErrorDetails** - Dev-only error details
+
+### `feedback/` - Loading & Feedback Components
+
+- **Loader** - Unified loading component with `page` and `fullscreen` variants
+- **LoadingSpinner** - Circular progress spinner
+- **LoadingLogo** - Animated logo display for loading states
+- **LoadingMessage** - Loading text message component
+
+---
+
+## Component Details
+
 ### LanguageSync
 
 **Purpose:** Synchronizes i18n language state with Redux state
 
 **Features:**
+
 - Listens to Redux language changes and updates i18n
 - Listens to i18n language changes and updates Redux
 - Ensures consistency across the entire app
@@ -27,35 +84,164 @@ This component is automatically included in the App component and doesn't need t
 **Purpose:** Route guard for authenticated routes
 
 **Features:**
+
 - Checks if user is logged in
 - Redirects to login if not authenticated
 - Protects routes from unauthorized access
 
 **Usage:**
+
 ```javascript
 <ProtectedRoute>
   <YourProtectedComponent />
 </ProtectedRoute>
 ```
 
-### ColorPicker
+### Card
 
-**Purpose:** Custom color picker for theme customization
+**Purpose:** Reusable card component with flexible content structure
 
 **Features:**
-- HEX color input
-- Color presets (Blue, Green)
-- Real-time preview
-- Persistence to Redux and localStorage
+
+- Header with title, subheader, avatar, and action
+- Content section
+- Actions section
+- Hover effects with animated arrow
+- RTL support
+
+**Props:**
+
+- `variant` - Card variant ('elevation' | 'outlined')
+- `title` - Card title text
+- `subheader` - Subheader text
+- `avatar` - Avatar element
+- `action` - Action element (button, menu, etc.)
+- `children` - Card content
+- `actions` - Actions section content
+- `hoverable` - Enable hover effects with arrow (default: false)
+- `onClick` - Click handler for hoverable cards
+- `elevation` - Elevation level (default: 1)
+- `sx` - Custom styles
+- `contentSx` - Custom content styles
 
 **Usage:**
-Used in the sidebar controls for theme customization.
+
+```javascript
+<Card title="Card Title" subheader="Card Subheader" hoverable onClick={() => navigate('/path')}>
+  Card content
+</Card>
+```
+
+### Logo
+
+**Purpose:** Theme-aware logo component
+
+**Features:**
+
+- Automatically switches between light/dark logo variants
+- Customizable height
+- Supports sx prop for additional styling
+
+**Props:**
+
+- `height` - Logo height (default: from constants)
+- `alt` - Alt text (default: 'Nebras Logo')
+- `sx` - Custom styles
+
+**Usage:**
+
+```javascript
+<Logo />
+<Logo height={50} alt="Custom Logo" />
+```
+
+### DateTime
+
+**Purpose:** Displays formatted date and time with localization
+
+**Features:**
+
+- Automatic date/time formatting based on locale
+- RTL-aware alignment
+- Auto-updates every minute
+- Day name and time display
+
+**Props:**
+
+- `align` - Text alignment ('left' | 'right' | 'center', default: 'right')
+
+**Usage:**
+
+```javascript
+<DateTime />
+<DateTime align="left" />
+```
+
+### UserAvatar
+
+**Purpose:** User avatar with initials fallback
+
+**Features:**
+
+- Size presets (small, medium, large, xlarge)
+- Custom size support (number or responsive object)
+- Automatic initial extraction from user name
+- Fallback character support
+
+**Props:**
+
+- `user` - User object with name property or string
+- `size` - Size preset or custom size (default: 'medium')
+- `fallback` - Fallback character (default: 'U')
+- `sx` - Custom styles
+
+**Usage:**
+
+```javascript
+<UserAvatar user={user} size="large" />
+<UserAvatar user={{ name: 'John Doe' }} size={64} />
+```
+
+### ColorSwatch
+
+**Purpose:** Small color indicator for theme color selection
+
+**Features:**
+
+- Displays color preview
+- Customizable size
+- Theme color support
+
+**Props:**
+
+- `color` - Color value (hex or theme color key)
+- `size` - Size in pixels (default: from constants)
+- `sx` - Custom styles
+
+### Button
+
+**Purpose:** Enhanced Material-UI button component
+
+**Features:**
+
+- All Material-UI Button features
+- Custom styling from theme
+- RTL support
+
+**Usage:**
+
+```javascript
+<Button variant="contained" color="primary">
+  Click Me
+</Button>
+```
 
 ### Dropdown
 
 **Purpose:** Reusable dropdown/select component for options selection
 
 **Features:**
+
 - Collapsible dropdown with smooth animations
 - Support for icons, descriptions, and disabled states
 - Checkmark indicator for selected items (optional)
@@ -64,6 +250,7 @@ Used in the sidebar controls for theme customization.
 - Event handlers defined per option
 
 **Props:**
+
 - `icon` - Icon to display next to the label
 - `label` - Label text for the dropdown trigger (required)
 - `options` - Array of option objects (required)
@@ -77,23 +264,116 @@ Used in the sidebar controls for theme customization.
 - `defaultOpen` - Open by default (default: false)
 
 **Usage:**
-```javascript
-import Dropdown from '@/components/Dropdown';
 
+```javascript
 const options = [
   { value: 'en', label: 'English', icon: <Icon />, onClick: () => setLang('en') },
   { value: 'ar', label: 'العربية', icon: <Icon />, onClick: () => setLang('ar') },
 ];
 
-<Dropdown
-  icon={<MdLanguage />}
-  label="Language"
-  options={options}
-  currentValue={currentLang}
-/>
+<Dropdown icon={<MdLanguage />} label="Language" options={options} currentValue={currentLang} />;
 ```
 
-See `Dropdown.example.jsx` for more usage examples.
+### ListButton
+
+**Purpose:** Button component styled for list items
+
+**Features:**
+
+- Icon support with customizable styling
+- Text label with typography props
+- End content slot for additional elements
+- Selected state styling
+- RTL support
+
+**Props:**
+
+- `icon` - Icon element
+- `text` - Button text
+- `collapsed` - Collapsed state (hides text, shows only icon)
+- `selected` - Selected state
+- `disabled` - Disabled state
+- `onClick` - Click handler
+- `iconSx` - Custom icon styles
+- `textProps` - Typography props for text
+- `endContent` - End content element
+- `sx` - Custom styles
+
+### ColorPicker
+
+**Purpose:** Custom color picker for theme customization
+
+**Features:**
+
+- HEX color input with validation
+- Real-time preview
+- Persistence to Redux and localStorage
+- Popover-based UI
+
+**Usage:**
+Used in the sidebar controls for theme customization.
+
+### LogoutButton
+
+**Purpose:** Specialized logout button
+
+**Features:**
+
+- Integrated logout functionality
+- Error color styling
+- Icon support with RTL awareness
+- Customizable variant and size
+
+**Props:**
+
+- `variant` - Button variant ('contained' | 'outlined' | 'text')
+- `size` - Button size ('small' | 'medium' | 'large')
+- `color` - Button color (default: 'error')
+- `fullWidth` - Full width button
+- `width` - Custom width
+- `onLogout` - Additional logout handler
+- `showIcon` - Show logout icon (default: true)
+- `disableHover` - Disable hover effects (default: true)
+
+### Menu
+
+**Purpose:** Context menu component
+
+**Features:**
+
+- Menu items with icons
+- Dividers for grouping
+- Context-based menu state
+- RTL support
+
+### PageLayout
+
+**Purpose:** Page wrapper with title and description
+
+**Features:**
+
+- Consistent page layout
+- Title and description display
+- Wraps page content
+
+**Props:**
+
+- `title` - Page title
+- `description` - Page description
+- `children` - Page content
+
+### PageHeader
+
+**Purpose:** Page header component
+
+**Features:**
+
+- Consistent page header styling
+- Title display
+
+**Props:**
+
+- `title` - Header title
 
 ---
 
@@ -101,11 +381,11 @@ See `Dropdown.example.jsx` for more usage examples.
 
 When adding new shared components:
 
-1. Create component file in this directory
+1. Create component file in appropriate subdirectory (display, inputs, layout, etc.)
 2. Add propTypes validation
-3. Add JSDoc comments
-4. Export from index.js if needed
-5. Add documentation to this README
-6. Ensure RTL support for layout components
-7. Use translation keys for text content
-
+3. Export from index.js if needed
+4. Add documentation to this README
+5. Ensure RTL support for layout components
+6. Use translation keys for text content
+7. Extract styles into helper functions or constants
+8. Use centralized spacing/theme constants from `@constants` and `@theme`

@@ -8,11 +8,6 @@ import { MobileLayout, DesktopLayout } from './mainlayout/components';
 import { useSidebar, useResponsiveSidebar } from '@hooks';
 import { isPublicPage } from '@utils';
 
-/**
- * Main Layout Component
- * Handles layout switching between mobile and desktop views
- * Manages responsive sidebar behavior and public page routing
- */
 function MainLayout({ children }) {
   const location = useLocation();
   const theme = useTheme();

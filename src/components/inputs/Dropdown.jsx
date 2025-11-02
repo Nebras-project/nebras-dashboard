@@ -1,12 +1,54 @@
 // external imports
 import { Box, List, Collapse } from '@mui/material';
-import { MdExpandMore, MdExpandLess, MdCheck } from 'react-icons/md';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 // internal imports
-import { ListButton } from '@components';
-import { padding } from '@constants';
+import { ListButton, Icon } from '@components';
+import { padding, margin } from '@constants';
+
+const getEndContentStyles = () => ({
+  display: 'flex',
+  alignItems: 'center',
+  color: 'text.secondary',
+  ...margin.left.auto,
+  ...padding.left.sm,
+});
+
+const getButtonStyles = (buttonSx) => ({
+  justifyContent: 'flex-start',
+  ...padding.x.md,
+  width: '100%',
+  ...buttonSx,
+});
+
+const getListContainerStyles = (listContainerSx) => ({
+  ...padding.x.xs,
+  ...listContainerSx,
+});
+
+const getListItemStyles = (indentLevel, listItemSx) => ({
+  pl: indentLevel,
+  '&.Mui-disabled': { opacity: 0.5 },
+  ...listItemSx,
+});
+
+const getIconStyles = (isSelected) => ({
+  color: isSelected ? 'primary.main' : 'text.secondary',
+});
+
+const getTextProps = (isSelected) => ({
+  fontWeight: isSelected ? 600 : 400,
+  fontSize: '0.875rem',
+});
+
+const findCurrentOption = (options, currentValue) => {
+  return options.find((opt) => opt.value === currentValue);
+};
+
+const getListItemIcon = (showCheckmark, isSelected, optionIcon) => {
+  return showCheckmark && isSelected ? <Icon name="check" size={20} /> : optionIcon;
+};
 
 function Dropdown({
   icon,
@@ -23,7 +65,7 @@ function Dropdown({
 }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
-  const currentOption = options.find((opt) => opt.value === currentValue);
+  const currentOption = findCurrentOption(options, currentValue);
 
   return (
     <Box sx={sx}>
@@ -33,28 +75,15 @@ function Dropdown({
         text={currentOption?.label || label}
         iconSx={{ color: 'text.secondary' }}
         endContent={
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              color: 'text.secondary',
-              ml: 'auto',
-              pl: 1,
-            }}
-          >
-            {isOpen ? <MdExpandLess size={20} /> : <MdExpandMore size={20} />}
+          <Box sx={getEndContentStyles()}>
+            {isOpen ? <Icon name="expandLess" size={20} /> : <Icon name="expandMore" size={20} />}
           </Box>
         }
-        sx={{
-          justifyContent: 'flex-start',
-          px: 2,
-          width: '100%',
-          ...buttonSx,
-        }}
+        sx={getButtonStyles(buttonSx)}
       />
 
       <Collapse in={isOpen} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding sx={{ ...padding.x.xs, ...listContainerSx }}>
+        <List component="div" disablePadding sx={getListContainerStyles(listContainerSx)}>
           {options.map((option) => {
             const isSelected = currentValue && option.value === currentValue;
             return (
@@ -64,15 +93,11 @@ function Dropdown({
                   if (option.onClick) option.onClick();
                 }}
                 disabled={option?.disabled}
-                icon={showCheckmark && isSelected ? <MdCheck size={20} /> : option.icon}
+                icon={getListItemIcon(showCheckmark, isSelected, option.icon)}
                 text={option.label}
-                iconSx={{ color: isSelected ? 'primary.main' : 'text.secondary' }}
-                textProps={{ fontWeight: isSelected ? 600 : 400, fontSize: '0.875rem' }}
-                sx={{
-                  pl: indentLevel,
-                  '&.Mui-disabled': { opacity: 0.5 },
-                  ...listItemSx,
-                }}
+                iconSx={getIconStyles(isSelected)}
+                textProps={getTextProps(isSelected)}
+                sx={getListItemStyles(indentLevel, listItemSx)}
               />
             );
           })}

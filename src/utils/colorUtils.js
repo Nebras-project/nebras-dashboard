@@ -1,13 +1,3 @@
-/**
- * Utility functions for color manipulation
- */
-
-/**
- * Adjust color brightness
- * @param {string} hex - Hex color code
- * @param {number} percent - Percentage to lighten (positive) or darken (negative)
- * @returns {string} Adjusted hex color
- */
 export const adjustColor = (hex, percent) => {
   // Remove # if present
   hex = hex.replace(/^#/, "");
@@ -31,11 +21,6 @@ export const adjustColor = (hex, percent) => {
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 };
 
-/**
- * Generate color palette from base color
- * @param {string} baseColor - Base hex color
- * @returns {Object} Color palette with light, main, and dark variants
- */
 export const generateColorPalette = (baseColor) => {
   return {
     main: baseColor,
@@ -45,12 +30,6 @@ export const generateColorPalette = (baseColor) => {
   };
 };
 
-/**
- * Generate background color from base color
- * @param {string} baseColor - Base hex color
- * @param {string} mode - 'light' or 'dark'
- * @returns {string} Background color
- */
 export const generateBackgroundColor = (baseColor, mode) => {
   if (mode === "light") {
     return adjustColor(baseColor, 85); // Very light version

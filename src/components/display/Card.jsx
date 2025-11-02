@@ -1,31 +1,12 @@
 // external imports
 import { Card as MuiCard, CardHeader, CardContent, CardActions, Box } from '@mui/material';
-import { MdArrowForward, MdArrowBack } from 'react-icons/md';
 import PropTypes from 'prop-types';
 
 // internal imports
+import Icon from './Icon';
 import { useLanguage } from '@hooks';
 import { padding, gap } from '@constants';
 
-/**
- * Card Component
- * A flexible, reusable card component with multiple variants using MUI Card
- *
- * @param {string} variant - Card style variant: 'elevation' or 'outlined'
- * @param {string} title - Card title (optional)
- * @param {string} subheader - Card subheader/description (optional)
- * @param {object} titleTypographyProps - Props to customize title Typography
- * @param {object} subheaderTypographyProps - Props to customize subheader Typography
- * @param {node} action - Action component in header (e.g., button, icon)
- * @param {node} avatar - Avatar component in header
- * @param {node} children - Card content
- * @param {node} actions - Action buttons at the bottom of card
- * @param {object} sx - Additional MUI sx props for the card
- * @param {object} contentSx - Additional MUI sx props for CardContent
- * @param {boolean} hoverable - Enable hover effects with sliding arrow
- * @param {function} onClick - Click handler for entire card
- * @param {number} elevation - Card elevation (shadow depth)
- */
 function Card({
   variant = 'outlined',
   title,
@@ -89,7 +70,7 @@ function Card({
           alignItems: 'center',
         }}
       >
-        {isRTL ? <MdArrowForward size={24} /> : <MdArrowBack size={24} />}
+        {isRTL ? <Icon name="arrowForward" size={24} /> : <Icon name="arrowBack" size={24} />}
       </Box>
     </Box>
   ) : (

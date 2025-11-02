@@ -1,17 +1,12 @@
 import { Grid, Card, CardContent, Typography, Stack, Box } from '@mui/material';
-import { MdEmojiEvents, MdPeople, MdUpcoming, MdPendingActions } from 'react-icons/md';
 import StatCard from './StatCard';
 
-/**
- * Dashboard for Competition Manager role
- * Shows competition-specific statistics
- */
 function CompetitionDashboard() {
   const stats = [
-    { title: 'Active Competitions', value: '5', icon: MdEmojiEvents, color: 'primary', trend: 2 },
-    { title: 'Total Participants', value: '1,234', icon: MdPeople, color: 'secondary', trend: 15 },
-    { title: 'Upcoming Events', value: '3', icon: MdUpcoming, color: 'success', trend: 0 },
-    { title: 'Pending Results', value: '2', icon: MdPendingActions, color: 'warning', trend: -1 },
+    { title: 'Active Competitions', value: '5', icon: 'emojiEvents', color: 'primary', trend: 2 },
+    { title: 'Total Participants', value: '1,234', icon: 'people', color: 'secondary', trend: 15 },
+    { title: 'Upcoming Events', value: '3', icon: 'upcoming', color: 'success', trend: 0 },
+    { title: 'Pending Results', value: '2', icon: 'pendingActions', color: 'warning', trend: -1 },
   ];
 
   return (
@@ -74,4 +69,3 @@ function CompetitionDashboard() {
 }
 
 export default CompetitionDashboard;
-

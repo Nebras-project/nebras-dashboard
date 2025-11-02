@@ -1,12 +1,15 @@
 import { Card, CardContent, Stack, Box, Typography } from '@mui/material';
+import { Icon } from '@components';
 
-/**
- * Reusable stat card component
- * Used across all role-specific dashboards
- */
-function StatCard({ title, value, icon: Icon, color = 'primary', trend }) {
+function StatCard({ title, value, icon, color = 'primary', trend }) {
   return (
-    <Card sx={{ height: '100%', transition: 'transform 0.2s', '&:hover': { transform: 'translateY(-4px)' } }}>
+    <Card
+      sx={{
+        height: '100%',
+        transition: 'transform 0.2s',
+        '&:hover': { transform: 'translateY(-4px)' },
+      }}
+    >
       <CardContent>
         <Stack spacing={2}>
           {/* Icon Box */}
@@ -22,7 +25,7 @@ function StatCard({ title, value, icon: Icon, color = 'primary', trend }) {
               justifyContent: 'center',
             }}
           >
-            <Icon size={28} />
+            <Icon name={icon} size={28} />
           </Box>
 
           {/* Value & Title */}
@@ -52,4 +55,3 @@ function StatCard({ title, value, icon: Icon, color = 'primary', trend }) {
 }
 
 export default StatCard;
-

@@ -17,7 +17,7 @@ src/providers/
 └── ThemeProvider.jsx  # Theme provider with RTL support
 
 src/utils/
-└── colorHelpers.js    # Color manipulation utilities
+└── colorUtils.js      # Color manipulation utilities (from @utils)
 ```
 
 ---
@@ -29,19 +29,19 @@ src/utils/
 The main theme creation function that generates a complete Material-UI theme based on user preferences.
 
 ```javascript
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from '@mui/material/styles';
 
 export const createAppTheme = (
-  mode = "light",           // 'light' | 'dark'
-  direction = "ltr",        // 'ltr' | 'rtl'
-  colorScheme = "blue",     // 'blue' | 'custom'
-  customColor = null        // hex color for custom scheme
+  mode = 'light', // 'light' | 'dark'
+  direction = 'ltr', // 'ltr' | 'rtl'
+  colorScheme = 'blue', // 'blue' | 'custom'
+  customColor = null // hex color for custom scheme
 ) => {
   return createTheme({
     palette: { mode, primary, background, text, divider },
     typography,
     direction,
-    spacing: 8,               // 8px base unit
+    spacing: 8, // 8px base unit
     breakpoints,
     components,
     transitions,
@@ -70,66 +70,98 @@ export const createAppTheme = (
 ```javascript
 export const baseColors = {
   // Primary - Blue
-  blue50: "#e6f3ff",
-  blue400: "#4da3ff",
-  blue500: "#0075ff",        // Default primary
-  blue700: "#005acc",
-  blue900: "#003d99",
+  blue50: '#e6f3ff',
+  blue400: '#4da3ff',
+  blue500: '#0075ff', // Blue brand color
+  blue700: '#005acc',
+  blue900: '#003d99',
 
-  // Success
-  green50: "#e8f5e9",
-  green500: "#2e7d32",
-  green700: "#1b5e20",
+  // Primary - Teal
+  teal50: '#e6f9f3',
+  teal400: '#4dddb0',
+  teal500: '#17cd96', // Teal brand color
+  teal700: '#12a376',
+  teal900: '#0d7a58',
 
-  // Error
-  red50: "#ffebee",
-  red500: "#d32f2f",
-  red700: "#c62828",
+  // Nebras Green (kept for reference)
+  green50: '#e6f2ed',
+  green400: '#33a872',
+  green500: '#006239',
+  green700: '#004d2d',
+  green900: '#003320',
 
-  // Warning
-  orange50: "#fff3e0",
-  orange500: "#ed6c02",
-  orange700: "#e65100",
+  // Pinks/Reds (Secondary)
+  pink50: '#fce4ec',
+  pink200: '#ff5983',
+  pink700: '#dc004e',
+  pink900: '#9a0036',
+  pink950: '#880e4f',
 
-  // Info
-  cyan50: "#e0f7fa",
-  cyan500: "#0288d1",
-  cyan700: "#01579b",
+  // Greens (Success)
+  successGreen400: '#4caf50',
+  successGreen600: '#2e7d32',
+  successGreen900: '#1b5e20',
 
-  // Gray scales for light mode
-  gray50: "#fafafa",
-  gray100: "#f5f5f5",
-  gray200: "#eeeeee",
-  gray300: "#e0e0e0",
-  gray400: "#bdbdbd",
-  gray500: "#9e9e9e",
-  gray600: "#757575",
-  gray700: "#616161",
-  gray800: "#424242",
-  gray900: "#212121",
+  // Reds (Error)
+  red300: '#ef5350',
+  red500: '#d32f2f',
+  red600: '#c62828',
+  red700: '#f44336',
+
+  // Oranges (Warning)
+  orange400: '#ff9800',
+  orange600: '#ed6c02',
+  orange800: '#e65100',
+  orange900: '#f57c00',
+
+  // Light Blues (Info)
+  lightBlue300: '#03a9f4',
+  lightBlue500: '#0288d1',
+  lightBlue900: '#01579b',
+
+  // Grays (Light mode)
+  gray50: '#fafafa',
+  gray100: '#f5f5f5',
+  gray200: '#e0e0e0',
+  gray700: '#757575',
+  gray800: '#bdbdbd',
+  gray900: '#212121',
 
   // Dark mode backgrounds
-  dark500: "#1e1e1e",
-  dark600: "#252525",
-  dark700: "#2c2c2c",
-  dark800: "#171717",
-  dark900: "#121212",
+  dark900: '#121212', // Main dark background
+  dark800: '#171717', // Dark surface
+  dark700: '#1e1e1e', // Elevated surface
+  dark600: '#2c2c2c', // More elevated
+  dark500: '#383838', // Most elevated
 
   // White & Black
-  white: "#ffffff",
-  black: "#000000",
+  white: '#ffffff',
+  black: '#000000',
+
+  // Dark mode text
+  darkText100: '#b0b0b0',
+  darkText200: '#666666',
 };
 ```
 
 ### Color Schemes
 
 #### 1. **Blue Scheme** (Default)
+
 - Primary: `#0075ff`
 - Light: `#4da3ff`
 - Dark: `#005acc`
 - Background: `#e6f3ff` (light) / `#003d99` (dark)
 
-#### 2. **Custom Scheme**
+#### 2. **Teal Scheme**
+
+- Primary: `#17cd96`
+- Light: `#4dddb0`
+- Dark: `#12a376`
+- Background: `#e6f9f3` (light) / `#0d7a58` (dark)
+
+#### 3. **Custom Scheme**
+
 - User-selected color
 - Auto-generated palette (light, main, dark variants)
 - Calculated background colors
@@ -138,38 +170,113 @@ export const baseColors = {
 
 ```javascript
 export const colors = {
-  primary: { main, light, dark, contrastText },
-  secondary: { main, light, dark, contrastText },
-  success: { main: '#2e7d32', light: '#4caf50', dark: '#1b5e20' },
-  error: { main: '#d32f2f', light: '#e57373', dark: '#c62828' },
-  warning: { main: '#ed6c02', light: '#ff9800', dark: '#e65100' },
-  info: { main: '#0288d1', light: '#03a9f4', dark: '#01579b' },
+  primary: {
+    main: baseColors.blue500,
+    light: baseColors.blue400,
+    dark: baseColors.blue700,
+    contrastText: baseColors.white,
+  },
+  secondary: {
+    main: baseColors.green500,
+    light: baseColors.green400,
+    dark: baseColors.green700,
+    contrastText: baseColors.white,
+  },
+  success: {
+    main: baseColors.successGreen600,
+    light: baseColors.successGreen400,
+    dark: baseColors.successGreen900,
+    contrastText: baseColors.white,
+  },
+  error: {
+    main: baseColors.red500,
+    light: baseColors.red300,
+    dark: baseColors.red600,
+    contrastText: baseColors.white,
+  },
+  warning: {
+    main: baseColors.orange600,
+    light: baseColors.orange400,
+    dark: baseColors.orange800,
+    contrastText: baseColors.white,
+  },
+  info: {
+    main: baseColors.lightBlue500,
+    light: baseColors.lightBlue300,
+    dark: baseColors.lightBlue900,
+    contrastText: baseColors.white,
+  },
 };
 ```
 
 ### Background Colors
 
-**Light Mode:**
-- Default: `#ffffff`
-- Paper: `#f5f5f5`
-- Surface levels: white, gray50, gray100
+```javascript
+export const customBackgrounds = {
+  light: {
+    primary: baseColors.blue50,
+    secondary: baseColors.green50,
+    surface: {
+      level1: baseColors.white,
+      level2: baseColors.gray50,
+      level3: baseColors.gray100,
+    },
+  },
+  dark: {
+    primary: baseColors.blue900,
+    secondary: baseColors.green900,
+    surface: {
+      level1: baseColors.dark800, // #171717
+      level2: baseColors.dark600, // #2c2c2c
+      level3: baseColors.dark500, // #383838
+    },
+  },
+};
+```
 
-**Dark Mode:**
-- Default: `#121212`
-- Paper: `#171717`
-- Surface levels: dark800, dark600, dark500
+```javascript
+export const backgroundDefaults = {
+  light: {
+    default: baseColors.white,
+    paper: baseColors.gray100,
+  },
+  dark: {
+    default: baseColors.dark900, // #121212
+    paper: baseColors.dark800, // #171717
+  },
+};
+```
 
 ### Text Colors
 
-**Light Mode:**
-- Primary: `#212121` (gray900)
-- Secondary: `#757575` (gray700)
-- Disabled: `#bdbdbd` (gray800)
+```javascript
+export const textColors = {
+  light: {
+    primary: baseColors.gray900,
+    secondary: baseColors.gray700,
+    disabled: baseColors.gray800,
+  },
+  dark: {
+    primary: baseColors.white,
+    secondary: baseColors.darkText100,
+    disabled: baseColors.darkText200,
+  },
+};
+```
 
-**Dark Mode:**
-- Primary: `#ffffff`
-- Secondary: `#b0b0b0`
-- Disabled: `#666666`
+### Divider & Border Colors
+
+```javascript
+export const dividerColors = {
+  light: baseColors.gray200,
+  dark: baseColors.dark600,
+};
+
+export const borderColors = {
+  light: baseColors.gray200,
+  dark: baseColors.dark600,
+};
+```
 
 ---
 
@@ -180,7 +287,7 @@ export const colors = {
 #### Font Stack
 
 ```javascript
-fontFamily: "Cairo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+fontFamily: "Cairo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
 ```
 
 #### Font Weights
@@ -192,21 +299,21 @@ fontFamily: "Cairo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
 #### Type Scale
 
-| Variant | Size | Weight | Line Height |
-|---------|------|--------|-------------|
-| h1 | 40px | 700 | 1.2 |
-| h2 | 32px | 700 | 1.3 |
-| h3 | 28px | 600 | 1.4 |
-| h4 | 24px | 600 | 1.4 |
-| h5 | 20px | 600 | 1.5 |
-| h6 | 16px | 600 | 1.5 |
-| subtitle1 | 16px | 500 | 1.75 |
-| subtitle2 | 14px | 500 | 1.57 |
-| body1 | 16px | 400 | 1.5 |
-| body2 | 14px | 400 | 1.4 |
-| button | 14px | 600 | 1.75 |
-| caption | 12px | 400 | 1.66 |
-| overline | 12px | 600 | 2.66 |
+| Variant   | Size | Weight | Line Height |
+| --------- | ---- | ------ | ----------- |
+| h1        | 40px | 700    | 1.2         |
+| h2        | 32px | 700    | 1.3         |
+| h3        | 28px | 600    | 1.4         |
+| h4        | 24px | 600    | 1.4         |
+| h5        | 20px | 600    | 1.5         |
+| h6        | 16px | 600    | 1.5         |
+| subtitle1 | 16px | 500    | 1.75        |
+| subtitle2 | 14px | 500    | 1.57        |
+| body1     | 16px | 400    | 1.5         |
+| body2     | 14px | 400    | 1.4         |
+| button    | 14px | 600    | 1.75        |
+| caption   | 12px | 400    | 1.66        |
+| overline  | 12px | 600    | 2.66        |
 
 #### Typography Features
 
@@ -222,15 +329,15 @@ fontFamily: "Cairo, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
 ```javascript
 export const spacing = {
-  none: 0,      // 0px
-  xxs: 2,       // 2px
-  xs: 4,        // 4px
-  sm: 8,        // 8px
-  md: 16,       // 16px
-  lg: 24,       // 24px
-  xl: 32,       // 32px
-  xxl: 48,      // 48px
-  xxxl: 64,     // 64px
+  none: 0, // 0px
+  xxs: 2, // 2px
+  xs: 4, // 4px
+  sm: 8, // 8px
+  md: 16, // 16px
+  lg: 24, // 24px
+  xl: 32, // 32px
+  xxl: 48, // 48px
+  xxxl: 64, // 64px
 };
 ```
 
@@ -244,10 +351,10 @@ export const spacing = {
 
 ```javascript
 const breakpoints = {
-  mobile: 0,         // 0px - 767px
-  tablet: 768,       // 768px - 1023px
-  desktop: 1024,     // 1024px - 1439px
-  widescreen: 1440,  // 1440px+
+  mobile: 0, // 0px - 767px
+  tablet: 768, // 768px - 1023px
+  desktop: 1024, // 1024px - 1439px
+  widescreen: 1440, // 1440px+
 };
 ```
 
@@ -273,10 +380,10 @@ export const borderRadius = {
   xxs: 1,
   xs: 2,
   sm: 4,
-  md: 8,        // Default for buttons, cards
+  md: 8, // Default for buttons, cards
   lg: 12,
   xl: 16,
-  full: 9999,   // Fully rounded
+  full: 9999, // Fully rounded
 };
 ```
 
@@ -319,13 +426,13 @@ const cacheLtr = createCache({
 });
 
 const ThemeProvider = ({ children }) => {
-  const theme = useMuiTheme();          // Get dynamic theme
-  const { isRTL } = useLanguage();      // Check direction
-  useDocumentDirection();               // Update HTML dir
-  useCssVariables(theme);               // Set CSS variables
-  
+  const theme = useMuiTheme(); // Get dynamic theme
+  const { isRTL } = useLanguage(); // Check direction
+  useDocumentDirection(); // Update HTML dir
+  useCssVariables(theme); // Set CSS variables
+
   const cache = isRTL ? cacheRtl : cacheLtr;
-  
+
   return (
     <CacheProvider value={cache}>
       <MuiThemeProvider theme={theme}>
@@ -348,9 +455,13 @@ const ThemeProvider = ({ children }) => {
 
 ---
 
-## Color Helpers
+## Color Utilities
 
-### **colorHelpers.js** - Custom Color Generation
+### **colorUtils.js** - Custom Color Generation
+
+**Location:** `src/utils/colorUtils.js`
+
+**Import:** `import { generateColorPalette, adjustColor, generateBackgroundColor } from '@utils';`
 
 ```javascript
 // Adjust brightness
@@ -361,17 +472,17 @@ export const adjustColor = (hex, percent) => {
 // Generate full palette
 export const generateColorPalette = (baseColor) => {
   return {
-    light: adjustColor(baseColor, 40),   // +40% lighter
-    main: baseColor,                     // Original
-    dark: adjustColor(baseColor, -30),   // -30% darker
-    contrastText: "#ffffff",
+    light: adjustColor(baseColor, 40), // +40% lighter
+    main: baseColor, // Original
+    dark: adjustColor(baseColor, -30), // -30% darker
+    contrastText: '#ffffff',
   };
 };
 
 // Generate background
 export const generateBackgroundColor = (baseColor, mode) => {
-  return mode === 'light' 
-    ? adjustColor(baseColor, 85)   // Very light
+  return mode === 'light'
+    ? adjustColor(baseColor, 85) // Very light
     : adjustColor(baseColor, -60); // Very dark
 };
 ```
@@ -380,7 +491,7 @@ export const generateBackgroundColor = (baseColor, mode) => {
 
 ```javascript
 // User picks #ff5983
-// Generates: 
+// Generates:
 // - light: #ff8ba8
 // - main: #ff5983
 // - dark: #b33e5c
@@ -397,7 +508,7 @@ const transitions = {
     shortest: 150,
     shorter: 200,
     short: 250,
-    standard: 300,      // Default
+    standard: 300, // Default
     complex: 375,
     enteringScreen: 225,
     leavingScreen: 195,
@@ -448,9 +559,9 @@ import { useTheme } from '@mui/material/styles';
 
 function MyComponent() {
   const theme = useTheme();
-  
+
   return (
-    <Box 
+    <Box
       sx={{
         bgcolor: 'background.paper',
         color: 'text.primary',
@@ -469,9 +580,7 @@ function MyComponent() {
 ```javascript
 import { spacing } from '../theme';
 
-<Box sx={{ mt: spacing.lg, px: spacing.md }}>
-  Content with custom spacing
-</Box>
+<Box sx={{ mt: spacing.lg, px: spacing.md }}>Content with custom spacing</Box>;
 ```
 
 ### Using Border Radius
@@ -479,9 +588,7 @@ import { spacing } from '../theme';
 ```javascript
 import { borderRadius } from '../theme/components';
 
-<Card sx={{ borderRadius: `${borderRadius.lg}px` }}>
-  Card content
-</Card>
+<Card sx={{ borderRadius: `${borderRadius.lg}px` }}>Card content</Card>;
 ```
 
 ---
@@ -516,4 +623,3 @@ All Components Re-render with New Theme
 ---
 
 **Last Updated:** 2025-10-25
-

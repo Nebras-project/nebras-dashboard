@@ -305,6 +305,15 @@ const ar = {
     },
   },
 
+  // Errors (Error Boundary)
+  errors: {
+    somethingWentWrong: 'عذراً! حدث خطأ ما',
+    errorDescription: 'نعتذر عن الإزعاج. حدث خطأ غير متوقع.',
+    tryAgain: 'حاول مرة أخرى',
+    refresh: 'تحديث الصفحة',
+    goHome: 'العودة للرئيسية',
+  },
+
   // Pagination
   pagination: {
     rowsPerPage: 'صفوف لكل صفحة:',

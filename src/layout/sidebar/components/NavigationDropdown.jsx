@@ -1,56 +1,68 @@
 // external imports
 import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 
 // internal imports
 import { useTranslation, useSidebarNavigation } from '@hooks';
-import { ListButton } from '@components';
-import { Dropdown } from '@components';
+import { ListButton, Dropdown } from '@components';
+import { getNavigationHoverStyles, padding } from '@constants';
 
-/**
- * NavigationDropdown Component
- * Navigation-specific dropdown wrapper for sidebar items with children
- * Handles collapsed mode with toggle behavior and navigation
- * 
- * @param {Object} props
- * @param {React.ReactNode} props.icon - Icon to display
- * @param {string} props.label - Label text for the dropdown (already translated)
- * @param {Array} props.items - Array of child navigation items {text, icon, path}
- * @param {boolean} props.collapsed - Whether sidebar is collapsed
- */
+const getDropdownStyles = () => ({
+  width: '100%',
+});
+
+const getButtonStyles = () => ({
+  justifyContent: 'flex-start',
+  ...padding.x.md,
+});
+
+const getIconStyles = (isActive) => ({
+  color: isActive ? 'inherit' : 'text.secondary',
+});
+
+const checkIfAnyChildActive = (items, pathname) => {
+  return items.some((child) => pathname === child.path);
+};
+
+const getCurrentActiveValue = (items, pathname) => {
+  return items.find((child) => pathname === child.path)?.path || '';
+};
+
+const convertItemsToOptions = (items, t, handleNavigation) => {
+  return items.map((child) => ({
+    value: child.path,
+    label: t(child.text),
+    icon: child.icon,
+    onClick: () => handleNavigation(child.path),
+  }));
+};
 
 function NavigationDropdown({ icon, label, items, collapsed }) {
   const { t } = useTranslation();
+  const theme = useTheme();
   const location = useLocation();
   const { handleNavigation } = useSidebarNavigation();
 
-  // Check if any child is active - memoized to avoid recalculation
   const isAnyChildActive = useMemo(
-    () => items.some(child => location.pathname === child.path),
+    () => checkIfAnyChildActive(items, location.pathname),
     [items, location.pathname]
   );
 
-  // Convert items to dropdown options - memoized for performance
   const options = useMemo(
-    () => items.map(child => ({
-      value: child.path,
-      label: t(child.text),
-      icon: child.icon,
-      onClick: () => handleNavigation(child.path),
-    })),
+    () => convertItemsToOptions(items, t, handleNavigation),
     [items, t, handleNavigation]
   );
 
-  // Get current active option - only set if there's an actual match
   const currentValue = useMemo(
-    () => items.find(child => location.pathname === child.path)?.path || '',
+    () => getCurrentActiveValue(items, location.pathname),
     [items, location.pathname]
   );
 
-  // When collapsed, show simple button that navigates to first child
+  const hoverStyles = getNavigationHoverStyles(theme, isAnyChildActive, collapsed);
+
   if (collapsed) {
-    // Only navigate if not already on an active child
     const handleClick = () => {
       if (!isAnyChildActive && items[0]?.path) {
         handleNavigation(items[0].path);
@@ -64,14 +76,12 @@ function NavigationDropdown({ icon, label, items, collapsed }) {
         text={label}
         collapsed={collapsed}
         selected={isAnyChildActive}
-        iconSx={{ 
-          color: isAnyChildActive ? 'inherit' : 'text.secondary',
-        }}
+        iconSx={getIconStyles(isAnyChildActive)}
+        sx={hoverStyles}
       />
     );
   }
 
-  // When expanded, use the generic Dropdown component with unified styles
   return (
     <Dropdown
       icon={icon}
@@ -79,14 +89,12 @@ function NavigationDropdown({ icon, label, items, collapsed }) {
       options={options}
       currentValue={currentValue}
       showCheckmark={true}
-      sx={{
-        width: '100%',
-      }}
+      sx={getDropdownStyles()}
+      indentLevel={6}
       buttonSx={{
-        justifyContent: 'flex-start',
-        px: 2,
+        ...getButtonStyles(),
+        ...hoverStyles,
       }}
-      indentLevel={6}  // Increased indentation for nested items
     />
   );
 }
@@ -94,13 +102,14 @@ function NavigationDropdown({ icon, label, items, collapsed }) {
 NavigationDropdown.propTypes = {
   icon: PropTypes.node.isRequired,
   label: PropTypes.string.isRequired,
-  items: PropTypes.arrayOf(PropTypes.shape({
-    text: PropTypes.string.isRequired,
-    icon: PropTypes.node,
-    path: PropTypes.string.isRequired,
-  })).isRequired,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string.isRequired,
+      icon: PropTypes.node,
+      path: PropTypes.string.isRequired,
+    })
+  ).isRequired,
   collapsed: PropTypes.bool.isRequired,
 };
 
 export default NavigationDropdown;
-

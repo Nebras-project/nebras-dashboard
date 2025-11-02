@@ -1,9 +1,5 @@
 import { useEffect } from "react";
 
-/**
- * Custom hook to set CSS variables for text selection highlighting
- * Only sets the variables that are actually used in the CSS
- */
 export const useCssVariables = (theme) => {
   useEffect(() => {
     if (!theme?.palette) return;

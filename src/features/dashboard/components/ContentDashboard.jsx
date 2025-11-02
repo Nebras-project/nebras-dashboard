@@ -1,17 +1,18 @@
 import { Grid, Card, CardContent, Typography, Stack, Box } from '@mui/material';
-import { MdQuiz, MdSchool, MdLibraryBooks, MdTrendingUp } from 'react-icons/md';
 import StatCard from './StatCard';
 
-/**
- * Dashboard for Content Manager role
- * Shows content-specific statistics (questions)
- */
 function ContentDashboard() {
   const stats = [
-    { title: 'Total Questions', value: '5,432', icon: MdQuiz, color: 'primary', trend: 45 },
-    { title: 'Ministerial Questions', value: '892', icon: MdSchool, color: 'secondary', trend: 12 },
-    { title: 'Enrichment Questions', value: '1,234', icon: MdLibraryBooks, color: 'success', trend: 28 },
-    { title: 'This Month', value: '+156', icon: MdTrendingUp, color: 'info', trend: 15 },
+    { title: 'Total Questions', value: '5,432', icon: 'quiz', color: 'primary', trend: 45 },
+    { title: 'Ministerial Questions', value: '892', icon: 'school', color: 'secondary', trend: 12 },
+    {
+      title: 'Enrichment Questions',
+      value: '1,234',
+      icon: 'libraryBooks',
+      color: 'success',
+      trend: 28,
+    },
+    { title: 'This Month', value: '+156', icon: 'trendingUp', color: 'info', trend: 15 },
   ];
 
   const questionsByDifficulty = [
@@ -111,4 +112,3 @@ function ContentDashboard() {
 }
 
 export default ContentDashboard;
-

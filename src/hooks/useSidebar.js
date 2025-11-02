@@ -14,10 +14,6 @@ import {
 } from "@store/slices";
 import { SIDEBAR_WIDTH, SIDEBAR_COLLAPSED_WIDTH } from "@constants";
 
-/**
- * Custom hook to access and manage sidebar state from Redux
- * @returns {Object} Sidebar state, calculated width, and action creators
- */
 export const useSidebar = () => {
   const sidebar = useSelector((state) => state.sidebar);
   const dispatch = useDispatch();

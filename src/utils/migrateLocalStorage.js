@@ -1,8 +1,3 @@
-/**
- * Migrate old localStorage keys to the new unified system
- * This should be called once when the app loads
- */
-
 const OLD_KEYS = ['colorScheme', 'customColor', 'theme', 'language'];
 const NEW_KEY = 'nebras_dashboard_state';
 

@@ -1,8 +1,28 @@
-import { MdContrast, MdLightMode, MdDarkMode } from 'react-icons/md';
-import { Dropdown, Card } from '@components';
+// external imports
+
+// internal imports
+import { Dropdown, Card, Icon } from '@components';
 import { useTranslation, useReduxTheme } from '@hooks';
-import { borderWidth, borderRadius } from '@theme/components';
+import { borderWidth, borderRadius } from '@theme';
 import { margin, padding } from '@constants';
+
+const getDropdownStyles = () => ({
+  minWidth: 280,
+});
+
+const getButtonStyles = () => ({
+  border: borderWidth.xs,
+  borderColor: 'divider',
+  borderRadius: borderRadius.xxs,
+});
+
+const getListContainerStyles = () => ({
+  border: borderWidth.xs,
+  borderColor: 'divider',
+  borderRadius: borderRadius.xxs,
+  ...margin.top.sm,
+  ...padding.y.sm,
+});
 
 function ThemeCard() {
   const { t } = useTranslation();
@@ -12,19 +32,19 @@ function ThemeCard() {
     {
       value: 'system',
       label: t('common.systemMode'),
-      icon: <MdContrast />,
+      icon: <Icon name="contrast" />,
       onClick: () => setThemeMode('system'),
     },
     {
       value: 'light',
       label: t('common.lightMode'),
-      icon: <MdLightMode />,
+      icon: <Icon name="lightMode" />,
       onClick: () => setThemeMode('light'),
     },
     {
       value: 'dark',
       label: t('common.darkMode'),
-      icon: <MdDarkMode />,
+      icon: <Icon name="darkMode" />,
       onClick: () => setThemeMode('dark'),
     },
   ];
@@ -34,15 +54,9 @@ function ThemeCard() {
       label={t('common.theme')}
       options={themeOptions}
       currentValue={mode}
-      sx={{ minWidth: 280 }}
-      buttonSx={{ border: borderWidth.xs, borderColor: 'divider', borderRadius: borderRadius.xxs }}
-      listContainerSx={{
-        border: borderWidth.xs,
-        borderColor: 'divider',
-        borderRadius: borderRadius.xxs,
-        ...margin.top.sm,
-        ...padding.y.sm,
-      }}
+      sx={getDropdownStyles()}
+      buttonSx={getButtonStyles()}
+      listContainerSx={getListContainerStyles()}
     />
   );
 

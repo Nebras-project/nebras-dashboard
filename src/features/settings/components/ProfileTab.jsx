@@ -1,4 +1,7 @@
+// external imports
 import { Stack } from '@mui/material';
+
+// internal imports
 import ProfileHero from './ProfileHero';
 import PersonalInfoCard from './PersonalInfoCard';
 import SecurityCard from './SecurityCard';

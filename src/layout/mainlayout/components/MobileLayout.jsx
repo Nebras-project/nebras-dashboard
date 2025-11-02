@@ -1,47 +1,33 @@
 // external imports
-import { Box } from "@mui/material";
-import PropTypes from "prop-types";
+import { memo } from 'react';
+import { Box } from '@mui/material';
+import PropTypes from 'prop-types';
 
 // internal imports
-import { Header, Sidebar } from "@layout";
-import {
-  CONTAINER_BASE_STYLES,
-  MAIN_CONTENT_BASE_STYLES,
-} from "@constants";
+import { Header, Sidebar } from '@layout';
+import { CONTAINER_BASE_STYLES, MAIN_CONTENT_BASE_STYLES } from '@constants';
 
-/**
- * Mobile Layout Component
- * Uses flexbox layout with drawer overlay sidebar
- * Optimized for screens < 1024px (mobile/tablet)
- */
+// Extract mobile container styles to avoid inline object creation
+const MOBILE_CONTAINER_STYLES = {
+  ...CONTAINER_BASE_STYLES,
+  display: 'flex',
+  flexDirection: 'column',
+};
 
 function MobileLayout({ children }) {
   return (
-    <>
-      {/* Fixed Header - Outside main layout */}
+    <Box sx={MOBILE_CONTAINER_STYLES}>
+      {/* Fixed Header - Stays at top on scroll */}
       <Header />
-      
-      <Box
-        sx={{
-          ...CONTAINER_BASE_STYLES,
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        {/* Sidebar as drawer overlay */}
-        <Sidebar />
 
-        {/* Main Content */}
-        <Box 
-          component="main" 
-          sx={{
-            ...MAIN_CONTENT_BASE_STYLES,
-          }}
-        >
-          {children}
-        </Box>
+      {/* Sidebar Drawer - Overlays content when open */}
+      <Sidebar />
+
+      {/* Main Content Area - Scrollable content below header */}
+      <Box component="main" sx={MAIN_CONTENT_BASE_STYLES}>
+        {children}
       </Box>
-    </>
+    </Box>
   );
 }
 
@@ -49,5 +35,6 @@ MobileLayout.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default MobileLayout;
-
+// Memoize to prevent unnecessary re-renders when parent re-renders
+// Only re-renders if children prop changes
+export default memo(MobileLayout);

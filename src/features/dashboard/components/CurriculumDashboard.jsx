@@ -1,17 +1,12 @@
 import { Grid, Card, CardContent, Typography, Stack, Box } from '@mui/material';
-import { MdSchool, MdMenuBook, MdClass, MdCheckCircle } from 'react-icons/md';
 import StatCard from './StatCard';
 
-/**
- * Dashboard for Curriculum Manager role
- * Shows curriculum-specific statistics
- */
 function CurriculumDashboard() {
   const stats = [
-    { title: 'Total Subjects', value: '12', icon: MdSchool, color: 'primary', trend: 0 },
-    { title: 'Total Units', value: '45', icon: MdMenuBook, color: 'secondary', trend: 5 },
-    { title: 'Total Lessons', value: '230', icon: MdClass, color: 'success', trend: 18 },
-    { title: 'Completed', value: '198', icon: MdCheckCircle, color: 'info', trend: 12 },
+    { title: 'Total Subjects', value: '12', icon: 'school', color: 'primary', trend: 0 },
+    { title: 'Total Units', value: '45', icon: 'book', color: 'secondary', trend: 5 },
+    { title: 'Total Lessons', value: '230', icon: 'class', color: 'success', trend: 18 },
+    { title: 'Completed', value: '198', icon: 'checkCircle', color: 'info', trend: 12 },
   ];
 
   return (
@@ -74,4 +69,3 @@ function CurriculumDashboard() {
 }
 
 export default CurriculumDashboard;
-

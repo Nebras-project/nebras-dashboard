@@ -8,7 +8,7 @@ import { borderRadius, fontWeights } from '@theme';
 
 // Styled Button component
 const StyledButton = styled(MuiButton, {
-  shouldForwardProp: (prop) => !['loading', 'customVariant'].includes(prop),
+  shouldForwardProp: (prop) => !['loading', 'customVariant', 'customSize', 'customColor'].includes(prop),
 })(({ customVariant, customSize }) => {
   // Get size-specific styles
   const getSizeStyles = (size) => {

@@ -143,4 +143,4 @@ export {
 export { fontWeights, fontSizes, lineHeights } from './typography';
 
 // Re-export from components
-export { borderRadius, shadows } from './components';
+export { borderRadius, borderWidth, shadows } from './components';

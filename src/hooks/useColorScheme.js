@@ -4,10 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 // internal imports
 import { setDefaultColor, setColorScheme, setCustomColor } from "@store/slices";
 
-/**
- * Custom hook for managing color scheme (blue/custom)
- * @returns {Object} Color scheme state and actions
- */
 export const useColorScheme = () => {
   const dispatch = useDispatch();
   const { scheme, customColor } = useSelector((state) => state.colorScheme);

@@ -4,10 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 // internal imports
 import { toggleTheme, setThemeMode } from "@store/slices";
 
-/**
- * Custom hook to access and manage theme state from Redux
- * @returns {Object} Theme state and action creators
- */
 export const useReduxTheme = () => {
   const theme = useSelector((state) => state.theme);
   const dispatch = useDispatch();

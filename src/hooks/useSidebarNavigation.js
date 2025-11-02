@@ -5,14 +5,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 // internal imports
 import { useSidebar } from "./useSidebar";
 
-/**
- * useSidebarNavigation Hook
- * Provides a consistent navigation handler that's sidebar-aware
- * - Checks current path to avoid unnecessary navigation
- * - Navigates to the specified path only if different
- * - Automatically closes sidebar on mobile devices
- * - Prevents duplicate navigation logic across components
- */
 export function useSidebarNavigation() {
   const navigate = useNavigate();
   const location = useLocation();

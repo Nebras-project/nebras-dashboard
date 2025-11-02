@@ -7,28 +7,36 @@ import { borderRadius } from '@theme';
 import { margin, HEADER_HEIGHT } from '@constants';
 import { fontSizes, fontWeights } from '@theme';
 
+const getContainerStyles = () => ({
+  borderBottom: borderRadius.xxs,
+  borderColor: 'divider',
+  ...margin.bottom.lg,
+});
+
+const getTabStyles = () => ({
+  minHeight: HEADER_HEIGHT,
+  textTransform: 'none',
+  fontSize: fontSizes.sm,
+  fontWeight: fontWeights.semiBold,
+});
+
 function SettingsTabsHeader({ value, onChange, items }) {
   return (
-    <Box sx={{ borderBottom: borderRadius.xxs, borderColor: 'divider', ...margin.bottom.lg }}>
-      <Tabs 
-        value={value} 
+    <Box sx={getContainerStyles()}>
+      <Tabs
+        value={value}
         onChange={onChange}
         aria-label="settings tabs"
         variant="scrollable"
         scrollButtons="auto"
       >
         {items.map((item, index) => (
-          <Tab 
+          <Tab
             key={index}
             label={item.label}
             icon={item.icon}
             iconPosition="end"
-            sx={{ 
-              minHeight: HEADER_HEIGHT,
-              textTransform: 'none',
-              fontSize: fontSizes.sm,
-              fontWeight: fontWeights.semiBold,
-            }}
+            sx={getTabStyles()}
           />
         ))}
       </Tabs>
@@ -48,4 +56,3 @@ SettingsTabsHeader.propTypes = {
 };
 
 export default SettingsTabsHeader;
-

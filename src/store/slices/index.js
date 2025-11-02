@@ -1,11 +1,3 @@
-/**
- * Store Slices Barrel Export
- * Central export point for all Redux slices
- *
- * Usage:
- * import { setLanguage, toggleTheme, toggleSidebar } from '@store/slices';
- */
-
 // Theme slice
 export {
   default as themeReducer,

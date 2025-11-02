@@ -15,19 +15,29 @@ src/layout/
 │   ├── headerConfig.js            # Header configuration
 │   ├── index.js
 │   └── components/
-│       └── UserInfo.jsx           # User profile display
+│       └── UserInfo.jsx           # User profile display with menu
+│
+├── mainlayout/                    # MainLayout components
+│   ├── index.js                   # MainLayout exports
+│   └── components/
+│       ├── DesktopLayout.jsx      # Desktop layout grid
+│       ├── MobileLayout.jsx       # Mobile layout flexbox
+│       └── index.js               # Component exports
 │
 └── sidebar/                       # Sidebar components
-    ├── Sidebar.jsx                # Main sidebar component
+    ├── Sidebar.jsx                # Main sidebar component (orchestrator)
     ├── sidebarConfig.jsx          # Role-based menu configuration
     ├── index.js
     └── components/
+        ├── DesktopSidebar.jsx     # Desktop sidebar implementation
         ├── LogoHeader.jsx         # Logo & brand section
-        ├── NavigationMenu.jsx     # Navigation menu items
-        └── SidebarControls.jsx    # Bottom controls panel
+        ├── MobileDrawer.jsx       # Mobile drawer overlay
+        ├── NavigationDropdown.jsx # Navigation dropdown item
+        ├── NavigationItem.jsx     # Navigation item component
+        └── NavigationMenu.jsx     # Navigation menu container
 
-Note: Layout constants have been moved to src/constants/layout.js
-Import using: import { SIDEBAR_WIDTH } from '@constants';
+Note: Layout constants are in src/constants/layout.js
+Import using: import { SIDEBAR_WIDTH, HEADER_HEIGHT } from '@constants';
 ```
 
 ---
@@ -39,20 +49,22 @@ Import using: import { SIDEBAR_WIDTH } from '@constants';
 **Purpose**: Main layout container that adapts between mobile and desktop views
 
 **Features:**
+
 - ✅ **Responsive Design**: Different layouts for mobile/desktop
 - ✅ **CSS Grid** (Desktop): Persistent sidebar with dynamic width
 - ✅ **Flexbox** (Mobile): Stacked layout with drawer sidebar
-- ✅ **Login Exclusion**: No layout on login page
+- ✅ **Login Exclusion**: No layout on public pages (login, 404)
 - ✅ **Smooth Transitions**: Animated sidebar collapse
-- ✅ **Rounded Content**: Modern card-style main content
+- ✅ **Performance Optimized**: Memoized layout components
 
 **Layout Structure:**
 
-```
+```text
 Desktop (≥1024px):
 ┌─────────────────────────────────────┐
 │ Sidebar │ Header                    │
-│ (280px) ├───────────────────────────┤
+│ (290px  |                           |
+|  /80px) ├___________________________|
 │         │ Main Content              │
 │         │ (Remaining space)         │
 └─────────────────────────────────────┘
@@ -67,21 +79,39 @@ Mobile (<1024px):
 [Drawer Sidebar] (overlay when open)
 ```
 
+**Implementation:**
+
+MainLayout uses two separate layout components:
+
+- **DesktopLayout.jsx** - CSS Grid implementation for desktop
+- **MobileLayout.jsx** - Flexbox implementation for mobile
+
 **Breakpoint Detection:**
+
 ```javascript
 const isMobile = useMediaQuery(theme.breakpoints.down('desktop')); // < 1024px
+useResponsiveSidebar(isMobile); // Handles sidebar state updates
 ```
 
 **Grid Layout (Desktop):**
+
 ```javascript
-gridTemplateColumns: `${sidebarWidth}px calc(100vw - ${sidebarWidth}px)`
-gridTemplateRows: 'auto 1fr'
+gridTemplateColumns: `${sidebarWidth}px calc(100vw - ${sidebarWidth}px)`;
+gridTemplateRows: 'auto 1fr';
+gridTemplateAreas: `
+  "sidebar header"
+  "sidebar content"
+`;
 ```
 
 **Sidebar Width Calculation:**
-- Expanded: `280px`
-- Collapsed: `80px`
+
+- Expanded: `290px` (SIDEBAR_WIDTH)
+- Collapsed: `80px` (SIDEBAR_COLLAPSED_WIDTH)
 - Dynamic transition on collapse toggle
+
+**Public Pages:**
+Uses `isPublicPage()` utility to detect login/404 pages and skips layout rendering.
 
 ---
 
@@ -92,6 +122,7 @@ gridTemplateRows: 'auto 1fr'
 **Purpose**: Top navigation bar with user info and mobile menu
 
 **Features:**
+
 - ✅ **Fixed Position**: Stays at top when scrolling
 - ✅ **Mobile Menu**: Hamburger icon for drawer toggle
 - ✅ **User Info**: Avatar, name, role display
@@ -102,28 +133,39 @@ gridTemplateRows: 'auto 1fr'
 **Components:**
 
 1. **Header.jsx** - Main header container
+
+   - Responsive positioning (adjusts based on sidebar width)
    - Hamburger menu (mobile only)
-   - User info display
+   - DateTime display (desktop only, left-aligned)
+   - User info display (right-aligned)
    - AppBar with Toolbar
+   - Memoized for performance
 
 2. **UserInfo.jsx** - User profile component
-   - User avatar
-   - User name
-   - User role (translated)
-   - Profile menu (future)
+   - User avatar trigger button
+   - Context menu with user information
+   - User name (links to settings page)
+   - User email
+   - Role badge
+   - Logout button
+   - Menu positioning optimized for RTL/LTR
 
-**Mobile Menu Icon:**
-- LTR: `HiMenuAlt2` (opens left)
-- RTL: `HiMenuAlt3` (opens right)
+**Features:**
+
+- ✅ **Mobile Menu Icon**: Changes based on RTL/LTR direction
+  - LTR: `HiMenuAlt2` (opens left)
+  - RTL: `HiMenuAlt3` (opens right)
+- ✅ **Dynamic Width**: Adjusts based on sidebar collapsed state
+- ✅ **DateTime Integration**: Shows date/time on desktop (left side)
+- ✅ **Menu Integration**: UserInfo uses Menu component for dropdown
 
 **Styling:**
-```javascript
-position: "fixed"
-top: 0
-bgcolor: 'background.default'
-color: 'text.primary'
-elevation: 0
-```
+
+- Position: Fixed at top
+- Width: Adjusts dynamically based on sidebar state
+- Height: `HEADER_HEIGHT` constant (80px)
+- Background: Theme-aware background color
+- Z-index: AppBar level
 
 ---
 
@@ -134,6 +176,7 @@ elevation: 0
 **Purpose**: Main navigation panel with role-based menu and controls
 
 **Features:**
+
 - ✅ **Role-Based Navigation**: Different menus per user role
 - ✅ **Collapsible** (Desktop): Toggle between 280px ↔ 80px
 - ✅ **Drawer** (Mobile): Overlay sidebar
@@ -157,46 +200,76 @@ elevation: 0
 │ (scrollable)                │
 │                             │
 ├─────────────────────────────┤
-│ SidebarControls             │ ← Bottom panel
-│  • Color picker             │
-│  • Language toggle          │
-│  • Theme toggle             │
-│  • Logout                   │
+│ Settings                    |
 └─────────────────────────────┘
 ```
 
 **Sidebar Components:**
 
-1. **LogoHeader.jsx** - Brand Identity
-   - Nebras logo (theme-aware)
+1. **Sidebar.jsx** - Main Sidebar Orchestrator
+
+   - Detects mobile/desktop mode
+   - Renders appropriate sidebar wrapper
+   - Shares content between mobile and desktop
+   - Coordinates LogoHeader and NavigationMenu
+
+2. **DesktopSidebar.jsx** - Desktop Sidebar Wrapper
+
+   - Fixed position sidebar
+   - Dynamic width (expanded/collapsed)
+   - Smooth width transitions
+   - Scrollable content with stable scrollbar gutter
+   - Z-index management
+
+3. **MobileDrawer.jsx** - Mobile Drawer Wrapper
+
+   - Material-UI Drawer component
+   - Overlay sidebar for mobile/tablet
+   - Custom breakpoint display (mobile/tablet only)
+   - Keep mounted for better performance
+   - Auto-close on navigation
+
+4. **LogoHeader.jsx** - Brand Identity Section
+
+   - Logo component (theme-aware)
    - Brand name (hidden when collapsed)
-   - Collapse toggle button (desktop)
-   - Close button (mobile)
-   - RTL icon support
+   - Collapse toggle button (desktop only)
+   - Close button (mobile only)
+   - RTL-aware icon support
+   - Responsive layout (row/column)
 
-2. **NavigationMenu.jsx** - Navigation Items
-   - Role-based menu items
+5. **NavigationMenu.jsx** - Navigation Container
+
+   - Role-based menu items from config
+   - Renders NavigationItem or NavigationDropdown
+   - Handles nested navigation items
+   - Settings item special handling (bottom positioning)
+
+6. **NavigationItem.jsx** - Individual Navigation Item
+
+   - Single-level navigation item
    - Active route highlighting
-   - Icons + text labels
-   - Tooltips in collapsed mode
-   - Smooth hover effects
+   - Icon + text label
+   - Settings page special styling
+   - Uses ListButton component
+   - Navigation handling via useSidebarNavigation hook
 
-3. **SidebarControls.jsx** - Control Panel
-   - Color picker (custom theme)
-   - Default color reset
-   - Language toggle (AR/EN)
-   - Theme toggle (light/dark)
-   - Logout button
+7. **NavigationDropdown.jsx** - Nested Navigation Dropdown
+   - Multi-level navigation items
+   - Uses Dropdown component when expanded
+   - Collapsed mode: single ListButton (navigates to first child)
+   - Active child detection
+   - Checkmark indicator for selected items
 
 **Role-Based Menus:**
 
-| Role | Menu Items |
-|------|------------|
-| **Owner** | All 10 items (full access) |
-| **General Admin** | All 10 items (full access) |
-| **Curriculum Manager** | 5 items (curriculum focus) |
+| Role                    | Menu Items                   |
+| ----------------------- | ---------------------------- |
+| **Owner**               | All 10 items (full access)   |
+| **General Admin**       | All 10 items (full access)   |
+| **Curriculum Manager**  | 5 items (curriculum focus)   |
 | **Competition Manager** | 3 items (competitions focus) |
-| **Content Manager** | 4 items (questions focus) |
+| **Content Manager**     | 4 items (questions focus)    |
 
 **Navigation Configuration:**
 
@@ -204,8 +277,8 @@ elevation: 0
 // src/layout/sidebar/sidebarConfig.jsx
 export const navigationItems = {
   owner: [
-    { text: "navigation.dashboard", icon: <TbLayoutDashboardFilled />, path: "/dashboard" },
-    { text: "navigation.students", icon: <MdGroups />, path: "/students" },
+    { text: 'navigation.dashboard', icon: <TbLayoutDashboardFilled />, path: '/dashboard' },
+    { text: 'navigation.students', icon: <MdGroups />, path: '/students' },
     // ... 8 more items
   ],
   // ... other roles
@@ -214,16 +287,17 @@ export const navigationItems = {
 
 **Desktop vs Mobile Behavior:**
 
-| Feature | Desktop | Mobile |
-|---------|---------|--------|
-| **Type** | Persistent | Drawer (overlay) |
-| **Width** | 280px / 80px | 280px |
-| **Collapse** | ✅ Yes | ❌ No |
-| **Close** | N/A | ✅ After navigation |
-| **Toggle** | Collapse button | Hamburger menu |
-| **Position** | Fixed left | Overlay |
+| Feature      | Desktop         | Mobile              |
+| ------------ | --------------- | ------------------- |
+| **Type**     | Persistent      | Drawer (overlay)    |
+| **Width**    | 280px / 80px    | 280px               |
+| **Collapse** | ✅ Yes          | ❌ No               |
+| **Close**    | N/A             | ✅ After navigation |
+| **Toggle**   | Collapse button | Hamburger menu      |
+| **Position** | Fixed left      | Overlay             |
 
 **Collapsed Mode (Desktop):**
+
 - Width: `80px`
 - Icons only
 - Tooltips on hover
@@ -231,6 +305,7 @@ export const navigationItems = {
 - Control labels hidden
 
 **Expanded Mode (Desktop):**
+
 - Width: `280px`
 - Icons + text labels
 - Full controls visible
@@ -252,21 +327,33 @@ import { SIDEBAR_WIDTH, NAV_ITEM_HEIGHT, AVATAR_SIZE } from '@constants';
 
 ```javascript
 // Sidebar dimensions
-SIDEBAR_WIDTH = 280;
+SIDEBAR_WIDTH = 290;
 SIDEBAR_COLLAPSED_WIDTH = 80;
 
+// Header
+HEADER_HEIGHT = 80;
+AVATAR_SIZE = 35;
+
 // Logo & branding
-LOGO_HEIGHT = 40;
-LOGO_LETTER_SPACING = "0.1rem";
+LOGO_HEIGHT = 35;
+LOGO_LETTER_SPACING = '0.1rem';
+COLLAPSE_ICON_SIZE = 24;
+CLOSE_ICON_SIZE = 20;
+CLOSE_BUTTON_SIZE = 32;
 
 // Navigation items
 NAV_ITEM_HEIGHT = 48;
 NAV_ICON_MIN_WIDTH = 40;
-NAV_ICON_SIZE = "1.375rem";
-NAV_TEXT_SIZE = "0.875rem";
+NAV_ICON_SIZE = '1.3rem';
+NAV_TRANSITION = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
 
-// Avatar
-AVATAR_SIZE = 35;
+// User menu
+USER_MENU_MIN_WIDTH = 250;
+USER_MENU_BORDER_RADIUS = 2;
+USER_MENU_MARGIN_TOP = 1.5;
+
+// Color picker
+COLOR_INDICATOR_SIZE = 23;
 ```
 
 See `src/constants/README.md` for full documentation.
@@ -290,14 +377,29 @@ See `src/constants/README.md` for full documentation.
 
 ## Custom Hooks Used
 
-- `useSidebar()` - Sidebar state management
-- `useUser()` - User authentication & role
+**Layout Hooks:**
+
+- `useSidebar()` - Sidebar state management (open/collapsed/mobile/width)
+- `useResponsiveSidebar()` - Handles responsive sidebar behavior and state updates
+- `useSidebarNavigation()` - Navigation logic with mobile auto-close
+
+**State Hooks:**
+
+- `useUser()` - User authentication, role, and logout function
 - `useReduxTheme()` - Theme mode (light/dark)
-- `useLanguage()` - Language & direction
-- `useColorScheme()` - Color customization
-- `useNavigate()` - Programmatic navigation
-- `useLocation()` - Current route detection
-- `useMediaQuery()` - Responsive breakpoints
+- `useLanguage()` - Language & direction (ar/en, RTL/LTR)
+- `useColorScheme()` - Color customization (scheme and custom color)
+
+**Routing Hooks:**
+
+- `useLocation()` - Current route detection for active highlighting
+- `useNavigate()` - Programmatic navigation (used in navigation hooks)
+
+**UI Hooks:**
+
+- `useTranslation()` - Translation function for all text content
+- `useMediaQuery()` - Responsive breakpoint detection
+- `useTheme()` - Material-UI theme access
 
 ---
 
@@ -308,17 +410,31 @@ App Initialization
     ↓
 MainLayout renders
     ↓
-Detects mobile/desktop
+Checks if public page → Skip layout if login/404
     ↓
-├─ Mobile: Flexbox layout
-│  ├─ Drawer sidebar (overlay)
-│  ├─ Header (with hamburger)
-│  └─ Main content (full width)
+Detects mobile/desktop (useMediaQuery)
+    ↓
+useResponsiveSidebar updates sidebar state
+    ↓
+├─ Mobile (<1024px): MobileLayout
+│  ├─ Flexbox container
+│  ├─ Header (full width, fixed top)
+│  │   ├─ Hamburger menu (opens drawer)
+│  │   └─ UserInfo (avatar menu)
+│  ├─ MobileDrawer (overlay sidebar)
+│  │   ├─ LogoHeader (with close button)
+│  │   └─ NavigationMenu
+│  └─ Main content (full width, scrollable)
 │
-└─ Desktop: Grid layout
-   ├─ Persistent sidebar (280px/80px)
-   ├─ Header (remaining width)
-   └─ Main content (remaining space)
+└─ Desktop (≥1024px): DesktopLayout
+   ├─ CSS Grid container
+   ├─ DesktopSidebar (fixed left, 290px/80px)
+   │   ├─ LogoHeader (with collapse button)
+   │   └─ NavigationMenu
+   ├─ Header (dynamic width, fixed top)
+   │   ├─ DateTime (left side)
+   │   └─ UserInfo (right side)
+   └─ Main content (grid area, scrollable)
 ```
 
 ---
@@ -328,6 +444,7 @@ Detects mobile/desktop
 MainLayout provides the main content area. Pages render inside this space.
 
 ### Pattern 1: Container with Max Width (Recommended for Dashboards)
+
 ```jsx
 import { Container } from '@mui/material';
 
@@ -342,17 +459,20 @@ function DashboardPage() {
 ```
 
 **Benefits:**
+
 - ✅ Optimal content width for readability (1280-1536px)
 - ✅ Natural margins on ultra-wide screens
 - ✅ Professional dashboard appearance
 - ✅ Better visual hierarchy and focus
 
 **Container Sizes:**
+
 - `maxWidth="xl"` - 1536px (Best for data-heavy dashboards)
 - `maxWidth="lg"` - 1280px (Best for content-focused pages)
 - `maxWidth="md"` - 960px (Best for forms and narrow content)
 
 ### Pattern 2: Full Width (Use for Data Tables)
+
 ```jsx
 import { Box } from '@mui/material';
 
@@ -367,6 +487,7 @@ function DataTablePage() {
 ```
 
 ### Pattern 3: Centered with Grid Layout
+
 ```jsx
 import { Container, Grid } from '@mui/material';
 
@@ -393,6 +514,7 @@ function MyPage() {
 All layout components use centralized theme values:
 
 ### From `theme/index.js`
+
 - `spacing` - Consistent spacing throughout the layout
 - `palette` - Colors for backgrounds, text, primary/secondary
 - `breakpoints` - Responsive breakpoint values
@@ -400,14 +522,17 @@ All layout components use centralized theme values:
 - `transitions` - Animation durations
 
 ### From `theme/typography.js`
+
 - `fontWeights` - Font weights (regular, semiBold, bold)
 - `fontSizes` - Font size scale
 - `lineHeights` - Line heights for better readability
 
 ### From `theme/components.js`
+
 - MUI component overrides for consistent styling
 
 **Benefits:**
+
 - Consistent spacing and styling
 - Easy to maintain and update
 - Single source of truth for design tokens
@@ -418,6 +543,7 @@ All layout components use centralized theme values:
 ## Theme Support
 
 All layout components fully support:
+
 - ✅ Light/Dark themes
 - ✅ RTL/LTR directions (for Arabic/English)
 - ✅ MUI theme system
@@ -453,27 +579,106 @@ function App() {
 }
 ```
 
+**MainLayout Behavior:**
+
+- Automatically detects public pages and skips layout rendering
+- Uses `DesktopLayout` or `MobileLayout` based on screen size
+- Both layout components are memoized for performance
+- Sidebar state is automatically managed via `useResponsiveSidebar`
+
 ---
 
 ## Redux State Management
 
-Layout components use Redux hooks:
+Layout components use Redux hooks for state management:
+
 - `useReduxTheme()` - Theme mode (light/dark)
-- `useLanguage()` - Current language (ar/en)
-- `useColorScheme()` - Color scheme and custom color
-- `useUser()` - User info, role, and logout function
-- `useSidebar()` - Sidebar state (open/collapsed/mobile)
+- `useLanguage()` - Current language (ar/en) and direction (RTL/LTR)
+- `useColorScheme()` - Color scheme (default/custom) and custom color
+- `useUser()` - User info, role, authentication state, and logout function
+- `useSidebar()` - Sidebar state (open/collapsed/mobile/width)
+
+**State Updates:**
+
+- Sidebar width changes trigger layout recalculations
+- Theme/language changes update all layout components
+- User authentication state affects navigation visibility
 
 ---
 
 ## Icons
 
 Icons are from `react-icons` library:
-- **Navigation**: `TbLayoutDashboardFilled`, `MdGroups`, `MdSchool`, `MdQuiz`, etc. (Material Design)
-- **Controls**: `MdDarkMode`, `MdLightMode`, `MdLanguage`
-- **Actions**: `MdLogout`
+
+- **Navigation**: `TbLayoutDashboardFilled`, `MdGroups`, `MdSchool`, `MdQuiz`, etc. (Material Design / Tabler Icons)
+- **Sidebar Controls**: `LuPanelRightClose`, `LuPanelLeftClose` (Lucide Icons)
+- **Actions**: `IoClose` (Ionicons), `MdLogout` (Material Design)
 - **Menu**: `HiMenuAlt2`, `HiMenuAlt3` (Heroicons)
-- **Arrows**: `MdChevronLeft`, `MdChevronRight`, `MdClose`
+- **User Menu**: Various icons for menu items
+
+---
+
+## Component Details
+
+### DesktopLayout.jsx
+
+**Purpose:** CSS Grid layout for desktop screens (≥1024px)
+
+**Features:**
+
+- ✅ CSS Grid with named areas
+- ✅ Persistent sidebar (fixed left)
+- ✅ Dynamic sidebar width transitions
+- ✅ Header spans content area
+- ✅ Main content scrollable
+- ✅ Memoized for performance
+
+**Grid Areas:**
+
+- `sidebar` - Left column, spans both rows
+- `header` - Top row, right column
+- `content` - Bottom row, right column
+
+### MobileLayout.jsx
+
+**Purpose:** Flexbox layout for mobile/tablet screens (<1024px)
+
+**Features:**
+
+- ✅ Flexbox column layout
+- ✅ Fixed header at top
+- ✅ Drawer sidebar overlay
+- ✅ Full-width main content
+- ✅ Memoized for performance
+
+### NavigationDropdown.jsx
+
+**Purpose:** Handles nested navigation items with dropdown functionality
+
+**Features:**
+
+- ✅ Expands to Dropdown component when sidebar expanded
+- ✅ Collapses to ListButton when sidebar collapsed
+- ✅ Active child detection
+- ✅ Checkmark indicator for selected items
+- ✅ Navigates to first child when collapsed and clicked
+
+**Behavior:**
+
+- Expanded mode: Shows dropdown with all children
+- Collapsed mode: Shows icon only, navigates to first child on click
+
+### NavigationItem.jsx
+
+**Purpose:** Renders individual navigation items
+
+**Features:**
+
+- ✅ Active route highlighting
+- ✅ Icon and text display
+- ✅ Settings page special styling (positioned at bottom)
+- ✅ Navigation handling
+- ✅ Responsive to collapsed state
 
 ---
 
@@ -489,110 +694,6 @@ Icons are from `react-icons` library:
 
 ---
 
-## Refactoring History
-
-### October 22, 2025 - Layout Folder Structure Refactoring
-
-The layout folder was reorganized into a more modular structure:
-
-**Changes:**
-1. Created `header/` module with its own components and configuration
-2. Created `sidebar/` module with its own components and configuration
-3. Moved Header components to `header/components/`
-4. Moved Sidebar components to `sidebar/components/`
-5. Created index.js exports for each module
-6. Updated all import paths
-7. Removed old `components/` folder
-8. Improved code organization and separation of concerns
-
-**Previous Structure:**
-```
-layout/
-├── components/
-│   ├── LogoHeader.jsx
-│   ├── NavigationMenu.jsx
-│   ├── SidebarControls.jsx
-│   ├── UserProfile.jsx
-│   └── index.js
-├── Header.jsx
-├── Sidebar.jsx
-├── headerConfig.js
-├── sidebarConfig.jsx
-└── ...
-```
-
-**New Structure:**
-```
-layout/
-├── header/
-│   ├── components/
-│   │   └── UserInfo.jsx
-│   ├── Header.jsx
-│   ├── headerConfig.js
-│   └── index.js
-├── sidebar/
-│   ├── components/
-│   │   ├── LogoHeader.jsx
-│   │   ├── NavigationMenu.jsx
-│   │   └── SidebarControls.jsx
-│   ├── Sidebar.jsx
-│   ├── sidebarConfig.jsx
-│   └── index.js
-└── ...
-```
-
-**Benefits:**
-- Better module organization
-- Clearer separation between header and sidebar concerns
-- Easier to locate and maintain related files
-- Scalable architecture for future additions
-- Each module is self-contained with its own components and config
-
-**Migration:**
-No breaking changes. All exports are still available from `./layout`:
-```jsx
-// Still works the same way
-import { MainLayout, Header, Sidebar } from './layout';
-```
-
 ---
 
-### October 22, 2025 - Layout Components Modularization
-
-#### Sidebar Refactoring
-The Sidebar component was refactored into smaller, more maintainable components.
-
-**Changes:**
-1. Extracted navigation configuration to `sidebarConfig.jsx`
-2. Created `LogoHeader` component for logo and title section
-3. Created `NavigationMenu` component for menu items rendering
-4. Created `SidebarControls` component for bottom controls panel
-5. Updated main `Sidebar.jsx` to orchestrate sub-components
-6. Improved navigation icons for better visual distinction
-
-**Results:**
-- Reduced from **314 lines to 72 lines** (77% reduction)
-
-#### Header Refactoring
-The Header component was refactored into smaller, more maintainable components.
-
-**Changes:**
-1. Extracted role display names to `headerConfig.js`
-2. Created `UserInfo` component for user information display
-3. Updated main `Header.jsx` to orchestrate sub-components
-4. Renamed `UserProfile` to `UserInfo` for better clarity
-
-**Results:**
-- Reduced from **75 lines to 32 lines** (57% reduction)
-
-#### Overall Benefits
-- Improved code organization and readability
-- Better separation of concerns
-- Easier to test individual components
-- More maintainable and scalable architecture
-- Simpler to add new features or modify existing ones
-- Centralized configuration management
-
----
-
-**Last Updated:** 2025-10-25
+**Last Updated:** 2025-11-1

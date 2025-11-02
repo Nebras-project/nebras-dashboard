@@ -305,6 +305,15 @@ const en = {
     },
   },
 
+  // Errors (Error Boundary)
+  errors: {
+    somethingWentWrong: 'Oops! Something went wrong',
+    errorDescription: 'We apologize for the inconvenience. An unexpected error has occurred.',
+    tryAgain: 'Try Again',
+    refresh: 'Refresh Page',
+    goHome: 'Go to Home',
+  },
+
   // Pagination
   pagination: {
     rowsPerPage: 'Rows per page:',

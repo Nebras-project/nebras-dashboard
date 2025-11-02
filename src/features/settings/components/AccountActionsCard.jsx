@@ -7,6 +7,18 @@ import { padding } from '@constants';
 import { fontWeights } from '@theme';
 import { useTranslation } from '@hooks';
 
+const getTitleStyles = () => ({
+  fontWeight: fontWeights.semiBold,
+});
+
+const getContentStyles = () => ({
+  ...padding.top.none,
+});
+
+const getDescriptionStyles = () => ({
+  fontWeight: fontWeights.medium,
+});
+
 function AccountActionsCard() {
   const { t } = useTranslation();
   return (
@@ -16,11 +28,11 @@ function AccountActionsCard() {
       titleTypographyProps={{
         variant: 'overline',
         color: 'error.main',
-        sx: { fontWeight: fontWeights.semiBold },
+        sx: getTitleStyles(),
       }}
-      contentSx={{ ...padding.top.none }}
+      contentSx={getContentStyles()}
     >
-      <Typography variant="body2" color="text.primary" sx={{ fontWeight: fontWeights.medium }}>
+      <Typography variant="body2" color="text.primary" sx={getDescriptionStyles()}>
         {t('settings.logoutDescription')}
       </Typography>
     </Card>
