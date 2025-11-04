@@ -1,17 +1,38 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "rewrites": [
+  "routes": [
     {
-      "source": "/(.*)",
-      "has": [
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/(.*\\.(js|mjs|css|json|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot|webp))",
+      "dest": "/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/.*\\.(js|mjs)$",
+      "headers": [
         {
-          "type": "header",
-          "key": "accept",
-          "value": "text/html"
+          "key": "Content-Type",
+          "value": "application/javascript; charset=utf-8"
         }
-      ],
-      "destination": "/index.html"
+      ]
+    },
+    {
+      "source": ".*\\.(js|mjs)$",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/javascript; charset=utf-8"
+        }
+      ]
     }
   ]
 }
