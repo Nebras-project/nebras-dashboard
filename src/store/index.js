@@ -17,7 +17,6 @@ migrateLocalStorage();
 // Load persisted state from localStorage
 const preloadedState = loadPersistedState(); // Loads state on app startup
 
-console.log(preloadedState);
 
 export const store = configureStore({
   reducer: {

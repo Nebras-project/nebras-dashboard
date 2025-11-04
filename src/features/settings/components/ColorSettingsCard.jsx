@@ -29,17 +29,15 @@ function ColorSettingsCard() {
   const handleDefaultColor = useCallback(() => {
     // Avoid state update if scheme hasn't changed
     if (scheme === 'default') return;
-    
+
     setColorScheme('default');
   }, [scheme, setColorScheme]);
 
   const handleCustomColorChange = useCallback(
     (color) => {
-      // Avoid state update if color hasn't changed
-      if (color === customColor) return;
       setCustomColor(color);
     },
-    [customColor, setCustomColor]
+    [setCustomColor]
   );
 
   const actions = useMemo(

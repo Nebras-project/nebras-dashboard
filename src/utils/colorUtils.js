@@ -1,6 +1,6 @@
 export const adjustColor = (hex, percent) => {
   // Remove # if present
-  hex = hex.replace(/^#/, "");
+  hex = hex.replace(/^#/, '');
 
   // Parse hex to RGB
   let r = parseInt(hex.substring(0, 2), 16);
@@ -15,7 +15,7 @@ export const adjustColor = (hex, percent) => {
   // Convert back to hex
   const toHex = (n) => {
     const hex = Math.round(n).toString(16);
-    return hex.length === 1 ? "0" + hex : hex;
+    return hex.length === 1 ? '0' + hex : hex;
   };
 
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
@@ -26,12 +26,12 @@ export const generateColorPalette = (baseColor) => {
     main: baseColor,
     light: adjustColor(baseColor, 40),
     dark: adjustColor(baseColor, -30),
-    contrastText: "#ffffff",
+    contrastText: '#ffffff',
   };
 };
 
 export const generateBackgroundColor = (baseColor, mode) => {
-  if (mode === "light") {
+  if (mode === 'light') {
     return adjustColor(baseColor, 85); // Very light version
   } else {
     return adjustColor(baseColor, -60); // Very dark version

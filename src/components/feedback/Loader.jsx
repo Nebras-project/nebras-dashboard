@@ -4,11 +4,11 @@ import { Box, Fade, Backdrop } from '@mui/material';
 import PropTypes from 'prop-types';
 
 // internal imports
-import { LoadingSpinner, LoadingLogo, LoadingMessage } from '.';
+import { LoadingLogo, LoadingMessage, FireLoader } from '.';
 import { gap, padding } from '@constants/spacing';
 
 // Constants
-const DEFAULT_SIZE = 48;
+const DEFAULT_SIZE = 70;
 const DEFAULT_MIN_HEIGHT = '60vh';
 const FADE_TIMEOUT = 300;
 const BACKDROP_BLUR = 'blur(8px)';
@@ -72,14 +72,14 @@ const Loader = memo(function Loader({
   fullScreen = false,
 }) {
   const isFullScreenVariant = variant === 'fullscreen';
-  const effectiveSize = isFullScreenVariant ? 56 : size;
+  const effectiveSize = isFullScreenVariant ? 80 : size; // Increased for better visibility
   const animationType = isFullScreenVariant ? 'scale' : 'pulse';
   const messageVariant = isFullScreenVariant ? 'h6' : 'body2';
 
   // Content that's shared between both variants
   const loaderContent = (
     <Box sx={getSpinnerContainerStyles()}>
-      <LoadingSpinner size={effectiveSize} />
+      <FireLoader size={effectiveSize} />
       {showLogo && (
         <Box sx={getLogoOverlayStyles()}>
           <LoadingLogo height={effectiveSize * 0.5} animationType={animationType} />
