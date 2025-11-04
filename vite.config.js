@@ -57,7 +57,12 @@ export default defineConfig(({ mode }) => ({
           // Split vendor chunks
           if (id.includes('node_modules')) {
             // React and React DOM together (often used together)
-            if (id.includes('react') || id.includes('react-dom')) {
+            // Include react-error-boundary with React to ensure React.Children is available
+            if (
+              id.includes('react') ||
+              id.includes('react-dom') ||
+              id.includes('react-error-boundary')
+            ) {
               return 'vendor-react';
             }
 
@@ -142,6 +147,7 @@ export default defineConfig(({ mode }) => ({
       include: [
         'react',
         'react-dom',
+        'react-error-boundary',
         'react-router-dom',
         '@mui/material',
         '@reduxjs/toolkit',
