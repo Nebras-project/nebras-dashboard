@@ -63,82 +63,8 @@ export default defineConfig(({ mode }) => ({
         // Use ES modules format for better tree-shaking and modern browser support
         format: 'es',
 
-        // Manual chunk splitting for better caching and parallel loading
-        manualChunks: (id) => {
-          // Split vendor chunks
-          if (id.includes('node_modules')) {
-            // CRITICAL: Keep React core in main bundle to ensure it's always available
-            // Don't split React/ReactDOM - they must be loaded synchronously before other chunks
-            // This prevents "useLayoutEffect of undefined" errors
-            // Some libraries (MUI, Emotion) access React.useLayoutEffect directly
-            if (
-              id.includes('node_modules/react/') ||
-              id.includes('node_modules/react-dom/') ||
-              id.includes('node_modules/react/jsx-runtime') ||
-              id.includes('node_modules/react/jsx-dev-runtime')
-            ) {
-              // Return undefined to keep in main bundle
-              return undefined;
-            }
-
-            // React-dependent libraries (will load after React in main bundle)
-            if (
-              id.includes('react-error-boundary') ||
-              id.includes('react-router') ||
-              id.includes('react-redux') ||
-              id.includes('react-i18next') ||
-              id.includes('react-hook-form') ||
-              id.includes('react-icons') ||
-              id.includes('react-colorful') ||
-              id.includes('@emotion/react') ||
-              id.includes('@emotion/styled') ||
-              id.includes('@mui/material') ||
-              id.includes('@mui/x-data-grid')
-            ) {
-              return 'vendor-react';
-            }
-
-            // Other MUI packages (if any remain)
-            if (id.includes('@mui')) {
-              return 'vendor-mui';
-            }
-
-            // React Query
-            if (id.includes('@tanstack/react-query')) {
-              return 'vendor-react-query';
-            }
-
-            // Redux (excluding react-redux which is in vendor-react)
-            if (id.includes('redux') || id.includes('@reduxjs')) {
-              return 'vendor-redux';
-            }
-
-            // i18n packages
-            if (id.includes('i18next') || id.includes('react-i18next')) {
-              return 'vendor-i18n';
-            }
-
-            // Other large dependencies
-            if (id.includes('framer-motion')) {
-              return 'vendor-animations';
-            }
-
-            if (id.includes('dayjs')) {
-              return 'vendor-utils';
-            }
-
-            // All other node_modules
-            return 'vendor-other';
-          }
-
-          // Split large feature modules
-          if (id.includes('/features/')) {
-            const featureMatch = id.match(/\/features\/([^/]+)/);
-            if (featureMatch) {
-              return `feature-${featureMatch[1]}`;
-            }
-          }
-        },
+        // Disable chunk splitting - bundle everything together to prevent React loading issues
+        // This ensures React and all dependencies load together in the correct order
 
         // Optimize chunk file names for better caching
         chunkFileNames: (chunkInfo) => {
