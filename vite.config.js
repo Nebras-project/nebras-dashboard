@@ -7,7 +7,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({
-  plugins: [react()],
+  plugins: [
+    react({
+      // Ensure React is properly handled in production builds
+      jsxRuntime: 'automatic',
+    }),
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -51,17 +56,21 @@ export default defineConfig(({ mode }) => ({
 
     // Rollup options for advanced optimizations
     rollupOptions: {
+      // Ensure React is externalized correctly and available
       output: {
         // Manual chunk splitting for better caching and parallel loading
         manualChunks: (id) => {
           // Split vendor chunks
           if (id.includes('node_modules')) {
-            // React and React DOM together (often used together)
-            // Include react-error-boundary with React to ensure React.Children is available
+            // React core and all React-dependent libraries together
+            // This ensures React.Children is always available when needed
             if (
-              id.includes('react') ||
-              id.includes('react-dom') ||
-              id.includes('react-error-boundary')
+              id.includes('node_modules/react/') ||
+              id.includes('node_modules/react-dom/') ||
+              id.includes('react-error-boundary') ||
+              id.includes('react-router') ||
+              id.includes('react-redux') ||
+              id.includes('react-i18next')
             ) {
               return 'vendor-react';
             }
@@ -76,14 +85,9 @@ export default defineConfig(({ mode }) => ({
               return 'vendor-react-query';
             }
 
-            // Redux
+            // Redux (excluding react-redux which is in vendor-react)
             if (id.includes('redux') || id.includes('@reduxjs')) {
               return 'vendor-redux';
-            }
-
-            // Router
-            if (id.includes('react-router')) {
-              return 'vendor-router';
             }
 
             // i18n packages
@@ -147,13 +151,19 @@ export default defineConfig(({ mode }) => ({
       include: [
         'react',
         'react-dom',
+        'react/jsx-runtime',
         'react-error-boundary',
         'react-router-dom',
+        'react-redux',
         '@mui/material',
         '@reduxjs/toolkit',
         '@tanstack/react-query',
       ],
       exclude: ['@tanstack/react-query-devtools'],
+    },
+    // Ensure proper module resolution for React
+    commonjsOptions: {
+      include: [/react/, /react-dom/, /react-error-boundary/, /node_modules/],
     },
   },
 
