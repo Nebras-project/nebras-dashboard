@@ -17,7 +17,7 @@
   ],
   "headers": [
     {
-      "source": "/assets/.*\\.(js|mjs)$",
+      "source": "/assets/js/:path*",
       "headers": [
         {
           "key": "Content-Type",
@@ -26,7 +26,16 @@
       ]
     },
     {
-      "source": ".*\\.(js|mjs)$",
+      "source": "/*.js",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/javascript; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/*.mjs",
       "headers": [
         {
           "key": "Content-Type",
