@@ -154,10 +154,12 @@ const ListButton = forwardRef(
         customColor={color}
         collapsed={collapsed}
         sx={sx}
+        aria-disabled={isDisabled}
+        aria-busy={loading}
         {...rest}
       >
-        <StyledListItemIcon collapsed={collapsed} sx={iconSx}>
-          {loading ? <CircularProgress size={20} color="inherit" /> : icon}
+        <StyledListItemIcon collapsed={collapsed} sx={iconSx} aria-hidden="true">
+          {loading ? <CircularProgress size={20} color="inherit" aria-hidden="true" /> : icon}
         </StyledListItemIcon>
 
         {!collapsed && text && (

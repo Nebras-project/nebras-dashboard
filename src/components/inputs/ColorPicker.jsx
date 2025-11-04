@@ -1,5 +1,5 @@
 // external imports
-import { useState } from 'react';
+import { useState, useId } from 'react';
 import PropTypes from 'prop-types';
 import { HexColorPicker } from 'react-colorful';
 import { Box, Popover, Stack, Button } from '@mui/material';
@@ -69,6 +69,7 @@ const getTransformOrigin = (isRTL) => ({
 function ColorPicker({ currentColor, onColorChange, scheme }) {
   const { t } = useTranslation();
   const { isRTL } = useLanguage();
+  const generatedId = useId();
   const [anchorEl, setAnchorEl] = useState(null);
   const [tempColor, setTempColor] = useState(currentColor);
   const [inputValue, setInputValue] = useState(currentColor);
@@ -129,6 +130,9 @@ function ColorPicker({ currentColor, onColorChange, scheme }) {
         onClose={handleClose}
         anchorOrigin={getAnchorOrigin(isRTL)}
         transformOrigin={getTransformOrigin(isRTL)}
+        role="dialog"
+        aria-modal="true"
+        aria-label={t('common.colorPicker')}
       >
         <Box sx={getPopoverContentStyles()}>
           <Stack spacing={2}>
@@ -148,10 +152,17 @@ function ColorPicker({ currentColor, onColorChange, scheme }) {
                 onChange={handleInputChange}
                 placeholder="#000000"
                 sx={getInputStyles(isInputValid)}
+                aria-label={t('common.colorInput')}
+                aria-invalid={!isInputValid}
+                aria-describedby={!isInputValid ? `${generatedId}-error` : undefined}
               />
             </Stack>
 
-            {!isInputValid && <Box sx={getErrorStyles()}>{t('forms.invalidFormat')}</Box>}
+            {!isInputValid && (
+              <Box id={`${generatedId}-error`} sx={getErrorStyles()} role="alert" aria-live="polite">
+                {t('forms.invalidFormat')}
+              </Box>
+            )}
 
             <Stack direction="row" spacing={1}>
               <Button variant="outlined" size="small" fullWidth onClick={handleClose}>

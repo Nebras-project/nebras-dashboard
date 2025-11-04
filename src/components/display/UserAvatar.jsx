@@ -61,6 +61,8 @@ const getUserInitial = (user, fallback) => {
 
 function UserAvatar({ user, size = 'medium', fallback = 'U', sx = {}, ...rest }) {
   const initial = getUserInitial(user, fallback);
+  const userName = typeof user === 'string' ? user : user?.name;
+  const ariaLabel = userName ? `${userName} avatar` : 'User avatar';
 
   return (
     <Avatar
@@ -69,6 +71,7 @@ function UserAvatar({ user, size = 'medium', fallback = 'U', sx = {}, ...rest })
         ...getAvatarBaseStyles(),
         ...sx,
       }}
+      aria-label={ariaLabel}
       {...rest}
     >
       {initial}

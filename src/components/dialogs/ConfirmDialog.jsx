@@ -1,5 +1,5 @@
 // external imports
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback, useMemo, useId } from 'react';
 import PropTypes from 'prop-types';
 import {
   Dialog,
@@ -64,7 +64,6 @@ const getActionsStyles = () => ({
   ...padding.top.sm,
   ...gap.sm,
 });
-
 
 const getPaperStyles = (minWidth) => ({
   minWidth,
@@ -180,11 +179,19 @@ const ConfirmDialog = memo(function ConfirmDialog({
     return ICON_MAP[confirmColor] || ICON_MAP.primary;
   }, [icon, confirmColor]);
 
+  const uniqueId = useId();
+  const dialogTitleId = `confirm-dialog-title-${uniqueId}`;
+  const dialogDescriptionId = `confirm-dialog-description-${uniqueId}`;
+
   return (
     <Dialog
       open={open}
       onClose={handleCancel}
       maxWidth="mobile"
+      role="dialog"
+      aria-labelledby={title ? dialogTitleId : undefined}
+      aria-describedby={message ? dialogDescriptionId : undefined}
+      aria-modal="true"
       slotProps={{
         paper: {
           sx: getPaperStyles(minWidth),
@@ -192,7 +199,7 @@ const ConfirmDialog = memo(function ConfirmDialog({
       }}
       {...dialogProps}
     >
-      <DialogTitle>
+      <DialogTitle id={dialogTitleId}>
         <DialogTitleContent
           icon={displayIcon}
           iconColor={iconColor}
@@ -201,7 +208,7 @@ const ConfirmDialog = memo(function ConfirmDialog({
         />
       </DialogTitle>
       <DialogContent sx={getContentStyles()}>
-        {message && <DialogContentText>{message}</DialogContentText>}
+        {message && <DialogContentText id={dialogDescriptionId}>{message}</DialogContentText>}
       </DialogContent>
       <DialogActions sx={getActionsStyles()}>
         <DialogButtons

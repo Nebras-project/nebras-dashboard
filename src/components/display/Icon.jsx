@@ -144,11 +144,29 @@ const ICON_MAP = {
   sad: MdSentimentDissatisfied,
 };
 
-const Icon = memo(function Icon({ name, component, size = 24, color, style, ...props }) {
+const Icon = memo(function Icon({
+  name,
+  component,
+  size = 24,
+  color,
+  style,
+  'aria-label': ariaLabel,
+  'aria-hidden': ariaHidden,
+  ...props
+}) {
   // If custom component is provided, use it directly
   if (component) {
     const CustomIcon = component;
-    return <CustomIcon size={size} color={color} style={style} {...props} />;
+    return (
+      <CustomIcon
+        size={size}
+        color={color}
+        style={style}
+        aria-label={ariaLabel}
+        aria-hidden={ariaHidden !== undefined ? ariaHidden : ariaLabel ? false : true}
+        {...props}
+      />
+    );
   }
 
   // Otherwise, use the icon from the registry
@@ -159,7 +177,16 @@ const Icon = memo(function Icon({ name, component, size = 24, color, style, ...p
     return null;
   }
 
-  return <IconComponent size={size} color={color} style={style} {...props} />;
+  return (
+    <IconComponent
+      size={size}
+      color={color}
+      style={style}
+      aria-label={ariaLabel}
+      aria-hidden={ariaHidden !== undefined ? ariaHidden : ariaLabel ? false : true}
+      {...props}
+    />
+  );
 });
 
 Icon.propTypes = {
@@ -168,6 +195,8 @@ Icon.propTypes = {
   size: PropTypes.number,
   color: PropTypes.string,
   style: PropTypes.object,
+  'aria-label': PropTypes.string,
+  'aria-hidden': PropTypes.bool,
 };
 
 Icon.displayName = 'Icon';

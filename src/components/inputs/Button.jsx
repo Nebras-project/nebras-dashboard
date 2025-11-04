@@ -8,7 +8,8 @@ import { borderRadius, fontWeights } from '@theme';
 
 // Styled Button component
 const StyledButton = styled(MuiButton, {
-  shouldForwardProp: (prop) => !['loading', 'customVariant', 'customSize', 'customColor'].includes(prop),
+  shouldForwardProp: (prop) =>
+    !['loading', 'customVariant', 'customSize', 'customColor'].includes(prop),
 })(({ customVariant, customSize }) => {
   // Get size-specific styles
   const getSizeStyles = (size) => {
@@ -82,52 +83,69 @@ const StyledButton = styled(MuiButton, {
   };
 });
 
-const Button = forwardRef(({
-  variant = 'contained',
-  size = 'medium',
-  color = 'primary',
-  loading = false,
-  disabled = false,
-  fullWidth = false,
-  startIcon,
-  endIcon,
-  children,
-  sx = {},
-  onClick,
-  type = 'button',
-  ...rest
-}, ref) => {
-  const isDisabled = disabled || loading;
+const Button = forwardRef(
+  (
+    {
+      variant = 'contained',
+      size = 'medium',
+      color = 'primary',
+      loading = false,
+      disabled = false,
+      fullWidth = false,
+      startIcon,
+      endIcon,
+      children,
+      sx = {},
+      onClick,
+      type = 'button',
+      ...rest
+    },
+    ref
+  ) => {
+    const isDisabled = disabled || loading;
 
-  return (
-    <StyledButton
-      ref={ref}
-      variant={variant}
-      size={size}
-      color={color}
-      disabled={isDisabled}
-      fullWidth={fullWidth}
-      startIcon={loading ? <CircularProgress size={16} color="inherit" /> : startIcon}
-      endIcon={!loading ? endIcon : undefined}
-      onClick={onClick}
-      type={type}
-      customVariant={variant}
-      customSize={size}
-      customColor={color}
-      sx={sx}
-      {...rest}
-    >
-      {children}
-    </StyledButton>
-  );
-});
+    return (
+      <StyledButton
+        ref={ref}
+        variant={variant}
+        size={size}
+        color={color}
+        disabled={isDisabled}
+        fullWidth={fullWidth}
+        startIcon={
+          loading ? <CircularProgress size={16} color="inherit" aria-hidden="true" /> : startIcon
+        }
+        endIcon={!loading ? endIcon : undefined}
+        onClick={onClick}
+        type={type}
+        customVariant={variant}
+        customSize={size}
+        customColor={color}
+        sx={sx}
+        aria-busy={loading}
+        aria-disabled={isDisabled}
+        {...rest}
+      >
+        {children}
+      </StyledButton>
+    );
+  }
+);
 
 Button.displayName = 'Button';
 
 Button.propTypes = {
   variant: PropTypes.oneOf(['contained', 'outlined', 'text']),
   size: PropTypes.oneOf(['small', 'medium', 'large']),
-  color: PropTypes.oneOf(['primary', 'secondary', 'error', 'warning', 'info', 'success', 'inherit']),
+  color: PropTypes.oneOf([
+    'primary',
+    'secondary',
+    'error',
+    'warning',
+    'info',
+    'success',
+    'inherit',
+  ]),
   loading: PropTypes.bool,
   disabled: PropTypes.bool,
   fullWidth: PropTypes.bool,
@@ -140,5 +158,3 @@ Button.propTypes = {
 };
 
 export default Button;
-
-

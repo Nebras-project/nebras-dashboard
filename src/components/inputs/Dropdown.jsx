@@ -1,6 +1,6 @@
 // external imports
 import { Box, List, Collapse } from '@mui/material';
-import { useState } from 'react';
+import { useState, useId } from 'react';
 import PropTypes from 'prop-types';
 
 // internal imports
@@ -62,8 +62,12 @@ function Dropdown({
   listContainerSx = {},
   indentLevel = 4,
   defaultOpen = false,
+  id,
 }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
+  const generatedId = useId();
+  const dropdownId = id || `dropdown-${generatedId}`;
+  const listId = `${dropdownId}-list`;
 
   const currentOption = findCurrentOption(options, currentValue);
 
@@ -75,15 +79,26 @@ function Dropdown({
         text={currentOption?.label || label}
         iconSx={{ color: 'text.secondary' }}
         endContent={
-          <Box sx={getEndContentStyles()}>
+          <Box sx={getEndContentStyles()} aria-hidden="true">
             {isOpen ? <Icon name="expandLess" size={20} /> : <Icon name="expandMore" size={20} />}
           </Box>
         }
         sx={getButtonStyles(buttonSx)}
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
+        aria-controls={listId}
+        aria-label={label}
       />
 
       <Collapse in={isOpen} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding sx={getListContainerStyles(listContainerSx)}>
+        <List
+          component="div"
+          disablePadding
+          sx={getListContainerStyles(listContainerSx)}
+          id={listId}
+          role="listbox"
+          aria-label={`${label} options`}
+        >
           {options.map((option) => {
             const isSelected = currentValue && option.value === currentValue;
             return (
@@ -98,6 +113,9 @@ function Dropdown({
                 iconSx={getIconStyles(isSelected)}
                 textProps={getTextProps(isSelected)}
                 sx={getListItemStyles(indentLevel, listItemSx)}
+                role="option"
+                aria-selected={isSelected}
+                aria-label={option.label}
               />
             );
           })}
@@ -128,6 +146,7 @@ Dropdown.propTypes = {
   listContainerSx: PropTypes.object,
   indentLevel: PropTypes.number,
   defaultOpen: PropTypes.bool,
+  id: PropTypes.string,
 };
 
 export default Dropdown;

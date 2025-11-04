@@ -35,7 +35,7 @@ const StyledMenu = styled(MuiMenu)(({ theme }) => ({
   },
 }));
 
-const StyledMenuItem = styled(MuiMenuItem)(({ theme }) => ({
+const StyledMenuItem = styled(MuiMenuItem)(() => ({
   ...padding.x.md,
   ...padding.y.sm,
   minHeight: 40,
@@ -101,6 +101,8 @@ function Content({ children, anchorOrigin, transformOrigin, slotProps, sx, ...pr
       transformOrigin={transformOrigin}
       slotProps={slotProps}
       sx={sx}
+      role="menu"
+      aria-label={props['aria-label'] || 'Menu'}
       {...menuProps}
       {...props}
     >
@@ -120,7 +122,7 @@ function Item({ children, sx, onClick, ...props }) {
   };
 
   return (
-    <StyledMenuItem sx={sx} onClick={handleClick} {...props}>
+    <StyledMenuItem sx={sx} onClick={handleClick} role="menuitem" {...props}>
       {children}
     </StyledMenuItem>
   );
@@ -153,6 +155,7 @@ Content.propTypes = {
   transformOrigin: PropTypes.object,
   slotProps: PropTypes.object,
   sx: PropTypes.object,
+  'aria-label': PropTypes.string,
 };
 
 Item.propTypes = {

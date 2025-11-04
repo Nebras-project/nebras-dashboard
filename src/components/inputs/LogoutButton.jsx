@@ -66,6 +66,7 @@ function LogoutButton({
         onClick={handleLogoutClick}
         endIcon={getLogoutIcon(showIcon, isRTL)}
         sx={getButtonStyles(fullWidth, width, disableHover, sx)}
+        aria-label={t('common.logout')}
         {...rest}
       >
         {t('common.logout')}

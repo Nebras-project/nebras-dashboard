@@ -31,7 +31,15 @@ const Toast = memo(function Toast({
       anchorOrigin={anchorOrigin}
       {...snackbarProps}
     >
-      <Alert onClose={onClose} severity={variant} sx={sx} variant="standard">
+      <Alert
+        onClose={onClose}
+        severity={variant}
+        sx={sx}
+        variant="standard"
+        role="alert"
+        aria-live={variant === 'error' ? 'assertive' : 'polite'}
+        aria-atomic="true"
+      >
         {title ? <AlertTitle>{title}</AlertTitle> : null}
         {body ? <Message content={body} /> : null}
       </Alert>
