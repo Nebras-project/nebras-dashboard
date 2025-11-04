@@ -1,7 +1,8 @@
 import { Card, CardContent, Stack, Box, Typography } from '@mui/material';
+import { memo } from 'react';
 import { Icon } from '@components';
 
-function StatCard({ title, value, icon, color = 'primary', trend }) {
+const StatCard = memo(function StatCard({ title, value, icon, color = 'primary', trend }) {
   return (
     <Card
       sx={{
@@ -52,6 +53,6 @@ function StatCard({ title, value, icon, color = 'primary', trend }) {
       </CardContent>
     </Card>
   );
-}
+});
 
 export default StatCard;

@@ -12,13 +12,14 @@ import {
   InputAdornment,
   IconButton,
 } from '@mui/material';
-import { useUser, useTranslation } from '@hooks';
+import { useUser, useTranslation, useToast } from '@hooks';
 import { Icon } from '@components';
 
 function LoginPage() {
   const navigate = useNavigate();
   const { login, isAuthenticated } = useUser();
   const { t } = useTranslation();
+  const { success, error } = useToast();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -30,16 +31,38 @@ function LoginPage() {
     return <Navigate to="/dashboard" replace />;
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Mock login - In real app, this would call an API
-    login({
-      id: 1,
-      name: 'Admin User',
-      email: formData.email,
-      role: 'owner',
-    });
-    navigate('/dashboard');
+
+    // Basic validation
+    if (!formData.email || !formData.password) {
+      error({
+        title: t('auth.validationError'),
+        content: t('auth.fillAllFields'),
+      });
+      return;
+    }
+
+    try {
+      // Mock login - In real app, this would call an API
+      const userData = {
+        id: 1,
+        name: 'Admin User',
+        email: formData.email,
+        role: 'owner',
+      };
+      login(userData);
+      success({
+        title: t('auth.loginSuccess'),
+        content: t('auth.welcomeMessage', { name: userData.name }),
+      });
+      navigate('/dashboard');
+    } catch (err) {
+      error({
+        title: t('auth.loginError'),
+        content: err.message || t('auth.invalidCredentials'),
+      });
+    }
   };
 
   const handleChange = (e) => {
@@ -122,14 +145,7 @@ function LoginPage() {
                     {t('auth.loginButton')}
                   </Button>
                 </Stack>
-              </Box>
-
-              {/* Demo credentials */}
-              <Box sx={{ mt: 3, p: 2, bgcolor: 'background.surface.level2', borderRadius: 1 }}>
-                <Typography variant="caption" color="text.secondary">
-                  {t('auth.welcomeBack')}
-                </Typography>
-              </Box>
+              </Box>  
             </CardContent>
           </Card>
         </Stack>

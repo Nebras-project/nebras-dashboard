@@ -1,5 +1,6 @@
 // Pages
-export * from "./pages";
+export * from './pages';
+export { default } from './pages/DashboardPage';
 
 // Components
-export * from "./components";
+export * from './components';

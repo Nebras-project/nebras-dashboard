@@ -1,13 +1,14 @@
 // external imports
 import { Card as MuiCard, CardHeader, CardContent, CardActions, Box } from '@mui/material';
 import PropTypes from 'prop-types';
+import { memo } from 'react';
 
 // internal imports
 import Icon from './Icon';
 import { useLanguage } from '@hooks';
 import { padding, gap } from '@constants';
 
-function Card({
+const Card = memo(function Card({
   variant = 'outlined',
   title,
   subheader,
@@ -107,7 +108,7 @@ function Card({
       {actions && <CardActions>{actions}</CardActions>}
     </MuiCard>
   );
-}
+});
 
 Card.propTypes = {
   variant: PropTypes.oneOf(['elevation', 'outlined']),

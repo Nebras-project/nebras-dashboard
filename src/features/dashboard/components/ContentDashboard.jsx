@@ -1,5 +1,6 @@
 import { Grid, Card, CardContent, Typography, Stack, Box } from '@mui/material';
 import StatCard from './StatCard';
+import { Message } from '@components';
 
 function ContentDashboard() {
   const stats = [
@@ -80,30 +81,24 @@ function ContentDashboard() {
             Recently Added Questions
           </Typography>
           <Stack spacing={2} sx={{ mt: 2 }}>
-            <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
-              <Typography variant="body2">
-                {`✏️ Added 25 new questions to "Physics Grade 11"`}
-              </Typography>
-              <Typography variant="caption" color="text.secondary">
-                2 hours ago
-              </Typography>
-            </Box>
-            <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
-              <Typography variant="body2">
-                {`📝 Updated 12 ministerial questions for "Math Grade 10"`}
-              </Typography>
-              <Typography variant="caption" color="text.secondary">
-                6 hours ago
-              </Typography>
-            </Box>
-            <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
-              <Typography variant="body2">
-                {`🎯 Created 18 enrichment questions for "Chemistry"`}
-              </Typography>
-              <Typography variant="caption" color="text.secondary">
-                Yesterday
-              </Typography>
-            </Box>
+            <Message
+              variant="success"
+              message={`✏️ Added 25 new questions to "Physics Grade 11"`}
+              title="2 hours ago"
+              showIcon={false}
+            />
+            <Message
+              variant="warning"
+              message={`📝 Updated 12 ministerial questions for "Math Grade 10"`}
+              title="6 hours ago"
+              showIcon={false}
+            />
+            <Message
+              variant="info"
+              message={`🎯 Created 18 enrichment questions for "Chemistry"`}
+              title="Yesterday"
+              showIcon={false}
+            />
           </Stack>
         </CardContent>
       </Card>

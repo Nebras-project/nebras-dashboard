@@ -1,4 +1,5 @@
 // external imports
+import { useCallback, useMemo } from 'react';
 import { Box } from '@mui/material';
 
 // internal imports
@@ -25,19 +26,42 @@ function ColorSettingsCard() {
   const { t } = useTranslation();
   const { scheme, customColor, setCustomColor, setColorScheme } = useColorScheme();
 
-  const actions = (
-    <Box sx={getContainerStyles()}>
-      <Box sx={getDefaultColorButtonStyles()}>
-        <ListButton
-          onClick={() => setColorScheme('default')}
-          icon={<Icon name="colorBucket" />}
-          text={t('common.defaultColor')}
-          endContent={<ColorSwatch color={DEFAULT_COLOR} size={COLOR_INDICATOR_SIZE} />}
-          iconSx={getIconStyles()}
+  const handleDefaultColor = useCallback(() => {
+    // Avoid state update if scheme hasn't changed
+    if (scheme === 'default') return;
+    
+    setColorScheme('default');
+  }, [scheme, setColorScheme]);
+
+  const handleCustomColorChange = useCallback(
+    (color) => {
+      // Avoid state update if color hasn't changed
+      if (color === customColor) return;
+      setCustomColor(color);
+    },
+    [customColor, setCustomColor]
+  );
+
+  const actions = useMemo(
+    () => (
+      <Box sx={getContainerStyles()}>
+        <Box sx={getDefaultColorButtonStyles()}>
+          <ListButton
+            onClick={handleDefaultColor}
+            icon={<Icon name="colorBucket" />}
+            text={t('common.defaultColor')}
+            endContent={<ColorSwatch color={DEFAULT_COLOR} size={COLOR_INDICATOR_SIZE} />}
+            iconSx={getIconStyles()}
+          />
+        </Box>
+        <ColorPicker
+          currentColor={customColor}
+          onColorChange={handleCustomColorChange}
+          scheme={scheme}
         />
       </Box>
-      <ColorPicker currentColor={customColor} onColorChange={setCustomColor} scheme={scheme} />
-    </Box>
+    ),
+    [handleDefaultColor, handleCustomColorChange, customColor, scheme, t]
   );
 
   return (

@@ -590,8 +590,23 @@ src/
 │   │   ├── Card.jsx                     # ✅ Reusable card with header/content/actions
 │   │   ├── ColorSwatch.jsx              # ✅ Color indicator component
 │   │   ├── DateTime.jsx                 # ✅ Localized date/time display
+│   │   ├── Icon.jsx                     # ✅ Icon component with theme support
 │   │   ├── Logo.jsx                     # ✅ Theme-aware logo component
 │   │   └── UserAvatar.jsx               # ✅ User avatar with initials
+│   ├── errors/                          # ✅ Error handling components
+│   │   ├── ErrorActions.jsx             # ✅ Error action buttons component
+│   │   ├── ErrorBoundary.jsx            # ✅ React error boundary wrapper
+│   │   ├── ErrorDetails.jsx             # ✅ Error details display component
+│   │   ├── ErrorFallback.jsx            # ✅ Error fallback UI component
+│   │   ├── ErrorIcon.jsx                # ✅ Error state icon component
+│   │   ├── ErrorMessage.jsx             # ✅ Error message display component
+│   │   └── index.js                     # ✅ Error components exports
+│   ├── feedback/                        # ✅ Feedback & loading components
+│   │   ├── index.js                     # ✅ Feedback components exports
+│   │   ├── Loader.jsx                   # ✅ Generic loader component
+│   │   ├── LoadingLogo.jsx              # ✅ Logo-based loading animation
+│   │   ├── LoadingMessage.jsx           # ✅ Loading message with spinner
+│   │   └── LoadingSpinner.jsx           # ✅ Spinner loading component
 │   ├── inputs/                          # ✅ Input components
 │   │   ├── Button.jsx                   # ✅ Enhanced MUI button
 │   │   ├── ColorPicker.jsx              # ✅ Custom color picker with hex input
@@ -610,6 +625,7 @@ src/
 │   └── README.md                        # ✅ Components documentation
 │
 ├── config/                              # ✅ Configuration files
+│   ├── env.js                           # ✅ Environment configuration
 │   ├── index.js                         # ✅ Config exports
 │   ├── queryClient.js                   # ✅ React Query client configuration
 │   ├── routes.jsx                       # ✅ React Router route definitions
@@ -620,8 +636,6 @@ src/
 │   ├── layout.js                        # ✅ Layout constants (widths, heights, z-index)
 │   ├── spacing.js                       # ✅ Spacing constants
 │   └── README.md                        # ✅ Constants documentation
-│
-├── contexts/                            # React Context providers (reserved)
 │
 ├── data/                                # ✅ Static data, constants
 │   └── images/
@@ -814,6 +828,7 @@ src/
 │       ├── index.js                     # ✅ Sidebar exports
 │       ├── Sidebar.jsx                  # ✅ Role-based navigation sidebar
 │       ├── sidebarConfig.jsx            # ✅ Navigation menu config
+│       ├── sidebarStyles.js             # ✅ Sidebar styling utilities
 │       └── components/
 │           ├── DesktopSidebar.jsx       # ✅ Desktop sidebar implementation
 │           ├── LogoHeader.jsx           # ✅ Sidebar logo & brand header
@@ -832,7 +847,8 @@ src/
 │   ├── ReduxProvider.jsx                # ✅ Redux provider
 │   └── ThemeProvider.jsx                # ✅ MUI Theme provider with RTL
 │
-├── services/                            # API services (reserved)
+├── services/                            # ✅ API services
+│   └── index.js                         # ✅ Services exports
 │
 ├── store/                               # ✅ Redux store configuration
 │   ├── index.js                         # ✅ Store setup with middleware
@@ -857,6 +873,7 @@ src/
 └── utils/                               # ✅ Utility functions
     ├── colorUtils.js                    # ✅ Color manipulation utilities
     ├── dateUtils.js                     # ✅ Date formatting and dayjs utilities
+    ├── errorLogger.js                   # ✅ Error logging utility
     ├── index.js                         # ✅ Utility exports
     ├── languageUtils.js                 # ✅ Language-related utilities
     ├── layoutUtils.js                   # ✅ Layout-related utilities
@@ -869,7 +886,7 @@ Legend:
 ✅ Completed and working
 
 Total Pages Created: 17
-Total Components: 35+
+Total Components: 46+
 Total Hooks: 13
 Total Redux Slices: 5
 Total i18n Keys: 254+
@@ -889,12 +906,14 @@ Feature Pages (17):
 - EnrichmentQuestionsPage
 - NotFoundPage
 
-Reusable Components (35+):
-- Display: Card, Logo, DateTime, UserAvatar, ColorSwatch
+Reusable Components (46+):
+- Display: Card, Logo, DateTime, UserAvatar, ColorSwatch, Icon
 - Inputs: Button, Dropdown, ListButton, ColorPicker, LogoutButton, Menu
 - Layout: PageLayout, PageHeader
 - Routing: ProtectedRoute
 - i18n: LanguageSync
+- Errors: ErrorActions, ErrorBoundary, ErrorDetails, ErrorFallback, ErrorIcon, ErrorMessage
+- Feedback: Loader, LoadingLogo, LoadingMessage, LoadingSpinner
 ```
 
 ---

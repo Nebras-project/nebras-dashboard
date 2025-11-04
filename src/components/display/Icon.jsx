@@ -45,6 +45,8 @@ import {
   MdUpcoming,
   MdPendingActions,
   MdLogin,
+  MdInfo,
+  MdInfoOutline,
 } from 'react-icons/md';
 
 import { LuPanelRightClose, LuPanelLeftClose, LuEye, LuEyeClosed } from 'react-icons/lu';
@@ -60,6 +62,8 @@ import { HiMenuAlt2, HiMenuAlt3 } from 'react-icons/hi';
 const ICON_MAP = {
   // Error & Status
   error: MdErrorOutline,
+  info: MdInfo,
+  infoOutline: MdInfoOutline,
   refresh: MdRefresh,
 
   // Navigation
@@ -169,5 +173,3 @@ Icon.propTypes = {
 Icon.displayName = 'Icon';
 
 export default Icon;
-
-export { ICON_MAP };

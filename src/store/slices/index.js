@@ -1,16 +1,8 @@
 // Theme slice
-export {
-  default as themeReducer,
-  toggleTheme,
-  setThemeMode,
-} from "./themeSlice";
+export { default as themeReducer, toggleTheme, setThemeMode } from './themeSlice';
 
 // Language slice
-export {
-  default as languageReducer,
-  setLanguage,
-  toggleLanguage,
-} from "./languageSlice";
+export { default as languageReducer, setLanguage, toggleLanguage } from './languageSlice';
 
 // Sidebar slice
 export {
@@ -22,15 +14,10 @@ export {
   expandSidebar,
   toggleCollapsed,
   setMobileMode,
-} from "./sidebarSlice";
+} from './sidebarSlice';
 
 // User slice
-export {
-  default as userReducer,
-  login,
-  logout,
-  updateUserProfile,
-} from "./userSlice";
+export { default as userReducer, login, logout, updateUserProfile } from './userSlice';
 
 // Color scheme slice
 export {
@@ -38,4 +25,15 @@ export {
   setDefaultColor,
   setColorScheme,
   setCustomColor,
-} from "./colorSchemeSlice";
+} from './colorSchemeSlice';
+
+// Toast slice
+export {
+  default as toastReducer,
+  showToast,
+  closeToast,
+  success,
+  warning,
+  error,
+  info,
+} from './toastSlice';

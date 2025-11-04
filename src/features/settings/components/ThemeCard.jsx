@@ -1,4 +1,5 @@
 // external imports
+import { useCallback, useMemo, memo } from 'react';
 
 // internal imports
 import { Dropdown, Card, Icon } from '@components';
@@ -24,30 +25,42 @@ const getListContainerStyles = () => ({
   ...padding.y.sm,
 });
 
-function ThemeCard() {
+const ThemeCard = memo(function ThemeCard() {
   const { t } = useTranslation();
   const { mode, setThemeMode } = useReduxTheme();
 
-  const themeOptions = [
-    {
-      value: 'system',
-      label: t('common.systemMode'),
-      icon: <Icon name="contrast" />,
-      onClick: () => setThemeMode('system'),
+  const handleThemeChange = useCallback(
+    (themeMode) => {
+      // Avoid state update if theme hasn't changed
+      if (themeMode === mode) return;
+      setThemeMode(themeMode);
     },
-    {
-      value: 'light',
-      label: t('common.lightMode'),
-      icon: <Icon name="lightMode" />,
-      onClick: () => setThemeMode('light'),
-    },
-    {
-      value: 'dark',
-      label: t('common.darkMode'),
-      icon: <Icon name="darkMode" />,
-      onClick: () => setThemeMode('dark'),
-    },
-  ];
+    [mode, setThemeMode]
+  );
+
+  const themeOptions = useMemo(
+    () => [
+      {
+        value: 'system',
+        label: t('common.systemMode'),
+        icon: <Icon name="contrast" />,
+        onClick: () => handleThemeChange('system'),
+      },
+      {
+        value: 'light',
+        label: t('common.lightMode'),
+        icon: <Icon name="lightMode" />,
+        onClick: () => handleThemeChange('light'),
+      },
+      {
+        value: 'dark',
+        label: t('common.darkMode'),
+        icon: <Icon name="darkMode" />,
+        onClick: () => handleThemeChange('dark'),
+      },
+    ],
+    [t, handleThemeChange]
+  );
 
   const actions = (
     <Dropdown
@@ -68,6 +81,6 @@ function ThemeCard() {
       hoverable
     />
   );
-}
+});
 
 export default ThemeCard;

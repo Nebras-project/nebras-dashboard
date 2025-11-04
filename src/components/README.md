@@ -2,7 +2,7 @@
 
 This directory contains shared/reusable components used across the application.
 
-## Components
+## Component Overview
 
 This directory is organized into subdirectories:
 
@@ -217,6 +217,42 @@ This component is automatically included in the App component and doesn't need t
 - `color` - Color value (hex or theme color key)
 - `size` - Size in pixels (default: from constants)
 - `sx` - Custom styles
+
+### Icon
+
+**Purpose:** Global icon component with centralized icon registry
+
+**Features:**
+
+- Centralized registry of 60+ predefined icons
+- Supports both predefined icons via `name` prop and custom icons via `component` prop
+- Consistent API with size, color, and style customization
+- Memoized for performance
+
+**Props:**
+
+- `name` - Icon name from registry (see available icons below)
+- `component` - Custom icon component (optional, alternative to name)
+- `size` - Icon size in pixels (default: 24)
+- `color` - Icon color
+- `style` - Custom inline styles
+- `...props` - Additional props passed to icon component
+
+**Usage:**
+
+```javascript
+// Using predefined icons
+<Icon name="home" />
+<Icon name="settings" size={32} color="#1976d2" />
+<Icon name="logout" size={20} />
+
+// Using custom icons
+import { MdCustomIcon } from 'react-icons/md';
+<Icon component={MdCustomIcon} size={24} />
+```
+
+**Available Icons:**
+error, refresh, home, dashboard, arrowForward, arrowBack, close, closeAlt, visibility, eye, eyeClosed, expandMore, expandLess, check, checkCircle, logout, login, contrast, lightMode, darkMode, palette, colorBucket, person, email, phone, accountCircle, manageAccounts, groups, people, adminPanel, language, english, earth, menuLeft, menuRight, panelLeft, panelRight, book, school, autoStories, bookmark, selectMultiple, questionAnswer, gavel, lightbulb, emojiEvents, settings, tune, quiz, class, libraryBooks, trendingUp, upcoming, pendingActions, sad
 
 ### Button
 

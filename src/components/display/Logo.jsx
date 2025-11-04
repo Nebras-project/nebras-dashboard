@@ -7,7 +7,8 @@ import { useMemo } from 'react';
 import NebrasLogoLight from '@data/images/Nebras Logo Light.svg';
 import NebrasLogoDark from '@data/images/Nebras Logo Dark.svg';
 import { useReduxTheme } from '@hooks';
-import { LOGO_HEIGHT } from '@constants';
+
+const LOGO_HEIGHT = 35;
 
 const getLogoStyles = (height) => ({
   height,

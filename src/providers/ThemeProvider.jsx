@@ -6,7 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { prefixer } from 'stylis';
 import { useMuiTheme, useDocumentDirection, useCssVariables, useLanguage } from '@hooks';
-import { useMemo } from 'react';
+import { useMemo, memo } from 'react';
 
 // Create RTL cache
 const cacheRtl = createCache({
@@ -19,16 +19,16 @@ const cacheLtr = createCache({
   key: 'muiltr',
 });
 
-const ThemeProvider = ({ children }) => {
+const ThemeProvider = memo(function ThemeProvider({ children }) {
   // Get the theme using our custom hook
   const theme = useMuiTheme();
-  
+
   // Get language direction
   const { isRTL } = useLanguage();
-  
+
   // Update document direction and language
   useDocumentDirection();
-  
+
   // Set CSS custom properties based on theme
   useCssVariables(theme);
 
@@ -45,11 +45,10 @@ const ThemeProvider = ({ children }) => {
       </MuiThemeProvider>
     </CacheProvider>
   );
-};
+});
 
 ThemeProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
 export default ThemeProvider;
-

@@ -1,5 +1,5 @@
 // external imports
-import { useMemo } from 'react';
+import { useMemo, memo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
@@ -39,7 +39,7 @@ const convertItemsToOptions = (items, t, handleNavigation) => {
   }));
 };
 
-function NavigationDropdown({ icon, label, items, collapsed }) {
+const NavigationDropdown = memo(function NavigationDropdown({ icon, label, items, collapsed }) {
   const { t } = useTranslation();
   const theme = useTheme();
   const location = useLocation();
@@ -97,7 +97,7 @@ function NavigationDropdown({ icon, label, items, collapsed }) {
       }}
     />
   );
-}
+});
 
 NavigationDropdown.propTypes = {
   icon: PropTypes.node.isRequired,

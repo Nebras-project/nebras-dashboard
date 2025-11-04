@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // internal imports
-import { MobileLayout, DesktopLayout } from './mainlayout/components';
+import { MobileLayout, DesktopLayout } from './components';
 import { useSidebar, useResponsiveSidebar } from '@hooks';
 import { isPublicPage } from '@utils';
 
@@ -35,3 +35,5 @@ MainLayout.propTypes = {
 };
 
 export default MainLayout;
+
+

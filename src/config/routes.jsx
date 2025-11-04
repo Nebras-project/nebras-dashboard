@@ -1,7 +1,6 @@
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import ProtectedRoute from '../components/routing/ProtectedRoute';
-import Loader from '../components/feedback/Loader';
 
 // Lazy load pages for code splitting
 
@@ -64,13 +63,6 @@ const SettingsPage = lazy(() =>
 // Error Pages
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
 
-// Helper to wrap component with Suspense
-const withSuspense = (Component) => (
-  <Suspense fallback={<Loader variant="page" />}>
-    <Component />
-  </Suspense>
-);
-
 const routes = [
   // Root - Redirect to dashboard
   {
@@ -81,91 +73,151 @@ const routes = [
   // Public Routes
   {
     path: '/login',
-    element: withSuspense(LoginPage),
+    element: <LoginPage />,
   },
 
   // Protected Routes - Dashboard
   {
     path: '/dashboard',
-    element: <ProtectedRoute>{withSuspense(DashboardPage)}</ProtectedRoute>,
+    element: (
+      <ProtectedRoute>
+        <DashboardPage />
+      </ProtectedRoute>
+    ),
   },
 
   // Protected Routes - Students
   {
     path: '/students',
-    element: <ProtectedRoute>{withSuspense(StudentsPage)}</ProtectedRoute>,
+    element: (
+      <ProtectedRoute>
+        <StudentsPage />
+      </ProtectedRoute>
+    ),
   },
 
   // Protected Routes - Competitions
   {
     path: '/competitions',
-    element: <ProtectedRoute>{withSuspense(CompetitionsPage)}</ProtectedRoute>,
+    element: (
+      <ProtectedRoute>
+        <CompetitionsPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/competitions/:id',
-    element: <ProtectedRoute>{withSuspense(CompetitionPage)}</ProtectedRoute>,
+    element: (
+      <ProtectedRoute>
+        <CompetitionPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/competitions/:id/members',
-    element: <ProtectedRoute>{withSuspense(CompetitionMembersPage)}</ProtectedRoute>,
+    element: (
+      <ProtectedRoute>
+        <CompetitionMembersPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/competitions/:id/exam',
-    element: <ProtectedRoute>{withSuspense(CompetitionExamPage)}</ProtectedRoute>,
+    element: (
+      <ProtectedRoute>
+        <CompetitionExamPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/competitions/:id/result',
-    element: <ProtectedRoute>{withSuspense(CompetitionResultPage)}</ProtectedRoute>,
+    element: (
+      <ProtectedRoute>
+        <CompetitionResultPage />
+      </ProtectedRoute>
+    ),
   },
 
   // Protected Routes - Curriculums
   {
     path: '/curriculums',
-    element: <ProtectedRoute>{withSuspense(CurriculumsPage)}</ProtectedRoute>,
+    element: (
+      <ProtectedRoute>
+        <CurriculumsPage />
+      </ProtectedRoute>
+    ),
   },
 
   // Protected Routes - Subjects
   {
     path: '/subjects',
-    element: <ProtectedRoute>{withSuspense(SubjectsPage)}</ProtectedRoute>,
+    element: (
+      <ProtectedRoute>
+        <SubjectsPage />
+      </ProtectedRoute>
+    ),
   },
 
   // Protected Routes - Units
   {
     path: '/units',
-    element: <ProtectedRoute>{withSuspense(UnitsPage)}</ProtectedRoute>,
+    element: (
+      <ProtectedRoute>
+        <UnitsPage />
+      </ProtectedRoute>
+    ),
   },
 
   // Protected Routes - Admins
   {
     path: '/admins',
-    element: <ProtectedRoute>{withSuspense(AdminsPage)}</ProtectedRoute>,
+    element: (
+      <ProtectedRoute>
+        <AdminsPage />
+      </ProtectedRoute>
+    ),
   },
 
   // Protected Routes - Questions (Nested Routes)
   {
     path: '/questions',
-    element: <ProtectedRoute>{withSuspense(QuestionsPage)}</ProtectedRoute>,
+    element: (
+      <ProtectedRoute>
+        <QuestionsPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/questions/ministerial',
-    element: <ProtectedRoute>{withSuspense(MinisterialQuestionsPage)}</ProtectedRoute>,
+    element: (
+      <ProtectedRoute>
+        <MinisterialQuestionsPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/questions/enrichment',
-    element: <ProtectedRoute>{withSuspense(EnrichmentQuestionsPage)}</ProtectedRoute>,
+    element: (
+      <ProtectedRoute>
+        <EnrichmentQuestionsPage />
+      </ProtectedRoute>
+    ),
   },
 
   // Protected Routes - Settings
   {
     path: '/settings',
-    element: <ProtectedRoute>{withSuspense(SettingsPage)}</ProtectedRoute>,
+    element: (
+      <ProtectedRoute>
+        <SettingsPage />
+      </ProtectedRoute>
+    ),
   },
 
   // 404 - Not Found (must be last)
   {
     path: '*',
-    element: withSuspense(NotFoundPage),
+    element: <NotFoundPage />,
   },
 ];
 

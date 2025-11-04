@@ -4,23 +4,23 @@ import { useMemo, memo } from 'react';
 
 // internal imports
 import { useTranslation, useLanguage, useSidebar } from '@hooks';
-import { Logo, Icon } from '@components';
+import { margin } from '@constants';
+import { Logo, Icon, CloseButton } from '@components';
 import { fontWeights } from '@theme';
-import {
-  LOGO_LETTER_SPACING,
-  COLLAPSE_ICON_SIZE,
-  CLOSE_ICON_SIZE,
-  CLOSE_BUTTON_SIZE,
-  padding,
-  gap,
-} from '@constants';
+import { padding, gap } from '@constants';
+
+// Logo Header constants (only used in this component)
+const LOGO_LETTER_SPACING = '0.1rem';
+const COLLAPSE_ICON_SIZE = 24;
+const CLOSE_ICON_SIZE = 20;
 
 const getContainerStyles = (collapsed) => ({
+  display: 'flex',
+  alignItems: 'center',
+  flexDirection: collapsed ? 'column' : 'row',
+  position: 'relative', 
   ...padding.x.md,
   ...padding.y.md,
-  display: 'flex',
-  flexDirection: collapsed ? 'column' : 'row',
-  alignItems: 'center',
   ...(collapsed ? gap.md : gap.sm),
 });
 
@@ -28,20 +28,6 @@ const getTypographyStyles = () => ({
   fontWeight: fontWeights.bold,
   whiteSpace: 'nowrap',
   letterSpacing: LOGO_LETTER_SPACING,
-});
-
-const getCloseButtonStyles = (collapsed) => ({
-  ml: collapsed ? 0 : 'auto',
-  bgcolor: 'background.paper',
-  border: 1,
-  borderColor: 'divider',
-  width: CLOSE_BUTTON_SIZE,
-  height: CLOSE_BUTTON_SIZE,
-  '&:hover': {
-    bgcolor: 'action.hover',
-  },
-  transition: (theme) =>
-    `all ${theme.transitions.duration.standard}ms ${theme.transitions.easing.easeInOut}`,
 });
 
 const getCollapseButtonStyles = (collapsed) => ({
@@ -80,9 +66,14 @@ const LogoHeader = memo(function LogoHeader() {
       )}
 
       {isMobile ? (
-        <IconButton size="small" onClick={closeSidebar} sx={getCloseButtonStyles(collapsed)}>
-          <Icon name="closeAlt" size={CLOSE_ICON_SIZE} />
-        </IconButton>
+        <CloseButton
+          onClick={closeSidebar}
+          size="small"
+          iconName="closeAlt"
+          iconSize={CLOSE_ICON_SIZE}
+          sx={{ ...margin.left.auto }}
+          showTooltip
+        />
       ) : (
         <Tooltip
           title={collapsed ? t('common.expand') : t('common.collapse')}

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 // internal imports
 import { LoadingSpinner, LoadingLogo, LoadingMessage } from '.';
-import { gap, padding, margin } from '@constants/spacing';
+import { gap, padding } from '@constants/spacing';
 
 // Constants
 const DEFAULT_SIZE = 48;

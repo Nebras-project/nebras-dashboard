@@ -6,16 +6,32 @@ import PropTypes from 'prop-types';
 
 // internal imports
 import { UserAvatar, LogoutButton, Menu } from '@components';
-import { AVATAR_SIZE, USER_MENU_PAPER_PROPS, margin, padding } from '@constants';
+import { margin, padding } from '@constants';
 import { getRoleTranslationKey } from '../headerConfig';
 import { useTranslation } from '@hooks';
-import { fontWeights, borderRadius } from '@theme';
+import { fontWeights, borderRadius, borderWidth } from '@theme';
 import { baseColors } from '@theme/colors';
 
 // Extract static styles
 const AVATAR_BUTTON_STYLES = {
   ...margin.left.auto,
   ...padding.all.xs,
+};
+
+// Header component constants (only used in this file)
+const AVATAR_SIZE = 35;
+const USER_MENU_MIN_WIDTH = 250;
+
+const USER_MENU_PAPER_PROPS = {
+  elevation: 3,
+  sx: {
+    ...margin.top.sm,
+    minWidth: USER_MENU_MIN_WIDTH,
+    border: borderWidth.xs,
+    borderColor: 'divider',
+    borderRadius: borderRadius.xxs,
+    overflow: 'visible',
+  },
 };
 
 const MENU_CONTAINER_STYLES = {

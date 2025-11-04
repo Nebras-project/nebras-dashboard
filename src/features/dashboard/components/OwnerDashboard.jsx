@@ -1,5 +1,6 @@
 import { Grid, Card, CardContent, Typography, Stack, Box } from '@mui/material';
 import StatCard from './StatCard';
+import { Message } from '@components';
 
 function OwnerDashboard() {
   const stats = [
@@ -10,6 +11,8 @@ function OwnerDashboard() {
     { title: 'Total Units', value: '45', icon: 'book', color: 'warning', trend: 5 },
     { title: 'System Admins', value: '15', icon: 'adminPanel', color: 'error', trend: 1 },
   ];
+
+
 
   return (
     <Stack spacing={4}>
@@ -22,7 +25,6 @@ function OwnerDashboard() {
           Overview of the entire Nebras Educational System
         </Typography>
       </Box>
-
       {/* Stats Grid */}
       <Grid container spacing={3}>
         {stats.map((stat) => (
@@ -31,7 +33,6 @@ function OwnerDashboard() {
           </Grid>
         ))}
       </Grid>
-
       {/* Recent System Activity */}
       <Card>
         <CardContent>
@@ -39,28 +40,24 @@ function OwnerDashboard() {
             Recent System Activity
           </Typography>
           <Stack spacing={2} sx={{ mt: 2 }}>
-            <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
-              <Typography variant="body2">
-                {`📚 New curriculum "Math Grade 10" added by Curriculum Manager`}
-              </Typography>
-              <Typography variant="caption" color="text.secondary">
-                2 hours ago
-              </Typography>
-            </Box>
-            <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
-              <Typography variant="body2">
-                {`🏆 Competition "Science Quiz 2025" started`}
-              </Typography>
-              <Typography variant="caption" color="text.secondary">
-                5 hours ago
-              </Typography>
-            </Box>
-            <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
-              <Typography variant="body2">👥 25 new students registered</Typography>
-              <Typography variant="caption" color="text.secondary">
-                1 day ago
-              </Typography>
-            </Box>
+            <Message
+              variant="success"
+              message={`📚 New curriculum "Math Grade 10" added by Curriculum Manager`}
+              title="2 hours ago"
+              showIcon={false}
+            />
+            <Message
+              variant="info"
+              message={`🏆 Competition "Science Quiz 2025" started`}
+              title="5 hours ago"
+              showIcon={false}
+            />
+            <Message
+              variant="info"
+              message="👥 25 new students registered"
+              title="1 day ago"
+              showIcon={false}
+            />
           </Stack>
         </CardContent>
       </Card>

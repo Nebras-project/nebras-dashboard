@@ -2,8 +2,8 @@
 import PropTypes from 'prop-types';
 
 // internal imports
-import { Button, Icon } from '@components';
-import { useTranslation, useUser, useLanguage } from '@hooks';
+import { Button, Icon, ConfirmDialog } from '@components';
+import { useTranslation, useUser, useLanguage, useToast, useConfirmDialog } from '@hooks';
 
 const getIconStyles = (isRTL) => ({
   transform: isRTL ? 'scaleX(-1)' : 'none',
@@ -14,11 +14,6 @@ const getButtonStyles = (fullWidth, width, disableHover, sx) => ({
   justifyContent: 'space-between',
   width: fullWidth ? '100%' : `${width}px`,
   ...(disableHover && {
-    '&:hover': {
-      transform: 'none !important',
-      boxShadow: 'none !important',
-      backgroundColor: 'transparent !important',
-    },
     '&:active': {
       transform: 'none !important',
     },
@@ -28,7 +23,7 @@ const getButtonStyles = (fullWidth, width, disableHover, sx) => ({
 
 const getLogoutIcon = (showIcon, isRTL) => {
   if (!showIcon) return undefined;
-  return <Icon name="logout" style={getIconStyles(isRTL)} />;
+  return <Icon name="logout" size={18} style={getIconStyles(isRTL)} />;
 };
 
 function LogoutButton({
@@ -46,27 +41,47 @@ function LogoutButton({
   const { t } = useTranslation();
   const { logout } = useUser();
   const { isRTL } = useLanguage();
+  const { success } = useToast();
+  const { open, show, close } = useConfirmDialog();
 
-  const handleLogout = () => {
+  const handleLogoutClick = () => {
+    show();
+  };
+
+  const handleConfirmLogout = () => {
     logout();
+    success({ title: t('auth.logoutMessage') });
     if (onLogout && typeof onLogout === 'function') {
       onLogout();
     }
   };
 
   return (
-    <Button
-      variant={variant}
-      size={size}
-      color={color}
-      fullWidth={fullWidth}
-      onClick={handleLogout}
-      endIcon={getLogoutIcon(showIcon, isRTL)}
-      sx={getButtonStyles(fullWidth, width, disableHover, sx)}
-      {...rest}
-    >
-      {t('common.logout')}
-    </Button>
+    <>
+      <Button
+        variant={variant}
+        size={size}
+        color={color}
+        fullWidth={fullWidth}
+        onClick={handleLogoutClick}
+        endIcon={getLogoutIcon(showIcon, isRTL)}
+        sx={getButtonStyles(fullWidth, width, disableHover, sx)}
+        {...rest}
+      >
+        {t('common.logout')}
+      </Button>
+
+      <ConfirmDialog
+        open={open}
+        onClose={close}
+        onConfirm={handleConfirmLogout}
+        title={t('auth.logoutConfirm')}
+        message={t('auth.logoutConfirmMessage')}
+        confirmText={t('common.logout')}
+        cancelText={t('common.cancel')}
+        confirmColor="error"
+      />
+    </>
   );
 }
 

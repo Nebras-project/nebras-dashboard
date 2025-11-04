@@ -2,6 +2,7 @@
 import { ListItem, useTheme } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { memo } from 'react';
 
 // internal imports
 import { fontWeights } from '@theme';
@@ -28,7 +29,7 @@ const getTextProps = (isActive) => ({
   fontWeight: isActive ? fontWeights.semiBold : fontWeights.regular,
 });
 
-function NavigationItem({ path, icon, text, isSettings = false }) {
+const NavigationItem = memo(function NavigationItem({ path, icon, text, isSettings = false }) {
   const location = useLocation();
   const theme = useTheme();
   const { collapsed } = useSidebar();
@@ -53,7 +54,7 @@ function NavigationItem({ path, icon, text, isSettings = false }) {
       />
     </ListItem>
   );
-}
+});
 
 NavigationItem.propTypes = {
   path: PropTypes.string.isRequired,

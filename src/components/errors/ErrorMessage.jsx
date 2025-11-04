@@ -1,11 +1,11 @@
 // external imports
 import { memo } from 'react';
-import { Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
 // internal imports
 import { useTranslation } from '@hooks';
-import { margin } from '@constants/spacing';
+import Message from '../feedback/Message';
+import { margin } from '@constants';
 
 const ErrorMessage = memo(function ErrorMessage({ title, description }) {
   const { t } = useTranslation();
@@ -17,15 +17,11 @@ const ErrorMessage = memo(function ErrorMessage({ title, description }) {
   );
 
   return (
-    <>
-      <Typography variant="h4" gutterBottom fontWeight="bold" component="h1">
-        {title || defaultTitle}
-      </Typography>
-
-      <Typography variant="body1" color="text.secondary" sx={{ ...margin.bottom.xl }}>
-        {description || defaultDescription}
-      </Typography>
-    </>
+    <Message
+      title={title || defaultTitle}
+      message={description || defaultDescription}
+      sx={{ ...margin.bottom.lg }}
+    />
   );
 });
 

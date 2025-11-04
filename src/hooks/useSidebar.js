@@ -1,6 +1,6 @@
 // external imports
-import { useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useMemo, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 // internal imports
 import {
@@ -11,8 +11,8 @@ import {
   expandSidebar,
   toggleCollapsed,
   setMobileMode,
-} from "@store/slices";
-import { SIDEBAR_WIDTH, SIDEBAR_COLLAPSED_WIDTH } from "@constants";
+} from '@store/slices';
+import { SIDEBAR_WIDTH, SIDEBAR_COLLAPSED_WIDTH } from '@constants';
 
 export const useSidebar = () => {
   const sidebar = useSelector((state) => state.sidebar);
@@ -24,15 +24,40 @@ export const useSidebar = () => {
     [sidebar.collapsed]
   );
 
-  return {
-    ...sidebar,
-    sidebarWidth,
-    openSidebar: () => dispatch(openSidebar()),
-    closeSidebar: () => dispatch(closeSidebar()),
-    toggleSidebar: () => dispatch(toggleSidebar()),
-    collapseSidebar: () => dispatch(collapseSidebar()),
-    expandSidebar: () => dispatch(expandSidebar()),
-    toggleCollapsed: () => dispatch(toggleCollapsed()),
-    setMobileMode: (isMobile) => dispatch(setMobileMode(isMobile)),
-  };
+  // Memoize action creators to prevent unnecessary re-renders
+  const openSidebarAction = useCallback(() => dispatch(openSidebar()), [dispatch]);
+  const closeSidebarAction = useCallback(() => dispatch(closeSidebar()), [dispatch]);
+  const toggleSidebarAction = useCallback(() => dispatch(toggleSidebar()), [dispatch]);
+  const collapseSidebarAction = useCallback(() => dispatch(collapseSidebar()), [dispatch]);
+  const expandSidebarAction = useCallback(() => dispatch(expandSidebar()), [dispatch]);
+  const toggleCollapsedAction = useCallback(() => dispatch(toggleCollapsed()), [dispatch]);
+  const setMobileModeAction = useCallback(
+    (isMobile) => dispatch(setMobileMode(isMobile)),
+    [dispatch]
+  );
+
+  return useMemo(
+    () => ({
+      ...sidebar,
+      sidebarWidth,
+      openSidebar: openSidebarAction,
+      closeSidebar: closeSidebarAction,
+      toggleSidebar: toggleSidebarAction,
+      collapseSidebar: collapseSidebarAction,
+      expandSidebar: expandSidebarAction,
+      toggleCollapsed: toggleCollapsedAction,
+      setMobileMode: setMobileModeAction,
+    }),
+    [
+      sidebar,
+      sidebarWidth,
+      openSidebarAction,
+      closeSidebarAction,
+      toggleSidebarAction,
+      collapseSidebarAction,
+      expandSidebarAction,
+      toggleCollapsedAction,
+      setMobileModeAction,
+    ]
+  );
 };

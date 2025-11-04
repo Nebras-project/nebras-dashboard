@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 // internal imports
 import ErrorFallback from './ErrorFallback';
-import { logError } from '@utils/errorLogger';
+import { logError } from '@utils';
 
 const ErrorBoundary = memo(function ErrorBoundary({
   children,

@@ -3,7 +3,6 @@ import globals from 'globals';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
-import prettierConfig from 'eslint-config-prettier';
 
 export default [
   { ignores: ['dist'] },
@@ -29,9 +28,20 @@ export default [
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
-      ...prettierConfig.rules,
       'react/jsx-no-target-blank': 'off',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      // Unused variables trigger errors (no exceptions for _ prefix)
+      'no-unused-vars': [
+        'error',
+        {
+          // Only ignore function parameters with _ prefix (useful for event handlers)
+          argsIgnorePattern: '^_',
+          // Only ignore caught errors with _ prefix
+          caughtErrorsIgnorePattern: '^_',
+          // All other unused variables (including _ prefix) will trigger errors
+          ignoreRestSiblings: true,
+        },
+      ],
     },
   },
 ];

@@ -2,12 +2,12 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { HexColorPicker } from 'react-colorful';
-import { Box, Popover, IconButton, Stack, Button } from '@mui/material';
+import { Box, Popover, Stack, Button } from '@mui/material';
 
 // internal imports
-import { NAV_TRANSITION, COLOR_INDICATOR_SIZE, padding, margin } from '@constants';
+import { COLOR_INDICATOR_SIZE, padding, margin } from '@constants';
 import { useTranslation, useLanguage } from '@hooks';
-import { ListButton, ColorSwatch, Icon } from '@components';
+import { ListButton, ColorSwatch, Icon, CloseButton } from '@components';
 import { borderRadius, fontWeights, borderWidth } from '@theme';
 
 const isValidHex = (color) => {
@@ -31,7 +31,6 @@ const getHeaderStyles = () => ({
 
 const getColorSwatchStyles = () => ({
   ...margin.left.sm,
-  transition: NAV_TRANSITION,
 });
 
 const getInputStyles = (isValid) => ({
@@ -135,9 +134,7 @@ function ColorPicker({ currentColor, onColorChange, scheme }) {
           <Stack spacing={2}>
             <Stack direction="row" justifyContent="space-between" alignItems="center">
               <Box sx={getHeaderStyles()}>{t('common.theme')}</Box>
-              <IconButton size="small" onClick={handleClose}>
-                <Icon name="close" />
-              </IconButton>
+              <CloseButton onClick={handleClose} size="small" />
             </Stack>
 
             <HexColorPicker color={tempColor} onChange={handleColorChange} />

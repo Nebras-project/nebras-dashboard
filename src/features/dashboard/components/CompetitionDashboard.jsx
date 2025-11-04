@@ -1,5 +1,6 @@
 import { Grid, Card, CardContent, Typography, Stack, Box } from '@mui/material';
 import StatCard from './StatCard';
+import { Message } from '@components';
 
 function CompetitionDashboard() {
   const stats = [
@@ -37,30 +38,24 @@ function CompetitionDashboard() {
             Recent Competition Updates
           </Typography>
           <Stack spacing={2} sx={{ mt: 2 }}>
-            <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
-              <Typography variant="body2">
-                {`🏆 "Science Quiz 2025" registration opened - 234 registrations`}
-              </Typography>
-              <Typography variant="caption" color="text.secondary">
-                1 hour ago
-              </Typography>
-            </Box>
-            <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
-              <Typography variant="body2">
-                {`✅ Published results for "Math Olympiad" - 156 participants`}
-              </Typography>
-              <Typography variant="caption" color="text.secondary">
-                5 hours ago
-              </Typography>
-            </Box>
-            <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
-              <Typography variant="body2">
-                {`📅 Created new competition "Arabic Literature Challenge"`}
-              </Typography>
-              <Typography variant="caption" color="text.secondary">
-                Yesterday
-              </Typography>
-            </Box>
+            <Message
+              variant="success"
+              message={`🏆 "Science Quiz 2025" registration opened - 234 registrations`}
+              title="1 hour ago"
+              showIcon={false}
+            />
+            <Message
+              variant="success"
+              message={`✅ Published results for "Math Olympiad" - 156 participants`}
+              title="5 hours ago"
+              showIcon={false}
+            />
+            <Message
+              variant="info"
+              message={`📅 Created new competition "Arabic Literature Challenge"`}
+              title="Yesterday"
+              showIcon={false}
+            />
           </Stack>
         </CardContent>
       </Card>

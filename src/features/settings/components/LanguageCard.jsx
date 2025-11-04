@@ -1,4 +1,5 @@
 // external imports
+import { useCallback, useMemo, memo } from 'react';
 
 // internal imports
 import { Dropdown, Card, Icon } from '@components';
@@ -24,30 +25,42 @@ const getListContainerStyles = () => ({
   ...padding.y.sm,
 });
 
-function LanguageCard() {
+const LanguageCard = memo(function LanguageCard() {
   const { t } = useTranslation();
   const { currentLanguage, setLanguage } = useLanguage();
 
-  const languageOptions = [
-    {
-      value: 'default',
-      label: t('common.systemMode'),
-      icon: <Icon name="earth" />,
-      onClick: () => setLanguage('default'),
+  const handleLanguageChange = useCallback(
+    (lang) => {
+      // Avoid state update if language hasn't changed
+      if (lang === currentLanguage) return;
+      setLanguage(lang);
     },
-    {
-      value: 'ar',
-      label: t('common.arabic'),
-      icon: <Icon name="language" />,
-      onClick: () => setLanguage('ar'),
-    },
-    {
-      value: 'en',
-      label: t('common.english'),
-      icon: <Icon name="english" />,
-      onClick: () => setLanguage('en'),
-    },
-  ];
+    [currentLanguage, setLanguage]
+  );
+
+  const languageOptions = useMemo(
+    () => [
+      {
+        value: 'default',
+        label: t('common.systemMode'),
+        icon: <Icon name="earth" />,
+        onClick: () => handleLanguageChange('default'),
+      },
+      {
+        value: 'ar',
+        label: t('common.arabic'),
+        icon: <Icon name="language" />,
+        onClick: () => handleLanguageChange('ar'),
+      },
+      {
+        value: 'en',
+        label: t('common.english'),
+        icon: <Icon name="english" />,
+        onClick: () => handleLanguageChange('en'),
+      },
+    ],
+    [t, handleLanguageChange]
+  );
 
   const actions = (
     <Dropdown
@@ -68,6 +81,6 @@ function LanguageCard() {
       hoverable
     />
   );
-}
+});
 
 export default LanguageCard;

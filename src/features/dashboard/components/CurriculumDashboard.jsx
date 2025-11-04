@@ -1,5 +1,6 @@
 import { Grid, Card, CardContent, Typography, Stack, Box } from '@mui/material';
 import StatCard from './StatCard';
+import { Message } from '@components';
 
 function CurriculumDashboard() {
   const stats = [
@@ -37,30 +38,24 @@ function CurriculumDashboard() {
             Recent Curriculum Updates
           </Typography>
           <Stack spacing={2} sx={{ mt: 2 }}>
-            <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
-              <Typography variant="body2">
-                {`📖 Added 5 new lessons to "Physics Grade 11"`}
-              </Typography>
-              <Typography variant="caption" color="text.secondary">
-                3 hours ago
-              </Typography>
-            </Box>
-            <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
-              <Typography variant="body2">
-                {`📚 Updated "Chemistry" curriculum structure`}
-              </Typography>
-              <Typography variant="caption" color="text.secondary">
-                1 day ago
-              </Typography>
-            </Box>
-            <Box sx={{ p: 2, bgcolor: 'background.default', borderRadius: 1 }}>
-              <Typography variant="body2">
-                {`✅ Completed "Biology Grade 10" curriculum`}
-              </Typography>
-              <Typography variant="caption" color="text.secondary">
-                2 days ago
-              </Typography>
-            </Box>
+            <Message
+              variant="info"
+              message={`📖 Added 5 new lessons to "Physics Grade 11"`}
+              title="3 hours ago"
+              showIcon={false}
+            />
+            <Message
+              variant="warning"
+              message={`📚 Updated "Chemistry" curriculum structure`}
+              title="1 day ago"
+              showIcon={false}
+            />
+            <Message
+              variant="success"
+              message={`✅ Completed "Biology Grade 10" curriculum`}
+              title="2 days ago"
+              showIcon={false}
+            />
           </Stack>
         </CardContent>
       </Card>

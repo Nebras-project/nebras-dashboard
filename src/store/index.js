@@ -1,17 +1,15 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 import {
   themeReducer,
   languageReducer,
   userReducer,
   colorSchemeReducer,
   sidebarReducer,
-} from "./slices";
+  toastReducer,
+} from './slices';
 
-import {
-  localStorageMiddleware,
-  loadPersistedState,
-} from "./middleware/localStorageMiddleware";
-import { migrateLocalStorage } from "@utils";
+import { localStorageMiddleware, loadPersistedState } from './middleware/localStorageMiddleware';
+import { migrateLocalStorage } from '@utils';
 
 // Run migration BEFORE loading state
 migrateLocalStorage();
@@ -28,10 +26,10 @@ export const store = configureStore({
     sidebar: sidebarReducer,
     user: userReducer,
     colorScheme: colorSchemeReducer,
+    toast: toastReducer,
   },
   preloadedState, // 👈 Pre-fill store with saved data
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(localStorageMiddleware), // Saves state after every action
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware), // Saves state after every action
 });
 
 export default store;
