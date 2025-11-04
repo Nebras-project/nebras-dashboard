@@ -63,19 +63,23 @@ export default defineConfig(({ mode }) => ({
           // Split vendor chunks
           if (id.includes('node_modules')) {
             // React core and all React-dependent libraries together
-            // This ensures React.Children is always available when needed
+            // This ensures React APIs (Children, useLayoutEffect, etc.) are always available
             if (
               id.includes('node_modules/react/') ||
               id.includes('node_modules/react-dom/') ||
               id.includes('react-error-boundary') ||
               id.includes('react-router') ||
               id.includes('react-redux') ||
-              id.includes('react-i18next')
+              id.includes('react-i18next') ||
+              id.includes('@emotion/react') ||
+              id.includes('@emotion/styled') ||
+              id.includes('@mui/material') ||
+              id.includes('@mui/x-data-grid')
             ) {
               return 'vendor-react';
             }
 
-            // MUI packages together (large library)
+            // Other MUI packages (if any remain)
             if (id.includes('@mui')) {
               return 'vendor-mui';
             }
@@ -155,7 +159,10 @@ export default defineConfig(({ mode }) => ({
         'react-error-boundary',
         'react-router-dom',
         'react-redux',
+        '@emotion/react',
+        '@emotion/styled',
         '@mui/material',
+        '@mui/x-data-grid',
         '@reduxjs/toolkit',
         '@tanstack/react-query',
       ],
@@ -163,7 +170,7 @@ export default defineConfig(({ mode }) => ({
     },
     // Ensure proper module resolution for React
     commonjsOptions: {
-      include: [/react/, /react-dom/, /react-error-boundary/, /node_modules/],
+      include: [/react/, /react-dom/, /react-error-boundary/, /@emotion/, /@mui/, /node_modules/],
     },
   },
 
