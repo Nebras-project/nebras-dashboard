@@ -30,6 +30,8 @@ export default defineConfig(({ mode }) => ({
       '@providers': path.resolve(__dirname, './src/providers'),
       '@data': path.resolve(__dirname, './src/data'),
     },
+    // Ensure React is properly deduplicated
+    dedupe: ['react', 'react-dom'],
   },
   build: {
     // Target modern browsers for smaller bundle size
@@ -65,17 +67,21 @@ export default defineConfig(({ mode }) => ({
         manualChunks: (id) => {
           // Split vendor chunks
           if (id.includes('node_modules')) {
-            // CRITICAL: React core must be in its own chunk and load first
-            // This ensures React APIs (Children, useLayoutEffect, etc.) are always available
+            // CRITICAL: Keep React core in main bundle to ensure it's always available
+            // Don't split React/ReactDOM - they must be loaded synchronously before other chunks
+            // This prevents "useLayoutEffect of undefined" errors
+            // Some libraries (MUI, Emotion) access React.useLayoutEffect directly
             if (
               id.includes('node_modules/react/') ||
               id.includes('node_modules/react-dom/') ||
-              id.includes('node_modules/react/jsx-runtime')
+              id.includes('node_modules/react/jsx-runtime') ||
+              id.includes('node_modules/react/jsx-dev-runtime')
             ) {
-              return 'vendor-react-core';
+              // Return undefined to keep in main bundle
+              return undefined;
             }
 
-            // React-dependent libraries (must load after vendor-react-core)
+            // React-dependent libraries (will load after React in main bundle)
             if (
               id.includes('react-error-boundary') ||
               id.includes('react-router') ||
