@@ -58,19 +58,32 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       // Ensure React is externalized correctly and available
       output: {
+        // Use ES modules format for better tree-shaking and modern browser support
+        format: 'es',
+
         // Manual chunk splitting for better caching and parallel loading
         manualChunks: (id) => {
           // Split vendor chunks
           if (id.includes('node_modules')) {
-            // React core and all React-dependent libraries together
+            // CRITICAL: React core must be in its own chunk and load first
             // This ensures React APIs (Children, useLayoutEffect, etc.) are always available
             if (
               id.includes('node_modules/react/') ||
               id.includes('node_modules/react-dom/') ||
+              id.includes('node_modules/react/jsx-runtime')
+            ) {
+              return 'vendor-react-core';
+            }
+
+            // React-dependent libraries (must load after vendor-react-core)
+            if (
               id.includes('react-error-boundary') ||
               id.includes('react-router') ||
               id.includes('react-redux') ||
               id.includes('react-i18next') ||
+              id.includes('react-hook-form') ||
+              id.includes('react-icons') ||
+              id.includes('react-colorful') ||
               id.includes('@emotion/react') ||
               id.includes('@emotion/styled') ||
               id.includes('@mui/material') ||
