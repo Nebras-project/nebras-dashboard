@@ -1,5 +1,5 @@
 // external imports
-import React from 'react';
+
 import { createRoot } from 'react-dom/client';
 import { StrictMode } from 'react';
 // Load all font weights synchronously - they're all needed for initial render
@@ -11,6 +11,8 @@ import '@fontsource/cairo/600.css';
 import '@fontsource/cairo/700.css';
 import '@i18n'; // Initialize i18n
 import './index.css';
+// Import FireLoader CSS globally to ensure it's available in production
+import './components/feedback/FireLoader.css';
 
 // internal imports
 import App from './App.jsx';
