@@ -13,6 +13,7 @@ export {
 } from './feedback';
 
 // Input components
+export { default as BackButton } from './inputs/BackButton';
 export { default as Button } from './inputs/Button';
 export { default as CloseButton } from './inputs/CloseButton';
 export { default as ColorPicker } from './inputs/ColorPicker';
