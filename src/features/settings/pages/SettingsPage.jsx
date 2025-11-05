@@ -9,6 +9,7 @@ import { borderWidth } from '@theme/components';
 import { TabPanel, SettingsTabsHeader } from '../components';
 import { getSettingsTabs } from '../settingsConfig';
 
+
 function SettingsPage() {
   const { t } = useTranslation();
   const [currentTab, setCurrentTab] = useState(0);
