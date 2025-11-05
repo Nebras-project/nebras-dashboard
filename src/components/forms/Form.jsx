@@ -1,0 +1,110 @@
+// external imports
+import { memo } from 'react';
+import PropTypes from 'prop-types';
+
+// internal imports
+import { FORM_DEFAULTS } from './constants';
+import FormDialog from './FormDialog';
+import FormPage from './FormPage';
+import { TextInput, SelectInput, DateInput, FileInput, CheckboxInput, RadioInput } from './inputs';
+import {
+  FormTitle,
+  FormContent,
+  FormActions,
+  FormSubmitButton,
+  FormResetButton,
+} from './components';
+
+/**
+ * Form Compound Component
+ *
+ * Single Responsibility: Wrapper component that renders FormDialog or FormPage based on mode.
+ * Delegates implementation to specialized components.
+ */
+
+// Main Form Component - Single Responsibility: Route to appropriate form implementation
+const Form = memo(function Form({
+  mode = FORM_DEFAULTS.MODE, // 'dialog' | 'page'
+  open, // Required when mode is 'dialog'
+  onClose, // Required when mode is 'dialog'
+  onSubmit,
+  defaultValues = {},
+  children,
+  dialogMaxWidth = FORM_DEFAULTS.DIALOG_MAX_WIDTH,
+  title,
+  description,
+  showCloseButton = FORM_DEFAULTS.SHOW_CLOSE_BUTTON,
+  disableBackdropClick = FORM_DEFAULTS.DISABLE_BACKDROP_CLICK,
+  formProps = {},
+  pageLayoutProps = {},
+  ...props
+}) {
+  // Render as Dialog
+  if (mode === 'dialog') {
+    return (
+      <FormDialog
+        open={open}
+        onClose={onClose}
+        onSubmit={onSubmit}
+        defaultValues={defaultValues}
+        dialogMaxWidth={dialogMaxWidth}
+        title={title}
+        showCloseButton={showCloseButton}
+        disableBackdropClick={disableBackdropClick}
+        formProps={formProps}
+        {...props}
+      >
+        {children}
+      </FormDialog>
+    );
+  }
+
+  // Render as Page
+  return (
+    <FormPage
+      onSubmit={onSubmit}
+      defaultValues={defaultValues}
+      title={title}
+      description={description}
+      showCloseButton={showCloseButton}
+      onClose={onClose}
+      formProps={formProps}
+      pageLayoutProps={pageLayoutProps}
+    >
+      {children}
+    </FormPage>
+  );
+});
+
+Form.propTypes = {
+  mode: PropTypes.oneOf(['dialog', 'page']),
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
+  defaultValues: PropTypes.object,
+  children: PropTypes.node.isRequired,
+  dialogMaxWidth: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl', false]),
+  title: PropTypes.string,
+  description: PropTypes.string,
+  showCloseButton: PropTypes.bool,
+  disableBackdropClick: PropTypes.bool,
+  formProps: PropTypes.object,
+  pageLayoutProps: PropTypes.object,
+};
+
+// Attach sub-components to Form
+Form.Title = FormTitle;
+Form.Content = FormContent;
+Form.Actions = FormActions;
+Form.SubmitButton = FormSubmitButton;
+Form.ResetButton = FormResetButton;
+Form.TextInput = TextInput;
+Form.SelectInput = SelectInput;
+Form.DateInput = DateInput;
+Form.FileInput = FileInput;
+Form.CheckboxInput = CheckboxInput;
+Form.RadioInput = RadioInput;
+
+Form.displayName = 'Form';
+
+export default Form;

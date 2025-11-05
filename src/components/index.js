@@ -44,3 +44,6 @@ export { default as ConfirmDialog } from './dialogs/ConfirmDialog';
 
 // Compound components
 export { default as Menu } from './inputs/Menu';
+
+// Form components
+export { Form } from './forms';

@@ -27,6 +27,34 @@ This directory is organized into subdirectories:
 - **LogoutButton** - Specialized logout button with icon and error styling
 - **Menu** - Context menu component with menu items and dividers
 
+### `forms/` - Form Compound Components
+
+- **Form** - Flexible form component that can render as Dialog or Page
+  - Integrated with React Hook Form for form state management
+  - Compound component pattern with sub-components
+  - Dual mode support (dialog/page)
+  - Full validation support
+  - RTL and i18n ready
+
+**Form Sub-components:**
+
+- **Form.Title** - Form title with icon support
+- **Form.Content** - Form content area wrapper
+- **Form.Actions** - Form action buttons container
+- **Form.SubmitButton** - Submit button with loading state
+- **Form.ResetButton** - Reset button that resets form to default values
+
+**Form Input Components:**
+
+- **Form.TextInput** - Text input field (text, email, password, number, etc.)
+- **Form.SelectInput** - Dropdown select field
+- **Form.DateInput** - Date/time input field
+- **Form.FileInput** - File upload field (single or multiple)
+- **Form.CheckboxInput** - Checkbox field
+- **Form.RadioInput** - Radio button group field
+
+**📖 Full Documentation:** See [src/components/forms/README.md](./forms/README.md) for complete form system documentation, API reference, and usage examples.
+
 ### `layout/` - Layout Components
 
 - **PageLayout** - Page wrapper with title and description
@@ -410,6 +438,53 @@ Used in the sidebar controls for theme customization.
 **Props:**
 
 - `title` - Header title
+
+### Form
+
+**Purpose:** Flexible form compound component with React Hook Form integration
+
+**Features:**
+
+- Dual mode: Render as Dialog or Page
+- React Hook Form integration with automatic validation
+- Compound component pattern for flexible composition
+- All input types supported (text, select, date, file, checkbox, radio)
+- Automatic error handling and display
+- RTL and i18n support
+- Theme aware
+
+**Quick Example:**
+
+```jsx
+import { Form } from '@components';
+
+<Form
+  mode="page"
+  onSubmit={(data) => console.log(data)}
+  title="Create Item"
+  defaultValues={{ name: '', email: '' }}
+>
+  <Form.Content>
+    <Form.TextInput name="name" label="Name" rules={{ required: 'Required' }} />
+    <Form.TextInput name="email" label="Email" type="email" />
+  </Form.Content>
+  <Form.Actions>
+    <Form.ResetButton>Reset</Form.ResetButton>
+    <Form.SubmitButton>Submit</Form.SubmitButton>
+  </Form.Actions>
+</Form>;
+```
+
+**Available Input Components:**
+
+- `Form.TextInput` - Text, email, password, number, tel, url, etc.
+- `Form.SelectInput` - Dropdown select with options
+- `Form.DateInput` - Date, time, datetime-local inputs
+- `Form.FileInput` - Single or multiple file upload
+- `Form.CheckboxInput` - Checkbox with validation
+- `Form.RadioInput` - Radio button group with options
+
+**📖 Full Documentation:** See [src/components/forms/README.md](./forms/README.md) for complete API reference, all props, validation examples, and advanced usage.
 
 ---
 

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 // internal imports
 /**
- * CSS is imported globally in main.jsx to ensure it loads before component renders.
+ * CSS is imported globally in main.jsx AND here as a fallback to ensure it loads.
  *
  * Reason: Previously, styles were injected via useEffect using document.createElement('style'),
  * which caused issues in production builds (especially on Vercel). Dynamic style injection
@@ -14,9 +14,10 @@ import PropTypes from 'prop-types';
  * 2. Build tools may strip or optimize away dynamic DOM manipulation
  * 3. CSS-in-JS solutions may not handle keyframe animations correctly
  *
- * By importing CSS in main.jsx (like other global styles), Vite ensures the styles are
- * always available in both development and production environments before any component renders.
+ * By importing CSS in both main.jsx (global) and here (component-level), we ensure the styles
+ * are always available in both development and production environments.
  */
+import './FireLoader.css';
 
 // Constants
 const DEFAULT_SIZE = 80; // Increased from 48 for better visibility
