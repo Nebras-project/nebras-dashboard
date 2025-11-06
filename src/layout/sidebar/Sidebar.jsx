@@ -1,6 +1,6 @@
 // internal imports
 import { useSidebar } from '@hooks';
-import LogoHeader from './components/LogoHeader';
+import SidebarHeader from './components/SidebarHeader';
 import NavigationMenu from './components/NavigationMenu';
 import DesktopSidebar from './components/DesktopSidebar';
 import MobileDrawer from './components/MobileDrawer';
@@ -11,7 +11,7 @@ function Sidebar() {
   // Sidebar content is shared between mobile and desktop views
   const sidebarContent = (
     <>
-      <LogoHeader />
+      <SidebarHeader />
       <NavigationMenu />
     </>
   );

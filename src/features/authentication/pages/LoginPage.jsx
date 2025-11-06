@@ -1,157 +1,100 @@
-import { useState } from 'react';
-import { useNavigate, Navigate } from 'react-router-dom';
-import {
-  Container,
-  Box,
-  Card,
-  CardContent,
-  TextField,
-  Button,
-  Typography,
-  Stack,
-  InputAdornment,
-  IconButton,
-} from '@mui/material';
-import { useUser, useTranslation, useToast } from '@hooks';
-import { Icon } from '@components';
+import { useMemo, memo } from 'react';
+import { Navigate } from 'react-router-dom';
+import { Box, Stack, useTheme, alpha } from '@mui/material';
 
-function LoginPage() {
-  const navigate = useNavigate();
-  const { login, isAuthenticated } = useUser();
+// internal imports
+import { useUser, useTranslation } from '@hooks';
+import { Form, Icon } from '@components';
+import { gap } from '@constants';
+import { useLogin } from '../hooks/useLogin';
+import LoginHeader from '../components/LoginHeader';
+
+// Style getters
+const getRootStyles = (theme) => {
+  const isLight = theme.palette.mode === 'light';
+
+  return {
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    bgcolor: isLight ? theme.palette.grey[50] : theme.palette.background.default,
+  };
+};
+
+const getFormWrapperStyles = (theme) => {
+  const isLight = theme.palette.mode === 'light';
+
+  return {
+    width: '100%',
+    maxWidth: '500px',
+    '& .MuiPaper-root': {
+      bgcolor: isLight
+        ? alpha(theme.palette.background.paper, 0.95)
+        : alpha(theme.palette.background.paper, 0.9),
+      backdropFilter: 'blur(20px)',
+      boxShadow: isLight
+        ? '0 8px 32px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.5) inset'
+        : '0 8px 32px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset',
+      border: isLight
+        ? `1px solid ${alpha(theme.palette.divider, 0.2)}`
+        : `1px solid ${alpha(theme.palette.divider, 0.1)}`,
+    },
+  };
+};
+
+const getSubmitButtonStyles = (theme) => ({
+  boxShadow: `0 4px 16px ${alpha(theme.palette.primary.main, 0.3)}`,
+});
+
+/**
+ * LoginPage Component
+ * Single Responsibility: Render login page UI and coordinate child components
+ */
+const LoginPage = memo(function LoginPage() {
+  const theme = useTheme();
+  const { isAuthenticated } = useUser();
   const { t } = useTranslation();
-  const { success, error } = useToast();
-  const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+  const { handleLogin } = useLogin();
 
-  // If already authenticated, redirect to dashboard
+  // Memoized styles
+  const rootStyles = useMemo(() => getRootStyles(theme), [theme]);
+  const formWrapperStyles = useMemo(() => getFormWrapperStyles(theme), [theme]);
+  const submitButtonStyles = useMemo(() => getSubmitButtonStyles(theme), [theme]);
+
+  // Early return for authenticated users
   if (isAuthenticated) {
     return <Navigate to="/dashboard" replace />;
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Basic validation
-    if (!formData.email || !formData.password) {
-      error({
-        title: t('auth.validationError'),
-        content: t('auth.fillAllFields'),
-      });
-      return;
-    }
-
-    try {
-      // Mock login - In real app, this would call an API
-      const userData = {
-        id: 1,
-        name: 'Admin User',
-        email: formData.email,
-        role: 'owner',
-      };
-      login(userData);
-      success({
-        title: t('auth.loginSuccess'),
-        content: t('auth.welcomeMessage', { name: userData.name }),
-      });
-      navigate('/dashboard');
-    } catch (err) {
-      error({
-        title: t('auth.loginError'),
-        content: err.message || t('auth.invalidCredentials'),
-      });
-    }
-  };
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   return (
-    <Box
-      sx={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        bgcolor: 'background.default',
-      }}
-    >
-      <Container maxWidth="sm">
-        <Stack spacing={4} alignItems="center">
-          {/* Logo */}
-          <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="h3" color="primary" fontWeight="bold">
-              Nebras Dashboard
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-              {t('auth.loginSubtitle')}
-            </Typography>
-          </Box>
+    <Box sx={rootStyles}>
+      {/* Floating Login Form Card */}
+      <Box sx={formWrapperStyles}>
+        <Form mode="page" onSubmit={handleLogin}>
+          <Form.Content>
+            <LoginHeader />
+            <Stack {...gap.sm}>
+              <Form.EmailInput name="email" autoFocus fullWidth />
+              <Form.PasswordInput name="password" fullWidth />
+            </Stack>
+          </Form.Content>
 
-          {/* Login Card */}
-          <Card sx={{ width: '100%', maxWidth: 400 }}>
-            <CardContent sx={{ p: 4 }}>
-              <Typography variant="h5" gutterBottom textAlign="center">
-                {t('auth.loginTitle')}
-              </Typography>
-
-              <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                <Stack spacing={3}>
-                  <TextField
-                    fullWidth
-                    label={t('common.email')}
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    autoComplete="email"
-                    autoFocus
-                  />
-
-                  <TextField
-                    fullWidth
-                    label={t('auth.password')}
-                    name="password"
-                    type={showPassword ? 'text' : 'password'}
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                    autoComplete="current-password"
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                            {showPassword ? <Icon name="eye" /> : <Icon name="eyeClosed" />}
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    size="large"
-                    fullWidth
-                    startIcon={<Icon name="login" />}
-                  >
-                    {t('auth.loginButton')}
-                  </Button>
-                </Stack>
-              </Box>  
-            </CardContent>
-          </Card>
-        </Stack>
-      </Container>
+          <Form.Actions>
+            <Form.SubmitButton
+              fullWidth
+              size="medium"
+              variant="contained"
+              startIcon={<Icon name="login" />}
+              sx={submitButtonStyles}
+            >
+              {t('auth.loginButton')}
+            </Form.SubmitButton>
+          </Form.Actions>
+        </Form>
+      </Box>
     </Box>
   );
-}
+});
 
 export default LoginPage;

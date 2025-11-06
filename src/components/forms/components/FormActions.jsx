@@ -14,15 +14,13 @@ const getDialogActionsStyles = (padding, gap) => ({
   ...gap.sm,
 });
 
-const getPageActionsStyles = (padding, gap, borderWidth) => ({
+const getPageActionsStyles = (padding, gap) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
   ...gap.md,
   ...padding.top.lg,
   ...padding.bottom.md,
-  borderTop: borderWidth.xs,
-  borderColor: 'divider',
 });
 
 /**

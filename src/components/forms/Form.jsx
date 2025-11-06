@@ -6,7 +6,16 @@ import PropTypes from 'prop-types';
 import { FORM_DEFAULTS } from './constants';
 import FormDialog from './FormDialog';
 import FormPage from './FormPage';
-import { TextInput, SelectInput, DateInput, FileInput, CheckboxInput, RadioInput } from './inputs';
+import {
+  TextInput,
+  EmailInput,
+  PasswordInput,
+  SelectInput,
+  DateInput,
+  FileInput,
+  CheckboxInput,
+  RadioInput,
+} from './inputs';
 import {
   FormTitle,
   FormContent,
@@ -99,6 +108,8 @@ Form.Actions = FormActions;
 Form.SubmitButton = FormSubmitButton;
 Form.ResetButton = FormResetButton;
 Form.TextInput = TextInput;
+Form.EmailInput = EmailInput;
+Form.PasswordInput = PasswordInput;
 Form.SelectInput = SelectInput;
 Form.DateInput = DateInput;
 Form.FileInput = FileInput;

@@ -6,7 +6,7 @@
 
 export const FORM_DEFAULTS = {
   MODE: 'page',
-  DIALOG_MAX_WIDTH: 'mobile',
+  DIALOG_MAX_WIDTH: 'sm',
   SHOW_CLOSE_BUTTON: true,
   DISABLE_BACKDROP_CLICK: false,
   TEXT_INPUT_DEFAULT_VALUE: '',
@@ -46,3 +46,30 @@ export const FORM_INPUT_TYPES = {
   COLOR: 'color',
   RANGE: 'range',
 };
+
+// Validation constants
+export const VALIDATION = {
+  PASSWORD_MIN_LENGTH: 8,
+  EMAIL_PATTERN: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+};
+
+/**
+ * Validation rule generators
+ * These functions return React Hook Form validation rules
+ */
+
+export const getEmailRules = (t) => ({
+  required: t('input.emailRequired'),
+  pattern: {
+    value: VALIDATION.EMAIL_PATTERN,
+    message: t('input.invalidEmail'),
+  },
+});
+
+export const getPasswordRules = (t, minLength = VALIDATION.PASSWORD_MIN_LENGTH) => ({
+  required: t('input.passwordRequired'),
+  minLength: {
+    value: minLength,
+    message: t('input.passwordMinLength', { min: minLength }),
+  },
+});

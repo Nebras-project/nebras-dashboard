@@ -105,17 +105,17 @@ const en = {
     loggingIn: 'Logging in...',
     logoutConfirm: 'Confirm Logout',
     logoutConfirmMessage: 'Are you sure you want to logout?',
-    invalidCredentials: 'Invalid credentials',
-    sessionExpired: 'Session expired, please login again',
+    invalidCredentials: 'Oops! The email or password you entered is incorrect. Please try again.',
+    sessionExpired: 'Your session has expired. Please sign in again to continue.',
     welcomeBack: 'Welcome back',
-    unauthorized: 'You are not authorized to access this page',
-    loginSuccess: 'Login Successful',
+    unauthorized: "Sorry, you don't have permission to access this page",
+    loginSuccess: 'Welcome back!',
     welcomeMessage: 'Welcome back, {{name}}!',
-    logoutSuccess: 'Logged Out Successfully',
-    logoutMessage: 'You have been logged out successfully',
-    validationError: 'Validation Error',
-    fillAllFields: 'Please fill all required fields',
-    loginError: 'Login Failed',
+    logoutSuccess: 'You have been signed out',
+    logoutMessage: 'You have been signed out successfully',
+    validationError: 'Please check your input',
+    fillAllFields: 'Please fill in all required fields',
+    loginError: "We couldn't sign you in",
   },
 
   // Dashboard
@@ -283,6 +283,21 @@ const en = {
     enterValue: 'Enter a value',
     selectOption: 'Select an option',
     fillAllFields: 'Please fill all fields',
+  },
+
+  // Input
+  input: {
+    // Labels
+    email: 'Email',
+    password: 'Password',
+    // Validation messages
+    emailRequired: 'Email address is required',
+    passwordRequired: 'Password is required',
+    invalidEmail: 'Please enter a valid email address',
+    passwordMinLength: 'Password should be at least {{min}} characters long',
+    // Password visibility
+    showPassword: 'Show password',
+    hidePassword: 'Hide password',
   },
 
   // Messages

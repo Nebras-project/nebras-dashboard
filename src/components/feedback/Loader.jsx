@@ -4,7 +4,7 @@ import { Box, Fade, Backdrop } from '@mui/material';
 import PropTypes from 'prop-types';
 
 // internal imports
-import { LoadingLogo, LoadingMessage, FireLoader } from '.';
+import { LoadingMessage, LogoWithFireLoader } from '.';
 import { gap, padding } from '@constants/spacing';
 
 // Constants
@@ -46,22 +46,6 @@ const getContentContainerStyles = () => ({
 });
 
 // Shared Style Getters
-const getSpinnerContainerStyles = () => ({
-  position: 'relative',
-  display: 'inline-flex',
-});
-
-const getLogoOverlayStyles = () => ({
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  bottom: 0,
-  right: 0,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-});
-
 const Loader = memo(function Loader({
   variant = 'page',
   open = true,
@@ -73,27 +57,15 @@ const Loader = memo(function Loader({
 }) {
   const isFullScreenVariant = variant === 'fullscreen';
   const effectiveSize = isFullScreenVariant ? 80 : size; // Increased for better visibility
-  const animationType = isFullScreenVariant ? 'scale' : 'pulse';
   const messageVariant = isFullScreenVariant ? 'h6' : 'body2';
 
-  // Content that's shared between both variants
-  const loaderContent = (
-    <Box sx={getSpinnerContainerStyles()}>
-      <FireLoader size={effectiveSize} />
-      {showLogo && (
-        <Box sx={getLogoOverlayStyles()}>
-          <LoadingLogo height={effectiveSize * 0.5} animationType={animationType} />
-        </Box>
-      )}
-    </Box>
-  );
 
   // Full Screen Loader
   if (isFullScreenVariant) {
     return (
       <Backdrop open={open} sx={getBackdropStyles()} onClick={(e) => e.stopPropagation()}>
         <Box role="status" aria-live="assertive" sx={getContentContainerStyles()}>
-          {loaderContent}
+          <LogoWithFireLoader logoHeight={effectiveSize * 0.5} fireLoaderSize={effectiveSize} />
           {(message || !showLogo) && <LoadingMessage message={message} variant={messageVariant} />}
         </Box>
       </Backdrop>
@@ -104,7 +76,7 @@ const Loader = memo(function Loader({
   return (
     <Fade in timeout={FADE_TIMEOUT}>
       <Box role="status" aria-live="polite" sx={getPageContainerStyles(fullScreen, minHeight)}>
-        {loaderContent}
+        <LogoWithFireLoader logoHeight={effectiveSize * 0.5} fireLoaderSize={effectiveSize} />
         {(message || !showLogo) && <LoadingMessage message={message} variant={messageVariant} />}
       </Box>
     </Fade>

@@ -105,17 +105,18 @@ const ar = {
     loggingIn: 'جاري تسجيل الدخول...',
     logoutConfirm: 'تأكيد تسجيل الخروج',
     logoutConfirmMessage: 'هل أنت متأكد من تسجيل الخروج؟',
-    invalidCredentials: 'بيانات الدخول غير صحيحة',
-    sessionExpired: 'انتهت الجلسة، يرجى تسجيل الدخول مرة أخرى',
+    invalidCredentials:
+      'عذراً! البريد الإلكتروني أو كلمة المرور غير صحيحة. يرجى المحاولة مرة أخرى.',
+    sessionExpired: 'انتهت جلستك. يرجى تسجيل الدخول مرة أخرى للمتابعة.',
     welcomeBack: 'مرحباً بك مجدداً',
-    unauthorized: 'غير مصرح لك بالوصول إلى هذه الصفحة',
-    loginSuccess: 'تم تسجيل الدخول بنجاح',
+    unauthorized: 'عذراً، ليس لديك صلاحية للوصول إلى هذه الصفحة',
+    loginSuccess: 'مرحباً بك مجدداً!',
     welcomeMessage: 'مرحباً بك مجدداً، {{name}}!',
-    logoutSuccess: 'تم تسجيل الخروج بنجاح',
+    logoutSuccess: 'تم تسجيل خروجك',
     logoutMessage: 'تم تسجيل خروجك بنجاح',
-    validationError: 'خطأ في التحقق',
+    validationError: 'يرجى التحقق من المدخلات',
     fillAllFields: 'يرجى ملء جميع الحقول المطلوبة',
-    loginError: 'فشل تسجيل الدخول',
+    loginError: 'لم نتمكن من تسجيل دخولك',
   },
 
   // Dashboard
@@ -283,6 +284,21 @@ const ar = {
     enterValue: 'أدخل قيمة',
     selectOption: 'اختر خياراً',
     fillAllFields: 'يرجى ملء جميع الحقول',
+  },
+
+  // Input
+  input: {
+    // Labels
+    email: 'البريد الإلكتروني',
+    password: 'كلمة المرور',
+    // Validation messages
+    emailRequired: 'عنوان البريد الإلكتروني مطلوب',
+    passwordRequired: 'كلمة المرور مطلوبة',
+    invalidEmail: 'يرجى إدخال عنوان بريد إلكتروني صحيح',
+    passwordMinLength: 'يجب أن تكون كلمة المرور على الأقل {{min}} أحرف',
+    // Password visibility
+    showPassword: 'إظهار كلمة المرور',
+    hidePassword: 'إخفاء كلمة المرور',
   },
 
   // Messages

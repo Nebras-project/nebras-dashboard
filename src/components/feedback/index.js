@@ -5,6 +5,7 @@ export { default as Loader } from './Loader';
 export { default as FireLoader } from './FireLoader';
 export { default as LoadingLogo } from './LoadingLogo';
 export { default as LoadingMessage } from './LoadingMessage';
+export { default as LogoWithFireLoader } from './LogoWithFireLoader';
 
 // Message components
 export { default as Message } from './Message';

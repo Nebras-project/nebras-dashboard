@@ -9,7 +9,7 @@ import { Logo, Icon, CloseButton } from '@components';
 import { fontWeights } from '@theme';
 import { padding, gap } from '@constants';
 
-// Logo Header constants (only used in this component)
+// Sidebar Header constants (only used in this component)
 const LOGO_LETTER_SPACING = '0.1rem';
 const COLLAPSE_ICON_SIZE = 24;
 const CLOSE_ICON_SIZE = 20;
@@ -18,7 +18,7 @@ const getContainerStyles = (collapsed) => ({
   display: 'flex',
   alignItems: 'center',
   flexDirection: collapsed ? 'column' : 'row',
-  position: 'relative', 
+  position: 'relative',
   ...padding.x.md,
   ...padding.y.md,
   ...(collapsed ? gap.md : gap.sm),
@@ -49,7 +49,7 @@ const getCollapseIcon = (isRTL, collapsed) => {
   );
 };
 
-const LogoHeader = memo(function LogoHeader() {
+const SidebarHeader = memo(function SidebarHeader() {
   const { t } = useTranslation();
   const { isRTL } = useLanguage();
   const { collapsed, toggleCollapsed, isMobile, closeSidebar } = useSidebar();
@@ -93,4 +93,4 @@ const LogoHeader = memo(function LogoHeader() {
   );
 });
 
-export default LogoHeader;
+export default SidebarHeader;

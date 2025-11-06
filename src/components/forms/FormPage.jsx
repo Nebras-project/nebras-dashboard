@@ -13,7 +13,7 @@ import { borderRadius } from '@theme/components';
 
 const getPaperStyles = (padding, borderRadius) => ({
   ...padding.all.lg,
-  borderRadius: borderRadius.md,
+  borderRadius: borderRadius.xs,
 });
 
 /**

@@ -1,7 +1,6 @@
 import { Grid, Card, CardContent, Typography, Stack, Box } from '@mui/material';
 import StatCard from './StatCard';
 import { Message } from '@components';
-import FormExamplesPage from '../../../examples/FormExamplesPage';
 
 function OwnerDashboard() {
   const stats = [
@@ -16,7 +15,6 @@ function OwnerDashboard() {
   return (
     <Stack spacing={4}>
       {/* Page Header */}
-      <FormExamplesPage />
       <Box>
         <Typography variant="h3" gutterBottom color="primary">
           لوحة التحكم الرئيسية / System Dashboard

@@ -54,10 +54,11 @@ const getContainerStyles = (animationType) => ({
 const LoadingLogo = memo(function LoadingLogo({
   height = DEFAULT_LOGO_HEIGHT,
   animationType = 'pulse',
+  mode = 'dark',
 }) {
   return (
     <Box aria-hidden="true" sx={getContainerStyles(animationType)}>
-      <Logo height={height} />
+      <Logo height={height} mode={mode} />
     </Box>
   );
 });
@@ -74,6 +75,11 @@ LoadingLogo.propTypes = {
    * @default 'pulse'
    */
   animationType: PropTypes.oneOf(['pulse', 'scale']),
+
+  /**
+   * Logo mode: 'light' or 'dark'. If not provided, uses theme mode.
+   */
+  mode: PropTypes.oneOf(['light', 'dark']),
 };
 
 LoadingLogo.displayName = 'LoadingLogo';

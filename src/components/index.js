@@ -7,6 +7,7 @@ export {
   FireLoader,
   LoadingLogo,
   LoadingMessage,
+  LogoWithFireLoader,
   Message,
   Toast,
   ToastContainer,

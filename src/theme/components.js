@@ -1,7 +1,7 @@
 // Nebras Dashboard Component Style Overrides
 
-import { baseColors, borderColors } from "./colors";
-import { fontWeights } from "./typography";
+import { baseColors, borderColors } from './colors';
+import { fontWeights } from './typography';
 
 // Border radius values
 export const borderRadius = {
@@ -28,23 +28,23 @@ export const borderWidth = {
 // Shadow values
 export const shadows = {
   light: {
-    sm: "0 2px 4px rgba(0,0,0,0.1)",
-    md: "0 2px 8px rgba(0,0,0,0.1)",
-    lg: "0 4px 16px rgba(0,0,0,0.15)",
+    sm: '0 2px 4px rgba(0,0,0,0.1)',
+    md: '0 2px 8px rgba(0,0,0,0.1)',
+    lg: '0 4px 16px rgba(0,0,0,0.15)',
   },
   dark: {
-    sm: "0 2px 4px rgba(0,0,0,0.3)",
-    md: "0 2px 8px rgba(0,0,0,0.3)",
-    lg: "0 4px 16px rgba(0,0,0,0.4)",
+    sm: '0 2px 4px rgba(0,0,0,0.3)',
+    md: '0 2px 8px rgba(0,0,0,0.3)',
+    lg: '0 4px 16px rgba(0,0,0,0.4)',
   },
 };
 
 // Spacing values
 const spacing = {
-  xs: "4px",
-  sm: "8px",
-  md: "16px",
-  lg: "24px",
+  xs: '4px',
+  sm: '8px',
+  md: '16px',
+  lg: '24px',
 };
 
 // Background colors for table heads
@@ -58,13 +58,13 @@ export const getComponentOverrides = (mode) => ({
     styleOverrides: {
       root: {
         borderRadius: borderRadius.md,
-        textTransform: "none",
+        textTransform: 'none',
         fontWeight: fontWeights.semiBold,
         padding: `${spacing.sm} ${spacing.md}`,
       },
       contained: {
-        boxShadow: "none",
-        "&:hover": {
+        boxShadow: 'none',
+        '&:hover': {
           boxShadow: shadows[mode].lg,
         },
       },
@@ -91,8 +91,8 @@ export const getComponentOverrides = (mode) => ({
   MuiTextField: {
     styleOverrides: {
       root: {
-        "& .MuiOutlinedInput-root": {
-          borderRadius: borderRadius.md,
+        '& .MuiOutlinedInput-root': {
+          borderRadius: borderRadius.md
         },
       },
     },
@@ -107,8 +107,8 @@ export const getComponentOverrides = (mode) => ({
   MuiAppBar: {
     styleOverrides: {
       root: {
-        boxShadow: "none",
-        backgroundImage: "none",
+        boxShadow: 'none',
+        backgroundImage: 'none',
         // borderBottom: `1px solid ${borderColors[mode]}`,
       },
     },
@@ -141,8 +141,8 @@ export const getComponentOverrides = (mode) => ({
   MuiInputBase: {
     styleOverrides: {
       root: {
-        "&.Mui-disabled": {
-          cursor: "not-allowed",
+        '&.Mui-disabled': {
+          cursor: 'not-allowed',
         },
       },
     },

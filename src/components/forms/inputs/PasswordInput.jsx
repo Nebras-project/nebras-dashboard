@@ -1,0 +1,104 @@
+// external imports
+import { memo, useState, useCallback, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { InputAdornment, IconButton, Tooltip } from '@mui/material';
+
+// internal imports
+import { useTranslation } from '@hooks';
+import { Icon } from '@components';
+import { getPasswordRules } from '../constants';
+import TextInput from './TextInput';
+
+/**
+ * PasswordVisibilityToggle Component
+ * Single Responsibility: Toggle password visibility with tooltip
+ */
+function PasswordVisibilityToggle({ showPassword, onToggle }) {
+  const { t } = useTranslation();
+
+  const tooltipTitle = showPassword ? t('input.hidePassword') : t('input.showPassword');
+  const iconName = showPassword ? 'eye' : 'eyeClosed';
+
+  return (
+    <InputAdornment position="end">
+      <Tooltip title={tooltipTitle} arrow placement="top">
+        <IconButton onClick={onToggle} edge="end" aria-label={tooltipTitle} size="small">
+          <Icon name={iconName} size={20} />
+        </IconButton>
+      </Tooltip>
+    </InputAdornment>
+  );
+}
+
+PasswordVisibilityToggle.propTypes = {
+  showPassword: PropTypes.bool.isRequired,
+  onToggle: PropTypes.func.isRequired,
+};
+
+/**
+ * PasswordInput Component
+ *
+ * Single Responsibility: Password input field with built-in password validation and visibility toggle
+ */
+const PasswordInput = memo(function PasswordInput({
+  name,
+  label,
+  rules,
+  autoComplete = 'current-password',
+  showVisibilityToggle = true,
+  minLength,
+}) {
+  const { t } = useTranslation();
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Toggle password visibility
+  const togglePasswordVisibility = useCallback(() => {
+    setShowPassword((prev) => !prev);
+  }, []);
+
+  // Merge default password rules with custom rules (custom rules take precedence)
+  const mergedRules = useMemo(() => {
+    const defaultRules = getPasswordRules(t, minLength);
+    return rules ? { ...defaultRules, ...rules } : defaultRules;
+  }, [t, rules, minLength]);
+
+  // Build InputProps with visibility toggle
+  const inputProps = useMemo(() => {
+    if (showVisibilityToggle) {
+      return {
+        endAdornment: (
+          <PasswordVisibilityToggle
+            showPassword={showPassword}
+            onToggle={togglePasswordVisibility}
+          />
+        ),
+      };
+    }
+
+    return null;
+  }, [showVisibilityToggle, showPassword, togglePasswordVisibility]);
+
+  return (
+    <TextInput
+      name={name}
+      label={label || t('input.password')}
+      type={showPassword ? 'text' : 'password'}
+      autoComplete={autoComplete}
+      rules={mergedRules}
+      InputProps={inputProps}
+    />
+  );
+});
+
+PasswordInput.propTypes = {
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  rules: PropTypes.object,
+  autoComplete: PropTypes.oneOf(['current-password', 'new-password', 'off']),
+  showVisibilityToggle: PropTypes.bool,
+  minLength: PropTypes.number,
+};
+
+PasswordInput.displayName = 'PasswordInput';
+
+export default PasswordInput;

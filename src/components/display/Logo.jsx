@@ -15,8 +15,11 @@ const getLogoStyles = (height) => ({
   flexShrink: 0,
 });
 
-function Logo({ height = LOGO_HEIGHT, alt = 'Nebras Logo', sx = {} }) {
-  const { mode } = useReduxTheme();
+function Logo({ height = LOGO_HEIGHT, alt = 'Nebras Logo', sx = {}, mode: modeProp }) {
+  const { mode: themeMode } = useReduxTheme();
+
+  // Use prop mode if provided, otherwise fall back to theme mode
+  const mode = modeProp ?? themeMode;
 
   const logoSrc = useMemo(() => (mode === 'light' ? NebrasLogoDark : NebrasLogoLight), [mode]);
 
@@ -24,9 +27,22 @@ function Logo({ height = LOGO_HEIGHT, alt = 'Nebras Logo', sx = {} }) {
 }
 
 Logo.propTypes = {
+  /**
+   * Height of the logo
+   */
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /**
+   * Alt text for the logo image
+   */
   alt: PropTypes.string,
+  /**
+   * MUI sx prop for custom styling
+   */
   sx: PropTypes.object,
+  /**
+   * Logo mode: 'light' or 'dark'. If not provided, uses theme mode.
+   */
+  mode: PropTypes.oneOf(['light', 'dark']),
 };
 
 export default Logo;
