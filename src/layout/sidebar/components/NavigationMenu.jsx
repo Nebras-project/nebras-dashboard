@@ -4,7 +4,7 @@ import { useMemo, memo } from 'react';
 
 // internal imports
 import { margin, padding } from '@constants';
-import { useTranslation, useUser, useSidebar } from '@hooks';
+import { useTranslation, useAuth, useSidebar } from '@hooks';
 import { getNavigationItems } from '../sidebarConfig';
 import NavigationDropdown from './NavigationDropdown';
 import NavigationItem from './NavigationItem';
@@ -28,7 +28,7 @@ const hasNestedItems = (item) => {
 
 const NavigationMenu = memo(function NavigationMenu() {
   const { t } = useTranslation();
-  const { role } = useUser();
+  const { role } = useAuth();
   const { collapsed } = useSidebar();
 
   const menuItems = useMemo(() => getNavigationItems(role), [role]);

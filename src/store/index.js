@@ -2,28 +2,27 @@ import { configureStore } from '@reduxjs/toolkit';
 import {
   themeReducer,
   languageReducer,
-  userReducer,
+  authReducer,
   colorSchemeReducer,
   sidebarReducer,
   toastReducer,
 } from './slices';
 
 import { localStorageMiddleware, loadPersistedState } from './middleware/localStorageMiddleware';
-import { migrateLocalStorage } from '@utils';
+// import { migrateLocalStorage } from '@utils';
 
 // Run migration BEFORE loading state
-migrateLocalStorage();
+// migrateLocalStorage();
 
 // Load persisted state from localStorage
 const preloadedState = loadPersistedState(); // Loads state on app startup
-
 
 export const store = configureStore({
   reducer: {
     theme: themeReducer,
     language: languageReducer,
     sidebar: sidebarReducer,
-    user: userReducer,
+    auth: authReducer,
     colorScheme: colorSchemeReducer,
     toast: toastReducer,
   },

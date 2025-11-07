@@ -3,7 +3,7 @@ import { memo, useMemo } from 'react';
 import { AppBar, Toolbar, IconButton, Box } from '@mui/material';
 
 // internal imports
-import { useUser, useSidebar, useLanguage } from '@hooks';
+import { useAuth, useSidebar, useLanguage } from '@hooks';
 import { HEADER_HEIGHT, spacing } from '@constants';
 import { DateTime, Icon } from '@components';
 import UserInfo from './components/UserInfo';
@@ -31,7 +31,7 @@ const MENU_BUTTON_STYLES = {
 const MENU_ICON_SIZE = 24;
 
 function Header() {
-  const { user } = useUser();
+  const { user } = useAuth();
   const { openSidebar, isMobile, sidebarWidth } = useSidebar();
   const { isRTL } = useLanguage();
 

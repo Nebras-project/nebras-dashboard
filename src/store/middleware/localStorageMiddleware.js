@@ -1,18 +1,12 @@
-const STORAGE_KEY = "nebras_dashboard_state";
+const STORAGE_KEY = 'nebras_dashboard_state';
 
 // Define which slices should be persisted, what to save
-const PERSISTED_SLICES = [
-  "theme",
-  "language",
-  "sidebar",
-  "user",
-  "colorScheme",
-];
+const PERSISTED_SLICES = ['theme', 'language', 'sidebar', 'auth', 'colorScheme'];
 
 // Define fields to exclude from persistence (sensitive data),  What NOT to save (security!)
 const EXCLUDED_FIELDS = {
-  user: ["token", "refreshToken"], // 🔒 Keep tokens out of localStorage
-  sidebar: ["isOpen", "isMobile"], // Don't persist drawer state - determined by screen size
+  auth: ['token', 'refreshToken'], // 🔒 Keep tokens out of localStorage
+  sidebar: ['isOpen', 'isMobile'], // Don't persist drawer state - determined by screen size
 };
 
 export const loadPersistedState = () => {
@@ -28,7 +22,7 @@ export const loadPersistedState = () => {
     // 3. Parse JSON and return
     return JSON.parse(serializedState);
   } catch (error) {
-    console.error("Error loading persisted state:", error);
+    console.error('Error loading persisted state:', error);
     return undefined;
   }
 };
@@ -68,7 +62,7 @@ const saveToLocalStorage = (state) => {
     const serializedState = JSON.stringify(stateToPersist);
     localStorage.setItem(STORAGE_KEY, serializedState);
   } catch (error) {
-    console.error("Error saving state to localStorage:", error);
+    console.error('Error saving state to localStorage:', error);
   }
 };
 
@@ -86,6 +80,6 @@ export const clearPersistedState = () => {
   try {
     localStorage.removeItem(STORAGE_KEY);
   } catch (error) {
-    console.error("Error clearing persisted state:", error);
+    console.error('Error clearing persisted state:', error);
   }
 };

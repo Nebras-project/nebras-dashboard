@@ -3,7 +3,7 @@ import { Box, Typography, Stack, Divider } from '@mui/material';
 
 // internal imports
 import { Card, Icon } from '@components';
-import { useTranslation, useUser } from '@hooks';
+import { useTranslation, useAuth } from '@hooks';
 import { baseColors, borderRadius, fontWeights } from '@theme';
 import { spacing, gap, margin } from '@constants';
 
@@ -53,7 +53,7 @@ const getDividerStyles = () => ({
 
 function PersonalInfoCard() {
   const { t } = useTranslation();
-  const { user } = useUser();
+  const { user } = useAuth();
 
   const infoItems = [
     {

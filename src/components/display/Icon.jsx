@@ -47,6 +47,7 @@ import {
   MdLogin,
   MdInfo,
   MdInfoOutline,
+  MdLock,
 } from 'react-icons/md';
 
 import { LuPanelRightClose, LuPanelLeftClose, LuEye, LuEyeClosed } from 'react-icons/lu';
@@ -142,6 +143,9 @@ const ICON_MAP = {
 
   // Emotions
   sad: MdSentimentDissatisfied,
+
+  // Security
+  lock: MdLock,
 };
 
 const Icon = memo(function Icon({

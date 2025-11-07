@@ -1,18 +1,18 @@
 const PROTECTED_ROUTES = [
-  "/dashboard",
-  "/students",
-  "/competitions",
-  "/curriculums",
-  "/subjects",
-  "/units",
-  "/admins",
-  "/questions",
-  "/ministerial-questions",
-  "/enrichment-questions",
-  "/settings",
+  '/dashboard',
+  '/students',
+  '/competitions',
+  '/curriculums',
+  '/subjects',
+  '/units',
+  '/admins',
+  '/questions',
+  '/ministerial-questions',
+  '/enrichment-questions',
+  '/settings',
 ];
 
-const PUBLIC_PAGES = ["/login"];
+const PUBLIC_PAGES = ['/login'];
 
 export const shouldShowLayout = (pathname) => {
   // Don't show layout on explicitly public pages
@@ -21,9 +21,7 @@ export const shouldShowLayout = (pathname) => {
   }
 
   // Show layout only for protected routes
-  const isProtectedRoute = PROTECTED_ROUTES.some((route) =>
-    pathname.startsWith(route)
-  );
+  const isProtectedRoute = PROTECTED_ROUTES.some((route) => route === pathname);
 
   return isProtectedRoute;
 };

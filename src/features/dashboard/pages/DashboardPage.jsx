@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Container, Fab, Box } from '@mui/material';
-import { useUser, useTranslation } from '@hooks';
+import { useAuth, useTranslation } from '@hooks';
 import { PageLayout, Loader, Icon } from '@components';
 import {
   OwnerDashboard,
@@ -10,7 +10,7 @@ import {
 } from '../components';
 
 function DashboardPage() {
-  const { role } = useUser();
+  const { role } = useAuth();
   const { t } = useTranslation();
 
   // Temporary state for testing Loader

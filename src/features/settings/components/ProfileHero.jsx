@@ -4,7 +4,7 @@ import { Box, Typography } from '@mui/material';
 // internal imports
 import { Card, UserAvatar, LogoutButton } from '@components';
 import { gap, margin, padding } from '@constants';
-import { useTranslation, useUser, useSidebar } from '@hooks';
+import { useTranslation, useAuth, useSidebar } from '@hooks';
 import { fontWeights, borderRadius } from '@theme';
 
 const getContentStyles = () => ({
@@ -40,7 +40,7 @@ const getRoleBadgeStyles = () => ({
 
 function ProfileHero() {
   const { t } = useTranslation();
-  const { user } = useUser();
+  const { user } = useAuth();
   const { isMobile } = useSidebar();
 
   return (

@@ -17,37 +17,45 @@
 ### Libraries & Tools
 
 #### Routing & Navigation
+
 - **React Router DOM** 7.9.4 - Client-side routing
 
 #### UI Framework & Components
+
 - **Material UI** (@mui/material) 7.3.4 - Component library
 - **MUI Data Grid** (@mui/x-data-grid) 8.14.1 - Advanced data tables
 - **React Icons** 5.5.0 - Icon library
 
 #### Forms & Validation
+
 - **React Hook Form** 7.65.0 - Form state management
 
 #### State Management
+
 - **React Query** (@tanstack/react-query) 5.90.5 - Server state management
 - **React Query Devtools** 5.90.2 - Development tools
 - **Redux Toolkit** 2.9.1 - UI state management
 - **React Redux** 9.2.0 - React bindings for Redux
 
 #### Styling & Theming
+
 - **Emotion** (@emotion/react) 11.14.0 - CSS-in-JS
 - **Emotion Styled** (@emotion/styled) 11.14.1 - Styled components
 - **React Colorful** 5.6.1 - Color picker component
 - **Stylis Plugin RTL** 2.1.1 - RTL support for Emotion
 
 #### Internationalization (i18n)
+
 - **i18next** 25.6.0 - Internationalization framework
 - **React i18next** 16.2.0 - React bindings for i18next
 - **RTL Detect** 1.1.2 - RTL language detection
 
 #### Fonts
+
 - **Cairo Font** (@fontsource/cairo) 5.2.7 - Arabic font support
 
 #### Development Tools
+
 - **ESLint** 9.17.0 - JavaScript linter
 - **Vite Plugin React** 4.3.4 - Fast refresh and JSX support
 
@@ -69,13 +77,13 @@ Content Manager (Bottom Level)
 
 ### Role Responsibilities
 
-| Role | Responsibilities | Multiple Roles |
-|------|-----------------|----------------|
-| **Owner** | • Manage General Admins  <br>• Everything General Admin can do | ✅ Yes |
-| **General Admin** | • Manage all managers  <br>• Manage students  <br>• Full system access | ✅ Yes |
-| **Curriculum Manager** | • Create and manage structure:  <br>  - Levels  <br>  - Subjects  <br>  - Units  <br>  - Lessons | ❌ No |
-| **Competition Manager** | • Create and manage competitions | ❌ No |
-| **Content Manager** | • Create and manage questions:  <br>  - Ministerial questions  <br>  - Enrichment questions | ❌ No |
+| Role                    | Responsibilities                                                                         | Multiple Roles |
+| ----------------------- | ---------------------------------------------------------------------------------------- | -------------- |
+| **Owner**               | • Manage General Admins <br>• Everything General Admin can do                            | ✅ Yes         |
+| **General Admin**       | • Manage all managers <br>• Manage students <br>• Full system access                     | ✅ Yes         |
+| **Curriculum Manager**  | • Create and manage structure: <br> - Levels <br> - Subjects <br> - Units <br> - Lessons | ❌ No          |
+| **Competition Manager** | • Create and manage competitions                                                         | ❌ No          |
+| **Content Manager**     | • Create and manage questions: <br> - Ministerial questions <br> - Enrichment questions  | ❌ No          |
 
 ### Important Notes
 
@@ -97,39 +105,127 @@ src/
 ├── index.css                      # Global styles (RTL support, scrollbar, etc.)
 │
 ├── components/                    # Shared reusable components
-│   ├── ColorPicker.jsx            # Theme color picker component
-│   ├── LanguageSync.jsx           # Redux-i18n language synchronization
-│   ├── ProtectedRoute.jsx         # Route authentication guard              # RTL testing component
-│   └── README.md                  # Component documentation
+│   ├── dialogs/                   # Dialog components
+│   │   └── ConfirmDialog.jsx     # Confirmation dialog
+│   ├── display/                   # Display components
+│   │   ├── Card.jsx              # Card component
+│   │   ├── ColorSwatch.jsx       # Color swatch display
+│   │   ├── DateTime.jsx          # Date/time display
+│   │   ├── Icon.jsx              # Icon component
+│   │   ├── Logo.jsx              # Logo component
+│   │   └── UserAvatar.jsx        # User avatar component
+│   ├── errors/                    # Error handling components
+│   │   ├── ErrorActions.jsx      # Error action buttons
+│   │   ├── ErrorBoundary.jsx      # Error boundary wrapper
+│   │   ├── ErrorDetails.jsx      # Error details display
+│   │   ├── ErrorFallback.jsx     # Error fallback UI
+│   │   ├── ErrorIcon.jsx         # Error icon component
+│   │   ├── ErrorMessage.jsx       # Error message display
+│   │   └── index.js              # Error components exports
+│   ├── feedback/                  # Feedback components
+│   │   ├── FireLoader.css        # Fire loader styles
+│   │   ├── FireLoader.jsx        # Fire animation loader
+│   │   ├── Loader.jsx            # Loading spinner
+│   │   ├── LoadingLogo.jsx       # Logo with loading state
+│   │   ├── LoadingMessage.jsx    # Loading message
+│   │   ├── LogoWithFireLoader.jsx # Logo with fire loader
+│   │   ├── Message.jsx           # Message component
+│   │   ├── Toast.jsx             # Toast notification
+│   │   ├── ToastContainer.jsx    # Toast container
+│   │   └── index.js              # Feedback components exports
+│   ├── forms/                     # Form components & system
+│   │   ├── components/           # Form compound components
+│   │   │   ├── FormActions.jsx   # Form action buttons
+│   │   │   ├── FormContent.jsx   # Form content wrapper
+│   │   │   ├── FormProvider.jsx  # Form context provider
+│   │   │   ├── FormResetButton.jsx # Reset button
+│   │   │   ├── FormSubmitButton.jsx # Submit button
+│   │   │   ├── FormTitle.jsx     # Form title
+│   │   │   ├── TitleCloseButton.jsx # Title close button
+│   │   │   ├── TitleContent.jsx  # Title content wrapper
+│   │   │   └── index.js          # Form components exports
+│   │   ├── hooks/                # Form hooks
+│   │   │   ├── useFormContext.js # Form context hook
+│   │   │   ├── useFormFieldError.js # Field error hook
+│   │   │   ├── useFormSetup.js   # Form setup hook
+│   │   │   └── index.js          # Form hooks exports
+│   │   ├── inputs/               # Form input components
+│   │   │   ├── CheckboxInput.jsx # Checkbox input
+│   │   │   ├── DateInput.jsx     # Date input
+│   │   │   ├── EmailInput.jsx    # Email input
+│   │   │   ├── FileInput.jsx     # File input
+│   │   │   ├── PasswordInput.jsx # Password input
+│   │   │   ├── RadioInput.jsx    # Radio input
+│   │   │   ├── SelectInput.jsx   # Select dropdown
+│   │   │   ├── TextInput.jsx     # Text input
+│   │   │   └── index.js          # Input components exports
+│   │   ├── utils/                # Form utilities
+│   │   │   ├── parseOption.js    # Option parser utility
+│   │   │   └── index.js          # Form utils exports
+│   │   ├── constants.js           # Form constants
+│   │   ├── Form.jsx              # Main form component
+│   │   ├── FormContext.js        # Form context definition
+│   │   ├── FormDialog.jsx        # Form dialog wrapper
+│   │   ├── FormPage.jsx          # Form page wrapper
+│   │   ├── index.js              # Form components exports
+│   │   └── README.md             # Form system documentation
+│   ├── i18n/                     # i18n components
+│   │   └── LanguageSync.jsx      # Redux-i18n language synchronization
+│   ├── inputs/                   # Input components
+│   │   ├── BackButton.jsx        # Back navigation button
+│   │   ├── Button.jsx            # Button component
+│   │   ├── CloseButton.jsx       # Close button
+│   │   ├── ColorPicker.jsx       # Theme color picker
+│   │   ├── Dropdown.jsx          # Dropdown menu
+│   │   ├── ListButton.jsx        # List view button
+│   │   ├── LogoutButton.jsx      # Logout button
+│   │   └── Menu.jsx              # Menu component
+│   ├── layout/                   # Layout components
+│   │   ├── PageHeader.jsx        # Page header component
+│   │   └── PageLayout.jsx        # Page layout wrapper
+│   ├── routing/                  # Routing components
+│   │   └── ProtectedRoute.jsx    # Route authentication guard
+│   ├── index.js                  # Components exports
+│   └── README.md                 # Component documentation
 │
-├── config/                        # Configuration files
-│   ├── queryClient.js             # React Query client configuration
-│   ├── routes.jsx                 # React Router route definitions
-│   └── README.md                  # Configuration documentation
+├── config/                       # Configuration files
+│   ├── env.js                    # Environment configuration
+│   ├── index.js                  # Config exports
+│   ├── queryClient.js            # React Query client configuration
+│   ├── routes.jsx                # React Router route definitions
+│   └── README.md                 # Configuration documentation
 │
-├── contexts/                      # React Context providers (currently empty)
+├── constants/                    # Application constants
+│   ├── index.js                  # Constants exports
+│   ├── layout.js                 # Layout constants
+│   ├── spacing.js                # Spacing constants
+│   └── README.md                 # Constants documentation
 │
-├── data/                          # Static data, assets, and images
+├── data/                         # Static data, assets, and images
 │   └── images/
-│       ├── Nebras Logo Dark.svg   # Dark mode logo
-│       └── Nebras Logo Light.svg  # Light mode logo
+│       ├── Nebras Logo Dark.svg  # Dark mode logo
+│       └── Nebras Logo Light.svg # Light mode logo
 │
-├── features/                      # Feature-based modules (by domain)
-│   ├── admins/                    # Admin management
+├── features/                     # Feature-based modules (by domain)
+│   ├── admins/                   # Admin management
 │   │   ├── components/
 │   │   ├── hooks/
 │   │   ├── pages/
-│   │   │   └── AdminsPage.jsx
-│   │   └── service/
+│   │   │   ├── AdminsPage.jsx
+│   │   │   └── index.js
+│   │   ├── services/
+│   │   └── index.js
 │   │
-│   ├── authentication/            # Login & authentication
-│   │   ├── components/
-│   │   ├── hooks/
-│   │   ├── pages/
-│   │   │   └── LoginPage.jsx
-│   │   └── service/
+│   ├── authentication/           # Login & authentication
+│   │   ├── components/           # Auth components
+│   │   ├── hooks/                # Auth hooks
+│   │   ├── pages/                # Auth pages
+│   │   │   ├── LoginPage.jsx
+│   │   │   └── index.js
+│   │   ├── services/             # Auth services
+│   │   └── index.js
 │   │
-│   ├── competitions/              # Competition management
+│   ├── competitions/             # Competition management
 │   │   ├── components/
 │   │   ├── hooks/
 │   │   ├── pages/
@@ -137,162 +233,230 @@ src/
 │   │   │   ├── CompetitionPage.jsx       # Competition details
 │   │   │   ├── CompetitionMembersPage.jsx # Participants
 │   │   │   ├── CompetitionExamPage.jsx   # Exam management
-│   │   │   └── CompetitionResultPage.jsx # Results & rankings
-│   │   └── services/
+│   │   │   ├── CompetitionResultPage.jsx # Results & rankings
+│   │   │   └── index.js
+│   │   ├── services/
+│   │   └── index.js
 │   │
-│   ├── curriculums/               # Curriculum management
+│   ├── curriculums/              # Curriculum management
 │   │   ├── components/
 │   │   ├── hooks/
 │   │   ├── pages/
-│   │   │   └── CurriculumsPage.jsx
-│   │   └── services/
+│   │   │   ├── CurriculumsPage.jsx
+│   │   │   └── index.js
+│   │   ├── services/
+│   │   └── index.js
 │   │
-│   ├── dashboard/                 # Dashboard & analytics
+│   ├── dashboard/                # Dashboard & analytics
 │   │   ├── components/
 │   │   │   ├── CompetitionDashboard.jsx  # Competition manager view
 │   │   │   ├── ContentDashboard.jsx      # Content manager view
 │   │   │   ├── CurriculumDashboard.jsx   # Curriculum manager view
 │   │   │   ├── OwnerDashboard.jsx        # Owner/admin view
-│   │   │   └── StatCard.jsx              # Reusable stat card
+│   │   │   ├── StatCard.jsx             # Reusable stat card
+│   │   │   └── index.js
 │   │   ├── hooks/
 │   │   ├── pages/
-│   │   │   └── DashboardPage.jsx         # Role-based dashboard
-│   │   └── service/
+│   │   │   ├── DashboardPage.jsx        # Role-based dashboard
+│   │   │   └── index.js
+│   │   ├── services/
+│   │   └── index.js
 │   │
-│   ├── enrichment-questions/      # Enrichment question bank
+│   ├── enrichment-questions/     # Enrichment question bank
 │   │   ├── components/
 │   │   ├── hooks/
 │   │   ├── pages/
-│   │   │   └── EnrichmentQuestionsPage.jsx
-│   │   └── service/
+│   │   │   ├── EnrichmentQuestionsPage.jsx
+│   │   │   └── index.js
+│   │   ├── services/
+│   │   └── index.js
 │   │
-│   ├── lessons/                   # Lesson management
+│   ├── lessons/                  # Lesson management
 │   │   ├── components/
 │   │   ├── hooks/
 │   │   ├── pages/
-│   │   └── service/
+│   │   └── services/
 │   │
-│   ├── ministerial-questions/     # Ministerial question bank
+│   ├── ministerial-questions/    # Ministerial question bank
 │   │   ├── components/
 │   │   ├── hooks/
 │   │   ├── pages/
-│   │   │   └── MinisterialQuestionsPage.jsx
-│   │   └── service/
+│   │   │   ├── MinisterialQuestionsPage.jsx
+│   │   │   └── index.js
+│   │   ├── services/
+│   │   └── index.js
 │   │
-│   ├── questions/                 # General question bank
+│   ├── questions/                # General question bank
 │   │   ├── components/
 │   │   ├── hooks/
 │   │   ├── pages/
-│   │   │   └── QuestionsPage.jsx
-│   │   └── service/
+│   │   │   ├── QuestionsPage.jsx
+│   │   │   └── index.js
+│   │   ├── services/
+│   │   └── index.js
 │   │
-│   ├── students/                  # Student management
+│   ├── settings/                 # Settings & preferences
+│   │   ├── components/
+│   │   │   ├── AccountActionsCard.jsx
+│   │   │   ├── ColorSettingsCard.jsx
+│   │   │   ├── LanguageCard.jsx
+│   │   │   ├── PersonalInfoCard.jsx
+│   │   │   ├── PreferencesTab.jsx
+│   │   │   ├── ProfileHero.jsx
+│   │   │   ├── ProfileTab.jsx
+│   │   │   ├── SecurityCard.jsx
+│   │   │   ├── SettingsTabsHeader.jsx
+│   │   │   ├── TabPanel.jsx
+│   │   │   ├── ThemeCard.jsx
+│   │   │   └── index.js
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   │   ├── SettingsPage.jsx
+│   │   │   └── index.js
+│   │   ├── services/
+│   │   ├── settingsConfig.jsx
+│   │   └── index.js
+│   │
+│   ├── students/                 # Student management
 │   │   ├── components/
 │   │   ├── hooks/
 │   │   ├── pages/
-│   │   │   └── StudentsPage.jsx
-│   │   └── service/
+│   │   │   ├── StudentsPage.jsx
+│   │   │   └── index.js
+│   │   ├── services/
+│   │   └── index.js
 │   │
-│   ├── subjects/                  # Subject management
+│   ├── subjects/                 # Subject management
 │   │   ├── components/
 │   │   ├── hooks/
 │   │   ├── pages/
-│   │   │   └── SubjectsPage.jsx
-│   │   └── service/
+│   │   │   ├── SubjectsPage.jsx
+│   │   │   └── index.js
+│   │   ├── services/
+│   │   └── index.js
 │   │
-│   └── units/                     # Unit management
+│   └── units/                    # Unit management
 │       ├── components/
 │       ├── hooks/
 │       ├── pages/
-│       │   └── UnitsPage.jsx
-│       └── service/
+│       │   ├── UnitsPage.jsx
+│       │   └── index.js
+│       ├── services/
+│       └── index.js
 │
-├── hooks/                         # Custom React hooks
-│   ├── index.js                   # Hook exports
-│   ├── useColorScheme.js          # Color scheme management
-│   ├── useCssVariables.js         # CSS variables hook
-│   ├── useDocumentDirection.js    # RTL/LTR direction hook
-│   ├── useLanguage.js             # Language state hook
-│   ├── useMuiTheme.js             # MUI theme hook
-│   ├── useReduxTheme.js           # Theme state hook
-│   ├── useSidebar.js              # Sidebar state hook
-│   └── useUser.js                 # User state hook
+├── hooks/                        # Custom React hooks
+│   ├── index.js                 # Hook exports
+│   ├── useColorScheme.js        # Color scheme management
+│   ├── useConfirmDialog.js      # Confirmation dialog hook
+│   ├── useCssVariables.js       # CSS variables hook
+│   ├── useDateTime.js           # Date/time utilities hook
+│   ├── useDocumentDirection.js  # RTL/LTR direction hook
+│   ├── useLanguage.js           # Language state hook
+│   ├── useMenu.js               # Menu state hook
+│   ├── useMuiTheme.js           # MUI theme hook
+│   ├── useReduxTheme.js         # Theme state hook
+│   ├── useResponsiveSidebar.js  # Responsive sidebar hook
+│   ├── useSidebar.js            # Sidebar state hook
+│   ├── useSidebarNavigation.js  # Sidebar navigation hook
+│   ├── useToast.js              # Toast notification hook
+│   └── useAuth.js               # Authentication state hook
 │
-├── i18n/                          # Internationalization (i18n)
-│   ├── index.js                   # i18n initialization
+├── i18n/                         # Internationalization (i18n)
 │   ├── hooks/
-│   │   └── useTranslation.js      # Custom translation hook
+│   │   └── useTranslation.js    # Custom translation hook
 │   ├── locales/
-│   │   ├── index.js               # Locale exports
-│   │   ├── ar.js                  # Arabic translations
-│   │   └── en.js                  # English translations
-│   └── README.md                  # i18n documentation
+│   │   ├── index.js             # Locale exports
+│   │   ├── ar.js               # Arabic translations
+│   │   └── en.js               # English translations
+│   ├── index.js                 # i18n initialization
+│   └── README.md                # i18n documentation
 │
-├── layout/                        # Layout components
-│   ├── constants.js               # Layout constants & styles
-│   ├── index.js                   # Layout exports
-│   ├── MainLayout.jsx             # Main layout wrapper
-│   ├── README.md                  # Layout documentation
-│   │
-│   ├── header/                    # Header components
-│   │   ├── index.js
-│   │   ├── Header.jsx             # Main header component
-│   │   ├── headerConfig.js        # Header configuration
-│   │   └── components/
-│   │       └── UserInfo.jsx       # User profile dropdown
-│   │
-│   └── sidebar/                   # Sidebar components
-│       ├── index.js
-│       ├── Sidebar.jsx            # Main sidebar component
-│       ├── sidebarConfig.jsx      # Role-based navigation config
-│       └── components/
-│           ├── LogoHeader.jsx     # Logo & brand section
-│           ├── NavigationMenu.jsx # Navigation menu items
-│           └── SidebarControls.jsx # Bottom controls (theme, lang, etc.)
+├── layout/                       # Layout components
+│   ├── header/                  # Header components
+│   │   ├── components/
+│   │   │   └── UserInfo.jsx    # User profile dropdown
+│   │   ├── Header.jsx           # Main header component
+│   │   ├── headerConfig.js     # Header configuration
+│   │   └── index.js            # Header exports
+│   ├── mainlayout/              # Main layout components
+│   │   ├── components/
+│   │   │   ├── DesktopLayout.jsx # Desktop layout
+│   │   │   ├── MobileLayout.jsx  # Mobile layout
+│   │   │   └── index.js
+│   │   ├── MainLayout.jsx       # Main layout wrapper
+│   │   └── index.js
+│   ├── sidebar/                 # Sidebar components
+│   │   ├── components/
+│   │   │   ├── DesktopSidebar.jsx    # Desktop sidebar
+│   │   │   ├── MobileDrawer.jsx      # Mobile drawer
+│   │   │   ├── NavigationDropdown.jsx # Navigation dropdown
+│   │   │   ├── NavigationItem.jsx    # Navigation item
+│   │   │   ├── NavigationMenu.jsx    # Navigation menu
+│   │   │   └── SidebarHeader.jsx     # Sidebar header
+│   │   ├── Sidebar.jsx          # Main sidebar component
+│   │   ├── sidebarConfig.jsx    # Role-based navigation config
+│   │   ├── sidebarStyles.js     # Sidebar styles
+│   │   └── index.js             # Sidebar exports
+│   ├── index.js                 # Layout exports
+│   └── README.md                # Layout documentation
 │
-├── pages/                         # Standalone pages
-│   └── NotFoundPage.jsx           # 404 error page
+├── pages/                        # Standalone pages
+│   ├── NotFoundPage.jsx         # 404 error page
+│   └── index.js                 # Pages exports
 │
-├── providers/                     # Provider components
-│   ├── QueryProvider.jsx          # React Query provider
-│   ├── ReduxProvider.jsx          # Redux provider
-│   └── ThemeProvider.jsx          # MUI Theme provider with RTL support
+├── providers/                    # Provider components
+│   ├── QueryProvider.jsx        # React Query provider
+│   ├── ReduxProvider.jsx        # Redux provider
+│   ├── ThemeProvider.jsx        # MUI Theme provider with RTL support
+│   └── index.js                 # Provider exports
 │
-├── services/                      # API services (for future API integration)
+├── services/                     # API services (for future API integration)
+│   └── index.js                 # Services exports
 │
-├── store/                         # Redux store configuration
-│   ├── index.js                   # Store setup & configuration
-│   ├── middleware/                # Custom Redux middleware
+├── store/                        # Redux store configuration
+│   ├── middleware/              # Custom Redux middleware
 │   │   ├── localStorageMiddleware.js # Persist state to localStorage
-│   │   └── STORAGE_SECURITY.md    # Security documentation
-│   └── slices/                    # Redux Toolkit slices
-│       ├── colorSchemeSlice.js    # Color scheme state
-│       ├── languageSlice.js       # Language state (ar/en)
-│       ├── sidebarSlice.js        # Sidebar state (open/collapsed)
-│       ├── themeSlice.js          # Theme mode state (light/dark)
-│       └── userSlice.js           # User authentication state
+│   │   └── STORAGE_SECURITY.md  # Security documentation
+│   ├── slices/                  # Redux Toolkit slices
+│   │   ├── colorSchemeSlice.js  # Color scheme state
+│   │   ├── index.js            # Slices exports
+│   │   ├── languageSlice.js     # Language state (ar/en)
+│   │   ├── sidebarSlice.js      # Sidebar state (open/collapsed)
+│   │   ├── themeSlice.js        # Theme mode state (light/dark)
+│   │   ├── toastSlice.js        # Toast notification state
+│   │   └── authSlice.js         # Authentication state (user, token, auth status)
+│   └── index.js                 # Store setup & configuration
 │
-├── theme/                         # Theme configuration
-│   ├── index.js                   # Main theme creation
-│   ├── colors.js                  # Color palette & schemes
-│   ├── typography.js              # Typography settings (Cairo font)
-│   └── components.js              # MUI component overrides
+├── theme/                        # Theme configuration
+│   ├── colors.js                # Color palette & schemes
+│   ├── components.js            # MUI component overrides
+│   ├── index.js                 # Main theme creation
+│   ├── typography.js            # Typography settings (Cairo font)
+│   └── README.md                # Theme documentation
 │
-└── utils/                         # Utility functions
-    ├── colorHelpers.js            # Color manipulation utilities
-    ├── migrateLocalStorage.js     # Storage migration utility
-    ├── rtl.js                     # RTL helper functions
-    └── secureStorage.js           # Secure localStorage wrapper
+└── utils/                        # Utility functions
+    ├── colorUtils.js            # Color manipulation utilities
+    ├── dateUtils.js             # Date/time utilities
+    ├── errorLogger.js           # Error logging utilities
+    ├── index.js                 # Utils exports
+    ├── languageUtils.js         # Language utilities
+    ├── layoutUtils.js           # Layout utilities
+    ├── migrateLocalStorage.js   # Storage migration utility
+    ├── rtl.js                   # RTL helper functions
+    ├── secureStorage.js         # Secure localStorage wrapper
+    └── README.md                # Utils documentation
 ```
 
 ### Architecture Principles
 
 #### Feature-Based Organization
+
 - Each feature has its own folder with components, hooks, pages, and services
 - Promotes modularity and maintainability
 - Easy to locate feature-specific code
 
 #### Separation of Concerns
+
 - **Layout**: Application structure (header, sidebar, main content)
 - **Features**: Domain-specific functionality
 - **Components**: Reusable UI components
@@ -302,12 +466,14 @@ src/
 - **i18n**: Internationalization & translations
 
 #### State Management Strategy
+
 - **Redux**: UI state (theme, language, sidebar, user)
 - **React Query**: Server state (API data, caching)
 - **Local State**: Component-specific state
 - **Context**: Cross-cutting concerns (when needed)
 
 #### Code Organization
+
 - Clear folder hierarchy
 - Consistent naming conventions
 - Logical grouping of related files
@@ -413,36 +579,42 @@ Questions (Ministerial & Enrichment)
 ## 📊 Features & Functionality
 
 ### Phase 1: Foundation ✅
+
 **Status:** ✅ Complete  
 **Documentation:** [phase-1-foundation.md](./phase-1-foundation.md)
 
 **Completed:**
-- [x] Project setup with Vite
-- [x] Install all dependencies
-- [x] Create folder structure
-- [x] Create project plan documentation
-- [x] Setup Redux store for UI state
-- [x] Create theme configuration (light/dark, RTL, custom colors)
-- [x] Setup React Query provider
-- [x] Setup React Router with protected routes
-- [x] Create layout components (Sidebar, Header, Main Layout)
-- [x] Setup i18n for Arabic/English (200+ translation keys)
+
+- [✅] Project setup with Vite
+- [✅] Install all dependencies
+- [✅] Create folder structure
+- [✅] Create project plan documentation
+- [✅] Setup Redux store for UI state
+- [✅] Create theme configuration (light/dark, RTL, custom colors)
+- [✅] Setup React Query provider
+- [✅] Setup React Router with protected routes
+- [✅] Create layout components (Sidebar, Header, Main Layout)
+- [✅] Setup i18n for Arabic/English (200+ translation keys)
 
 ### Phase 2: Authentication
-**Status:** ⏳ Pending  
+
+**Status:** ⚒️ in progress
+
 **Documentation:** [phase-2-authentication.md](./phase-2-authentication.md)
 
-- [ ] Create login page
+- [✅] Create login page
 - [ ] Role-based route protection
 - [ ] Auth context/Redux slice
 - [ ] JWT token management
 - [ ] Session management
 
 ### Phase 3: Core Features
+
 **Status:** ⏳ Pending  
 **Documentation:** [phase-3-core-features.md](./phase-3-core-features.md)
 
 **Priority Order:**
+
 1. Curriculum Manager - Structure management
 2. Content Manager - Question management
 3. Competition Manager - Competition management
@@ -450,6 +622,7 @@ Questions (Ministerial & Enrichment)
 5. Owner - Admin management
 
 ### Phase 4: Polish
+
 **Status:** ⏳ Pending  
 **Documentation:** [phase-4-polish.md](./phase-4-polish.md)
 
@@ -565,13 +738,14 @@ Questions (Ministerial & Enrichment)
 
 ## 📅 Timeline
 
-*To be determined based on requirements and team capacity*
+_To be determined based on requirements and team capacity_
 
 ---
 
 ## 🎓 Notes & Decisions
 
 ### Key Decisions Made
+
 1. ✅ Using JavaScript instead of TypeScript
 2. ✅ Material UI for components
 3. ✅ React Query for server state
@@ -602,8 +776,8 @@ Questions (Ministerial & Enrichment)
 
 ## 📞 Support & Communication
 
-*Project documentation and planning file*
-*Last Updated: 2025-01-18*
+_Project documentation and planning file_
+_Last Updated: 2025-01-18_
 
 ---
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 // internal imports
 import { Button, Icon, ConfirmDialog } from '@components';
-import { useTranslation, useUser, useLanguage, useToast, useConfirmDialog } from '@hooks';
+import { useTranslation, useAuth, useLanguage, useToast, useConfirmDialog } from '@hooks';
 
 const getIconStyles = (isRTL) => ({
   transform: isRTL ? 'scaleX(-1)' : 'none',
@@ -14,8 +14,14 @@ const getButtonStyles = (fullWidth, width, disableHover, sx) => ({
   justifyContent: 'space-between',
   width: fullWidth ? '100%' : `${width}px`,
   ...(disableHover && {
+    '&:hover': {
+      transform: 'none !important',
+    },
     '&:active': {
       transform: 'none !important',
+    },
+    '&:focus': {
+      backgroundColor: 'transparent !important',
     },
   }),
   ...sx,
@@ -39,7 +45,7 @@ function LogoutButton({
   ...rest
 }) {
   const { t } = useTranslation();
-  const { logout } = useUser();
+  const { logout } = useAuth();
   const { isRTL } = useLanguage();
   const { success } = useToast();
   const { open, show, close } = useConfirmDialog();

@@ -164,7 +164,7 @@ export const store = configureStore({
 - `useColorScheme()` - Access color scheme state
 - `useLanguage()` - Access language state
 - `useSidebar()` - Access sidebar state
-- `useUser()` - Access user state
+- `useAuth()` - Access authentication state
 
 **State Management Strategy:**
 
@@ -822,7 +822,7 @@ src/
 │   ├── useResponsiveSidebar.js          # ✅ Responsive sidebar detection hook
 │   ├── useSidebar.js                    # ✅ Sidebar state hook
 │   ├── useSidebarNavigation.js          # ✅ Sidebar navigation hook
-│   └── useUser.js                       # ✅ User state hook (auth)
+│   └── useAuth.js                       # ✅ Authentication state hook
 │
 ├── i18n/                                # ✅ Internationalization
 │   ├── index.js                         # ✅ i18n initialization

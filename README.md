@@ -20,7 +20,7 @@ Welcome to the Nebras Dashboard documentation! This folder contains all the plan
 
 #### [Phase 1: Foundation](./phase-1-foundation.md)
 
-**Status:**  ✅ Completed (refactoring)
+**Status:** ✅ Completed
 
 Setup core infrastructure including:
 
@@ -32,9 +32,10 @@ Setup core infrastructure including:
 - i18n setup for Arabic/English
 
 #### [Phase 2: Authentication](./phase-2-authentication.md)
+
 🚧
 
-**Status:** ⏳ Pending
+**Status:** ⚒️ in progress
 
 Implement authentication system:
 
@@ -87,12 +88,12 @@ Add final touches:
 
 ## 📋 Current Status
 
-| Phase | Status | Progress |
-|-------|--------|----------|
-| Phase 1: Foundation | ✅ Completed | 100% |
-| Phase 2: Authentication | ⏳ Pending | 0% |
-| Phase 3: Core Features | ⏳ Pending | 0% |
-| Phase 4: Polish | ⏳ Pending | 0% |
+| Phase                   | Status       | Progress |
+| ----------------------- | ------------ | -------- |
+| Phase 1: Foundation     | ✅ Completed | 100%     |
+| Phase 2: Authentication | ⏳ Pending   | 0%       |
+| Phase 3: Core Features  | ⏳ Pending   | 0%       |
+| Phase 4: Polish         | ⏳ Pending   | 0%       |
 
 ---
 

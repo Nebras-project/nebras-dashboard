@@ -246,10 +246,10 @@ Routes with URL parameters:
 
 ```javascript
 import { Navigate } from 'react-router-dom';
-import { useUser } from '@hooks';
+import { useAuth } from '@hooks';
 
 function ProtectedRoute({ children }) {
-  const { isAuthenticated } = useUser();
+  const { isAuthenticated } = useAuth();
 
   if (!isAuthenticated) {
     // Redirect to login if not authenticated
@@ -265,7 +265,7 @@ function ProtectedRoute({ children }) {
 
 - ✅ **Authentication Check**: Verifies user is logged in via Redux
 - ✅ **Automatic Redirect**: Sends unauthenticated users to `/login`
-- ✅ **Redux Integration**: Uses `useUser()` hook for auth state
+- ✅ **Redux Integration**: Uses `useAuth()` hook for auth state
 - ✅ **Replace History**: Uses `replace` to prevent back-button issues
 - ✅ **Clean Syntax**: Simple wrapper component
 - ✅ **Reusable**: Applied to all protected routes

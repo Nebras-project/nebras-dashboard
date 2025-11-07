@@ -16,8 +16,19 @@ export {
   setMobileMode,
 } from './sidebarSlice';
 
-// User slice
-export { default as userReducer, login, logout, updateUserProfile } from './userSlice';
+// Auth slice
+export {
+  default as authReducer,
+  login,
+  logout,
+  setUser,
+  setToken,
+  clearError,
+  checkAuth,
+  setLoading,
+  setError,
+  updateUserProfile,
+} from './authSlice';
 
 // Color scheme slice
 export {

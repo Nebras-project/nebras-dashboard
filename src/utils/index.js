@@ -25,3 +25,6 @@ export { dayjs, getLocalizedDayjs, formatDate, getDateSeparator } from './dateUt
 
 // Error utilities
 export { logError, logErrorWithMessage } from './errorLogger';
+
+// Role utilities
+export { ROLES, ALLOWED_ROLES, hasRole } from './roleUtils';

@@ -23,13 +23,13 @@ const AVATAR_SIZE = 35;
 const USER_MENU_MIN_WIDTH = 250;
 
 const USER_MENU_PAPER_PROPS = {
-  elevation: 3,
+  elevation: 1,
   sx: {
     ...margin.top.sm,
     minWidth: USER_MENU_MIN_WIDTH,
     border: borderWidth.xs,
     borderColor: 'divider',
-    borderRadius: borderRadius.xxs,
+    borderRadius: borderRadius.xs,
     overflow: 'visible',
   },
 };
@@ -127,7 +127,10 @@ function UserInfo({ user = null }) {
         <Menu.Divider sx={DIVIDER_STYLES} />
 
         {/* Logout Button */}
-        <LogoutButton fullWidth />
+        <LogoutButton
+          fullWidth
+          sx={{ '&:hover': { backgroundColor: 'transparent', transform: 'none' } }}
+        />
       </Menu.Content>
     </Menu>
   );

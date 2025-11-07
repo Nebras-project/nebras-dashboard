@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // internal imports
-import { useUser, useTranslation, useToast } from '@hooks';
+import { useAuth, useTranslation, useToast } from '@hooks';
 
 /**
  * Custom hook for handling login functionality
@@ -11,7 +11,7 @@ import { useUser, useTranslation, useToast } from '@hooks';
  */
 export const useLogin = () => {
   const navigate = useNavigate();
-  const { login } = useUser();
+  const { login } = useAuth();
   const { t } = useTranslation();
   const { success, error } = useToast();
 
@@ -23,9 +23,14 @@ export const useLogin = () => {
           id: 1,
           name: 'Admin User',
           email: data.email,
-          role: 'owner',
+          role: 'content_manager',
         };
-        login(userData);
+        // Mock JWT token - In real app, this would come from the API
+        const mockToken = 'mock-jwt-token-' + Date.now();
+
+        // Login with user and token
+        login({ user: userData, token: mockToken });
+
         success({
           title: t('auth.loginSuccess'),
           content: t('auth.welcomeMessage', { name: userData.name }),

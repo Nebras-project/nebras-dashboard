@@ -385,7 +385,7 @@ See `src/constants/README.md` for full documentation.
 
 **State Hooks:**
 
-- `useUser()` - User authentication, role, and logout function
+- `useAuth()` - User authentication, role, and logout function
 - `useReduxTheme()` - Theme mode (light/dark)
 - `useLanguage()` - Language & direction (ar/en, RTL/LTR)
 - `useColorScheme()` - Color customization (scheme and custom color)
@@ -595,7 +595,7 @@ Layout components use Redux hooks for state management:
 - `useReduxTheme()` - Theme mode (light/dark)
 - `useLanguage()` - Current language (ar/en) and direction (RTL/LTR)
 - `useColorScheme()` - Color scheme (default/custom) and custom color
-- `useUser()` - User info, role, authentication state, and logout function
+- `useAuth()` - User info, role, authentication state, and logout function
 - `useSidebar()` - Sidebar state (open/collapsed/mobile/width)
 
 **State Updates:**

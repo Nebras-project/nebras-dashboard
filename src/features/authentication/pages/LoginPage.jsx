@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { Box, Stack, useTheme, alpha } from '@mui/material';
 
 // internal imports
-import { useUser, useTranslation } from '@hooks';
+import { useAuth, useTranslation } from '@hooks';
 import { Form, Icon } from '@components';
 import { gap } from '@constants';
 import { useLogin } from '../hooks/useLogin';
@@ -53,7 +53,7 @@ const getSubmitButtonStyles = (theme) => ({
  */
 const LoginPage = memo(function LoginPage() {
   const theme = useTheme();
-  const { isAuthenticated } = useUser();
+  const { isAuthenticated } = useAuth();
   const { t } = useTranslation();
   const { handleLogin } = useLogin();
 

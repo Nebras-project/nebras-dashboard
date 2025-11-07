@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import ProtectedRoute from '../components/routing/ProtectedRoute';
+import { ALLOWED_ROLES } from '@utils';
 
 // Lazy load pages for code splitting
 
@@ -62,6 +63,7 @@ const SettingsPage = lazy(() =>
 
 // Error Pages
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
+const UnauthorizedPage = lazy(() => import('../pages/UnauthorizedPage'));
 
 const routes = [
   // Root - Redirect to dashboard
@@ -76,31 +78,31 @@ const routes = [
     element: <LoginPage />,
   },
 
-  // Protected Routes - Dashboard
+  // Protected Routes - Dashboard (All authenticated users)
   {
     path: '/dashboard',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={ALLOWED_ROLES.ALL}>
         <DashboardPage />
       </ProtectedRoute>
     ),
   },
 
-  // Protected Routes - Students
+  // Protected Routes - Students (Owner & General Admin only)
   {
     path: '/students',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={ALLOWED_ROLES.OWNER_AND_ADMIN}>
         <StudentsPage />
       </ProtectedRoute>
     ),
   },
 
-  // Protected Routes - Competitions
+  // Protected Routes - Competitions (Owner, General Admin & Competition Manager)
   {
     path: '/competitions',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
         <CompetitionsPage />
       </ProtectedRoute>
     ),
@@ -108,7 +110,7 @@ const routes = [
   {
     path: '/competitions/:id',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
         <CompetitionPage />
       </ProtectedRoute>
     ),
@@ -116,7 +118,7 @@ const routes = [
   {
     path: '/competitions/:id/members',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
         <CompetitionMembersPage />
       </ProtectedRoute>
     ),
@@ -124,7 +126,7 @@ const routes = [
   {
     path: '/competitions/:id/exam',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
         <CompetitionExamPage />
       </ProtectedRoute>
     ),
@@ -132,57 +134,57 @@ const routes = [
   {
     path: '/competitions/:id/result',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
         <CompetitionResultPage />
       </ProtectedRoute>
     ),
   },
 
-  // Protected Routes - Curriculums
+  // Protected Routes - Curriculums (Owner, General Admin & Curriculum Manager)
   {
     path: '/curriculums',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
         <CurriculumsPage />
       </ProtectedRoute>
     ),
   },
 
-  // Protected Routes - Subjects
+  // Protected Routes - Subjects (Owner, General Admin & Curriculum Manager)
   {
     path: '/subjects',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
         <SubjectsPage />
       </ProtectedRoute>
     ),
   },
 
-  // Protected Routes - Units
+  // Protected Routes - Units (Owner, General Admin & Curriculum Manager)
   {
     path: '/units',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
         <UnitsPage />
       </ProtectedRoute>
     ),
   },
 
-  // Protected Routes - Admins
+  // Protected Routes - Admins (Owner only)
   {
     path: '/admins',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={ALLOWED_ROLES.OWNER_AND_ADMIN}>
         <AdminsPage />
       </ProtectedRoute>
     ),
   },
 
-  // Protected Routes - Questions (Nested Routes)
+  // Protected Routes - Questions (Owner, General Admin & Content Manager)
   {
     path: '/questions',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={ALLOWED_ROLES.QUESTIONS}>
         <QuestionsPage />
       </ProtectedRoute>
     ),
@@ -190,7 +192,7 @@ const routes = [
   {
     path: '/questions/ministerial',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={ALLOWED_ROLES.QUESTIONS}>
         <MinisterialQuestionsPage />
       </ProtectedRoute>
     ),
@@ -198,20 +200,26 @@ const routes = [
   {
     path: '/questions/enrichment',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={ALLOWED_ROLES.QUESTIONS}>
         <EnrichmentQuestionsPage />
       </ProtectedRoute>
     ),
   },
 
-  // Protected Routes - Settings
+  // Protected Routes - Settings (All authenticated users)
   {
     path: '/settings',
     element: (
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={ALLOWED_ROLES.ALL}>
         <SettingsPage />
       </ProtectedRoute>
     ),
+  },
+
+  // Unauthorized Page (Public)
+  {
+    path: '/unauthorized',
+    element: <UnauthorizedPage />,
   },
 
   // 404 - Not Found (must be last)
