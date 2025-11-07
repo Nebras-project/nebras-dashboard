@@ -1,19 +1,20 @@
 # Phase 2: Authentication
 
 ## Overview
+
 Implement authentication system with role-based access control (RBAC) for all user roles.
 
-## Status: ⏳ Pending
+## Status: ⚒️ in progress
 
 ---
 
 ## Tasks
 
-### 📋 Pending
+###
 
-- [ ] Create login page
-- [ ] Role-based route protection
-- [ ] Auth context/Redux slice
+- [✅] Create login page
+- [✅] Role-based route protection
+- [✅] Auth Redux slice
 - [ ] JWT token management
 - [ ] Session management
 - [ ] Logout functionality
@@ -25,18 +26,17 @@ Implement authentication system with role-based access control (RBAC) for all us
 ## Detailed Tasks
 
 ### 1. Login Page
+
 **Location:** `src/features/authentication/pages/`
 
 **Files to create:**
 
 - `src/features/authentication/pages/LoginPage.jsx`
-- `src/features/authentication/pages/LoginPage.css`
 
 **Components:**
 
 - Email/username input
 - Password input
-- Remember me checkbox
 - Login button
 - Error message display
 - Loading state
@@ -52,9 +52,11 @@ Implement authentication system with role-based access control (RBAC) for all us
 ---
 
 ### 2. Auth Redux Slice
+
 **Location:** `src/store/slices/`
 
-**Files to create:**
+**Files implemented:**
+
 - `src/store/slices/authSlice.js`
 
 **State:**
@@ -70,23 +72,30 @@ Implement authentication system with role-based access control (RBAC) for all us
 }
 ```
 
-**Actions:**
-- `login` - Login user
-- `logout` - Logout user
+**Actions implemented:**
+
+- `login` - Login user and persist token/user data
+- `logout` - Logout user and clear persisted state
 - `setUser` - Set user data
-- `setToken` - Set JWT token
+- `setToken` - Set JWT token value
 - `clearError` - Clear error message
-- `checkAuth` - Check if user is authenticated
+- `checkAuth` - Hydrate auth state from persisted storage
+- `setLoading` / `setError` - Manage loading & error states
+
+**Notes:** Slice is registered in `src/store/index.js` and persisted via `localStorageMiddleware`.
 
 ---
 
 ### 3. Auth Service
+
 **Location:** `src/features/authentication/service/`
 
 **Files to create:**
+
 - `src/features/authentication/service/authApi.js`
 
 **API Functions:**
+
 - `login(credentials)` - Login API call
 - `logout()` - Logout API call
 - `getCurrentUser()` - Get current user data
@@ -96,70 +105,56 @@ Implement authentication system with role-based access control (RBAC) for all us
 ---
 
 ### 4. Protected Route Component
-**Location:** `src/components/`
 
-**Files to create:**
-- `src/components/ProtectedRoute.jsx`
+**Location:** `src/components/routing/ProtectedRoute.jsx`
 
 **Features:**
-- Check if user is authenticated
-- Check if user has required role
-- Redirect to login if not authenticated
-- Redirect to unauthorized page if wrong role
-- Show loading state during auth check
 
-**Role Requirements:**
-- Owner
-- General Admin
-- Curriculum Manager
-- Competition Manager
-- Content Manager
+- Checks authentication status using `useAuth`
+- Validates role-based access using `useRole`
+- Displays a fullscreen loader while auth state is resolving
+- Redirects unauthenticated users to `/login`
+- Redirects unauthorized users to `/unauthorized`
+- Accepts `allowedRoles` and `requireAuth` props for flexible protection
 
 ---
 
 ### 5. Auth Hooks
+
 **Location:** `src/features/authentication/hooks/`
 
-**Files to create:**
-- `src/features/authentication/hooks/useAuth.js`
+**Files implemented:**
+
 - `src/features/authentication/hooks/useRole.js`
 
-**useAuth Hook:**
+**Current Hook API:**
 
 ```javascript
-{
-  user,
-  isAuthenticated,
-  isLoading,
-  login,
-  logout,
-  error
-}
-```
-
-**useRole Hook:**
-
-```javascript
-{
+const {
+  role,
   isOwner,
   isGeneralAdmin,
   isCurriculumManager,
   isCompetitionManager,
   isContentManager,
   hasRole,
-  hasAnyRole
-}
+} = useRole();
 ```
+
+> **Note:** The project already exposes a global `useAuth` hook under `src/hooks/useAuth.js` which integrates with the Redux slice.
 
 ---
 
 ### 6. Token Management
+
 **Location:** `src/utils/`
 
 **Files to create:**
+
 - `src/utils/token.js`
 
 **Functions:**
+
 - `setToken(token)` - Save token to localStorage
 - `getToken()` - Get token from localStorage
 - `removeToken()` - Remove token from localStorage
@@ -169,12 +164,15 @@ Implement authentication system with role-based access control (RBAC) for all us
 ---
 
 ### 7. Auth Interceptor
+
 **Location:** `src/config/`
 
 **Files to create:**
+
 - `src/config/axios.js` - Axios configuration
 
 **Features:**
+
 - Add JWT token to all requests
 - Handle 401 errors (unauthorized)
 - Refresh token automatically
@@ -200,25 +198,26 @@ Content Manager (Level 1)
 
 ### Route Access Matrix
 
-| Route | Owner | General Admin | Curriculum Manager | Competition Manager | Content Manager |
-|-------|-------|---------------|-------------------|-------------------|-----------------|
-| /dashboard | ✅ | ✅ | ✅ | ✅ | ✅ |
-| /subjects | ✅ | ✅ | ✅ | ❌ | ❌ |
-| /units | ✅ | ✅ | ✅ | ❌ | ❌ |
-| /lessons | ✅ | ✅ | ✅ | ❌ | ❌ |
-| /questions | ✅ | ✅ | ❌ | ❌ | ✅ |
-| /ministerial-questions | ✅ | ✅ | ❌ | ❌ | ✅ |
-| /enrichment-questions | ✅ | ✅ | ❌ | ❌ | ✅ |
-| /competitions | ✅ | ✅ | ❌ | ✅ | ❌ |
-| /students | ✅ | ✅ | ❌ | ❌ | ❌ |
-| /admins | ✅ | ✅ | ❌ | ❌ | ❌ |
-| /settings | ✅ | ✅ | ❌ | ❌ | ❌ |
+| Route                  | Owner | General Admin | Curriculum Manager | Competition Manager | Content Manager |
+| ---------------------- | ----- | ------------- | ------------------ | ------------------- | --------------- |
+| /dashboard             | ✅    | ✅            | ✅                 | ✅                  | ✅              |
+| /subjects              | ✅    | ✅            | ✅                 | ❌                  | ❌              |
+| /units                 | ✅    | ✅            | ✅                 | ❌                  | ❌              |
+| /lessons               | ✅    | ✅            | ✅                 | ❌                  | ❌              |
+| /questions             | ✅    | ✅            | ❌                 | ❌                  | ✅              |
+| /ministerial-questions | ✅    | ✅            | ❌                 | ❌                  | ✅              |
+| /enrichment-questions  | ✅    | ✅            | ❌                 | ❌                  | ✅              |
+| /competitions          | ✅    | ✅            | ❌                 | ✅                  | ❌              |
+| /students              | ✅    | ✅            | ❌                 | ❌                  | ❌              |
+| /admins                | ✅    | ✅            | ❌                 | ❌                  | ❌              |
+| /settings              | ✅    | ✅            | ❌                 | ❌                  | ❌              |
 
 ---
 
 ## Authentication Flow
 
 ### Login Flow
+
 1. User enters credentials
 2. Validate form (client-side)
 3. Call login API
@@ -228,6 +227,7 @@ Content Manager (Level 1)
 7. Redirect to dashboard
 
 ### Logout Flow
+
 1. User clicks logout
 2. Call logout API (optional)
 3. Clear token from localStorage
@@ -236,6 +236,7 @@ Content Manager (Level 1)
 6. Redirect to login page
 
 ### Protected Route Flow
+
 1. User navigates to protected route
 2. Check if token exists
 3. Check if token is valid
@@ -256,7 +257,7 @@ const mockUsers = [
     password: 'password123',
     name: 'Owner User',
     role: 'owner',
-    roles: ['owner', 'general_admin']
+    roles: ['owner', 'general_admin'],
   },
   {
     id: 2,
@@ -264,7 +265,7 @@ const mockUsers = [
     password: 'password123',
     name: 'General Admin',
     role: 'general_admin',
-    roles: ['general_admin']
+    roles: ['general_admin'],
   },
   {
     id: 3,
@@ -272,7 +273,7 @@ const mockUsers = [
     password: 'password123',
     name: 'Curriculum Manager',
     role: 'curriculum_manager',
-    roles: ['curriculum_manager']
+    roles: ['curriculum_manager'],
   },
   {
     id: 4,
@@ -280,7 +281,7 @@ const mockUsers = [
     password: 'password123',
     name: 'Competition Manager',
     role: 'competition_manager',
-    roles: ['competition_manager']
+    roles: ['competition_manager'],
   },
   {
     id: 5,
@@ -288,8 +289,8 @@ const mockUsers = [
     password: 'password123',
     name: 'Content Manager',
     role: 'content_manager',
-    roles: ['content_manager']
-  }
+    roles: ['content_manager'],
+  },
 ];
 ```
 
@@ -318,14 +319,23 @@ const mockUsers = [
 ## Success Criteria
 
 ✅ Users can login with valid credentials
+
 ✅ Invalid credentials show error messages
+
 ✅ JWT token is stored and managed properly
+
 ✅ User data is stored in Redux
+
 ✅ Protected routes are accessible only to authenticated users
+
 ✅ Role-based access control works correctly
+
 ✅ Logout functionality works
+
 ✅ Session persistence works with "Remember Me"
+
 ✅ Error handling is comprehensive
+
 ✅ UI is responsive and supports RTL
 
 ---

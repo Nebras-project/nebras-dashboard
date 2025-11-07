@@ -71,6 +71,12 @@ const en = {
     collapse: 'Collapse',
     pageNotFound: 'Page Not Found',
     pageNotFoundMessage: 'Sorry, the page you are looking for does not exist or has been moved.',
+    unauthorizedMessage:
+      'You do not have permission to access this page. Please contact your administrator if you believe this is an error.',
+    errorMessage: 'Something went wrong. Please try again later.',
+    serverErrorMessage: 'Our servers are having trouble right now. Please try again later.',
+    serviceUnavailableMessage: 'The service is temporarily unavailable. Please try again soon.',
+    badGatewayMessage: 'We are having trouble connecting to the service. Please try again later.',
   },
 
   // Navigation
@@ -317,6 +323,8 @@ const en = {
       unauthorized: 'Unauthorized',
       forbidden: 'Forbidden',
       serverError: 'Server error',
+      badGateway: 'Bad gateway',
+      serviceUnavailable: 'Service unavailable',
       networkError: 'Network error',
       validationError: 'Validation error',
       uploadError: 'Upload failed',

@@ -71,6 +71,12 @@ const ar = {
     collapse: 'طي',
     pageNotFound: 'الصفحة غير موجودة',
     pageNotFoundMessage: 'عذراً، الصفحة التي تبحث عنها غير موجودة أو تم نقلها.',
+    unauthorizedMessage:
+      'ليس لديك صلاحية للوصول إلى هذه الصفحة. يرجى الاتصال بالمسؤول إذا كنت تعتقد أن هذا خطأ.',
+    errorMessage: 'حدث خطأ ما. يرجى المحاولة لاحقاً.',
+    serverErrorMessage: 'نواجه مشكلة في الخادم حالياً. يرجى المحاولة لاحقاً.',
+    serviceUnavailableMessage: 'الخدمة غير متاحة مؤقتاً. يرجى المحاولة لاحقاً.',
+    badGatewayMessage: 'حدثت مشكلة في الاتصال بالخدمة. يرجى المحاولة لاحقاً.',
   },
 
   // Navigation
@@ -318,6 +324,8 @@ const ar = {
       unauthorized: 'غير مصرح',
       forbidden: 'ممنوع',
       serverError: 'خطأ في الخادم',
+      badGateway: 'خطأ في البوابة',
+      serviceUnavailable: 'الخدمة غير متاحة',
       networkError: 'خطأ في الاتصال',
       validationError: 'خطأ في التحقق',
       uploadError: 'فشل الرفع',

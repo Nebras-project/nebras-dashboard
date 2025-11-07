@@ -12,7 +12,8 @@ Constants are organized by domain to maintain clarity and prevent magic numbers 
 src/constants/
 ├── index.js          # Main export file (exports all constants)
 ├── layout.js         # Layout-related constants (sizes, widths, heights)
-└── spacing.js        # Spacing system constants (padding, margin, gap)
+├── spacing.js        # Spacing system constants (padding, margin, gap)
+└── errors.js         # Error-related constants (HTTP status, error page config)
 ```
 
 ## Usage
@@ -200,6 +201,31 @@ import { padding, margin, gap } from '@constants';
 
 ---
 
+## Error Constants (`errors.js`)
+
+Error constants centralise status codes and error-page configuration so the UI presents consistent messaging.
+
+### Exports
+
+- **`HTTP_STATUS`** – Map of common HTTP codes (200, 401, 403, 404, 500, etc.)
+- **`ERROR_CODES`** – Friendly identifiers for error pages (`404`, `403`, `500`, ...)
+- **`ERROR_CONFIG`** – Metadata used by error screens (icon, translations, icon colour key)
+- **`getErrorConfig(code)`** – Helper returning the config object for a given error code
+- **`getErrorIconColor(theme, code)`** – Helper resolving the correct palette colour based on config
+
+### Usage Example
+
+```javascript
+import { ERROR_CODES, getErrorConfig, getErrorIconColor } from '@constants';
+
+const config = getErrorConfig(ERROR_CODES.NOT_FOUND);
+const iconColor = getErrorIconColor(theme, ERROR_CODES.NOT_FOUND);
+```
+
+These helpers are used by the shared `ErrorPage` component to render consistent error layouts.
+
+---
+
 ## Best Practices
 
 1. **Always use constants** - Never hardcode sizes, widths, or spacing values
@@ -214,7 +240,7 @@ import { padding, margin, gap } from '@constants';
 
 When adding new constants:
 
-1. **Choose the right file** - Add to `layout.js` or `spacing.js` based on domain
+1. **Choose the right file** - Add to `layout.js`, `spacing.js`, or `errors.js` based on domain
 2. **Use descriptive names** - Follow existing naming conventions (UPPER_SNAKE_CASE for values, camelCase for objects)
 3. **Export from index.js** - Ensure new constants are exported
 4. **Update this README** - Document the new constant and its usage
