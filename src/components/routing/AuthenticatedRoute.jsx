@@ -5,7 +5,7 @@ import { useRole } from '@features/authentication';
 import { Loader } from '@components';
 
 /**
- * ProtectedRoute Component
+ * AuthenticatedRoute Component
  *
  * Protects routes by checking:
  * 1. Authentication status
@@ -15,7 +15,7 @@ import { Loader } from '@components';
  * @param {string|string[]} allowedRoles - Role(s) allowed to access this route
  * @param {boolean} requireAuth - Whether authentication is required (default: true)
  */
-function ProtectedRoute({ children, allowedRoles, requireAuth = true }) {
+function AuthenticatedRoute({ children, allowedRoles, requireAuth = true }) {
   const { isAuthenticated, isLoading } = useAuth();
   const { hasRole } = useRole();
 
@@ -31,16 +31,16 @@ function ProtectedRoute({ children, allowedRoles, requireAuth = true }) {
 
   // Check role-based access if allowedRoles is provided
   if (allowedRoles && !hasRole(allowedRoles)) {
-    return <Navigate to="/unauthorized" replace />;
+    return <Navigate to="/access-denied" replace />;
   }
 
   return children;
 }
 
-ProtectedRoute.propTypes = {
+AuthenticatedRoute.propTypes = {
   children: PropTypes.node.isRequired,
   allowedRoles: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   requireAuth: PropTypes.bool,
 };
 
-export default ProtectedRoute;
+export default AuthenticatedRoute;

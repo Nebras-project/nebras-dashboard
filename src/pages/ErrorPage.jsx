@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 import { useTranslation } from '@hooks';
 import { Icon, BackButton, Button } from '@components';
 import { borderRadius, fontWeights } from '@theme';
-import { gap, getErrorConfig, getErrorIconColor, padding, spacing } from '@constants';
+import { gap, getErrorConfig, getErrorIconColor, margin, padding, spacing } from '@constants';
+import Message from '@components/feedback/Message';
 
 // Animation configurations
 const createAnimations = (theme) => ({
@@ -81,10 +82,6 @@ const getErrorNumberStyles = () => ({
   letterSpacing: '-0.02em',
 });
 
-const getErrorMessageStackStyles = () => ({
-  maxWidth: '100%',
-});
-
 const getActionButtonsStackStyles = () => ({
   width: '100%',
   justifyContent: 'center',
@@ -98,7 +95,6 @@ const getActionButtonStyles = () => ({
 });
 
 function ErrorPage({ errorCode }) {
-    
   const navigate = useNavigate();
   const { t } = useTranslation();
   const theme = useTheme();
@@ -171,18 +167,10 @@ ErrorNumber.propTypes = {
 function ErrorMessage({ t, titleKey, messageKey }) {
   const theme = useTheme();
   const animations = createAnimations(theme);
-  const stackStyles = getErrorMessageStackStyles();
 
   return (
-    <motion.div {...animations.content}>
-      <Stack {...gap.md} sx={stackStyles}>
-        <Typography variant="h4" color="text.primary">
-          {t(titleKey)}
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          {t(messageKey)}
-        </Typography>
-      </Stack>
+    <motion.div {...animations.content} sx={{ ...margin.bottom.lg }}>
+      <Message title={t(titleKey)} content={t(messageKey)} />
     </motion.div>
   );
 }

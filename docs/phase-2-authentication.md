@@ -19,7 +19,6 @@ Implement authentication system with role-based access control (RBAC) for all us
 - [ ] Session management
 - [ ] Logout functionality
 - [ ] Password reset (future)
-- [ ] Remember me functionality
 
 ---
 
@@ -74,15 +73,15 @@ Implement authentication system with role-based access control (RBAC) for all us
 
 **Actions implemented:**
 
-- `login` - Login user and persist token/user data
-- `logout` - Logout user and clear persisted state
-- `setUser` - Set user data
-- `setToken` - Set JWT token value
+- `login` - Hydrate auth state with user profile returned after successful login
+- `logout` - Reset auth state after server clears session cookies
+- `setUser` - Update user data in memory
+- `setToken` - (Legacy) will be deprecated once HttpOnly cookie flow is complete
 - `clearError` - Clear error message
-- `checkAuth` - Hydrate auth state from persisted storage
+- `checkAuth` - Hydrate auth state using `/me` response (session established via HttpOnly cookies)
 - `setLoading` / `setError` - Manage loading & error states
 
-**Notes:** Slice is registered in `src/store/index.js` and persisted via `localStorageMiddleware`.
+**Notes:** Slice is registered in `src/store/index.js`. Tokens are **not** stored in Redux or `localStorage`; they live exclusively in backend-issued HttpOnly cookies.
 
 ---
 
@@ -106,7 +105,7 @@ Implement authentication system with role-based access control (RBAC) for all us
 
 ### 4. Protected Route Component
 
-**Location:** `src/components/routing/ProtectedRoute.jsx`
+**Location:** `src/components/routing/AuthenticatedRoute.jsx`
 
 **Features:**
 
@@ -114,7 +113,7 @@ Implement authentication system with role-based access control (RBAC) for all us
 - Validates role-based access using `useRole`
 - Displays a fullscreen loader while auth state is resolving
 - Redirects unauthenticated users to `/login`
-- Redirects unauthorized users to `/unauthorized`
+- Redirects unauthorized users to `/access-denied`
 - Accepts `allowedRoles` and `requireAuth` props for flexible protection
 
 ---
@@ -126,6 +125,7 @@ Implement authentication system with role-based access control (RBAC) for all us
 **Files implemented:**
 
 - `src/features/authentication/hooks/useRole.js`
+- `src/features/authentication/hooks/useAuth.js`
 
 **Current Hook API:**
 
@@ -141,25 +141,18 @@ const {
 } = useRole();
 ```
 
-> **Note:** The project already exposes a global `useAuth` hook under `src/hooks/useAuth.js` which integrates with the Redux slice.
-
 ---
 
-### 6. Token Management
+### 6. Session Management (HttpOnly Cookies)
 
-**Location:** `src/utils/`
+**Location:** `src/features/authentication/service/`
 
-**Files to create:**
+**Implementation Notes:**
 
-- `src/utils/token.js`
-
-**Functions:**
-
-- `setToken(token)` - Save token to localStorage
-- `getToken()` - Get token from localStorage
-- `removeToken()` - Remove token from localStorage
-- `isTokenExpired(token)` - Check if token is expired
-- `decodeToken(token)` - Decode JWT token
+- Backend issues Secure, SameSite HttpOnly cookies on login.
+- Frontend never touches tokens directly—API clients call endpoints with `credentials: 'include'`.
+- Provide a `/me` endpoint that returns the authenticated user when cookies are valid.
+- Optional: expose `/refresh` to rotate the access token and keep the session alive.
 
 ---
 
@@ -220,27 +213,24 @@ Content Manager (Level 1)
 
 1. User enters credentials
 2. Validate form (client-side)
-3. Call login API
-4. Store JWT token in localStorage
-5. Store user data in Redux
-6. Set isAuthenticated to true
-7. Redirect to dashboard
+3. Call login API (`POST /login`) with `credentials: 'include'`
+4. Backend sets HttpOnly session cookies and returns user profile
+5. Dispatch `login`/`checkAuth` with response payload
+6. Set `isAuthenticated` to true and redirect to dashboard
 
 ### Logout Flow
 
 1. User clicks logout
-2. Call logout API (optional)
-3. Clear token from localStorage
-4. Clear user data from Redux
-5. Set isAuthenticated to false
-6. Redirect to login page
+2. Call logout API to invalidate cookies
+3. Dispatch `logout` to clear Redux state
+4. Redirect to login page
 
 ### Protected Route Flow
 
 1. User navigates to protected route
-2. Check if token exists
-3. Check if token is valid
-4. Check if user has required role
+2. Ensure bootstrap `/me` call has completed
+3. Check if `isAuthenticated` is true
+4. Validate role-based access
 5. Allow access OR redirect to login/unauthorized
 
 ---
@@ -302,14 +292,14 @@ const mockUsers = [
 - [ ] Form validation works
 - [ ] Login with valid credentials succeeds
 - [ ] Login with invalid credentials fails
-- [ ] Token is stored in localStorage
-- [ ] User data is stored in Redux
+- [ ] Backend issues HttpOnly cookies on successful login
+- [ ] `/me` bootstrap call hydrates Redux auth state
 - [ ] Protected routes redirect to login when not authenticated
 - [ ] Protected routes allow access when authenticated
 - [ ] Role-based access control works correctly
-- [ ] Logout clears all data
+- [ ] Logout clears session cookies and Redux auth state
 - [ ] Logout redirects to login page
-- [ ] Remember me persists session
+- [ ] Remember me extends cookie expiration
 - [ ] Token expiration is handled
 - [ ] RTL layout works on login page
 - [ ] Bilingual support works
@@ -322,7 +312,7 @@ const mockUsers = [
 
 ✅ Invalid credentials show error messages
 
-✅ JWT token is stored and managed properly
+✅ HttpOnly session cookies are issued securely and refreshed as needed
 
 ✅ User data is stored in Redux
 
@@ -332,7 +322,7 @@ const mockUsers = [
 
 ✅ Logout functionality works
 
-✅ Session persistence works with "Remember Me"
+✅ Session persistence works with "Remember Me" cookie settings
 
 ✅ Error handling is comprehensive
 
@@ -346,4 +336,4 @@ After completing Phase 2, proceed to **[Phase 3: Core Features](phase-3-core-fea
 
 ---
 
-**Last Updated:** 2025-01-18
+**Last Updated:** 2025-11-07

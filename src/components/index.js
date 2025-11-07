@@ -38,7 +38,7 @@ export { default as PageLayout } from './layout/PageLayout';
 export { default as PageHeader } from './layout/PageHeader';
 
 // Routing components
-export { default as ProtectedRoute } from './routing/ProtectedRoute';
+export { default as AuthenticatedRoute } from './routing/AuthenticatedRoute';
 
 // Dialog components
 export { default as ConfirmDialog } from './dialogs/ConfirmDialog';

@@ -7,8 +7,8 @@ const PROTECTED_ROUTES = [
   '/units',
   '/admins',
   '/questions',
-  '/ministerial-questions',
-  '/enrichment-questions',
+  '/questions/ministerial',
+  '/questions/enrichment',
   '/settings',
 ];
 

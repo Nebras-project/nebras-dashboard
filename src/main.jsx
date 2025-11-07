@@ -16,16 +16,12 @@ import './components/feedback/FireLoader.css';
 
 // internal imports
 import App from './App.jsx';
-import { ReduxProvider, QueryProvider, ThemeProvider } from '@providers';
+import { AppProviders } from '@providers';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ReduxProvider>
-      <QueryProvider>
-        <ThemeProvider>
-          <App />
-        </ThemeProvider>
-      </QueryProvider>
-    </ReduxProvider>
+    <AppProviders>
+      <App />
+    </AppProviders>
   </StrictMode>
 );

@@ -86,6 +86,14 @@ Add final touches:
 
 ---
 
+## 🧭 Version Control Workflow
+
+- We currently work directly on the `main` branch—no feature branches or pull requests.
+- Commit changes only when you’re confident they are stable; every commit lands in production history.
+- If collaboration expands, consider introducing feature branches + PRs before touching `main`.
+
+---
+
 ## 📋 Current Status
 
 | Phase                   | Status       | Progress |
@@ -154,5 +162,5 @@ For questions or clarifications about the documentation, please contact the deve
 
 ---
 
-**Last Updated:** 2025-10-18  
+**Last Updated:** 2025-11-07  
 **Version:** 1.0.0

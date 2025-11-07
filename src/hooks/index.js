@@ -5,7 +5,7 @@ export { useMuiTheme } from './useMuiTheme';
 export { useReduxTheme } from './useReduxTheme';
 export { useLanguage } from './useLanguage';
 export { useSidebar } from './useSidebar';
-export { useAuth } from './useAuth';
+export { useAuth } from '@features/authentication/hooks/useAuth';
 export { useColorScheme } from './useColorScheme';
 export { useToast } from './useToast';
 

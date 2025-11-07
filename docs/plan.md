@@ -219,6 +219,8 @@ src/
 │   ├── authentication/           # Login & authentication
 │   │   ├── components/           # Auth components
 │   │   ├── hooks/                # Auth hooks
+│   │   │   ├── useAuth.js        # Authentication state hook
+│   │   │   └── useRole.js        # Role-based helpers
 │   │   ├── pages/                # Auth pages
 │   │   │   ├── LoginPage.jsx
 │   │   │   └── index.js
@@ -358,8 +360,7 @@ src/
 │   ├── useResponsiveSidebar.js  # Responsive sidebar hook
 │   ├── useSidebar.js            # Sidebar state hook
 │   ├── useSidebarNavigation.js  # Sidebar navigation hook
-│   ├── useToast.js              # Toast notification hook
-│   └── useAuth.js               # Authentication state hook
+│   └── useToast.js              # Toast notification hook
 │
 ├── i18n/                         # Internationalization (i18n)
 │   ├── hooks/

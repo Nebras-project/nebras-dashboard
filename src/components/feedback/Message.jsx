@@ -2,6 +2,7 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Typography } from '@mui/material';
+import { margin } from '@constants';
 
 /**
  * Message Component
@@ -20,12 +21,12 @@ const Message = memo(function Message({
   return (
     <Box sx={sx} {...boxProps}>
       {title ? (
-        <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: body ? 0.5 : 0 }}>
+        <Typography variant="h4" sx={{ fontWeight: 600, ...margin.bottom.sm  }}>
           {title}
         </Typography>
       ) : null}
       {body ? (
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body1" color="text.secondary">
           {body}
         </Typography>
       ) : null}

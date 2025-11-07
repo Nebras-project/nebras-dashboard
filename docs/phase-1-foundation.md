@@ -706,6 +706,7 @@ src/
 │   ├── authentication/
 │   │   ├── components/
 │   │   ├── hooks/
+│   │   │   ├── useAuth.js                 # ✅ Authentication state hook
 │   │   ├── index.js                     # ✅ Feature exports
 │   │   ├── pages/
 │   │   │   ├── index.js                 # ✅ Page exports
@@ -821,8 +822,7 @@ src/
 │   ├── useReduxTheme.js                 # ✅ Theme state hook
 │   ├── useResponsiveSidebar.js          # ✅ Responsive sidebar detection hook
 │   ├── useSidebar.js                    # ✅ Sidebar state hook
-│   ├── useSidebarNavigation.js          # ✅ Sidebar navigation hook
-│   └── useAuth.js                       # ✅ Authentication state hook
+│   └── useSidebarNavigation.js          # ✅ Sidebar navigation hook
 │
 ├── i18n/                                # ✅ Internationalization
 │   ├── index.js                         # ✅ i18n initialization

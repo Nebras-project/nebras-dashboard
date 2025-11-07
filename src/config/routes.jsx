@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
-import ProtectedRoute from '../components/routing/ProtectedRoute';
+import AuthenticatedRoute from '../components/routing/AuthenticatedRoute';
 import { ALLOWED_ROLES } from '@utils';
 
 // Lazy load pages for code splitting
@@ -82,9 +82,9 @@ const routes = [
   {
     path: '/dashboard',
     element: (
-      <ProtectedRoute allowedRoles={ALLOWED_ROLES.ALL}>
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.ALL}>
         <DashboardPage />
-      </ProtectedRoute>
+      </AuthenticatedRoute>
     ),
   },
 
@@ -92,9 +92,9 @@ const routes = [
   {
     path: '/students',
     element: (
-      <ProtectedRoute allowedRoles={ALLOWED_ROLES.OWNER_AND_ADMIN}>
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.OWNER_AND_ADMIN}>
         <StudentsPage />
-      </ProtectedRoute>
+      </AuthenticatedRoute>
     ),
   },
 
@@ -102,41 +102,41 @@ const routes = [
   {
     path: '/competitions',
     element: (
-      <ProtectedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
         <CompetitionsPage />
-      </ProtectedRoute>
+      </AuthenticatedRoute>
     ),
   },
   {
     path: '/competitions/:id',
     element: (
-      <ProtectedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
         <CompetitionPage />
-      </ProtectedRoute>
+      </AuthenticatedRoute>
     ),
   },
   {
     path: '/competitions/:id/members',
     element: (
-      <ProtectedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
         <CompetitionMembersPage />
-      </ProtectedRoute>
+      </AuthenticatedRoute>
     ),
   },
   {
     path: '/competitions/:id/exam',
     element: (
-      <ProtectedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
         <CompetitionExamPage />
-      </ProtectedRoute>
+      </AuthenticatedRoute>
     ),
   },
   {
     path: '/competitions/:id/result',
     element: (
-      <ProtectedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
         <CompetitionResultPage />
-      </ProtectedRoute>
+      </AuthenticatedRoute>
     ),
   },
 
@@ -144,9 +144,9 @@ const routes = [
   {
     path: '/curriculums',
     element: (
-      <ProtectedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
         <CurriculumsPage />
-      </ProtectedRoute>
+      </AuthenticatedRoute>
     ),
   },
 
@@ -154,9 +154,9 @@ const routes = [
   {
     path: '/subjects',
     element: (
-      <ProtectedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
         <SubjectsPage />
-      </ProtectedRoute>
+      </AuthenticatedRoute>
     ),
   },
 
@@ -164,9 +164,9 @@ const routes = [
   {
     path: '/units',
     element: (
-      <ProtectedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
         <UnitsPage />
-      </ProtectedRoute>
+      </AuthenticatedRoute>
     ),
   },
 
@@ -174,9 +174,9 @@ const routes = [
   {
     path: '/admins',
     element: (
-      <ProtectedRoute allowedRoles={ALLOWED_ROLES.OWNER_AND_ADMIN}>
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.OWNER_AND_ADMIN}>
         <AdminsPage />
-      </ProtectedRoute>
+      </AuthenticatedRoute>
     ),
   },
 
@@ -184,25 +184,25 @@ const routes = [
   {
     path: '/questions',
     element: (
-      <ProtectedRoute allowedRoles={ALLOWED_ROLES.QUESTIONS}>
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.QUESTIONS}>
         <QuestionsPage />
-      </ProtectedRoute>
+      </AuthenticatedRoute>
     ),
   },
   {
     path: '/questions/ministerial',
     element: (
-      <ProtectedRoute allowedRoles={ALLOWED_ROLES.QUESTIONS}>
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.QUESTIONS}>
         <MinisterialQuestionsPage />
-      </ProtectedRoute>
+      </AuthenticatedRoute>
     ),
   },
   {
     path: '/questions/enrichment',
     element: (
-      <ProtectedRoute allowedRoles={ALLOWED_ROLES.QUESTIONS}>
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.QUESTIONS}>
         <EnrichmentQuestionsPage />
-      </ProtectedRoute>
+      </AuthenticatedRoute>
     ),
   },
 
@@ -210,15 +210,15 @@ const routes = [
   {
     path: '/settings',
     element: (
-      <ProtectedRoute allowedRoles={ALLOWED_ROLES.ALL}>
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.ALL}>
         <SettingsPage />
-      </ProtectedRoute>
+      </AuthenticatedRoute>
     ),
   },
 
   // Unauthorized Page (Public)
   {
-    path: '/unauthorized',
+    path: '/access-denied',
     element: <UnauthorizedPage />,
   },
 

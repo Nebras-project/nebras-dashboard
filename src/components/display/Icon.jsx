@@ -49,8 +49,9 @@ import {
   MdInfoOutline,
   MdLock,
 } from 'react-icons/md';
+import { GoSidebarExpand, GoSidebarCollapse } from 'react-icons/go';
 
-import { LuPanelRightClose, LuPanelLeftClose, LuEye, LuEyeClosed } from 'react-icons/lu';
+import { LuEye, LuEyeClosed } from 'react-icons/lu';
 import { IoClose, IoLanguage } from 'react-icons/io5';
 import { TbPalette, TbLayoutDashboardFilled } from 'react-icons/tb';
 import { CgColorBucket } from 'react-icons/cg';
@@ -111,8 +112,8 @@ const ICON_MAP = {
   // Menu
   menuLeft: HiMenuAlt2,
   menuRight: HiMenuAlt3,
-  panelLeft: LuPanelLeftClose,
-  panelRight: LuPanelRightClose,
+  panelLeft: GoSidebarExpand,
+  panelRight: GoSidebarCollapse,
 
   // Content & Education
   book: MdMenuBook,
