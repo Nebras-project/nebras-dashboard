@@ -14,7 +14,6 @@ export { useDocumentDirection } from './useDocumentDirection';
 export { useCssVariables } from './useCssVariables';
 export { useResponsiveSidebar } from './useResponsiveSidebar';
 export { useSidebarNavigation } from './useSidebarNavigation';
-export { useMenu } from './useMenu';
 export { useDateTime } from './useDateTime';
 export { useConfirmDialog } from './useConfirmDialog';
 

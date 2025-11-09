@@ -44,7 +44,7 @@ export { default as AuthenticatedRoute } from './routing/AuthenticatedRoute';
 export { default as ConfirmDialog } from './dialogs/ConfirmDialog';
 
 // Compound components
-export { default as Menu } from './inputs/Menu';
+export { default as Menu } from './inputs/menu';
 
 // Form components
 export { Form } from './forms';

@@ -1,5 +1,4 @@
-// external imports
-import { useState, useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 export function useMenu() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -25,3 +24,5 @@ export function useMenu() {
     handleToggle,
   };
 }
+
+export default useMenu;
