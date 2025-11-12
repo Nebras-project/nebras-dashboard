@@ -36,27 +36,10 @@ const menuItems = {
     icon: <Icon name="bookmark" />,
     path: '/units',
   },
-  // Question Management Dropdown (with children)
-  questionsDropdown: {
-    text: 'navigation.questionManagement',
+  questions: {
+    text: 'navigation.questions',
     icon: <Icon name="questionAnswer" />,
-    children: [
-      {
-        text: 'navigation.allQuestions',
-        icon: <Icon name="selectMultiple" />,
-        path: '/questions',
-      },
-      {
-        text: 'navigation.ministerialQuestions',
-        icon: <Icon name="gavel" />,
-        path: '/questions/ministerial',
-      },
-      {
-        text: 'navigation.enrichmentQuestions',
-        icon: <Icon name="lightbulb" />,
-        path: '/questions/enrichment',
-      },
-    ],
+    path: '/questions',
   },
   settings: {
     text: 'common.settings',
@@ -73,7 +56,7 @@ const fullAccessItems = [
   menuItems.curriculums,
   menuItems.subjects,
   menuItems.units,
-  menuItems.questionsDropdown,
+  menuItems.questions,
   menuItems.settings,
 ];
 
@@ -85,7 +68,7 @@ export const navigationItems = {
     menuItems.curriculums,
     menuItems.subjects,
     menuItems.units,
-    menuItems.questionsDropdown,
+    menuItems.questions,
     menuItems.settings,
   ],
   competition_manager: [
@@ -94,7 +77,7 @@ export const navigationItems = {
     menuItems.students,
     menuItems.settings,
   ],
-  content_manager: [menuItems.dashboard, menuItems.questionsDropdown, menuItems.settings],
+  content_manager: [menuItems.dashboard, menuItems.questions, menuItems.settings],
 };
 
 export const getNavigationItems = (role) => {

@@ -1,6 +1,7 @@
 # Phase 3: Core Features
 
 ## Overview
+
 Build the main features for each user role: Curriculum Manager, Content Manager, Competition Manager, General Admin, and Owner.
 
 ## Status: ⏳ Pending
@@ -20,11 +21,13 @@ Build the main features for each user role: Curriculum Manager, Content Manager,
 ## 3.1 Curriculum Manager
 
 ### Overview
+
 Manages the curriculum structure: Levels → Subjects → Units → Lessons
 
 ### Tasks
 
 #### 1. Levels Management
+
 **Location:** `src/features/levels/`
 
 **Files to create:**
@@ -59,9 +62,11 @@ Manages the curriculum structure: Levels → Subjects → Units → Lessons
 ```
 
 #### 2. Subjects Management
+
 **Location:** `src/features/subjects/`
 
 **Files to create:**
+
 - `src/features/subjects/pages/SubjectsPage.jsx`
 - `src/features/subjects/components/SubjectForm.jsx`
 - `src/features/subjects/components/SubjectTable.jsx`
@@ -69,6 +74,7 @@ Manages the curriculum structure: Levels → Subjects → Units → Lessons
 - `src/features/subjects/hooks/useSubjects.js`
 
 **Features:**
+
 - List all subjects
 - Filter by level
 - Create new subject
@@ -94,9 +100,11 @@ Manages the curriculum structure: Levels → Subjects → Units → Lessons
 ```
 
 #### 3. Units Management
+
 **Location:** `src/features/units/`
 
 **Files to create:**
+
 - `src/features/units/pages/UnitsPage.jsx`
 - `src/features/units/components/UnitForm.jsx`
 - `src/features/units/components/UnitTable.jsx`
@@ -104,6 +112,7 @@ Manages the curriculum structure: Levels → Subjects → Units → Lessons
 - `src/features/units/hooks/useUnits.js`
 
 **Features:**
+
 - List all units
 - Filter by subject
 - Create new unit
@@ -129,9 +138,11 @@ Manages the curriculum structure: Levels → Subjects → Units → Lessons
 ```
 
 #### 4. Lessons Management
+
 **Location:** `src/features/lessons/`
 
 **Files to create:**
+
 - `src/features/lessons/pages/LessonsPage.jsx`
 - `src/features/lessons/components/LessonForm.jsx`
 - `src/features/lessons/components/LessonTable.jsx`
@@ -139,6 +150,7 @@ Manages the curriculum structure: Levels → Subjects → Units → Lessons
 - `src/features/lessons/hooks/useLessons.js`
 
 **Features:**
+
 - List all lessons
 - Filter by unit
 - Create new lesson
@@ -169,6 +181,7 @@ Manages the curriculum structure: Levels → Subjects → Units → Lessons
 ```
 
 ### Access Control
+
 - ✅ Owner can access
 - ✅ General Admin can access
 - ✅ Curriculum Manager can access
@@ -180,49 +193,37 @@ Manages the curriculum structure: Levels → Subjects → Units → Lessons
 ## 3.2 Content Manager
 
 ### Overview
-Manages all questions: Ministerial and Enrichment questions
+
+Manages the unified question bank (ministerial & enrichment types).
 
 ### Tasks
 
-#### 1. General Questions View
+#### Question Bank
+
 **Location:** `src/features/questions/`
 
 **Files to create:**
+
 - `src/features/questions/pages/QuestionsPage.jsx`
 - `src/features/questions/components/QuestionCard.jsx`
 - `src/features/questions/components/QuestionFilter.jsx`
+- `src/features/questions/components/QuestionForm.jsx`
 - `src/features/questions/service/questionsApi.js`
 - `src/features/questions/hooks/useQuestions.js`
 
 **Features:**
-- View all questions (ministerial + enrichment)
+
+- View all questions across ministerial/enrichment types
 - Filter by type (ministerial/enrichment)
 - Filter by lesson
+- Manage ministerial metadata (form number, year)
+- Manage enrichment metadata (source, difficulty)
 - Search questions
-- View question details
+- View and edit question details
+- Upload question images
+- Bulk import/export (future)
 
-#### 2. Ministerial Questions
-**Location:** `src/features/ministerial-questions/`
-
-**Files to create:**
-- `src/features/ministerial-questions/pages/MinisterialQuestionsPage.jsx`
-- `src/features/ministerial-questions/components/MinisterialQuestionForm.jsx`
-- `src/features/ministerial-questions/components/MinisterialQuestionTable.jsx`
-- `src/features/ministerial-questions/service/ministerialQuestionsApi.js`
-- `src/features/ministerial-questions/hooks/useMinisterialQuestions.js`
-
-**Features:**
-- List all ministerial questions
-- Create new ministerial question
-- Edit existing ministerial question
-- Delete ministerial question (soft delete)
-- Upload question image
-- Filter by lesson
-- Search questions
-- Bulk import (maybe)
-- Bulk export (maybe)
-
-**Ministerial Question Data Structure:**
+**Question Data Structure:**
 
 ```javascript
 {
@@ -230,56 +231,16 @@ Manages all questions: Ministerial and Enrichment questions
   question: string,
   questionAr: string,
   questionEn: string,
-  questionImage: string,
+  questionImage: string | null,
   type: 'multiple_choice' | 'true_false',
-  options: Array<{
-    id: number,
-    text: string,
-    textAr: string,
-    textEn: string,
-    isCorrect: boolean
-  }>,
-  correctAnswer: string,
-  lessonId: number,
-  lessonName: string,
-  difficulty: 'easy' | 'medium' | 'hard',
-  isActive: boolean,
-  createdAt: string,
-  updatedAt: string
-}
-```
-
-#### 3. Enrichment Questions
-**Location:** `src/features/enrichment-questions/`
-
-**Files to create:**
-- `src/features/enrichment-questions/pages/EnrichmentQuestionsPage.jsx`
-- `src/features/enrichment-questions/components/EnrichmentQuestionForm.jsx`
-- `src/features/enrichment-questions/components/EnrichmentQuestionTable.jsx`
-- `src/features/enrichment-questions/service/enrichmentQuestionsApi.js`
-- `src/features/enrichment-questions/hooks/useEnrichmentQuestions.js`
-
-**Features:**
-- List all enrichment questions
-- Create new enrichment question
-- Edit existing enrichment question
-- Delete enrichment question (soft delete)
-- Upload question image
-- Filter by lesson
-- Search questions
-- Bulk import (maybe)
-- Bulk export (maybe)
-
-**Enrichment Question Data Structure:**
-
-```javascript
-{
-  id: number,
-  question: string,
-  questionAr: string,
-  questionEn: string,
-  questionImage: string,
-  type: 'multiple_choice' | 'true_false',
+  category: 'ministerial' | 'enrichment',
+  ministerialMeta?: {
+    formNumber: string,
+    year: number
+  },
+  enrichmentMeta?: {
+    source: string
+  },
   options: Array<{
     id: number,
     text: string,
@@ -298,6 +259,7 @@ Manages all questions: Ministerial and Enrichment questions
 ```
 
 ### Access Control
+
 - ✅ Owner can access
 - ✅ General Admin can access
 - ❌ Curriculum Manager cannot access
@@ -309,6 +271,7 @@ Manages all questions: Ministerial and Enrichment questions
 ## 3.3 Competition Manager
 
 ### Overview
+
 Manages competitions for students
 
 ### Tasks
@@ -316,6 +279,7 @@ Manages competitions for students
 **Location:** `src/features/competitions/`
 
 **Files to create:**
+
 - `src/features/competitions/pages/CompetitionsPage.jsx`
 - `src/features/competitions/components/CompetitionForm.jsx`
 - `src/features/competitions/components/CompetitionTable.jsx`
@@ -324,6 +288,7 @@ Manages competitions for students
 - `src/features/competitions/hooks/useCompetitions.js`
 
 **Features:**
+
 - List all competitions
 - Create new competition
 - Edit existing competition
@@ -358,6 +323,7 @@ Manages competitions for students
 ```
 
 ### Access Control
+
 - ✅ Owner can access
 - ✅ General Admin can access
 - ❌ Curriculum Manager cannot access
@@ -369,14 +335,17 @@ Manages competitions for students
 ## 3.4 General Admin
 
 ### Overview
+
 Manages all users (managers and students)
 
 ### Tasks
 
 #### 1. Students Management
+
 **Location:** `src/features/students/`
 
 **Files to create:**
+
 - `src/features/students/pages/StudentsPage.jsx`
 - `src/features/students/components/StudentForm.jsx`
 - `src/features/students/components/StudentTable.jsx`
@@ -385,6 +354,7 @@ Manages all users (managers and students)
 - `src/features/students/hooks/useStudents.js`
 
 **Features:**
+
 - List all students
 - Create new student
 - Edit existing student
@@ -416,9 +386,11 @@ Manages all users (managers and students)
 ```
 
 #### 2. Managers Management
+
 **Location:** `src/features/admins/`
 
 **Files to create:**
+
 - `src/features/admins/pages/AdminsPage.jsx`
 - `src/features/admins/components/AdminForm.jsx`
 - `src/features/admins/components/AdminTable.jsx`
@@ -427,6 +399,7 @@ Manages all users (managers and students)
 - `src/features/admins/hooks/useAdmins.js`
 
 **Features:**
+
 - List all managers
 - Create new manager
 - Edit existing manager
@@ -456,6 +429,7 @@ Manages all users (managers and students)
 ```
 
 ### Access Control
+
 - ✅ Owner can access
 - ✅ General Admin can access
 - ❌ Curriculum Manager cannot access
@@ -467,20 +441,24 @@ Manages all users (managers and students)
 ## 3.5 Owner
 
 ### Overview
+
 Manages General Admins and has full system access
 
 ### Tasks
 
 #### 1. General Admins Management
+
 **Location:** `src/features/admins/`
 
 **Files to create:**
+
 - `src/features/admins/pages/GeneralAdminsPage.jsx`
 - `src/features/admins/components/GeneralAdminForm.jsx`
 - `src/features/admins/components/GeneralAdminTable.jsx`
 - `src/features/admins/components/GeneralAdminDetails.jsx`
 
 **Features:**
+
 - List all General Admins
 - Create new General Admin
 - Edit existing General Admin
@@ -489,15 +467,18 @@ Manages General Admins and has full system access
 - Search General Admins
 
 #### 2. System Settings
+
 **Location:** `src/features/settings/`
 
 **Files to create:**
+
 - `src/features/settings/pages/SettingsPage.jsx`
 - `src/features/settings/components/SystemSettings.jsx`
 - `src/features/settings/components/EmailSettings.jsx`
 - `src/features/settings/service/settingsApi.js`
 
 **Features:**
+
 - System configuration
 - Email settings
 - Notification settings
@@ -505,6 +486,7 @@ Manages General Admins and has full system access
 - Security settings
 
 ### Access Control
+
 - ✅ Owner can access
 - ❌ General Admin cannot access (separate from admins management)
 - ❌ Other managers cannot access
@@ -514,12 +496,15 @@ Manages General Admins and has full system access
 ## Common Components
 
 ### Data Grid
+
 **Location:** `src/components/`
 
 **Files to create:**
+
 - `src/components/DataGrid.jsx` - Reusable data grid component
 
 **Features:**
+
 - Sorting
 - Filtering
 - Pagination
@@ -529,9 +514,11 @@ Manages General Admins and has full system access
 - Responsive design
 
 ### Form Components
+
 **Location:** `src/components/forms/`
 
 **Files to create:**
+
 - `src/components/forms/TextInput.jsx`
 - `src/components/forms/SelectInput.jsx`
 - `src/components/forms/DateInput.jsx`
@@ -540,19 +527,23 @@ Manages General Admins and has full system access
 - `src/components/forms/RadioInput.jsx`
 
 **Features:**
+
 - Validation
 - Error messages (AR/EN)
 - RTL support
 - Responsive design
 
 ### Modal Components
+
 **Location:** `src/components/`
 
 **Files to create:**
+
 - `src/components/Modal.jsx`
 - `src/components/ConfirmDialog.jsx`
 
 **Features:**
+
 - Open/close animation
 - Backdrop click to close
 - Keyboard navigation
@@ -563,6 +554,7 @@ Manages General Admins and has full system access
 ## Testing Checklist
 
 ### Curriculum Manager
+
 - [ ] Create level
 - [ ] Edit level
 - [ ] Delete level
@@ -579,18 +571,20 @@ Manages General Admins and has full system access
 - [ ] Search functionality
 
 ### Content Manager
-- [ ] Create ministerial question
-- [ ] Edit ministerial question
-- [ ] Delete ministerial question
+
+- [ ] Create question (ministerial type)
+- [ ] Edit question (ministerial type)
+- [ ] Delete question (ministerial type)
 - [ ] Upload question image
-- [ ] Create enrichment question
-- [ ] Edit enrichment question
-- [ ] Delete enrichment question
+- [ ] Create question (enrichment type)
+- [ ] Edit question (enrichment type)
+- [ ] Delete question (enrichment type)
 - [ ] Filter by lesson
 - [ ] Search questions
 - [ ] View all questions
 
 ### Competition Manager
+
 - [ ] Create competition
 - [ ] Edit competition
 - [ ] Delete competition
@@ -599,6 +593,7 @@ Manages General Admins and has full system access
 - [ ] View competition details
 
 ### General Admin
+
 - [ ] Create student
 - [ ] Edit student
 - [ ] Delete student
@@ -610,6 +605,7 @@ Manages General Admins and has full system access
 - [ ] View manager details
 
 ### Owner
+
 - [ ] Create General Admin
 - [ ] Edit General Admin
 - [ ] Delete General Admin
@@ -642,4 +638,3 @@ After completing Phase 3, proceed to **[Phase 4: Polish](phase-4-polish.md)**
 ---
 
 **Last Updated:** 2025-01-18
-

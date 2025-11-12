@@ -4,7 +4,7 @@ This directory contains the main layout components for the Nebras Dashboard appl
 
 ## Files Overview
 
-```text
+````text
 src/layout/
 ├── MainLayout.jsx                 # Main layout wrapper
 ├── index.js                       # Layout exports
@@ -32,13 +32,12 @@ src/layout/
         ├── DesktopSidebar.jsx     # Desktop sidebar implementation
         ├── LogoHeader.jsx         # Logo & brand section
         ├── MobileDrawer.jsx       # Mobile drawer overlay
-        ├── NavigationDropdown.jsx # Navigation dropdown item
         ├── NavigationItem.jsx     # Navigation item component
         └── NavigationMenu.jsx     # Navigation menu container
 
 Note: Layout constants are in src/constants/layout.js
 Import using: import { SIDEBAR_WIDTH, HEADER_HEIGHT } from '@constants';
-```
+```text
 
 ---
 
@@ -77,7 +76,7 @@ Mobile (<1024px):
 │                                     │
 └─────────────────────────────────────┘
 [Drawer Sidebar] (overlay when open)
-```
+```text
 
 **Implementation:**
 
@@ -89,8 +88,8 @@ MainLayout uses two separate layout components:
 **Breakpoint Detection:**
 
 ```javascript
-const isMobile = useMediaQuery(theme.breakpoints.down('desktop')); // < 1024px
-useResponsiveSidebar(isMobile); // Handles sidebar state updates
+const { isSmallScreen } = useResponsive(); // mobile & tablet
+useResponsiveSidebar(); // Handles sidebar state updates based on responsive hook
 ```
 
 **Grid Layout (Desktop):**
@@ -187,7 +186,7 @@ Uses `isPublicPage()` utility to detect login/404 pages and skips layout renderi
 
 **Sidebar Structure:**
 
-```
+```text
 ┌─────────────────────────────┐
 │ LogoHeader                  │ ← Logo, brand name, collapse button
 ├─────────────────────────────┤
@@ -200,7 +199,7 @@ Uses `isPublicPage()` utility to detect login/404 pages and skips layout renderi
 │ (scrollable)                │
 │                             │
 ├─────────────────────────────┤
-│ Settings                    |
+│ Settings                    │
 └─────────────────────────────┘
 ```
 
@@ -241,8 +240,7 @@ Uses `isPublicPage()` utility to detect login/404 pages and skips layout renderi
 5. **NavigationMenu.jsx** - Navigation Container
 
    - Role-based menu items from config
-   - Renders NavigationItem or NavigationDropdown
-   - Handles nested navigation items
+   - Renders `NavigationItem` list
    - Settings item special handling (bottom positioning)
 
 6. **NavigationItem.jsx** - Individual Navigation Item
@@ -254,22 +252,15 @@ Uses `isPublicPage()` utility to detect login/404 pages and skips layout renderi
    - Uses ListButton component
    - Navigation handling via useSidebarNavigation hook
 
-7. **NavigationDropdown.jsx** - Nested Navigation Dropdown
-   - Multi-level navigation items
-   - Uses Dropdown component when expanded
-   - Collapsed mode: single ListButton (navigates to first child)
-   - Active child detection
-   - Checkmark indicator for selected items
-
 **Role-Based Menus:**
 
 | Role                    | Menu Items                   |
 | ----------------------- | ---------------------------- |
-| **Owner**               | All 10 items (full access)   |
-| **General Admin**       | All 10 items (full access)   |
-| **Curriculum Manager**  | 5 items (curriculum focus)   |
-| **Competition Manager** | 3 items (competitions focus) |
-| **Content Manager**     | 4 items (questions focus)    |
+| **Owner**               | All 9 items (full access)    |
+| **General Admin**       | All 9 items (full access)    |
+| **Curriculum Manager**  | 6 items (curriculum focus)   |
+| **Competition Manager** | 4 items (competitions focus) |
+| **Content Manager**     | 3 items (questions focus)    |
 
 **Navigation Configuration:**
 
@@ -279,7 +270,7 @@ export const navigationItems = {
   owner: [
     { text: 'navigation.dashboard', icon: <TbLayoutDashboardFilled />, path: '/dashboard' },
     { text: 'navigation.students', icon: <MdGroups />, path: '/students' },
-    // ... 8 more items
+    // ... 7 more items
   ],
   // ... other roles
 };
@@ -651,23 +642,6 @@ Icons are from `react-icons` library:
 - ✅ Full-width main content
 - ✅ Memoized for performance
 
-### NavigationDropdown.jsx
-
-**Purpose:** Handles nested navigation items with dropdown functionality
-
-**Features:**
-
-- ✅ Expands to Dropdown component when sidebar expanded
-- ✅ Collapses to ListButton when sidebar collapsed
-- ✅ Active child detection
-- ✅ Checkmark indicator for selected items
-- ✅ Navigates to first child when collapsed and clicked
-
-**Behavior:**
-
-- Expanded mode: Shows dropdown with all children
-- Collapsed mode: Shows icon only, navigates to first child on click
-
 ### NavigationItem.jsx
 
 **Purpose:** Renders individual navigation items
@@ -697,3 +671,4 @@ Icons are from `react-icons` library:
 ---
 
 **Last Updated:** 2025-11-1
+````

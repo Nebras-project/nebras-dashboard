@@ -249,7 +249,7 @@ React Router v6 is configured with 16 routes:
 /login → Public (LoginPage)
 /dashboard → Protected (role-based dashboard)
 /students, /admins, /curriculums, /subjects, /units → Protected
-/questions, /ministerial-questions, /enrichment-questions → Protected
+/questions → Protected
 /competitions → Protected (list + 4 nested detail routes)
 * → 404 (NotFoundPage)
 ```
@@ -750,31 +750,13 @@ src/
 │   │   │   └── index.js                 # ✅ Page exports
 │   │   └── services/
 │   │
-│   ├── enrichment-questions/
-│   │   ├── components/
-│   │   ├── hooks/
-│   │   ├── index.js                     # ✅ Feature exports
-│   │   ├── pages/
-│   │   │   ├── EnrichmentQuestionsPage.jsx    # ✅ Enrichment questions
-│   │   │   └── index.js                       # ✅ Page exports
-│   │   └── services/
-│   │
 │   ├── lessons/
 │   │   ├── components/
 │   │   ├── hooks/
 │   │   ├── pages/
 │   │   └── services/
 │   │
-│   ├── ministerial-questions/
-│   │   ├── components/
-│   │   ├── hooks/
-│   │   ├── index.js                     # ✅ Feature exports
-│   │   ├── pages/
-│   │   │   ├── index.js                       # ✅ Page exports
-│   │   │   └── MinisterialQuestionsPage.jsx   # ✅ Ministerial questions
-│   │   └── services/
-│   │
-│   ├── questions/
+│   ├── questions/                    # Unified question bank (ministerial & enrichment types)
 │   │   ├── components/
 │   │   ├── hooks/
 │   │   ├── index.js                     # ✅ Feature exports

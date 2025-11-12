@@ -1,6 +1,7 @@
 # Phase 4: Polish
 
 ## Overview
+
 Add analytics, reports, advanced features, and performance optimizations to complete the Nebras Dashboard.
 
 ## Status: ⏳ Pending
@@ -28,6 +29,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 ### 1. Dashboard & Analytics
 
 #### Owner Dashboard
+
 **Location:** `src/features/dashboard/pages/OwnerDashboard.jsx`
 
 **Metrics to Display:**
@@ -36,7 +38,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 - Total subjects
 - Total units
 - Total lessons
-- Total questions (ministerial + enrichment)
+- Total questions (with type breakdown)
 - Total competitions
 - Active competitions
 - System health
@@ -50,9 +52,11 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 - System usage statistics
 
 #### General Admin Dashboard
+
 **Location:** `src/features/dashboard/pages/GeneralAdminDashboard.jsx`
 
 **Metrics to Display:**
+
 - Total students
 - Total managers
 - Active students
@@ -62,15 +66,18 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 - System overview
 
 **Charts:**
+
 - Student growth
 - Manager activity
 - Question statistics
 - Competition statistics
 
 #### Curriculum Manager Dashboard
+
 **Location:** `src/features/dashboard/pages/CurriculumManagerDashboard.jsx`
 
 **Metrics to Display:**
+
 - Total levels
 - Total subjects
 - Total units
@@ -79,14 +86,17 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 - Recent curriculum changes
 
 **Charts:**
+
 - Curriculum structure visualization
 - Lessons by subject
 - Activity timeline
 
 #### Competition Manager Dashboard
+
 **Location:** `src/features/dashboard/pages/CompetitionManagerDashboard.jsx`
 
 **Metrics to Display:**
+
 - Total competitions
 - Active competitions
 - Upcoming competitions
@@ -95,22 +105,25 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 - Recent competitions
 
 **Charts:**
+
 - Competition timeline
 - Participation trends
 - Competition success rates
 
 #### Content Manager Dashboard
+
 **Location:** `src/features/dashboard/pages/ContentManagerDashboard.jsx`
 
 **Metrics to Display:**
+
 - Total questions
-- Ministerial questions
-- Enrichment questions
+- Questions by type (ministerial vs enrichment)
 - Questions by lesson
 - Recent questions
 - Questions with images
 
 **Charts:**
+
 - Question distribution
 - Questions by type
 - Difficulty distribution
@@ -123,30 +136,35 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 #### Report Types
 
 **Student Reports**
+
 - Student performance report
 - Student progress report
 - Student activity report
 - Competition participation report
 
 **Question Reports**
+
 - Question statistics report
 - Question difficulty analysis
 - Question usage report
 - Question distribution report
 
 **Competition Reports**
+
 - Competition results report
 - Participation report
 - Performance analysis
 - Leaderboard
 
 **System Reports**
+
 - User activity report
 - System usage report
 - Error logs report
 - Audit trail report
 
 #### Export Formats
+
 - PDF
 - Excel (.xlsx)
 - CSV
@@ -155,6 +173,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 **Location:** `src/features/reports/`
 
 **Files to create:**
+
 - `src/features/reports/pages/ReportsPage.jsx`
 - `src/features/reports/components/ReportGenerator.jsx`
 - `src/features/reports/components/ReportPreview.jsx`
@@ -163,6 +182,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 - `src/features/reports/utils/excelGenerator.js`
 
 **Features:**
+
 - Generate reports
 - Preview reports
 - Export reports
@@ -174,12 +194,14 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 ### 3. Advanced Search & Filters
 
 **Global Search**
+
 - Search across all entities
 - Search by keywords
 - Search by date range
 - Search by status
 
 **Advanced Filters**
+
 - Multi-select filters
 - Date range filters
 - Status filters
@@ -189,11 +211,13 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 **Location:** `src/components/`
 
 **Files to create:**
+
 - `src/components/SearchBar.jsx`
 - `src/components/AdvancedFilter.jsx`
 - `src/components/FilterPanel.jsx`
 
 **Features:**
+
 - Real-time search
 - Search suggestions
 - Search history
@@ -206,6 +230,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 ### 4. Notifications System
 
 **Notification Types**
+
 - System notifications
 - User notifications
 - Activity notifications
@@ -215,6 +240,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 **Location:** `src/features/notifications/`
 
 **Files to create:**
+
 - `src/features/notifications/components/NotificationCenter.jsx`
 - `src/features/notifications/components/NotificationItem.jsx`
 - `src/features/notifications/components/NotificationBadge.jsx`
@@ -222,6 +248,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 - `src/features/notifications/hooks/useNotifications.js`
 
 **Features:**
+
 - Notification center
 - Notification badge
 - Mark as read
@@ -235,6 +262,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 ### 5. Activity Logs
 
 **Track Activities**
+
 - User login/logout
 - CRUD operations
 - Role changes
@@ -244,6 +272,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 **Location:** `src/features/activity-logs/`
 
 **Files to create:**
+
 - `src/features/activity-logs/pages/ActivityLogsPage.jsx`
 - `src/features/activity-logs/components/ActivityLogTable.jsx`
 - `src/features/activity-logs/components/ActivityLogFilter.jsx`
@@ -268,6 +297,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 ```
 
 **Features:**
+
 - View activity logs
 - Filter by user
 - Filter by action
@@ -281,6 +311,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 ### 6. Performance Optimization
 
 #### Code Optimization
+
 - Code splitting
 - Lazy loading
 - Memoization
@@ -289,12 +320,14 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 - Throttling
 
 #### Image Optimization
+
 - Image compression
 - Lazy loading images
 - Responsive images
 - Image CDN (future)
 
 #### Data Optimization
+
 - Pagination
 - Infinite scroll
 - Virtual scrolling
@@ -302,6 +335,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 - Query optimization
 
 #### Bundle Optimization
+
 - Tree shaking
 - Minification
 - Compression
@@ -310,6 +344,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 **Location:** Various files
 
 **Tools to use:**
+
 - React.lazy()
 - React.memo()
 - useMemo()
@@ -322,6 +357,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 ### 7. Code Refactoring
 
 **Refactoring Tasks**
+
 - Extract reusable components
 - Optimize component structure
 - Improve code organization
@@ -332,6 +368,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 - Optimize imports
 
 **Code Quality**
+
 - ESLint rules
 - Prettier formatting
 - Code review checklist
@@ -342,12 +379,14 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 ### 8. Documentation
 
 #### User Documentation
+
 - User guide
 - Feature documentation
 - FAQ
 - Video tutorials (future)
 
 #### Developer Documentation
+
 - API documentation
 - Component documentation
 - Architecture documentation
@@ -357,6 +396,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 **Location:** `docs/`
 
 **Files to create:**
+
 - `docs/user-guide.md`
 - `docs/api-documentation.md`
 - `docs/component-library.md`
@@ -368,17 +408,20 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 ### 9. Testing
 
 #### Unit Tests
+
 - Component tests
 - Hook tests
 - Utility function tests
 - Redux slice tests
 
 #### Integration Tests
+
 - Feature tests
 - API integration tests
 - Form submission tests
 
 #### E2E Tests
+
 - User flows
 - Authentication flow
 - CRUD operations
@@ -387,12 +430,14 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 **Location:** `src/**/__tests__/`
 
 **Files to create:**
+
 - Test files for all components
 - Test files for all hooks
 - Test files for all utilities
 - Test files for all API services
 
 **Testing Tools:**
+
 - Vitest
 - React Testing Library
 - MSW (Mock Service Worker)
@@ -403,6 +448,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 ### 10. Accessibility
 
 **Accessibility Features**
+
 - Keyboard navigation
 - Screen reader support
 - ARIA labels
@@ -412,6 +458,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 - Form labels
 
 **Testing:**
+
 - Accessibility audit
 - Keyboard testing
 - Screen reader testing
@@ -422,6 +469,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 ### 11. Security Enhancements
 
 **Security Features**
+
 - Input sanitization
 - XSS prevention
 - CSRF protection
@@ -433,6 +481,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 - Content Security Policy
 
 **Security Audit**
+
 - Vulnerability scanning
 - Penetration testing
 - Security headers
@@ -443,12 +492,14 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 ### 12. Monitoring & Logging
 
 **Monitoring**
+
 - Error tracking (Sentry)
 - Performance monitoring
 - User analytics
 - System health checks
 
 **Logging**
+
 - Error logs
 - Access logs
 - Activity logs
@@ -457,6 +508,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 **Location:** `src/utils/`
 
 **Files to create:**
+
 - `src/utils/logger.js`
 - `src/utils/errorHandler.js`
 - `src/utils/analytics.js`
@@ -483,6 +535,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 ## Final Checklist
 
 ### Before Launch
+
 - [ ] All features are complete
 - [ ] All tests pass
 - [ ] Performance is optimized
@@ -495,12 +548,14 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 - [ ] Monitoring is configured
 
 ### Launch
+
 - [ ] Deploy to production
 - [ ] Monitor for errors
 - [ ] Gather user feedback
 - [ ] Plan for updates
 
 ### Post-Launch
+
 - [ ] Monitor performance
 - [ ] Fix critical bugs
 - [ ] Implement user feedback
@@ -511,6 +566,7 @@ Add analytics, reports, advanced features, and performance optimizations to comp
 ## Project Completion
 
 After completing Phase 4, the Nebras Dashboard will be:
+
 - ✅ Fully functional
 - ✅ Well-tested
 - ✅ Well-documented
@@ -526,4 +582,3 @@ After completing Phase 4, the Nebras Dashboard will be:
 ---
 
 **Last Updated:** 2025--10-8
-

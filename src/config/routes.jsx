@@ -49,13 +49,6 @@ const UnitsPage = lazy(() => import('@features/units').then((m) => ({ default: m
 const QuestionsPage = lazy(() =>
   import('@features/questions').then((m) => ({ default: m.QuestionsPage }))
 );
-const MinisterialQuestionsPage = lazy(() =>
-  import('@features/ministerial-questions').then((m) => ({ default: m.MinisterialQuestionsPage }))
-);
-const EnrichmentQuestionsPage = lazy(() =>
-  import('@features/enrichment-questions').then((m) => ({ default: m.EnrichmentQuestionsPage }))
-);
-
 // Settings Pages
 const SettingsPage = lazy(() =>
   import('@features/settings').then((m) => ({ default: m.SettingsPage }))
@@ -186,22 +179,6 @@ const routes = [
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.QUESTIONS}>
         <QuestionsPage />
-      </AuthenticatedRoute>
-    ),
-  },
-  {
-    path: '/questions/ministerial',
-    element: (
-      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.QUESTIONS}>
-        <MinisterialQuestionsPage />
-      </AuthenticatedRoute>
-    ),
-  },
-  {
-    path: '/questions/enrichment',
-    element: (
-      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.QUESTIONS}>
-        <EnrichmentQuestionsPage />
       </AuthenticatedRoute>
     ),
   },

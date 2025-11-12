@@ -191,19 +191,17 @@ Content Manager (Level 1)
 
 ### Route Access Matrix
 
-| Route                  | Owner | General Admin | Curriculum Manager | Competition Manager | Content Manager |
-| ---------------------- | ----- | ------------- | ------------------ | ------------------- | --------------- |
-| /dashboard             | ✅    | ✅            | ✅                 | ✅                  | ✅              |
-| /subjects              | ✅    | ✅            | ✅                 | ❌                  | ❌              |
-| /units                 | ✅    | ✅            | ✅                 | ❌                  | ❌              |
-| /lessons               | ✅    | ✅            | ✅                 | ❌                  | ❌              |
-| /questions             | ✅    | ✅            | ❌                 | ❌                  | ✅              |
-| /ministerial-questions | ✅    | ✅            | ❌                 | ❌                  | ✅              |
-| /enrichment-questions  | ✅    | ✅            | ❌                 | ❌                  | ✅              |
-| /competitions          | ✅    | ✅            | ❌                 | ✅                  | ❌              |
-| /students              | ✅    | ✅            | ❌                 | ❌                  | ❌              |
-| /admins                | ✅    | ✅            | ❌                 | ❌                  | ❌              |
-| /settings              | ✅    | ✅            | ❌                 | ❌                  | ❌              |
+| Route         | Owner | General Admin | Curriculum Manager | Competition Manager | Content Manager |
+| ------------- | ----- | ------------- | ------------------ | ------------------- | --------------- |
+| /dashboard    | ✅    | ✅            | ✅                 | ✅                  | ✅              |
+| /subjects     | ✅    | ✅            | ✅                 | ❌                  | ❌              |
+| /units        | ✅    | ✅            | ✅                 | ❌                  | ❌              |
+| /lessons      | ✅    | ✅            | ✅                 | ❌                  | ❌              |
+| /questions    | ✅    | ✅            | ❌                 | ❌                  | ✅              |
+| /competitions | ✅    | ✅            | ❌                 | ✅                  | ❌              |
+| /students     | ✅    | ✅            | ❌                 | ❌                  | ❌              |
+| /admins       | ✅    | ✅            | ❌                 | ❌                  | ❌              |
+| /settings     | ✅    | ✅            | ❌                 | ❌                  | ❌              |
 
 ---
 

@@ -2,4 +2,3 @@ export { default as Sidebar } from './Sidebar';
 export { getNavigationItems, navigationItems } from './sidebarConfig';
 export { default as SidebarHeader } from './components/SidebarHeader';
 export { default as NavigationMenu } from './components/NavigationMenu';
-export { default as NavigationDropdown } from './components/NavigationDropdown';

@@ -2,7 +2,7 @@
 
 ## 📋 Project Overview
 
-**Nebras Dashboard** is an educational management system for managing curriculum, questions (ministerial & enrichment), competitions, and students. The dashboard is built for administrators and managers, while students access a separate Flutter mobile app for quizzes and competitions.
+**Nebras Dashboard** is an educational management system for managing curriculum, a unified question bank (covering ministerial and enrichment types), competitions, and students. The dashboard is built for administrators and managers, while students access a separate Flutter mobile app for quizzes and competitions.
 
 ---
 
@@ -83,7 +83,7 @@ Content Manager (Bottom Level)
 | **General Admin**       | • Manage all managers <br>• Manage students <br>• Full system access                     | ✅ Yes         |
 | **Curriculum Manager**  | • Create and manage structure: <br> - Levels <br> - Subjects <br> - Units <br> - Lessons | ❌ No          |
 | **Competition Manager** | • Create and manage competitions                                                         | ❌ No          |
-| **Content Manager**     | • Create and manage questions: <br> - Ministerial questions <br> - Enrichment questions  | ❌ No          |
+| **Content Manager**     | • Manage the question bank (ministerial & enrichment types)                              | ❌ No          |
 
 ### Important Notes
 
@@ -264,31 +264,13 @@ src/
 │   │   ├── services/
 │   │   └── index.js
 │   │
-│   ├── enrichment-questions/     # Enrichment question bank
-│   │   ├── components/
-│   │   ├── hooks/
-│   │   ├── pages/
-│   │   │   ├── EnrichmentQuestionsPage.jsx
-│   │   │   └── index.js
-│   │   ├── services/
-│   │   └── index.js
-│   │
 │   ├── lessons/                  # Lesson management
 │   │   ├── components/
 │   │   ├── hooks/
 │   │   ├── pages/
 │   │   └── services/
 │   │
-│   ├── ministerial-questions/    # Ministerial question bank
-│   │   ├── components/
-│   │   ├── hooks/
-│   │   ├── pages/
-│   │   │   ├── MinisterialQuestionsPage.jsx
-│   │   │   └── index.js
-│   │   ├── services/
-│   │   └── index.js
-│   │
-│   ├── questions/                # General question bank
+│   ├── questions/                # Question bank (ministerial & enrichment types)
 │   │   ├── components/
 │   │   ├── hooks/
 │   │   ├── pages/
@@ -493,7 +475,7 @@ Unit
   ↓
 Lesson
   ↓
-Questions (Ministerial & Enrichment)
+Questions (with ministerial/enrichment types)
 ```
 
 ### Content Rules
@@ -516,13 +498,12 @@ Questions (Ministerial & Enrichment)
 
 ### Question Categories
 
-1. **Ministerial Questions** - Official exam questions
-2. **Enrichment Questions** - Practice/enrichment questions
-3. **General Questions** - Combined view of all questions
+1. **Ministerial Type** - Official exam questions
+2. **Enrichment Type** - Practice/enrichment questions
 
 ### Important Notes
 
-- Ministerial and Enrichment questions are **completely separate**
+- Ministerial and enrichment questions live in the **same bank** (filtered by type)
 - Maybe the same question can be both (to be decided)
 - Maybe different difficulty levels (to be decided)
 - Maybe import/export functionality (to be decided)
@@ -569,7 +550,7 @@ Questions (Ministerial & Enrichment)
   - Subjects
   - Units
   - Lessons
-  - Questions (Ministerial & Enrichment)
+  - Questions (ministerial/enrichment types)
   - Competitions
   - Student data
 - Caching & auto-refetch

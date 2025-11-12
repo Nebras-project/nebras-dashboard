@@ -1,12 +1,11 @@
 // external imports
-import { List, ListItem } from '@mui/material';
+import { List } from '@mui/material';
 import { useMemo, memo } from 'react';
 
 // internal imports
-import { margin, padding } from '@constants';
-import { useTranslation, useAuth, useSidebar } from '@hooks';
+import { padding } from '@constants';
+import { useTranslation, useAuth } from '@hooks';
 import { getNavigationItems } from '../sidebarConfig';
-import NavigationDropdown from './NavigationDropdown';
 import NavigationItem from './NavigationItem';
 
 const getListStyles = () => ({
@@ -17,48 +16,22 @@ const getListStyles = () => ({
   ...padding.bottom.none,
 });
 
-const getListItemStyles = () => ({
-  width: '100%',
-  ...margin.bottom.xs,
-});
-
-const hasNestedItems = (item) => {
-  return item.children && item.children.length > 0;
-};
-
 const NavigationMenu = memo(function NavigationMenu() {
   const { t } = useTranslation();
   const { role } = useAuth();
-  const { collapsed } = useSidebar();
-
   const menuItems = useMemo(() => getNavigationItems(role), [role]);
 
   return (
     <List sx={getListStyles()}>
-      {menuItems.map((item, index) => {
-        if (hasNestedItems(item)) {
-          return (
-            <ListItem key={`dropdown-${index}`} disablePadding sx={getListItemStyles()}>
-              <NavigationDropdown
-                icon={item.icon}
-                label={t(item.text)}
-                items={item.children}
-                collapsed={collapsed}
-              />
-            </ListItem>
-          );
-        }
-
-        return (
-          <NavigationItem
-            key={item.path}
-            path={item.path}
-            icon={item.icon}
-            text={t(item.text)}
-            isSettings={item.path === '/settings'}
-          />
-        );
-      })}
+      {menuItems.map((item) => (
+        <NavigationItem
+          key={item.path}
+          path={item.path}
+          icon={item.icon}
+          text={t(item.text)}
+          isSettings={item.path === '/settings'}
+        />
+      ))}
     </List>
   );
 });
