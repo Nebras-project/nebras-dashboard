@@ -1,14 +1,16 @@
 // external imports
-import { useCallback } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useCallback } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 // internal imports
-import { useSidebar } from "./useSidebar";
+import { useSidebar } from './useSidebar';
+import useResponsive from './useResponsive';
 
 export function useSidebarNavigation() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { isMobile, closeSidebar } = useSidebar();
+  const { closeSidebar } = useSidebar();
+  const { isSmallScreen } = useResponsive();
 
   // Handle navigation - checks current path and closes drawer on mobile
   const handleNavigation = useCallback(
@@ -19,12 +21,12 @@ export function useSidebarNavigation() {
         navigate(path);
       }
 
-      // Always close sidebar on mobile, even if already on the page
-      if (isMobile && isDifferentPath) {
+      // Close sidebar on mobile once navigation happens
+      if (isSmallScreen && isDifferentPath) {
         closeSidebar();
       }
     },
-    [navigate, location.pathname, isMobile, closeSidebar]
+    [navigate, location.pathname, isSmallScreen, closeSidebar]
   );
 
   return { handleNavigation };

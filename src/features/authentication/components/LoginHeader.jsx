@@ -1,10 +1,10 @@
 // external imports
-import { Box, useTheme, useMediaQuery, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useMemo } from 'react';
 
 // internal imports
 import { LogoWithFireLoader } from '@components';
-import { useTranslation } from '@hooks';
+import { useTranslation, useResponsive } from '@hooks';
 import { margin } from '@constants';
 
 // Style getters
@@ -13,12 +13,11 @@ import { margin } from '@constants';
  * Single Responsibility: Display login page header with logo and branding
  */
 function LoginHeader() {
-  const theme = useTheme();
   const { t } = useTranslation();
-  const isMobile = useMediaQuery(theme.breakpoints.down('tablet'));
+  const { isSmallScreen } = useResponsive();
 
-  const logoHeight = useMemo(() => (isMobile ? 50 : 60), [isMobile]);
-  const fireLoaderSize = useMemo(() => (isMobile ? 70 : 85), [isMobile]);
+  const logoHeight = useMemo(() => (isSmallScreen ? 55 : 60), [isSmallScreen]);
+  const fireLoaderSize = useMemo(() => (isSmallScreen ? 75 : 85), [isSmallScreen]);
 
   return (
     <Box sx={{ ...margin.bottom.xl, textAlign: 'center' }}>

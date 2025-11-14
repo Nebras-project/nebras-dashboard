@@ -10,7 +10,7 @@ export const migrateLocalStorage = () => {
       // New system already in use, clean up old keys and fix sidebar state
       OLD_KEYS.forEach((key) => localStorage.removeItem(key));
 
-      // Always clean up sidebar state - remove isOpen and isMobile (should not be persisted)
+      // Always clean up sidebar state - remove isOpen (should not be persisted)
       try {
         const state = JSON.parse(existingState);
         let modified = false;
@@ -18,10 +18,6 @@ export const migrateLocalStorage = () => {
         if (state.sidebar) {
           if (state.sidebar.isOpen !== undefined) {
             delete state.sidebar.isOpen;
-            modified = true;
-          }
-          if (state.sidebar.isMobile !== undefined) {
-            delete state.sidebar.isMobile;
             modified = true;
           }
 

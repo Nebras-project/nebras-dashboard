@@ -1,12 +1,12 @@
 // internal imports
-import { useSidebar } from '@hooks';
+import { useResponsive } from '@hooks';
 import SidebarHeader from './components/SidebarHeader';
 import NavigationMenu from './components/NavigationMenu';
 import DesktopSidebar from './components/DesktopSidebar';
 import MobileDrawer from './components/MobileDrawer';
 
 function Sidebar() {
-  const { isMobile } = useSidebar();
+  const { isSmallScreen } = useResponsive();
 
   // Sidebar content is shared between mobile and desktop views
   const sidebarContent = (
@@ -16,7 +16,7 @@ function Sidebar() {
     </>
   );
 
-  return isMobile ? (
+  return isSmallScreen ? (
     <MobileDrawer>{sidebarContent}</MobileDrawer>
   ) : (
     <DesktopSidebar>{sidebarContent}</DesktopSidebar>

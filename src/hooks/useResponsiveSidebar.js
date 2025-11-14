@@ -1,43 +1,34 @@
 // external imports
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 // internal imports
-import { useSidebar } from "./useSidebar";
+import { useSidebar } from './useSidebar';
+import useResponsive from './useResponsive';
 
-export function useResponsiveSidebar(isMobile) {
-  const { setMobileMode, openSidebar, closeSidebar, collapsed, expandSidebar } =
-    useSidebar();
+export function useResponsiveSidebar() {
+  const { openSidebar, closeSidebar, collapsed, expandSidebar } = useSidebar();
+  const { isSmallScreen } = useResponsive();
   const isFirstRender = useRef(true);
-  const prevIsMobile = useRef(isMobile);
+  const prevIsSmallScreen = useRef(isSmallScreen);
 
   // Update mobile mode and sidebar state ONLY when crossing mobile/desktop breakpoint
   useEffect(() => {
-    
     // Disable collapsed mode on mobile
-    if (isMobile && collapsed) {
+    if (isSmallScreen && collapsed) {
       expandSidebar();
     }
 
     // Handle first render - just set mobile mode without changing sidebar state
     if (isFirstRender.current) {
-      setMobileMode(isMobile);
       isFirstRender.current = false;
-      prevIsMobile.current = isMobile;
+      prevIsSmallScreen.current = isSmallScreen;
       return;
     }
 
     // Handle subsequent renders - only when actually crossing the breakpoint
-    if (prevIsMobile.current !== isMobile) {
-      setMobileMode(isMobile);
-      isMobile ? closeSidebar() : openSidebar(); // Open on desktop, close on mobile
-      prevIsMobile.current = isMobile;
+    if (prevIsSmallScreen.current !== isSmallScreen) {
+      isSmallScreen ? closeSidebar() : openSidebar(); // Open on small screens, close on larger ones
+      prevIsSmallScreen.current = isSmallScreen;
     }
-  }, [
-    isMobile,
-    setMobileMode,
-    openSidebar,
-    closeSidebar,
-    expandSidebar,
-    collapsed,
-  ]);
+  }, [isSmallScreen, openSidebar, closeSidebar, expandSidebar, collapsed]);
 }

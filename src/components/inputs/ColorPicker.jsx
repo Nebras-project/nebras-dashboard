@@ -1,24 +1,23 @@
 // external imports
-import { useState, useId } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { HexColorPicker } from 'react-colorful';
-import { Box, Popover, Stack, Button } from '@mui/material';
+import { Box, Popover, Stack } from '@mui/material';
 
 // internal imports
 import { COLOR_INDICATOR_SIZE, padding, margin } from '@constants';
 import { useTranslation, useLanguage } from '@hooks';
 import { ListButton, ColorSwatch, Icon, CloseButton } from '@components';
-import { borderRadius, fontWeights, borderWidth } from '@theme';
+import { borderRadius, fontWeights, baseColors } from '@theme';
 
-const isValidHex = (color) => {
-  return /^#[0-9A-F]{6}$/i.test(color);
-};
-
-const formatHex = (value) => {
-  let hex = value.replace(/[^0-9A-Fa-f]/g, '');
-  hex = hex.substring(0, 6);
-  return '#' + hex;
-};
+// Fixed color palette
+const FIXED_COLORS = [
+  baseColors.colorPickerColors.blue,
+  baseColors.colorPickerColors.red,
+  baseColors.colorPickerColors.green,
+  baseColors.colorPickerColors.pink,
+  baseColors.colorPickerColors.orange,
+  baseColors.colorPickerColors.purple,
+];
 
 const getPopoverContentStyles = () => ({
   ...padding.all.md,
@@ -33,27 +32,31 @@ const getColorSwatchStyles = () => ({
   ...margin.left.sm,
 });
 
-const getInputStyles = (isValid) => ({
-  flex: 1,
-  ...padding.all.sm,
-  borderRadius: borderRadius.xs,
-  border: borderWidth.xs,
-  borderColor: isValid ? 'divider' : 'error.main',
-  bgcolor: 'background.default',
-  color: 'text.primary',
-  fontFamily: 'monospace',
-  fontSize: '0.875rem',
-  textTransform: 'uppercase',
-  '&:focus': {
-    outline: 'none',
-    borderColor: isValid ? 'primary.main' : 'error.main',
-  },
+const getColorsGridStyles = () => ({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(3, 1fr)',
+  gap: 1,
+  width: '100%',
 });
 
-const getErrorStyles = () => ({
-  fontSize: '0.75rem',
-  color: 'error.main',
-  textAlign: 'center',
+const getColorButtonStyles = (color, isSelected) => ({
+  width: '100%',
+  aspectRatio: '1',
+  minWidth: 64,
+  minHeight: 64,
+  bgcolor: color,
+  borderRadius: borderRadius.md,
+  border: `3px solid ${isSelected ? 'primary.main' : 'transparent'}`,
+  cursor: 'pointer',
+  transition: 'all 0.2s ease-in-out',
+  '&:hover': {
+    transform: 'scale(1.05)',
+    boxShadow: 3,
+  },
+  '&:focus': {
+    outline: 'none',
+    borderColor: 'primary.main',
+  },
 });
 
 const getAnchorOrigin = (isRTL) => ({
@@ -69,44 +72,22 @@ const getTransformOrigin = (isRTL) => ({
 function ColorPicker({ currentColor, onColorChange, scheme }) {
   const { t } = useTranslation();
   const { isRTL } = useLanguage();
-  const generatedId = useId();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [tempColor, setTempColor] = useState(currentColor);
-  const [inputValue, setInputValue] = useState(currentColor);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-    setTempColor(currentColor);
-    setInputValue(currentColor);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  const handleColorChange = (color) => {
-    setTempColor(color);
-    setInputValue(color);
-  };
-
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    setInputValue(value);
-    const formatted = formatHex(value);
-    if (isValidHex(formatted)) {
-      setTempColor(formatted);
-    }
-  };
-
-  const handleApply = () => {
-    if (isValidHex(tempColor)) {
-      onColorChange(tempColor);
-      handleClose();
-    }
+  const handleColorSelect = (color) => {
+    onColorChange(color);
+    handleClose();
   };
 
   const open = Boolean(anchorEl);
-  const isInputValid = isValidHex(inputValue);
 
   return (
     <>
@@ -141,43 +122,19 @@ function ColorPicker({ currentColor, onColorChange, scheme }) {
               <CloseButton onClick={handleClose} size="small" />
             </Stack>
 
-            <HexColorPicker color={tempColor} onChange={handleColorChange} />
-
-            <Stack direction="row" spacing={1} alignItems="center">
-              <ColorSwatch color={tempColor} size={COLOR_INDICATOR_SIZE} />
-              <Box
-                component="input"
-                type="text"
-                value={inputValue}
-                onChange={handleInputChange}
-                placeholder="#000000"
-                sx={getInputStyles(isInputValid)}
-                aria-label={t('common.colorInput')}
-                aria-invalid={!isInputValid}
-                aria-describedby={!isInputValid ? `${generatedId}-error` : undefined}
-              />
-            </Stack>
-
-            {!isInputValid && (
-              <Box id={`${generatedId}-error`} sx={getErrorStyles()} role="alert" aria-live="polite">
-                {t('forms.invalidFormat')}
-              </Box>
-            )}
-
-            <Stack direction="row" spacing={1}>
-              <Button variant="outlined" size="small" fullWidth onClick={handleClose}>
-                {t('common.cancel')}
-              </Button>
-              <Button
-                variant="contained"
-                size="small"
-                fullWidth
-                onClick={handleApply}
-                disabled={!isValidHex(tempColor)}
-              >
-                {t('common.save')}
-              </Button>
-            </Stack>
+            <Box sx={getColorsGridStyles()}>
+              {FIXED_COLORS.map((color) => (
+                <Box
+                  key={color}
+                  component="button"
+                  onClick={() => handleColorSelect(color)}
+                  sx={getColorButtonStyles(color, currentColor === color)}
+                  aria-label={color}
+                  aria-pressed={currentColor === color}
+                  title={color}
+                />
+              ))}
+            </Box>
           </Stack>
         </Box>
       </Popover>

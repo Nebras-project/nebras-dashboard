@@ -199,6 +199,7 @@ const ar = {
     addQuestion: 'إضافة سؤال',
     editQuestion: 'تعديل السؤال',
     deleteQuestion: 'حذف السؤال',
+    viewQuestion: 'عرض السؤال',
     questionImage: 'صورة السؤال',
     uploadImage: 'رفع صورة',
     ministerialQuestion: 'سؤال وزاري',
@@ -206,6 +207,8 @@ const ar = {
     questionBank: 'بنك الأسئلة',
     totalQuestions: 'إجمالي الأسئلة',
     questionsWithImages: 'أسئلة بصور',
+    description:
+      'إدارة بنك الأسئلة الشامل للامتحانات والتقييمات. يتضمن الأسئلة الوزارية والإثرائية.',
   },
 
   // Competitions
@@ -234,6 +237,8 @@ const ar = {
     upcomingCompetition: 'مسابقة قادمة',
     activeCompetition: 'مسابقة نشطة',
     completedCompetition: 'مسابقة منتهية',
+    description:
+      'إدارة المسابقات التعليمية للطلاب. قم بإنشاء وإدارة المسابقات وتحديد التواريخ والمعايير.',
   },
 
   // Students
@@ -255,23 +260,33 @@ const ar = {
     lastLogin: 'آخر تسجيل دخول',
     totalScore: 'إجمالي النقاط',
     competitionsParticipated: 'المسابقات التي شارك فيها',
+    description: 'إدارة بيانات الطلاب ومتابعة تقدمهم في المسابقات والامتحانات.',
   },
 
   // Admins
   admins: {
     admin: 'مسؤول',
-    admins: 'المسؤولون',
+    admins: 'المدراء',
     adminName: 'اسم المسؤول',
     adminEmail: 'البريد الإلكتروني للمسؤول',
     adminPhone: 'رقم هاتف المسؤول',
-    addAdmin: 'إضافة مسؤول',
+    addAdmin: 'إضافة مدير',
     editAdmin: 'تعديل المسؤول',
     deleteAdmin: 'حذف المسؤول',
     viewAdmin: 'عرض المسؤول',
     adminDetails: 'تفاصيل المسؤول',
     assignRole: 'تعيين الدور',
-    generalAdmins: 'المسؤولون العامون',
+    generalAdmins: 'المدراء العامون',
     managers: 'المدراء',
+    description:
+      'متابعة المدير العام والمالك، وضبط الصلاحيات العليا وتوحيد المسؤوليات القيادية عبر المنصة.',
+    roles: {
+      Owner: 'المالك',
+      'General Admin': 'مسؤول عام',
+      'Curriculum Manager': 'مدير المناهج',
+      'Competition Manager': 'مدير المسابقات',
+      'Content Manager': 'مدير المحتوى',
+    },
   },
 
   // Forms
@@ -345,6 +360,39 @@ const ar = {
 
   // Table
   table: {
+    columnHeaders: {
+      common: {
+        email: 'البريد الإلكتروني',
+        userName: 'اسم المستخدم',
+        role: 'الدور',
+        profileImage: 'صورة الملف',
+        phoneNumber: 'رقم الهاتف',
+        class: 'الصف',
+        name: 'الاسم',
+        startDate: 'تاريخ البداية',
+        endDate: 'تاريخ الانتهاء',
+        manager: 'المدير',
+      },
+      questions: {
+        question: 'السؤال',
+        choices: 'الخيارات',
+        correctChoice: 'الإجابة الصحيحة',
+        image: 'الصورة',
+        state: 'الحالة',
+        type: 'النوع',
+        lesson: 'الدرس',
+        formNumber: 'رقم النموذج',
+        year: 'السنة',
+      },
+      competitions: {
+        preparationStatus: 'حالة التحضير',
+        runningState: 'حالة التشغيل',
+        gradeName: 'اسم الصف',
+        level: 'المستوى',
+        score: 'الدرجة',
+        curriculum: 'المنهج',
+      },
+    },
     noRecords: 'لا توجد سجلات',
     noRecordsFound: 'لم يتم العثور على سجلات',
     noRecordsDescription: 'لا توجد بيانات لعرضها حالياً. قم بإضافة سجلات جديدة أو جرّب لاحقاً.',

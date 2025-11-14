@@ -5,10 +5,10 @@ import { Box, Typography } from '@mui/material';
 // internal imports
 import { margin } from '@constants';
 import { fontWeights } from '@theme';
-import { useSidebar } from '@hooks';
+import { useResponsive } from '@hooks';
 
 function PageHeader({ title, description }) {
-  const { isMobile } = useSidebar();
+  const { isSmallScreen } = useResponsive();
 
   return (
     <Box sx={{ ...margin.bottom.xxl }}>
@@ -24,7 +24,7 @@ function PageHeader({ title, description }) {
       </Typography>
       {description && (
         <Typography
-          variant={isMobile ? 'body2' : 'body1'}
+          variant={isSmallScreen ? 'body2' : 'body1'}
           color="text.secondary"
           sx={{ maxWidth: 700, lineHeight: 1.7 }}
         >

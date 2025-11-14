@@ -10,7 +10,8 @@ import { margin, padding } from '@constants';
 import { getRoleTranslationKey } from '../headerConfig';
 import { useTranslation } from '@hooks';
 import { fontWeights, borderRadius, borderWidth } from '@theme';
-import { baseColors } from '@theme/colors';
+import { borderColors } from '@theme/colors';
+import { useMuiTheme } from '@hooks';
 
 // Extract static styles
 const AVATAR_BUTTON_STYLES = {
@@ -67,10 +68,11 @@ const ROLE_BADGE_STYLES = {
   ...padding.x.md,
 };
 
-const DIVIDER_STYLES = {
-  borderColor: baseColors.gray700,
+const DIVIDER_STYLES = ({ mode }) => ({
+  borderColor: borderColors[mode],
   ...margin.top.sm,
-};
+  // borderWidth: borderWidth.xs,
+});
 
 // Menu transform/anchor origins
 const MENU_TRANSFORM_ORIGIN = { horizontal: 'right', vertical: 'top' };
@@ -78,7 +80,7 @@ const MENU_ANCHOR_ORIGIN = { horizontal: 'right', vertical: 'bottom' };
 
 function UserInfo({ user = null }) {
   const { t } = useTranslation();
-
+  const { mode } = useMuiTheme();
   // Early return if no user data
   if (!user) {
     return null;
@@ -124,7 +126,7 @@ function UserInfo({ user = null }) {
         </Box>
 
         {/* Divider */}
-        <Menu.Divider sx={DIVIDER_STYLES} />
+        <Menu.Divider sx={DIVIDER_STYLES({ mode })} />
 
         {/* Logout Button */}
         <LogoutButton

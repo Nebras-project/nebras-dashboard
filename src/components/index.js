@@ -14,6 +14,7 @@ export {
 } from './feedback';
 
 // Input components
+export { default as AddButton } from './inputs/AddButton';
 export { default as BackButton } from './inputs/BackButton';
 export { default as Button } from './inputs/Button';
 export { default as CloseButton } from './inputs/CloseButton';
@@ -45,6 +46,7 @@ export { default as ConfirmDialog } from './dialogs/ConfirmDialog';
 
 // Compound components
 export { default as Menu } from './inputs/menu';
+export { default as Table } from './table';
 
 // Form components
 export { Form } from './forms';

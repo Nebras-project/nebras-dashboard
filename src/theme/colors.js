@@ -74,6 +74,16 @@ export const baseColors = {
   // Dark mode text
   darkText100: '#b0b0b0',
   darkText200: '#666666',
+
+   // colors for color picker
+  colorPickerColors: {
+    blue: '#3b82f6',
+    red: '#ef4444',
+    green: '#22c55e',
+    pink: '#ec4899',
+    orange: '#ff8200',
+    purple: '#a855f7',
+  },
 };
 
 export const colors = {
@@ -158,8 +168,8 @@ export const dividerColors = {
 };
 // Border colors
 export const borderColors = {
-  light: baseColors.gray200,
-  dark: baseColors.dark600,
+  light: baseColors.gray100,
+  dark: baseColors.dark700,
 };
 
 // Background defaults

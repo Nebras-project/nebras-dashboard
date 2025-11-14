@@ -4,7 +4,7 @@ import { Box, Typography } from '@mui/material';
 // internal imports
 import { Card, UserAvatar, LogoutButton } from '@components';
 import { gap, margin, padding } from '@constants';
-import { useTranslation, useAuth, useSidebar } from '@hooks';
+import { useTranslation, useAuth, useResponsive } from '@hooks';
 import { fontWeights, borderRadius } from '@theme';
 
 const getContentStyles = () => ({
@@ -41,7 +41,7 @@ const getRoleBadgeStyles = () => ({
 function ProfileHero() {
   const { t } = useTranslation();
   const { user } = useAuth();
-  const { isMobile } = useSidebar();
+  const { isSmallScreen } = useResponsive();
 
   return (
     <Card hoverable contentSx={getContentStyles()}>
@@ -57,7 +57,7 @@ function ProfileHero() {
           </Typography>
         </Box>
 
-        <LogoutButton variant="contained" width={isMobile ? '200' : '150'} />
+        <LogoutButton variant="contained" width={isSmallScreen ? '200' : '150'} />
       </Box>
     </Card>
   );

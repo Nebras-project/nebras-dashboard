@@ -3,6 +3,7 @@ import { Avatar } from '@mui/material';
 import PropTypes from 'prop-types';
 
 // internal imports
+import { useAuth } from '@hooks';
 import { fontWeights, fontSizes } from '@theme';
 
 const SIZE_PRESETS = {
@@ -59,22 +60,32 @@ const getUserInitial = (user, fallback) => {
   return userName?.charAt(0).toUpperCase() || fallback;
 };
 
-function UserAvatar({ user, size = 'medium', fallback = 'U', sx = {}, ...rest }) {
+const getUserImage = (user) => {
+  if (!user || typeof user === 'string') return null;
+  return user.avatar || user.profileImage || user.image || null;
+};
+
+function UserAvatar({ user: propUser, size = 'medium', fallback = 'U', sx = {}, ...rest }) {
+  const { user: authUser } = useAuth();
+  const user = propUser || authUser;
   const initial = getUserInitial(user, fallback);
   const userName = typeof user === 'string' ? user : user?.name;
   const ariaLabel = userName ? `${userName} avatar` : 'User avatar';
+  const userImage = getUserImage(user);
+  const hasImage = !!userImage;
 
   return (
     <Avatar
+      src={userImage || undefined}
       sx={{
         ...getSizeStyles(size),
-        ...getAvatarBaseStyles(),
+        ...(!hasImage && getAvatarBaseStyles()),
         ...sx,
       }}
       aria-label={ariaLabel}
       {...rest}
     >
-      {initial}
+      {!hasImage && initial}
     </Avatar>
   );
 }
@@ -84,6 +95,9 @@ UserAvatar.propTypes = {
     PropTypes.string,
     PropTypes.shape({
       name: PropTypes.string,
+      avatar: PropTypes.string,
+      profileImage: PropTypes.string,
+      image: PropTypes.string,
     }),
   ]),
   size: PropTypes.oneOfType([

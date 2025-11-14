@@ -2,7 +2,7 @@
  * Services Index
  *
  * Centralized exports for all application services
- * 
+ *
  * Note: Services are for API calls, business logic, and external integrations.
  * For utility functions, use src/utils/ instead.
  */

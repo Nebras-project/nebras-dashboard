@@ -1,21 +1,19 @@
 // external imports
-import { useMediaQuery, useTheme } from '@mui/material';
-import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 
 // internal imports
 import { MobileLayout, DesktopLayout } from './components';
-import { useSidebar, useResponsiveSidebar } from '@hooks';
+import { useSidebar, useResponsiveSidebar, useResponsive } from '@hooks';
 import { isPublicPage } from '@utils';
 
 function MainLayout({ children }) {
   const location = useLocation();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('desktop'));
   const { sidebarWidth } = useSidebar();
+  const { isSmallScreen } = useResponsive();
 
   // Handle responsive sidebar behavior
-  useResponsiveSidebar(isMobile);
+  useResponsiveSidebar();
 
   // Don't show layout on public pages (login, 404, etc.)
   if (isPublicPage(location.pathname)) {
@@ -23,7 +21,7 @@ function MainLayout({ children }) {
   }
 
   // Render appropriate layout based on screen size
-  return isMobile ? (
+  return isSmallScreen ? (
     <MobileLayout>{children}</MobileLayout>
   ) : (
     <DesktopLayout sidebarWidth={sidebarWidth}>{children}</DesktopLayout>
@@ -35,5 +33,4 @@ MainLayout.propTypes = {
 };
 
 export default MainLayout;
-
-
+// external imports

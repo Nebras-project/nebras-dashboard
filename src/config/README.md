@@ -205,25 +205,23 @@ const routes = [
 | `/`      | Redirect to `/dashboard` | Root redirect       |
 | `/login` | LoginPage                | User authentication |
 
-#### **Protected Routes** (15 routes)
+#### **Protected Routes** (13 routes)
 
-| Path                        | Component                | Description              |
-| --------------------------- | ------------------------ | ------------------------ |
-| `/dashboard`                | DashboardPage            | Role-based dashboard     |
-| `/students`                 | StudentsPage             | Student management       |
-| `/admins`                   | AdminsPage               | Admin management         |
-| `/curriculums`              | CurriculumsPage          | Curriculum management    |
-| `/subjects`                 | SubjectsPage             | Subject management       |
-| `/units`                    | UnitsPage                | Unit management          |
-| `/questions`                | QuestionsPage            | General question bank    |
-| `/questions/ministerial`    | MinisterialQuestionsPage | Ministerial questions    |
-| `/questions/enrichment`     | EnrichmentQuestionsPage  | Enrichment questions     |
-| `/competitions`             | CompetitionsPage         | Competition list         |
-| `/competitions/:id`         | CompetitionPage          | Competition details      |
-| `/competitions/:id/members` | CompetitionMembersPage   | Competition participants |
-| `/competitions/:id/exam`    | CompetitionExamPage      | Competition exam         |
-| `/competitions/:id/result`  | CompetitionResultPage    | Competition results      |
-| `/settings`                 | SettingsPage             | Application settings     |
+| Path                        | Component              | Description              |
+| --------------------------- | ---------------------- | ------------------------ |
+| `/dashboard`                | DashboardPage          | Role-based dashboard     |
+| `/students`                 | StudentsPage           | Student management       |
+| `/admins`                   | AdminsPage             | Admin management         |
+| `/curriculums`              | CurriculumsPage        | Curriculum management    |
+| `/subjects`                 | SubjectsPage           | Subject management       |
+| `/units`                    | UnitsPage              | Unit management          |
+| `/questions`                | QuestionsPage          | General question bank    |
+| `/competitions`             | CompetitionsPage       | Competition list         |
+| `/competitions/:id`         | CompetitionPage        | Competition details      |
+| `/competitions/:id/members` | CompetitionMembersPage | Competition participants |
+| `/competitions/:id/exam`    | CompetitionExamPage    | Competition exam         |
+| `/competitions/:id/result`  | CompetitionResultPage  | Competition results      |
+| `/settings`                 | SettingsPage           | Application settings     |
 
 #### **Error Routes** (1 route)
 
@@ -328,8 +326,6 @@ Route Structure:
     ├── /subjects (owner, general_admin, curriculum_manager)
     ├── /units (owner, general_admin, curriculum_manager)
     ├── /questions (owner, general_admin, curriculum_manager, content_manager)
-    ├── /questions/ministerial (owner, general_admin, content_manager)
-    ├── /questions/enrichment (owner, general_admin, content_manager)
     ├── /competitions
     │   ├── /competitions (list)
     │   ├── /competitions/:id (details)

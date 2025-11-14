@@ -198,6 +198,7 @@ const en = {
     addQuestion: 'Add Question',
     editQuestion: 'Edit Question',
     deleteQuestion: 'Delete Question',
+    viewQuestion: 'View Question',
     questionImage: 'Question Image',
     uploadImage: 'Upload Image',
     ministerialQuestion: 'Ministerial Question',
@@ -205,6 +206,8 @@ const en = {
     questionBank: 'Question Bank',
     totalQuestions: 'Total Questions',
     questionsWithImages: 'Questions with Images',
+    description:
+      'Manage a comprehensive question bank for exams and assessments. Includes ministerial and enrichment questions.',
   },
 
   // Competitions
@@ -233,6 +236,8 @@ const en = {
     upcomingCompetition: 'Upcoming Competition',
     activeCompetition: 'Active Competition',
     completedCompetition: 'Completed Competition',
+    description:
+      'Manage educational competitions for students. Create and manage competitions, set dates and criteria.',
   },
 
   // Students
@@ -254,6 +259,7 @@ const en = {
     lastLogin: 'Last Login',
     totalScore: 'Total Score',
     competitionsParticipated: 'Competitions Participated',
+    description: 'Manage student data and track their progress in competitions and exams.',
   },
 
   // Admins
@@ -271,6 +277,15 @@ const en = {
     assignRole: 'Assign Role',
     generalAdmins: 'General Admins',
     managers: 'Managers',
+    description:
+      'Oversee general administrators alongside owners, controlling top-level access and aligning leadership responsibilities across the platform.',
+    roles: {
+      Owner: 'Owner',
+      'General Admin': 'General Admin',
+      'Curriculum Manager': 'Curriculum Manager',
+      'Competition Manager': 'Competition Manager',
+      'Content Manager': 'Content Manager',
+    },
   },
 
   // Forms
@@ -344,6 +359,40 @@ const en = {
 
   // Table
   table: {
+    columnHeaders: {
+      common: {
+        email: 'Email',
+        userName: 'User Name',
+        role: 'Role',
+        profileImage: 'Profile Image',
+        phoneNumber: 'Phone Number',
+        grade: 'Grade',
+        class: 'Class',
+        name: 'Name',
+        startDate: 'Start Date',
+        endDate: 'End Date',
+        manager: 'Manager',
+      },
+      questions: {
+        question: 'Question',
+        choices: 'Choices',
+        correctChoice: 'Correct Choice',
+        image: 'Image',
+        state: 'State',
+        type: 'Type',
+        lesson: 'Lesson',
+        formNumber: 'Form Number',
+        year: 'Year',
+      },
+      competitions: {
+        preparationStatus: 'Preparation Status',
+        runningState: 'Running State',
+        gradeName: 'Grade Name',
+        level: 'Level',
+        score: 'Score',
+        curriculum: 'Curriculum',
+      },
+    },
     noRecords: 'No records',
     noRecordsFound: 'No records found',
     noRecordsDescription:

@@ -13,7 +13,6 @@ export {
   collapseSidebar,
   expandSidebar,
   toggleCollapsed,
-  setMobileMode,
 } from './sidebarSlice';
 
 // Auth slice

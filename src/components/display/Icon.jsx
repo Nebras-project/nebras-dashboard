@@ -48,6 +48,11 @@ import {
   MdInfo,
   MdInfoOutline,
   MdLock,
+  MdMoreVert,
+  MdContentCopy,
+  MdEdit,
+  MdDelete,
+  MdAdd,
 } from 'react-icons/md';
 import { GoSidebarExpand, GoSidebarCollapse } from 'react-icons/go';
 
@@ -86,6 +91,11 @@ const ICON_MAP = {
   checkCircle: MdCheckCircle,
   logout: MdLogout,
   login: MdLogin,
+  moreVert: MdMoreVert,
+  contentCopy: MdContentCopy,
+  edit: MdEdit,
+  delete: MdDelete,
+  add: MdAdd,
 
   // Theme
   contrast: MdContrast,

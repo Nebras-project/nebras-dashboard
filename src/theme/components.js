@@ -1,6 +1,8 @@
 // Nebras Dashboard Component Style Overrides
 
-import { baseColors, borderColors } from './colors';
+import { alpha } from '@mui/material/styles';
+
+import { borderColors } from './colors';
 import { fontWeights } from './typography';
 
 // Border radius values
@@ -48,11 +50,6 @@ const spacing = {
 };
 
 // Background colors for table heads
-const tableHeadBg = {
-  light: baseColors.gray200,
-  dark: baseColors.dark700,
-};
-
 export const getComponentOverrides = (mode) => ({
   MuiButton: {
     styleOverrides: {
@@ -92,7 +89,7 @@ export const getComponentOverrides = (mode) => ({
     styleOverrides: {
       root: {
         '& .MuiOutlinedInput-root': {
-          borderRadius: borderRadius.md
+          borderRadius: borderRadius.md,
         },
       },
     },
@@ -109,7 +106,6 @@ export const getComponentOverrides = (mode) => ({
       root: {
         boxShadow: 'none',
         backgroundImage: 'none',
-        // borderBottom: `1px solid ${borderColors[mode]}`,
       },
     },
   },
@@ -120,7 +116,87 @@ export const getComponentOverrides = (mode) => ({
       },
       head: {
         fontWeight: fontWeights.semiBold,
-        backgroundColor: tableHeadBg[mode],
+      },
+    },
+  },
+  MuiDataGrid: {
+    styleOverrides: {
+      root: ({ theme }) => {
+        const rowBackground = theme.palette.background.default;
+
+        return {
+          border: `1px solid ${borderColors[mode]}`,
+          borderRadius: borderRadius.md,
+          backgroundColor: theme.palette.background.default,
+
+          '--DataGrid-cellHeight': '52px',
+          '--DataGrid-columnHeadersBackgroundColor': rowBackground,
+
+          // Hide the scrollbar filler
+          '& .MuiDataGrid-scrollbarFiller': {
+            display: 'none',
+          },
+          '& .MuiDataGrid-columnHeaders': {
+            backgroundColor: rowBackground,
+            borderBottom: `1px solid ${borderColors[mode]}`,
+            borderTop: `1px solid ${borderColors[mode]}`,
+            backgroundImage: 'none',
+            // padding: theme.spacing(0, 1.5),
+            borderRadius: 0,
+          },
+          '& .MuiDataGrid-columnHeadersInner': {
+            backgroundColor: rowBackground,
+            backgroundImage: 'none',
+          },
+          '& .MuiDataGrid-columnHeader': {
+            backgroundColor: rowBackground,
+            backgroundImage: 'none',
+            borderRadius: 0,
+          },
+          '& .MuiDataGrid-columnHeaderTitle': {
+            fontWeight: fontWeights.semiBold,
+          },
+          '& .MuiDataGrid-virtualScroller': {
+            backgroundColor: theme.palette.background.paper,
+          },
+
+          '& .MuiDataGrid-row': {
+            borderBottom: `1px solid ${borderColors[mode]}`,
+            backgroundColor: rowBackground,
+            width: '100%',
+          },
+          '& .MuiDataGrid-row:hover': {
+            backgroundColor: alpha(theme.palette.primary.main, 0.08),
+          },
+          '& .MuiDataGrid-footerContainer': {
+            backgroundColor: rowBackground,
+            padding: theme.spacing(1, 2),
+          },
+          // Style the selected row count message in footer
+          '& .MuiDataGrid-selectedRowCount': {
+            whiteSpace: 'nowrap',
+            fontSize: theme.typography.body2.fontSize,
+            fontWeight: fontWeights.regular,
+            color: theme.palette.text.secondary,
+          },
+
+          // Hide divider between quickFilter and export buttons in toolbar
+          // Target all dividers within the DataGrid
+          '& .MuiDataGrid-toolbarContainer .MuiDivider-root': {
+            display: 'none !important',
+          },
+          '& .MuiDataGrid-toolbarContainer .MuiDivider-vertical': {
+            display: 'none !important',
+          },
+          // Also target dividers that might be siblings of toolbar container
+          '& .MuiDivider-root[class*="MuiDataGrid"]': {
+            display: 'none !important',
+          },
+          // Target any element with divider-like styling in toolbar
+          '& .MuiDataGrid-toolbarContainer > *[role="separator"]': {
+            display: 'none !important',
+          },
+        };
       },
     },
   },

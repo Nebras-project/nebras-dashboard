@@ -1,19 +1,18 @@
-import { Container, Box, Typography } from '@mui/material';
 import { PageLayout } from '@components';
 import { useTranslation } from '@hooks';
+import { AddButton } from '@components';
+
+import { StudentsTable } from '../components';
 
 function StudentsPage() {
   const { t } = useTranslation();
+
   return (
-    <PageLayout title={t('students.students')} description={t('students.studentActivity')} maxWidth="lg">
-      <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Box sx={{ textAlign: 'center', py: 8, color: 'text.secondary' }}>
-          <Typography variant="body2" sx={{ mt: 1 }}>Content coming soon</Typography>
-        </Box>
-      </Container>
+    <PageLayout title={t('students.students')} description={t('students.description')}>
+      <AddButton label={t('students.addStudent')} onClick={() => console.log('Add student')} />
+      <StudentsTable />
     </PageLayout>
   );
 }
 
 export default StudentsPage;
-

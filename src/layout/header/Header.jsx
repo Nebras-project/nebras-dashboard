@@ -3,7 +3,7 @@ import { memo, useMemo } from 'react';
 import { AppBar, Toolbar, IconButton, Box } from '@mui/material';
 
 // internal imports
-import { useAuth, useSidebar, useLanguage } from '@hooks';
+import { useAuth, useSidebar, useLanguage, useResponsive } from '@hooks';
 import { HEADER_HEIGHT, spacing } from '@constants';
 import { DateTime, Icon } from '@components';
 import UserInfo from './components/UserInfo';
@@ -32,16 +32,17 @@ const MENU_ICON_SIZE = 24;
 
 function Header() {
   const { user } = useAuth();
-  const { openSidebar, isMobile, sidebarWidth } = useSidebar();
+  const { openSidebar, sidebarWidth } = useSidebar();
   const { isRTL } = useLanguage();
+  const { isSmallScreen } = useResponsive();
 
-  // Memoize AppBar styles - recalculates when mobile state or sidebar width changes
+  // Memoize AppBar styles - recalculates when viewport or sidebar width changes
   const appBarStyles = useMemo(
     () => ({
       top: 0,
       right: 0,
-      left: isMobile ? 0 : `${sidebarWidth}px`,
-      width: isMobile ? '100%' : `calc(100% - ${sidebarWidth}px)`,
+      left: isSmallScreen ? 0 : `${sidebarWidth}px`,
+      width: isSmallScreen ? '100%' : `calc(100% - ${sidebarWidth}px)`,
       height: HEADER_HEIGHT,
       bgcolor: 'background.default',
       color: 'text.primary',
@@ -49,7 +50,7 @@ function Header() {
       transition: (theme) =>
         `left ${theme.transitions.duration.standard}ms ${theme.transitions.easing.easeInOut}, width ${theme.transitions.duration.standard}ms ${theme.transitions.easing.easeInOut}`,
     }),
-    [isMobile, sidebarWidth]
+    [isSmallScreen, sidebarWidth]
   );
 
   // Memoize DateTime alignment
@@ -58,9 +59,9 @@ function Header() {
   return (
     <AppBar position="fixed" elevation={0} sx={appBarStyles}>
       <Toolbar sx={TOOLBAR_STYLES}>
-        {/* Left Section: Menu Button (mobile) or DateTime (desktop) */}
+        {/* Left Section: Menu Button (mobile/tablet) or DateTime (desktop) */}
         <Box sx={LEFT_CONTENT_STYLES}>
-          {isMobile ? (
+          {isSmallScreen ? (
             <IconButton
               edge="start"
               color="inherit"

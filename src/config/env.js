@@ -27,6 +27,28 @@ const getNumberEnv = (key, defaultValue = 0) => {
   return isNaN(parsed) ? defaultValue : parsed;
 };
 
+// Helper to get array of numbers env variable
+const getNumberArrayEnv = (key, defaultValue = []) => {
+  const value = import.meta.env[key];
+  if (value === undefined || value === null) {
+    return defaultValue;
+  }
+
+  if (Array.isArray(value)) {
+    const parsed = value
+      .map((item) => (typeof item === 'number' ? item : parseInt(item, 10)))
+      .filter((item) => !Number.isNaN(item));
+    return parsed.length > 0 ? parsed : defaultValue;
+  }
+
+  const parsed = String(value)
+    .split(',')
+    .map((item) => parseInt(item.trim(), 10))
+    .filter((item) => !Number.isNaN(item));
+
+  return parsed.length > 0 ? parsed : defaultValue;
+};
+
 // ============================================
 // APPLICATION
 // ============================================
@@ -73,8 +95,8 @@ export const MAX_FILE_SIZE = getNumberEnv('VITE_MAX_FILE_SIZE', 5242880); // 5MB
 // ============================================
 // UI CONFIGURATION
 // ============================================
-export const DEFAULT_THEME = getEnv('VITE_DEFAULT_THEME', 'light');
-export const DEFAULT_LANGUAGE = getEnv('VITE_DEFAULT_LANGUAGE', 'ar');
+export const DEFAULT_THEME = getEnv('VITE_DEFAULT_THEME', 'system');
+export const DEFAULT_LANGUAGE = getEnv('VITE_DEFAULT_LANGUAGE', 'system');
 export const SIDEBAR_DEFAULT_COLLAPSED = getBoolEnv('VITE_SIDEBAR_DEFAULT_COLLAPSED', false);
 
 // ============================================
@@ -82,6 +104,10 @@ export const SIDEBAR_DEFAULT_COLLAPSED = getBoolEnv('VITE_SIDEBAR_DEFAULT_COLLAP
 // ============================================
 export const DEFAULT_PAGE_SIZE = getNumberEnv('VITE_DEFAULT_PAGE_SIZE', 10);
 export const MAX_PAGE_SIZE = getNumberEnv('VITE_MAX_PAGE_SIZE', 100);
+export const DEFAULT_PAGE_SIZE_OPTIONS = getNumberArrayEnv(
+  'VITE_DEFAULT_PAGE_SIZE_OPTIONS',
+  '10,25,50,100'
+);
 
 // ============================================
 // DEVELOPMENT
@@ -142,6 +168,7 @@ export const env = {
   // Pagination
   DEFAULT_PAGE_SIZE,
   MAX_PAGE_SIZE,
+  DEFAULT_PAGE_SIZE_OPTIONS,
 
   // Development
   SHOW_QUERY_DEVTOOLS,

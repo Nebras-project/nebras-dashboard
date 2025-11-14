@@ -1,10 +1,10 @@
 // external imports
 import { memo } from 'react';
-import { Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
 // internal imports
 import { useTranslation } from '@hooks';
+import Message from './Message';
 
 /**
  * LoadingMessage Component
@@ -19,17 +19,8 @@ const LoadingMessage = memo(function LoadingMessage({ message, variant = 'body2'
   const displayMessage = message || defaultMessage;
 
   return (
-    <Typography
-      variant={variant}
-      color="text.secondary"
-      sx={{
-        fontWeight: variant === 'h6' ? 600 : 500,
-        textAlign: 'center',
-      }}
-      aria-live="polite"
-    >
-      {displayMessage}
-    </Typography>
+
+    <Message message={displayMessage} variant={variant} />
   );
 });
 

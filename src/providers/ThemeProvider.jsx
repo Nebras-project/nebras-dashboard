@@ -13,11 +13,13 @@ const cacheRtl = createCache({
   key: 'muirtl',
   stylisPlugins: [prefixer, rtlPlugin],
 });
+cacheRtl.compat = true;
 
 // Create LTR cache
 const cacheLtr = createCache({
   key: 'muiltr',
 });
+cacheLtr.compat = true;
 
 const ThemeProvider = memo(function ThemeProvider({ children }) {
   // Get the theme using our custom hook

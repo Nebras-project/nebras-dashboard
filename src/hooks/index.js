@@ -13,6 +13,7 @@ export { useToast } from './useToast';
 export { useDocumentDirection } from './useDocumentDirection';
 export { useCssVariables } from './useCssVariables';
 export { useResponsiveSidebar } from './useResponsiveSidebar';
+export { default as useResponsive } from './useResponsive';
 export { useSidebarNavigation } from './useSidebarNavigation';
 export { useDateTime } from './useDateTime';
 export { useConfirmDialog } from './useConfirmDialog';

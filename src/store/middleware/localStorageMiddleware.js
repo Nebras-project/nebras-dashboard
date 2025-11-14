@@ -6,7 +6,7 @@ const PERSISTED_SLICES = ['theme', 'language', 'sidebar', 'auth', 'colorScheme']
 // Define fields to exclude from persistence (sensitive data),  What NOT to save (security!)
 const EXCLUDED_FIELDS = {
   auth: ['token', 'refreshToken'], // 🔒 Keep tokens out of localStorage
-  sidebar: ['isOpen', 'isMobile'], // Don't persist drawer state - determined by screen size
+  sidebar: ['isOpen'], // Don't persist drawer state - determined by screen size
 };
 
 export const loadPersistedState = () => {

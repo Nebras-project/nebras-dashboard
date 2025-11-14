@@ -3,7 +3,7 @@ import { Box, Typography, IconButton, Tooltip } from '@mui/material';
 import { useMemo, memo } from 'react';
 
 // internal imports
-import { useTranslation, useLanguage, useSidebar } from '@hooks';
+import { useTranslation, useLanguage, useSidebar, useResponsive } from '@hooks';
 import { margin } from '@constants';
 import { Logo, Icon, CloseButton } from '@components';
 import { fontWeights } from '@theme';
@@ -11,7 +11,7 @@ import { padding, gap } from '@constants';
 
 // Sidebar Header constants (only used in this component)
 const LOGO_LETTER_SPACING = '0.1rem';
-const COLLAPSE_ICON_SIZE = 24;
+const COLLAPSE_ICON_SIZE = 20;
 const CLOSE_ICON_SIZE = 20;
 
 const getContainerStyles = (collapsed) => ({
@@ -52,7 +52,8 @@ const getCollapseIcon = (isRTL, collapsed) => {
 const SidebarHeader = memo(function SidebarHeader() {
   const { t } = useTranslation();
   const { isRTL } = useLanguage();
-  const { collapsed, toggleCollapsed, isMobile, closeSidebar } = useSidebar();
+  const { collapsed, toggleCollapsed, closeSidebar } = useSidebar();
+  const { isSmallScreen } = useResponsive();
 
   const collapseIcon = useMemo(() => getCollapseIcon(isRTL, collapsed), [isRTL, collapsed]);
 
@@ -65,7 +66,7 @@ const SidebarHeader = memo(function SidebarHeader() {
         </Typography>
       )}
 
-      {isMobile ? (
+      {isSmallScreen ? (
         <CloseButton
           onClick={closeSidebar}
           size="small"

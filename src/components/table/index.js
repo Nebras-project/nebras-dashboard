@@ -1,0 +1,13 @@
+export { default } from './Table';
+export { default as useTable } from './hooks/useTable';
+export { default as RowActionsMenu } from './components/RowActionsMenu';
+export { default as NoRowsMessage } from './components/NoRowsMessage';
+export { default as TableProfileAvatar } from './components/TableProfileAvatar';
+export {
+  buildColumns,
+  buildAdminColumn,
+  buildStudentColumns,
+  buildQuestionColumns,
+  buildCompetitionColumns,
+  QUESTION_TYPES_WITHOUT_YEAR,
+} from './tableColumns';

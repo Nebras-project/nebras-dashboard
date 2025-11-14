@@ -1,11 +1,11 @@
 // external imports
 import { useNavigate } from 'react-router-dom';
-import { Box, Typography, Stack, useTheme, alpha, useMediaQuery } from '@mui/material';
+import { Box, Typography, Stack, useTheme, alpha } from '@mui/material';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 
 // internal imports
-import { useTranslation } from '@hooks';
+import { useTranslation, useResponsive } from '@hooks';
 import { Icon, BackButton, Button } from '@components';
 import { borderRadius, fontWeights } from '@theme';
 import { gap, getErrorConfig, getErrorIconColor, margin, padding, spacing } from '@constants';
@@ -97,8 +97,8 @@ const getActionButtonStyles = () => ({
 function ErrorPage({ errorCode }) {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { isSmallScreen } = useResponsive();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('tablet'));
   // Get error configuration from constants
   const errorConfig = getErrorConfig(errorCode);
 
@@ -117,7 +117,7 @@ function ErrorPage({ errorCode }) {
         <IconBadge iconName={iconName} iconColor={iconColor} />
         <ErrorNumber errorCode={errorCode} />
         <ErrorMessage t={t} titleKey={titleKey} messageKey={messageKey} />
-        <ActionButtons navigate={navigate} t={t} isMobile={isMobile} />
+        <ActionButtons navigate={navigate} t={t} isSmallScreen={isSmallScreen} />
       </Stack>
     </Box>
   );
@@ -181,7 +181,7 @@ ErrorMessage.propTypes = {
   messageKey: PropTypes.string.isRequired,
 };
 
-function ActionButtons({ navigate, t, isMobile }) {
+function ActionButtons({ navigate, t, isSmallScreen }) {
   const theme = useTheme();
   const animations = createAnimations(theme);
   const stackStyles = getActionButtonsStackStyles(theme);
@@ -189,14 +189,14 @@ function ActionButtons({ navigate, t, isMobile }) {
 
   return (
     <motion.div {...animations.buttons} style={{ width: '100%' }}>
-      <Stack direction={isMobile ? 'column' : 'row'} sx={stackStyles}>
+      <Stack direction={isSmallScreen ? 'column' : 'row'} sx={stackStyles}>
         <Button
           variant="contained"
           size="large"
           onClick={() => navigate('/dashboard')}
           startIcon={<Icon name="home" />}
           sx={buttonStyles}
-          fullWidth={isMobile}
+          fullWidth={isSmallScreen}
         >
           {t('navigation.dashboard')}
         </Button>
@@ -206,7 +206,7 @@ function ActionButtons({ navigate, t, isMobile }) {
           size="large"
           showTooltip={false}
           sx={buttonStyles}
-          fullWidth={isMobile}
+          fullWidth={isSmallScreen}
         />
       </Stack>
     </motion.div>
@@ -216,7 +216,7 @@ function ActionButtons({ navigate, t, isMobile }) {
 ActionButtons.propTypes = {
   navigate: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
-  isMobile: PropTypes.bool.isRequired,
+  isSmallScreen: PropTypes.bool.isRequired,
 };
 
 export default ErrorPage;

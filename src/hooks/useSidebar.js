@@ -10,7 +10,6 @@ import {
   collapseSidebar,
   expandSidebar,
   toggleCollapsed,
-  setMobileMode,
 } from '@store/slices';
 import { SIDEBAR_WIDTH, SIDEBAR_COLLAPSED_WIDTH } from '@constants';
 
@@ -31,11 +30,6 @@ export const useSidebar = () => {
   const collapseSidebarAction = useCallback(() => dispatch(collapseSidebar()), [dispatch]);
   const expandSidebarAction = useCallback(() => dispatch(expandSidebar()), [dispatch]);
   const toggleCollapsedAction = useCallback(() => dispatch(toggleCollapsed()), [dispatch]);
-  const setMobileModeAction = useCallback(
-    (isMobile) => dispatch(setMobileMode(isMobile)),
-    [dispatch]
-  );
-
   return useMemo(
     () => ({
       ...sidebar,
@@ -46,7 +40,6 @@ export const useSidebar = () => {
       collapseSidebar: collapseSidebarAction,
       expandSidebar: expandSidebarAction,
       toggleCollapsed: toggleCollapsedAction,
-      setMobileMode: setMobileModeAction,
     }),
     [
       sidebar,
@@ -57,7 +50,6 @@ export const useSidebar = () => {
       collapseSidebarAction,
       expandSidebarAction,
       toggleCollapsedAction,
-      setMobileModeAction,
     ]
   );
 };
