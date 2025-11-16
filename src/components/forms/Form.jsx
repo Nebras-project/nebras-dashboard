@@ -9,7 +9,10 @@ import FormPage from './FormPage';
 import {
   TextInput,
   EmailInput,
+  UsernameInput,
+  PhoneInput,
   PasswordInput,
+  ConfirmPasswordInput,
   SelectInput,
   DateInput,
   FileInput,
@@ -40,6 +43,8 @@ const Form = memo(function Form({
   defaultValues = {},
   children,
   dialogMaxWidth = FORM_DEFAULTS.DIALOG_MAX_WIDTH,
+  dialogMinWidth,
+  dialogWidth,
   title,
   description,
   showCloseButton = FORM_DEFAULTS.SHOW_CLOSE_BUTTON,
@@ -57,6 +62,8 @@ const Form = memo(function Form({
         onSubmit={onSubmit}
         defaultValues={defaultValues}
         dialogMaxWidth={dialogMaxWidth}
+        dialogMinWidth={dialogMinWidth}
+        dialogWidth={dialogWidth}
         title={title}
         showCloseButton={showCloseButton}
         disableBackdropClick={disableBackdropClick}
@@ -93,6 +100,8 @@ Form.propTypes = {
   defaultValues: PropTypes.object,
   children: PropTypes.node.isRequired,
   dialogMaxWidth: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl', false]),
+  dialogMinWidth: PropTypes.string,
+  dialogWidth: PropTypes.string,
   title: PropTypes.string,
   description: PropTypes.string,
   showCloseButton: PropTypes.bool,
@@ -109,7 +118,10 @@ Form.SubmitButton = FormSubmitButton;
 Form.ResetButton = FormResetButton;
 Form.TextInput = TextInput;
 Form.EmailInput = EmailInput;
+Form.UsernameInput = UsernameInput;
+Form.PhoneInput = PhoneInput;
 Form.PasswordInput = PasswordInput;
+Form.ConfirmPasswordInput = ConfirmPasswordInput;
 Form.SelectInput = SelectInput;
 Form.DateInput = DateInput;
 Form.FileInput = FileInput;

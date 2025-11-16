@@ -1,12 +1,14 @@
 import { useMemo } from 'react';
+import PropTypes from 'prop-types';
 
 import Table, { RowActionsMenu, useTable } from '@components/table';
 import Icon from '@components/display/Icon';
 import useTranslation from '@i18n/hooks/useTranslation';
 
 import createAdminColumns from '../utils/createAdminColumns.jsx';
+import { dummyAdmins } from '../data/dummyAdmins';
 
-function AdminsTable() {
+function AdminsTable({ onEdit, onView, onDelete }) {
   const { t } = useTranslation();
 
   const {
@@ -26,36 +28,39 @@ function AdminsTable() {
         includeActions: true,
         renderActions: ({ row }) => (
           <RowActionsMenu
+            row={row}
+            checkPermissions
             tooltip={t('common.actions')}
             actions={[
               {
                 label: t('admins.viewAdmin'),
                 icon: <Icon name="visibility" size={18} />,
-                onClick: () => console.log('View admin', row),
+                onClick: () => onView?.(row),
               },
               {
                 label: t('admins.editAdmin'),
                 icon: <Icon name="edit" size={18} />,
-                onClick: () => console.log('Edit admin', row),
+                onClick: () => onEdit?.(row),
               },
               {
                 label: t('admins.deleteAdmin'),
                 icon: <Icon name="delete" size={18} />,
-                onClick: () => console.log('Delete admin', row),
+                onClick: () => onDelete?.(row),
               },
             ]}
           />
         ),
       }),
-    [t]
+    [t, onEdit, onView, onDelete]
   );
 
   return (
     <Table
-      rows={{}}
+      rows={dummyAdmins}
       columns={columns}
       disableRowSelectionOnClick
       checkRowSelection
+      rowCount={dummyAdmins.length}
       paginationModel={paginationModel}
       onPaginationModelChange={handlePaginationModelChange}
       sortModel={sortModel}
@@ -65,5 +70,11 @@ function AdminsTable() {
     />
   );
 }
+
+AdminsTable.propTypes = {
+  onEdit: PropTypes.func,
+  onView: PropTypes.func,
+  onDelete: PropTypes.func,
+};
 
 export default AdminsTable;

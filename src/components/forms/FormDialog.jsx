@@ -1,12 +1,14 @@
 // external imports
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Dialog } from '@mui/material';
+import { Dialog, useTheme } from '@mui/material';
 
 // internal imports
 import { FORM_DEFAULTS } from './constants';
 import { useFormSetup } from './hooks';
 import FormProvider from './components/FormProvider';
+import { useReduxTheme } from '@hooks';
+import { customBackgrounds } from '../../theme/colors';
 
 /**
  * FormDialog Component
@@ -20,6 +22,8 @@ const FormDialog = memo(function FormDialog({
   defaultValues = {},
   children,
   dialogMaxWidth = FORM_DEFAULTS.DIALOG_MAX_WIDTH,
+  dialogMinWidth,
+  dialogWidth,
   title,
   showCloseButton = FORM_DEFAULTS.SHOW_CLOSE_BUTTON,
   disableBackdropClick = FORM_DEFAULTS.DISABLE_BACKDROP_CLICK,
@@ -31,6 +35,9 @@ const FormDialog = memo(function FormDialog({
     throw new Error('FormDialog requires "open" and "onClose" props');
   }
 
+  const theme = useTheme();
+  const { isDark } = useReduxTheme();
+
   // Setup form (React Hook Form, context, handlers)
   const { methods, formId, handleSubmit, contextValue } = useFormSetup({
     defaultValues,
@@ -41,6 +48,13 @@ const FormDialog = memo(function FormDialog({
     showCloseButton,
     onClose,
   });
+
+  // Reset form when dialog opens (important for edit mode)
+  useEffect(() => {
+    if (open) {
+      methods.reset(defaultValues);
+    }
+  }, [open, methods, defaultValues]);
 
   const handleDialogClose = useCallback(
     (event, reason) => {
@@ -54,13 +68,57 @@ const FormDialog = memo(function FormDialog({
     [onClose, disableBackdropClick]
   );
 
+  // Dialog styles with responsive width
+  // Mobile: 100% width, Desktop: fixed width
+  const finalWidth = dialogWidth || '600px';
+  const finalMinWidth = dialogMinWidth || dialogWidth || '600px';
+  const finalMaxWidth = dialogMaxWidth === false ? dialogWidth || '600px' : undefined;
+
+  const dialogBG = isDark
+    ? theme.palette.background.default
+    : customBackgrounds.light.surface.level3;
+
+  const dialogSx = {
+    '& .MuiDialog-paper': {
+      // Mobile: 100% width with margins
+      width: '100%',
+      minWidth: 0,
+      maxWidth: '100%',
+      margin: theme.spacing(2),
+      // Desktop: fixed width
+      [theme.breakpoints.up('tablet')]: {
+        width: finalWidth,
+        minWidth: finalMinWidth,
+        maxWidth: finalMaxWidth,
+        margin: 'auto',
+      },
+
+      '& .MuiDialogTitle-root': {
+        backgroundColor: dialogBG,
+        color: theme.palette.primary.main,
+      },
+      '& .MuiDialogContent-root': {
+        backgroundColor: dialogBG,
+      },
+      '& .MuiDialogActions-root': {
+        backgroundColor: dialogBG,
+      },
+    },
+    '& .MuiBackdrop-root': {
+      backdropFilter: 'blur(12px)',
+      WebkitBackdropFilter: 'blur(12px)', // Safari support
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+  };
+
   return (
     <FormProvider methods={methods} contextValue={contextValue}>
       <Dialog
         open={open}
         onClose={handleDialogClose}
-        maxWidth={dialogMaxWidth}
+        maxWidth={false}
         fullWidth
+        sx={dialogSx}
         aria-labelledby={`${formId}-title`}
         aria-describedby={`${formId}-description`}
         {...props}
@@ -80,6 +138,8 @@ FormDialog.propTypes = {
   defaultValues: PropTypes.object,
   children: PropTypes.node.isRequired,
   dialogMaxWidth: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl', false]),
+  dialogMinWidth: PropTypes.string,
+  dialogWidth: PropTypes.string,
   title: PropTypes.string,
   showCloseButton: PropTypes.bool,
   disableBackdropClick: PropTypes.bool,

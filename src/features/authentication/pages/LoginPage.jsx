@@ -75,8 +75,8 @@ const LoginPage = memo(function LoginPage() {
           <Form.Content>
             <LoginHeader />
             <Stack {...gap.sm}>
-              <Form.EmailInput name="email" autoFocus fullWidth />
-              <Form.PasswordInput name="password" fullWidth />
+              <Form.EmailInput autoFocus />
+              <Form.PasswordInput />
             </Stack>
           </Form.Content>
 

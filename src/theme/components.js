@@ -58,6 +58,7 @@ export const getComponentOverrides = (mode) => ({
         textTransform: 'none',
         fontWeight: fontWeights.semiBold,
         padding: `${spacing.sm} ${spacing.md}`,
+        minWidth: '100px',
       },
       contained: {
         boxShadow: 'none',
@@ -209,9 +210,9 @@ export const getComponentOverrides = (mode) => ({
   },
   MuiDialog: {
     styleOverrides: {
-      paper: {
-        borderRadius: borderRadius.lg,
-      },
+      paper: () => ({
+        borderRadius: borderRadius.md,
+      }),
     },
   },
   MuiInputBase: {

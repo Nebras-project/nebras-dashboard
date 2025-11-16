@@ -5,15 +5,8 @@ import { Button } from '@mui/material';
 
 // internal imports
 import { useFormContext as useReactHookFormContext } from 'react-hook-form';
-import { padding } from '@constants';
-import { fontWeights } from '@theme/typography';
-import { borderRadius } from '@theme/components';
 
 const getButtonStyles = () => ({
-  ...padding.y.md,
-  fontSize: '1rem',
-  fontWeight: fontWeights.semiBold,
-  borderRadius: borderRadius.xxs,
   textTransform: 'uppercase',
 });
 
@@ -67,7 +60,7 @@ const FormSubmitButton = memo(function FormSubmitButton({
 });
 
 FormSubmitButton.propTypes = {
-  children: PropTypes.node, 
+  children: PropTypes.node,
   variant: PropTypes.oneOf(['text', 'outlined', 'contained']),
   color: PropTypes.oneOf(['primary', 'secondary', 'error', 'info', 'success', 'warning']),
   loading: PropTypes.bool,

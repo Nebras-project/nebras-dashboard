@@ -2,14 +2,7 @@ import Chip from '@mui/material/Chip';
 
 import { buildAdminColumn, TableProfileAvatar } from '@components/table';
 import { createColumnsBase } from '@components/table/utils/createColumnsBase';
-
-const ADMIN_ROLE_VALUES = [
-  'Owner',
-  'General Admin',
-  'Curriculum Manager',
-  'Competition Manager',
-  'Content Manager',
-];
+import { ADMIN_ROLE_VALUES } from '@utils/roleUtils';
 
 const ADMIN_COLUMN_DEFINITIONS = {
   profileImg: {

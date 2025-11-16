@@ -6,21 +6,19 @@ import { InputAdornment, useTheme } from '@mui/material';
 // internal imports
 import { useTranslation } from '@hooks';
 import { Icon } from '@components';
-import { getEmailRules } from '../constants';
+import { getUsernameRules } from '../constants';
 import { useFormFieldError } from '../hooks';
 import TextInput from './TextInput';
 
 /**
- * EmailInput Component
+ * UsernameInput Component
  *
- * Single Responsibility: Email input field with built-in email validation and icon
+ * Single Responsibility: Username input field with built-in validation and icon
  */
-const EmailInput = memo(function EmailInput({
-  name = 'Email',
+const UsernameInput = memo(function UsernameInput({
+  name = 'UserName',
   label,
   rules,
-  autoComplete = 'email',
-  type = 'email',
   ...textFieldProps
 }) {
   const { t } = useTranslation();
@@ -30,23 +28,21 @@ const EmailInput = memo(function EmailInput({
   // Determine icon color based on error state
   const iconColor = hasError ? theme.palette.error.main : theme.palette.primary.main;
 
-  // Merge default email rules with custom rules (custom rules take precedence)
+  // Merge default username rules with custom rules (custom rules take precedence)
   const mergedRules = useMemo(() => {
-    const defaultRules = getEmailRules(t);
+    const defaultRules = getUsernameRules(t, label);
     return rules ? { ...defaultRules, ...rules } : defaultRules;
-  }, [t, rules]);
+  }, [t, label, rules]);
 
   return (
     <TextInput
       name={name}
-      label={label || t('input.email')}
-      type={type}
-      autoComplete={autoComplete}
+      label={label || t('forms.userName')}
       rules={mergedRules}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            <Icon name="email" size={20} color={iconColor} />
+            <Icon name="person" size={20} color={iconColor} />
           </InputAdornment>
         ),
         ...textFieldProps.InputProps,
@@ -56,14 +52,12 @@ const EmailInput = memo(function EmailInput({
   );
 });
 
-EmailInput.propTypes = {
+UsernameInput.propTypes = {
   name: PropTypes.string,
   label: PropTypes.string,
   rules: PropTypes.object,
-  autoComplete: PropTypes.string,
-  type: PropTypes.string,
 };
 
-EmailInput.displayName = 'EmailInput';
+UsernameInput.displayName = 'UsernameInput';
 
-export default EmailInput;
+export default UsernameInput;

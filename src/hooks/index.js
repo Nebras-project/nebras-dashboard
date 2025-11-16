@@ -6,6 +6,7 @@ export { useReduxTheme } from './useReduxTheme';
 export { useLanguage } from './useLanguage';
 export { useSidebar } from './useSidebar';
 export { useAuth } from '@features/authentication/hooks/useAuth';
+export { useRole } from '@features/authentication/hooks/useRole';
 export { useColorScheme } from './useColorScheme';
 export { useToast } from './useToast';
 

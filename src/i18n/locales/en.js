@@ -9,6 +9,8 @@ const en = {
     edit: 'Edit',
     change: 'Change',
     add: 'Add',
+    create: 'Create',
+    update: 'Update',
     search: 'Search',
     filter: 'Filter',
     export: 'Export',
@@ -22,6 +24,7 @@ const en = {
     clear: 'Clear',
     view: 'View',
     actions: 'Actions',
+    noAccess: 'No access',
     status: 'Status',
     active: 'Active',
     inactive: 'Inactive',
@@ -286,6 +289,12 @@ const en = {
       'Competition Manager': 'Competition Manager',
       'Content Manager': 'Content Manager',
     },
+    adminCreated: 'Admin Created',
+    adminUpdated: 'Admin Updated',
+    adminCreatedMessage: 'Admin {{name}} has been created successfully',
+    adminUpdatedMessage: 'Admin {{name}} has been updated successfully',
+    adminOperationFailed: 'Operation Failed',
+    operationError: 'An error occurred while performing the operation',
   },
 
   // Forms
@@ -300,6 +309,33 @@ const en = {
     enterValue: 'Enter a value',
     selectOption: 'Select an option',
     fillAllFields: 'Please fill all fields',
+    // Form fields
+    userName: 'User Name',
+    email: 'Email',
+    phoneNumber: 'Phone Number',
+    role: 'Role',
+    class: 'Class',
+    password: 'Password',
+    confirmPassword: 'Confirm Password',
+    profileImage: 'Profile Image',
+    chooseProfileImage: 'Choose Profile Image',
+    isActive: 'Active',
+  },
+
+  // Validation
+  validation: {
+    required: '{{field}} is required',
+    minLength: '{{field}} must be at least {{min}} characters',
+    maxLength: '{{field}} must be at most {{max}} characters',
+    invalidEmail: 'Invalid email address',
+    invalidPhone: 'Invalid phone number',
+    passwordsDoNotMatch: 'Passwords do not match',
+    invalidFormat: 'Invalid format',
+    passwordComplexity:
+      'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+    phoneLength: 'Phone number must be exactly 9 digits',
+    phoneFirstDigit: 'Phone number must start with 7',
+    phoneSecondDigit: 'Second digit must be 0, 1, 3, 7, or 8',
   },
 
   // Input

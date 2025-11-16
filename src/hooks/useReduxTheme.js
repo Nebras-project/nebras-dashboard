@@ -16,6 +16,8 @@ export const useReduxTheme = () => {
   return useMemo(
     () => ({
       ...theme,
+      isDark: theme.mode === 'dark',
+      isLight: theme.mode === 'light',
       toggleTheme: toggleThemeAction,
       setThemeMode: setThemeModeAction,
     }),

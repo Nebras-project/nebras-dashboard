@@ -30,6 +30,7 @@ export { default as DateTime } from './display/DateTime';
 export { default as Logo } from './display/Logo';
 export { default as UserAvatar } from './display/UserAvatar';
 export { default as Icon } from './display/Icon';
+export { default as NoAccessIcon } from './display/NoAccessIcon';
 
 // i18n components
 export { default as LanguageSync } from './i18n/LanguageSync';
@@ -49,4 +50,4 @@ export { default as Menu } from './inputs/menu';
 export { default as Table } from './table';
 
 // Form components
-export { Form } from './forms';
+export { Form, UserFields } from './forms';

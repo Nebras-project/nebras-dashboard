@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import { IconButton, ListItemIcon, ListItemText, Tooltip } from '@mui/material';
 
-import { Icon, Menu } from '@components';
+import { Icon, Menu, NoAccessIcon } from '@components';
+import { useRole } from '@hooks';
+import { checkRowActionsPermissions } from '@utils/roleUtils';
 
 function RowActionsMenu({
   actions = [],
@@ -11,11 +13,33 @@ function RowActionsMenu({
   onAction,
   contentProps,
   menuProps,
+  row,
+  checkPermissions = false,
+  emptyState,
 }) {
+  const { isOwner, isGeneralAdmin } = useRole();
+
+  // Default empty state: disabled lock icon with tooltip
+  const defaultEmptyState = <NoAccessIcon />;
+
+  const finalEmptyState = emptyState !== undefined ? emptyState : defaultEmptyState;
+
+  // Check if actions should be shown based on permissions
+  const shouldShowActions = checkRowActionsPermissions({
+    isOwner,
+    isGeneralAdmin,
+    row,
+    checkPermissions,
+  });
+
   const visibleActions = actions.filter((action) => !action.hide);
 
   if (!visibleActions.length) {
-    return null;
+    return finalEmptyState;
+  }
+
+  if (!shouldShowActions) {
+    return finalEmptyState;
   }
 
   const triggerButton = (
@@ -101,6 +125,9 @@ RowActionsMenu.propTypes = {
   onAction: PropTypes.func,
   contentProps: PropTypes.object,
   menuProps: PropTypes.object,
+  row: PropTypes.object,
+  checkPermissions: PropTypes.bool,
+  emptyState: PropTypes.node,
 };
 
 export default RowActionsMenu;

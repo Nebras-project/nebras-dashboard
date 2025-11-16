@@ -1,29 +1,34 @@
 // external imports
 import { memo, useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { InputAdornment, IconButton, Tooltip } from '@mui/material';
+import { InputAdornment, IconButton, Tooltip, useTheme } from '@mui/material';
 
 // internal imports
 import { useTranslation } from '@hooks';
 import { Icon } from '@components';
 import { getPasswordRules } from '../constants';
+import { useFormFieldError } from '../hooks';
 import TextInput from './TextInput';
 
 /**
  * PasswordVisibilityToggle Component
  * Single Responsibility: Toggle password visibility with tooltip
  */
-function PasswordVisibilityToggle({ showPassword, onToggle }) {
+function PasswordVisibilityToggle({ showPassword, onToggle, hasError }) {
   const { t } = useTranslation();
+  const theme = useTheme();
 
   const tooltipTitle = showPassword ? t('input.hidePassword') : t('input.showPassword');
   const iconName = showPassword ? 'eye' : 'eyeClosed';
+
+  // Determine icon color based on error state
+  const iconColor = hasError ? theme.palette.error.main : theme.palette.primary.main;
 
   return (
     <InputAdornment position="end">
       <Tooltip title={tooltipTitle} arrow placement="top">
         <IconButton onClick={onToggle} edge="end" aria-label={tooltipTitle} size="small">
-          <Icon name={iconName} size={20} />
+          <Icon name={iconName} size={20} color={iconColor} />
         </IconButton>
       </Tooltip>
     </InputAdornment>
@@ -33,6 +38,7 @@ function PasswordVisibilityToggle({ showPassword, onToggle }) {
 PasswordVisibilityToggle.propTypes = {
   showPassword: PropTypes.bool.isRequired,
   onToggle: PropTypes.func.isRequired,
+  hasError: PropTypes.bool,
 };
 
 /**
@@ -41,7 +47,7 @@ PasswordVisibilityToggle.propTypes = {
  * Single Responsibility: Password input field with built-in password validation and visibility toggle
  */
 const PasswordInput = memo(function PasswordInput({
-  name,
+  name = 'Password',
   label,
   rules,
   autoComplete = 'current-password',
@@ -49,6 +55,7 @@ const PasswordInput = memo(function PasswordInput({
   minLength,
 }) {
   const { t } = useTranslation();
+  const { hasError } = useFormFieldError(name);
   const [showPassword, setShowPassword] = useState(false);
 
   // Toggle password visibility
@@ -70,13 +77,14 @@ const PasswordInput = memo(function PasswordInput({
           <PasswordVisibilityToggle
             showPassword={showPassword}
             onToggle={togglePasswordVisibility}
+            hasError={hasError}
           />
         ),
       };
     }
 
     return null;
-  }, [showVisibilityToggle, showPassword, togglePasswordVisibility]);
+  }, [showVisibilityToggle, showPassword, togglePasswordVisibility, hasError]);
 
   return (
     <TextInput
@@ -91,7 +99,7 @@ const PasswordInput = memo(function PasswordInput({
 });
 
 PasswordInput.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   label: PropTypes.string,
   rules: PropTypes.object,
   autoComplete: PropTypes.oneOf(['current-password', 'new-password', 'off']),

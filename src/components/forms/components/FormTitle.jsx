@@ -8,7 +8,7 @@ import { useFormContext } from '../hooks/useFormContext';
 import { padding, margin } from '@constants';
 import TitleContent from './TitleContent';
 import TitleCloseButton from './TitleCloseButton';
-import { borderWidth } from '@theme/components';
+import { borderWidth, fontWeights } from '@theme';
 
 const getDialogTitleStyles = (padding) => ({
   display: 'flex',
@@ -28,6 +28,7 @@ const getPageTitleStyles = (margin, padding, borderWidth) => ({
   ...padding.bottom.md,
   borderBottom: borderWidth.xs,
   borderColor: 'divider',
+  fontWeight: fontWeights.bold,
 });
 
 /**
@@ -35,9 +36,10 @@ const getPageTitleStyles = (margin, padding, borderWidth) => ({
  *
  * Single Responsibility: Display form title
  */
-const FormTitle = memo(function FormTitle({ children, title, icon, ...props }) {
+const FormTitle = memo(function FormTitle({ children, title: propTitle, icon, ...props }) {
   const { mode, formId, showCloseButton, onClose, title: contextTitle } = useFormContext();
-  const displayTitle = title || contextTitle || children;
+  // Priority: propTitle > contextTitle > children
+  const displayTitle = propTitle || contextTitle || children;
 
   if (mode === 'dialog') {
     return (
