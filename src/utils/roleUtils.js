@@ -6,10 +6,10 @@
 // Role constants
 export const ROLES = {
   OWNER: 'owner',
-  GENERAL_ADMIN: 'general_admin',
-  CURRICULUM_MANAGER: 'curriculum_manager',
-  COMPETITION_MANAGER: 'competition_manager',
-  CONTENT_MANAGER: 'content_manager',
+  GENERAL_ADMIN: 'generalAdmin',
+  CURRICULUM_MANAGER: 'curriculumManager',
+  COMPETITION_MANAGER: 'competitionManager',
+  CONTENT_MANAGER: 'contentManager',
 };
 
 export const ADMIN_ROLE_VALUES = [

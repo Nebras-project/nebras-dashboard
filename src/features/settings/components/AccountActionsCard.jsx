@@ -30,6 +30,7 @@ function AccountActionsCard() {
         color: 'error.main',
         sx: getTitleStyles(),
       }}
+      sx={{ backgroundColor: 'background.paper' }}
       contentSx={getContentStyles()}
     >
       <Typography variant="body2" color="text.primary" sx={getDescriptionStyles()}>

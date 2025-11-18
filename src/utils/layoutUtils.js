@@ -27,6 +27,7 @@ const PROTECTED_ROUTES = [
  */
 const PROTECTED_ROUTE_PATTERNS = [
   /^\/admins\/\d+$/, // /admins/:id - Admin details page
+  /^\/students\/\d+$/, // /students/:id - Student details page
   /^\/competitions\/\d+$/, // /competitions/:id - Competition details page
   /^\/competitions\/\d+\/members$/, // /competitions/:id/members - Competition members page
   /^\/competitions\/\d+\/exam$/, // /competitions/:id/exam - Competition exam page

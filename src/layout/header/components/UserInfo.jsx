@@ -10,7 +10,7 @@ import { margin, padding } from '@constants';
 import { getRoleTranslationKey } from '../headerConfig';
 import { useTranslation } from '@hooks';
 import { fontWeights, borderRadius, borderWidth } from '@theme';
-import { borderColors } from '@theme/colors';
+import {  borderColors } from '@theme/colors';
 import { useMuiTheme } from '@hooks';
 
 // Extract static styles

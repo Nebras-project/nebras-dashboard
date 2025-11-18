@@ -2,6 +2,7 @@
 import { useDelete } from '@hooks';
 import { QUERY_KEYS } from '@config';
 import { deleteAdmin as deleteAdminApi } from '../services/adminsApi';
+import { getAdminName } from '../utils';
 
 /**
  * useDeleteAdmin Hook
@@ -18,7 +19,10 @@ export const useDeleteAdmin = ({ onSuccess, onError } = {}) => {
     deleteFn: (admin) => deleteAdminApi(admin.id),
     queryKey: [QUERY_KEYS.ADMINS],
     entityName: 'admins',
-    getItemName: (admin) => admin.UserName || admin.userName || admin.name || 'Admin',
+    getItemName: (admin) => {
+      const name = getAdminName(admin);
+      return name !== 'N/A' ? name : 'Admin';
+    },
     onSuccess,
     onError,
   });

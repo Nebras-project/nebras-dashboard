@@ -8,8 +8,8 @@ import useTranslation from '@i18n/hooks/useTranslation';
 import { useRole } from '@hooks';
 
 import createAdminColumns from '../utils/createAdminColumns.jsx';
-import { dummyAdmins } from '../data/dummyAdmins';
-import { useDeleteAdmin } from '../hooks';
+import { useDeleteAdmin, useAdmin } from '../hooks';
+import { getAdminName } from '../utils';
 
 function AdminsTable({ onEdit }) {
   const { t } = useTranslation();
@@ -24,8 +24,13 @@ function AdminsTable({ onEdit }) {
     handlePaginationModelChange,
     handleSortModelChange,
     handleFilterModelChange,
-    queryString, // eslint-disable-line no-unused-vars
+    queryString,
   } = useTable();
+
+  // Fetch admins data using the hook
+  const { admins, isLoading } = useAdmin({
+    queryString,
+  });
 
   const columns = useMemo(
     () =>
@@ -54,7 +59,7 @@ function AdminsTable({ onEdit }) {
                 key="delete"
                 row={row}
                 deleteFn={deleteAdmin}
-                getItemName={(admin) => admin.UserName}
+                getItemName={(admin) => getAdminName(admin)}
                 entityName="admins"
                 label={t('admins.deleteAdmin')}
               />,
@@ -65,13 +70,18 @@ function AdminsTable({ onEdit }) {
     [t, isOwner, isGeneralAdmin, onEdit, navigate, deleteAdmin]
   );
 
+  // Handle loading state
+  if (isLoading) {
+    return <Table rows={[]} columns={columns} loading />;
+  }
+
   return (
     <Table
-      rows={dummyAdmins}
+      rows={admins || []}
       columns={columns}
       disableRowSelectionOnClick
       checkRowSelection
-      rowCount={dummyAdmins.length}
+      rowCount={admins?.length || 0}
       paginationModel={paginationModel}
       onPaginationModelChange={handlePaginationModelChange}
       sortModel={sortModel}

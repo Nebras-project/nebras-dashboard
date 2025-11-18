@@ -7,6 +7,7 @@ import { buildBaseUserDefaultValues } from '@components/forms/utils';
 // internal imports
 import { QUERY_KEYS } from '@config';
 import { createStudent, updateStudent } from '../services/studentsApi';
+import { getStudentName } from '../utils';
 
 /**
  * useStudentForm Hook
@@ -48,10 +49,13 @@ export const useStudentForm = ({ defaultValues = {}, isEdit = false, onSuccess, 
     updateFn: ({ id, data }) => updateStudent(id, data),
     buildDefaultValues: (values) => ({
       ...buildBaseUserDefaultValues(values),
-      Class: values.Class || values.class || '',
+      class: values.Class || values.class || '',
     }),
     entityName: 'students',
-    getItemName: (data) => data.UserName || data.userName || data.name || 'Student',
+    getItemName: (data) => {
+      const name = getStudentName(data);
+      return name !== 'N/A' ? name : 'Student';
+    },
   });
 
   return {

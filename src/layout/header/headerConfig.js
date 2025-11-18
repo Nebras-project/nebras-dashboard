@@ -1,9 +1,9 @@
 export const roleTranslationKeys = {
   owner: 'users.owner',
-  general_admin: 'users.generalAdmin',
-  curriculum_manager: 'users.curriculumManager',
-  competition_manager: 'users.competitionManager',
-  content_manager: 'users.contentManager',
+  generalAdmin: 'users.generalAdmin',
+  curriculumManager: 'users.curriculumManager',
+  competitionManager: 'users.competitionManager',
+  contentManager: 'users.contentManager',
 };
 
 export const getRoleTranslationKey = (role) => {

@@ -78,7 +78,7 @@ const ThemeCard = memo(function ThemeCard() {
       title={t('common.theme')}
       subheader={t('settings.themeDescription')}
       actions={actions}
-      hoverable
+      sx={{ backgroundColor: 'background.paper' }}
     />
   );
 });

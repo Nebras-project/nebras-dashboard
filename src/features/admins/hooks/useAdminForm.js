@@ -8,6 +8,7 @@ import { buildBaseUserDefaultValues } from '@components/forms/utils';
 import { buildRoleOptions } from '@utils/roleUtils';
 import { QUERY_KEYS } from '@config';
 import { createAdmin, updateAdmin } from '../services/adminsApi';
+import { getAdminName } from '../utils';
 
 /**
  * useAdminForm Hook
@@ -44,7 +45,10 @@ export const useAdminForm = ({ defaultValues = {}, isEdit = false, onSuccess, on
       Role: values.Role || values.role || '',
     }),
     entityName: 'admins',
-    getItemName: (data) => data.UserName || data.userName || data.name || 'Admin',
+    getItemName: (data) => {
+      const name = getAdminName(data);
+      return name !== 'N/A' ? name : 'Admin';
+    },
   });
 
   return {

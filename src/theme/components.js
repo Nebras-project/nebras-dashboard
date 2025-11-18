@@ -2,7 +2,7 @@
 
 import { alpha } from '@mui/material/styles';
 
-import { borderColors } from './colors';
+import { borderColors, backgroundDefaults } from './colors';
 import { fontWeights } from './typography';
 
 // Border radius values
@@ -71,8 +71,8 @@ export const getComponentOverrides = (mode) => ({
   MuiCard: {
     styleOverrides: {
       root: {
-        borderRadius: borderRadius.lg,
-        boxShadow: shadows[mode].md,
+        borderRadius: borderRadius.md,
+        backgroundColor: backgroundDefaults[mode].default,
       },
     },
   },

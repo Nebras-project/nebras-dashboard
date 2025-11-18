@@ -8,13 +8,13 @@ import { useTranslation, useAuth, useResponsive } from '@hooks';
 import { fontWeights, borderRadius } from '@theme';
 
 const getContentStyles = () => ({
-  ...padding.top.none,
+  ...padding.y.lg,
 });
 
 const getContainerStyles = () => ({
   display: 'flex',
   flexDirection: { mobile: 'column', tablet: 'row' },
-  alignItems: { mobile: 'center', tablet: 'flex-start' },
+  alignItems: 'center',
   ...gap.lg,
 });
 
@@ -44,7 +44,7 @@ function ProfileHero() {
   const { isSmallScreen } = useResponsive();
 
   return (
-    <Card hoverable contentSx={getContentStyles()}>
+    <Card contentSx={getContentStyles()} sx={{ backgroundColor: 'background.paper' }}>
       <Box sx={getContainerStyles()}>
         <UserAvatar user={user} size={{ mobile: 100, tablet: 80 }} sx={getAvatarStyles()} />
 

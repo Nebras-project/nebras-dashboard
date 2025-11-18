@@ -4,42 +4,63 @@
  * Single Responsibility: Handle all API calls related to student management
  */
 
-// TODO: Replace with actual API base URL from config
-const API_BASE_URL = '/api/students';
+// Import dummy data for fallback
+import { dummyStudents } from '../data/dummyStudents';
+
+// Import API client and endpoints
+import apiClient, { API_ENDPOINTS } from '@config/axios';
+
+// Import utilities
+import { createFormData } from '@utils';
+
+/**
+ * FormData options for student create/update operations
+ */
+const STUDENT_FORM_DATA_OPTIONS = {
+  fileFields: 'profileImage',
+  excludeFields: ['confirmPassword'],
+};
+
+/**
+ * Helper function to handle API errors and fallback to dummy data
+ * @param {Error} error - Error object
+ * @param {Function} fallbackFn - Function to get fallback data
+ * @returns {Promise} Fallback data or throws error
+ */
+const handleApiError = async (error, fallbackFn) => {
+  // If it's a network error or API not available, use fallback
+  if (
+    error.message.includes('Network Error') ||
+    error.message.includes('timeout') ||
+    error.message.includes('ECONNREFUSED')
+  ) {
+    return fallbackFn();
+  }
+  throw error;
+};
 
 /**
  * Fetch all students with pagination, sorting, and filtering
  * @param {Object} params - Query parameters
- * @param {Object} params.pagination - Pagination model
- * @param {Object} params.sort - Sort model
- * @param {Object} params.filter - Filter model
+ * @param {string} params.queryString - Query string from useTable hook (preferred)
+ * @param {Object} params.pagination - Pagination model (deprecated, use queryString instead)
+ * @param {Object} params.sort - Sort model (deprecated, use queryString instead)
+ * @param {Object} params.filter - Filter model (deprecated, use queryString instead)
  * @returns {Promise} API response
  */
 export const fetchStudents = async (params = {}) => {
-  const { pagination, sort, filter } = params;
+  try {
+    const { queryString } = params;
 
-  const queryParams = new URLSearchParams();
+    // Use queryString directly from useTable hook
+    const url = queryString
+      ? `${API_ENDPOINTS.STUDENTS.BASE}?${queryString}`
+      : API_ENDPOINTS.STUDENTS.BASE;
 
-  if (pagination) {
-    queryParams.append('page', pagination.page || 0);
-    queryParams.append('pageSize', pagination.pageSize || 10);
+    return await apiClient.get(url);
+  } catch (error) {
+    return handleApiError(error, () => Promise.resolve(dummyStudents));
   }
-
-  if (sort && sort.length > 0) {
-    queryParams.append('sortBy', sort[0].field);
-    queryParams.append('sortOrder', sort[0].sort || 'asc');
-  }
-
-  if (filter && Object.keys(filter).length > 0) {
-    queryParams.append('filter', JSON.stringify(filter));
-  }
-
-  const response = await fetch(`${API_BASE_URL}?${queryParams.toString()}`);
-  if (!response.ok) {
-    throw new Error('Failed to fetch students');
-  }
-
-  return response.json();
 };
 
 /**
@@ -48,12 +69,17 @@ export const fetchStudents = async (params = {}) => {
  * @returns {Promise} API response
  */
 export const fetchStudentById = async (id) => {
-  const response = await fetch(`${API_BASE_URL}/${id}`);
-  if (!response.ok) {
-    throw new Error('Failed to fetch student');
+  try {
+    return await apiClient.get(API_ENDPOINTS.STUDENTS.BY_ID(id));
+  } catch (error) {
+    return handleApiError(error, () => {
+      const student = dummyStudents.find((s) => s.id === Number(id) || s.id === String(id));
+      if (student) {
+        return Promise.resolve(student);
+      }
+      throw new Error('Student not found');
+    });
   }
-
-  return response.json();
 };
 
 /**
@@ -62,27 +88,8 @@ export const fetchStudentById = async (id) => {
  * @returns {Promise} API response
  */
 export const createStudent = async (studentData) => {
-  const formData = new FormData();
-
-  Object.keys(studentData).forEach((key) => {
-    if (key === 'profileImage' && studentData[key] instanceof File) {
-      formData.append(key, studentData[key]);
-    } else if (key !== 'profileImage' && key !== 'confirmPassword') {
-      formData.append(key, studentData[key]);
-    }
-  });
-
-  const response = await fetch(API_BASE_URL, {
-    method: 'POST',
-    body: formData,
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || 'Failed to create student');
-  }
-
-  return response.json();
+  const formData = createFormData(studentData, STUDENT_FORM_DATA_OPTIONS);
+  return await apiClient.post(API_ENDPOINTS.STUDENTS.BASE, formData);
 };
 
 /**
@@ -92,27 +99,8 @@ export const createStudent = async (studentData) => {
  * @returns {Promise} API response
  */
 export const updateStudent = async (id, studentData) => {
-  const formData = new FormData();
-
-  Object.keys(studentData).forEach((key) => {
-    if (key === 'profileImage' && studentData[key] instanceof File) {
-      formData.append(key, studentData[key]);
-    } else if (key !== 'profileImage' && key !== 'confirmPassword') {
-      formData.append(key, studentData[key]);
-    }
-  });
-
-  const response = await fetch(`${API_BASE_URL}/${id}`, {
-    method: 'PUT',
-    body: formData,
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || 'Failed to update student');
-  }
-
-  return response.json();
+  const formData = createFormData(studentData, STUDENT_FORM_DATA_OPTIONS);
+  return await apiClient.put(API_ENDPOINTS.STUDENTS.BY_ID(id), formData);
 };
 
 /**
@@ -121,13 +109,5 @@ export const updateStudent = async (id, studentData) => {
  * @returns {Promise} API response
  */
 export const deleteStudent = async (id) => {
-  const response = await fetch(`${API_BASE_URL}/${id}`, {
-    method: 'DELETE',
-  });
-
-  if (!response.ok) {
-    throw new Error('Failed to delete student');
-  }
-
-  return response.json();
+  return await apiClient.delete(API_ENDPOINTS.STUDENTS.BY_ID(id));
 };

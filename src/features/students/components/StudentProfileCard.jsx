@@ -5,16 +5,16 @@ import PropTypes from 'prop-types';
 // internal imports
 import { Card, UserAvatar } from '@components';
 import { padding, margin } from '@constants';
-import { getAdminName, getAdminRole, getAdminProfileImage } from '../utils';
+import { getStudentName, getStudentClass, getStudentProfileImage } from '../utils';
 
 /**
- * AdminProfileCard Component
+ * StudentProfileCard Component
  *
- * Single Responsibility: Display admin profile information (avatar, name, role)
+ * Single Responsibility: Display student profile information (avatar, name, class)
  */
-function AdminProfileCard({ admin }) {
-  const adminName = getAdminName(admin);
-  const adminRole = getAdminRole(admin);
+function StudentProfileCard({ student }) {
+  const studentName = getStudentName(student);
+  const studentClass = getStudentClass(student);
 
   return (
     <Card sx={{ height: '100%' }}>
@@ -30,23 +30,23 @@ function AdminProfileCard({ admin }) {
       >
         <UserAvatar
           user={{
-            name: adminName,
-            profileImage: getAdminProfileImage(admin),
+            name: studentName,
+            profileImage: getStudentProfileImage(student),
           }}
           size="xlarge"
           sx={{ ...margin.bottom.md }}
         />
         <Typography variant="h5" fontWeight={600} sx={{ ...margin.bottom.xs }}>
-          {adminName}
+          {studentName}
         </Typography>
-        <Chip label={adminRole} color="primary" size="small" />
+        <Chip label={studentClass} color="primary" size="small" />
       </Box>
     </Card>
   );
 }
 
-AdminProfileCard.propTypes = {
-  admin: PropTypes.object.isRequired,
+StudentProfileCard.propTypes = {
+  student: PropTypes.object.isRequired,
 };
 
-export default AdminProfileCard;
+export default StudentProfileCard;

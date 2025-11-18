@@ -35,5 +35,8 @@ export {
   filterRoleOptions,
 } from './roleUtils';
 
+// FormData utilities
+export { createFormData } from './formDataUtils';
+
 // React Query keys
 // NOTE: Query keys are defined next to the queryClient under src/config/queryKeys.js

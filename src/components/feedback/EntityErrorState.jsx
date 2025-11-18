@@ -21,11 +21,11 @@ function EntityErrorState({ entityName = 'items' }) {
   return (
     <Card>
       <Box sx={{ textAlign: 'center', ...padding.all.lg }}>
-        <Icon name="error" size={64} sx={{ color: 'error.main', ...margin.bottom.md }} />
-        <Typography variant="h6" color="error" sx={{ ...margin.bottom.sm }}>
+        <Icon name="error" color="error" size={64} sx={{ ...margin.bottom.md }} />
+        <Typography variant="h6" color="error" sx={{ ...margin.bottom.lg }}>
           {t('common.fetchErrorMessage', { entityName: t(`${entityName}.entityName`) })}
         </Typography>
-        <BackButton />
+        <BackButton sx={{ minWidth: '150px' }} />
       </Box>
     </Card>
   );

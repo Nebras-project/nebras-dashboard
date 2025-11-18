@@ -67,7 +67,7 @@ function ColorSettingsCard() {
       title={t('settings.chooseMainColor')}
       subheader={t('settings.colorDescription')}
       actions={actions}
-      hoverable
+      sx={{ backgroundColor: 'background.paper' }}
     />
   );
 }

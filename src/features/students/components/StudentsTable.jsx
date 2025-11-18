@@ -1,15 +1,19 @@
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
-import Table, { RowActionsMenu, useTable } from '@components/table';
+import Table, { RowActionsMenu, useTable, DeleteAction } from '@components/table';
 import Icon from '@components/display/Icon';
 import useTranslation from '@i18n/hooks/useTranslation';
 
 import createStudentColumns from '../utils/createStudentColumns.jsx';
-import { dummyStudents } from '../data/dummyStudents';
+import { useStudent, useDeleteStudent } from '../hooks';
+import { getStudentName } from '../utils';
 
 function StudentsTable({ onEdit }) {
   const { t } = useTranslation();
+  const { deleteStudent } = useDeleteStudent();
+  const navigate = useNavigate();
 
   const {
     paginationModel,
@@ -18,8 +22,13 @@ function StudentsTable({ onEdit }) {
     handlePaginationModelChange,
     handleSortModelChange,
     handleFilterModelChange,
-    queryString, // eslint-disable-line no-unused-vars
+    queryString,
   } = useTable();
+
+  // Fetch students data using the hook
+  const { students, isLoading } = useStudent({
+    queryString,
+  });
 
   const columns = useMemo(
     () =>
@@ -34,39 +43,46 @@ function StudentsTable({ onEdit }) {
               {
                 label: t('students.viewStudent'),
                 icon: <Icon name="visibility" size={18} />,
-                onClick: () => console.log('View student', row),
+                onClick: () => navigate(`/students/${row.id}`),
               },
               {
                 label: t('students.editStudent'),
                 icon: <Icon name="edit" size={18} />,
                 onClick: () => onEdit?.(row),
               },
-              {
-                label: t('students.deleteStudent'),
-                icon: <Icon name="delete" size={18} />,
-                onClick: () => console.log('Delete student', row),
-              },
+              <DeleteAction
+                key="delete"
+                row={row}
+                deleteFn={deleteStudent}
+                getItemName={(student) => getStudentName(student)}
+                entityName="students"
+                label={t('students.deleteStudent')}
+              />,
             ]}
           />
         ),
       }),
-    [t, onEdit]
+    [t, onEdit, navigate, deleteStudent]
   );
 
-  // TODO: Use queryString to fetch data from server
-  // Example: const { data, isLoading } = useQuery(['students', queryString], () => fetchStudents(queryString));
+  // Handle loading state
+  if (isLoading) {
+    return <Table rows={[]} columns={columns} loading />;
+  }
 
   return (
     <Table
-      rows={dummyStudents}
+      rows={students || []}
       columns={columns}
+      disableRowSelectionOnClick
+      checkRowSelection
+      rowCount={students?.length || 0}
       paginationModel={paginationModel}
       onPaginationModelChange={handlePaginationModelChange}
       sortModel={sortModel}
       onSortModelChange={handleSortModelChange}
       filterModel={filterModel}
       onFilterModelChange={handleFilterModelChange}
-      disableRowSelectionOnClick
     />
   );
 }

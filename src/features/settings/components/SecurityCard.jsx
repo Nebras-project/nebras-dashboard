@@ -26,7 +26,7 @@ function SecurityCard() {
   return (
     <Card
       title={t('settings.securitySettings')}
-      hoverable
+      sx={{ backgroundColor: 'background.paper' }}
       titleTypographyProps={{
         variant: 'overline',
         color: 'warning.main',

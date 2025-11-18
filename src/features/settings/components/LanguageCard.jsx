@@ -78,7 +78,7 @@ const LanguageCard = memo(function LanguageCard() {
       title={t('common.language')}
       subheader={t('settings.languageDescription')}
       actions={actions}
-      hoverable
+      sx={{ backgroundColor: 'background.paper' }}
     />
   );
 });

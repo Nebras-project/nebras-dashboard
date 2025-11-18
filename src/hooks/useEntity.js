@@ -34,14 +34,15 @@ export const useEntity = ({
   const { error: showError } = useToast();
 
   // Determine if we're fetching a single entity or list
-  const isSingle = !!id;
+  // Check that id exists, is not null/undefined, and is not an array
+  const isSingle = id != null && !Array.isArray(id);
 
   const query = useQuery({
     queryKey: isSingle
       ? [...(Array.isArray(queryKey) ? queryKey : [queryKey]), id]
       : [...(Array.isArray(queryKey) ? queryKey : [queryKey]), params || {}],
     queryFn: () => (isSingle ? getSingleFn(id) : getListFn(params || {})),
-    enabled: enabled && (isSingle ? !!id : true),
+    enabled: enabled, // isSingle already validates id != null
     onError: (error) => {
       showError({
         title: t('common.error'),

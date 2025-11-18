@@ -10,11 +10,12 @@ import StudentForm from './StudentForm';
  *
  * Thin wrapper around generic EntityFormDialog configured for students.
  */
-function StudentFormDialog({ children }) {
+function StudentFormDialog({ showAddButton, children }) {
   return (
     <EntityFormDialog
       addLabelKey="students.addStudent"
       FormComponent={StudentForm}
+      showAddButton={showAddButton}
     >
       {children}
     </EntityFormDialog>
@@ -23,6 +24,7 @@ function StudentFormDialog({ children }) {
 
 StudentFormDialog.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  showAddButton: PropTypes.bool,
 };
 
 StudentFormDialog.displayName = 'StudentFormDialog';

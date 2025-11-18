@@ -10,7 +10,7 @@ import { spacing, padding } from '@constants';
 
 function ProfileTab() {
   return (
-    <Stack spacing={spacing.values.lg} sx={{ ...padding.all.lg }}>
+    <Stack spacing={spacing.values.lg} sx={{ ...padding.all.lg }} bgcolor="background.default">
       <ProfileHero />
       <PersonalInfoCard />
       <SecurityCard />

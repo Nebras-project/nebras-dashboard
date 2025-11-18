@@ -10,6 +10,17 @@ import { dummyAdmins } from '../data/dummyAdmins';
 // Import API client and endpoints
 import apiClient, { API_ENDPOINTS } from '@config/axios';
 
+// Import utilities
+import { createFormData } from '@utils';
+
+/**
+ * FormData options for admin create/update operations
+ */
+const ADMIN_FORM_DATA_OPTIONS = {
+  fileFields: 'profileImage',
+  excludeFields: ['confirmPassword'],
+};
+
 /**
  * Helper function to handle API errors and fallback to dummy data
  * @param {Error} error - Error object
@@ -31,33 +42,22 @@ const handleApiError = async (error, fallbackFn) => {
 /**
  * Fetch all admins with pagination, sorting, and filtering
  * @param {Object} params - Query parameters
- * @param {Object} params.pagination - Pagination model
- * @param {Object} params.sort - Sort model
- * @param {Object} params.filter - Filter model
+ * @param {string} params.queryString - Query string from useTable hook (preferred)
+ * @param {Object} params.pagination - Pagination model (deprecated, use queryString instead)
+ * @param {Object} params.sort - Sort model (deprecated, use queryString instead)
+ * @param {Object} params.filter - Filter model (deprecated, use queryString instead)
  * @returns {Promise} API response
  */
 export const fetchAdmins = async (params = {}) => {
   try {
-    const { pagination, sort, filter } = params;
+    const { queryString } = params;
 
-    // Build query parameters
-    const queryParams = {};
+    // Use queryString directly from useTable hook
+    const url = queryString
+      ? `${API_ENDPOINTS.ADMINS.BASE}?${queryString}`
+      : API_ENDPOINTS.ADMINS.BASE;
 
-    if (pagination) {
-      queryParams.page = pagination.page || 0;
-      queryParams.pageSize = pagination.pageSize || 10;
-    }
-
-    if (sort && sort.length > 0) {
-      queryParams.sortBy = sort[0].field;
-      queryParams.sortOrder = sort[0].sort || 'asc';
-    }
-
-    if (filter && Object.keys(filter).length > 0) {
-      queryParams.filter = JSON.stringify(filter);
-    }
-
-    return await apiClient.get(API_ENDPOINTS.ADMINS.BASE, { params: queryParams });
+    return await apiClient.get(url);
   } catch (error) {
     return handleApiError(error, () => Promise.resolve(dummyAdmins));
   }
@@ -88,16 +88,7 @@ export const fetchAdminById = async (id) => {
  * @returns {Promise} API response
  */
 export const createAdmin = async (adminData) => {
-  // Create FormData if profileImage is a File
-  const formData = new FormData();
-  Object.keys(adminData).forEach((key) => {
-    if (key === 'profileImage' && adminData[key] instanceof File) {
-      formData.append(key, adminData[key]);
-    } else if (key !== 'profileImage' && key !== 'confirmPassword') {
-      formData.append(key, adminData[key]);
-    }
-  });
-
+  const formData = createFormData(adminData, ADMIN_FORM_DATA_OPTIONS);
   return await apiClient.post(API_ENDPOINTS.ADMINS.BASE, formData);
 };
 
@@ -108,16 +99,7 @@ export const createAdmin = async (adminData) => {
  * @returns {Promise} API response
  */
 export const updateAdmin = async (id, adminData) => {
-  // Create FormData if profileImage is a File
-  const formData = new FormData();
-  Object.keys(adminData).forEach((key) => {
-    if (key === 'profileImage' && adminData[key] instanceof File) {
-      formData.append(key, adminData[key]);
-    } else if (key !== 'profileImage' && key !== 'confirmPassword') {
-      formData.append(key, adminData[key]);
-    }
-  });
-
+  const formData = createFormData(adminData, ADMIN_FORM_DATA_OPTIONS);
   return await apiClient.put(API_ENDPOINTS.ADMINS.BY_ID(id), formData);
 };
 

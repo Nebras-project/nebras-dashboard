@@ -84,7 +84,7 @@ function PersonalInfoCard() {
         color: 'primary.main',
         sx: getTitleStyles(),
       }}
-      hoverable
+      sx={{ backgroundColor: 'background.paper' }}
     >
       <Stack spacing={spacing.values.lg}>
         {infoItems.map((item, index) => (

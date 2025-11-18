@@ -9,7 +9,10 @@ import { spacing, padding } from '@constants';
 
 function PreferencesTab() {
   return (
-    <Stack spacing={spacing.values.lg} sx={{ ...padding.all.lg }}>
+    <Stack
+      spacing={spacing.values.lg}
+      sx={{ ...padding.all.lg, backgroundColor: 'background.default' }}
+    >
       <LanguageCard />
       <ThemeCard />
       <ColorSettingsCard />
