@@ -1,15 +1,21 @@
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
-import Table, { RowActionsMenu, useTable } from '@components/table';
+import Table, { RowActionsMenu, useTable, DeleteAction } from '@components/table';
 import Icon from '@components/display/Icon';
 import useTranslation from '@i18n/hooks/useTranslation';
+import { useRole } from '@hooks';
 
 import createAdminColumns from '../utils/createAdminColumns.jsx';
 import { dummyAdmins } from '../data/dummyAdmins';
+import { useDeleteAdmin } from '../hooks';
 
-function AdminsTable({ onEdit, onView, onDelete }) {
+function AdminsTable({ onEdit }) {
   const { t } = useTranslation();
+  const { isOwner, isGeneralAdmin } = useRole();
+  const { deleteAdmin } = useDeleteAdmin();
+  const navigate = useNavigate();
 
   const {
     paginationModel,
@@ -25,6 +31,8 @@ function AdminsTable({ onEdit, onView, onDelete }) {
     () =>
       createAdminColumns({
         t,
+        isOwner,
+        isGeneralAdmin,
         includeActions: true,
         renderActions: ({ row }) => (
           <RowActionsMenu
@@ -35,23 +43,26 @@ function AdminsTable({ onEdit, onView, onDelete }) {
               {
                 label: t('admins.viewAdmin'),
                 icon: <Icon name="visibility" size={18} />,
-                onClick: () => onView?.(row),
+                onClick: () => navigate(`/admins/${row.id}`),
               },
               {
                 label: t('admins.editAdmin'),
                 icon: <Icon name="edit" size={18} />,
                 onClick: () => onEdit?.(row),
               },
-              {
-                label: t('admins.deleteAdmin'),
-                icon: <Icon name="delete" size={18} />,
-                onClick: () => onDelete?.(row),
-              },
+              <DeleteAction
+                key="delete"
+                row={row}
+                deleteFn={deleteAdmin}
+                getItemName={(admin) => admin.UserName}
+                entityName="admins"
+                label={t('admins.deleteAdmin')}
+              />,
             ]}
           />
         ),
       }),
-    [t, onEdit, onView, onDelete]
+    [t, isOwner, isGeneralAdmin, onEdit, navigate, deleteAdmin]
   );
 
   return (
@@ -73,8 +84,6 @@ function AdminsTable({ onEdit, onView, onDelete }) {
 
 AdminsTable.propTypes = {
   onEdit: PropTypes.func,
-  onView: PropTypes.func,
-  onDelete: PropTypes.func,
 };
 
 export default AdminsTable;

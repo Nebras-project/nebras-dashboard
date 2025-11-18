@@ -18,6 +18,7 @@ const StudentsPage = lazy(() =>
   import('@features/students').then((m) => ({ default: m.StudentsPage }))
 );
 const AdminsPage = lazy(() => import('@features/admins').then((m) => ({ default: m.AdminsPage })));
+const AdminPage = lazy(() => import('@features/admins').then((m) => ({ default: m.AdminPage })));
 
 // Competition Pages
 const CompetitionsPage = lazy(() =>
@@ -169,6 +170,14 @@ const routes = [
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.OWNER_AND_ADMIN}>
         <AdminsPage />
+      </AuthenticatedRoute>
+    ),
+  },
+  {
+    path: '/admins/:id',
+    element: (
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.OWNER_AND_ADMIN}>
+        <AdminPage />
       </AuthenticatedRoute>
     ),
   },

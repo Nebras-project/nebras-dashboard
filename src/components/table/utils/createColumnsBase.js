@@ -24,9 +24,9 @@ export function createColumnsBase({
   }
 
   // Helper to resolve value options
-  function resolveValueOptions(key, translate) {
+  function resolveValueOptions(key, translate, options) {
     const factory = key ? valueOptions[key] : undefined;
-    return factory ? factory(translate) : undefined;
+    return factory ? factory(translate, options) : undefined;
   }
 
   Object.entries(combinedColumns).forEach(([key, config]) => {
@@ -42,7 +42,7 @@ export function createColumnsBase({
       columnConfig.renderCell = renderCell;
     }
 
-    const valueOptionsResolved = resolveValueOptions(valueOptionsFrom, t);
+    const valueOptionsResolved = resolveValueOptions(valueOptionsFrom, t, additionalOptions);
     if (valueOptionsResolved) {
       columnConfig.valueOptions = valueOptionsResolved;
       columnConfig.type = 'singleSelect';
@@ -64,7 +64,6 @@ export function createColumnsBase({
   if (renderActions) {
     buildOptions.renderActions = renderActions;
   }
-
 
   return buildColumnsFn(buildOptions);
 }

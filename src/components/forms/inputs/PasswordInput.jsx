@@ -28,7 +28,7 @@ function PasswordVisibilityToggle({ showPassword, onToggle, hasError }) {
     <InputAdornment position="end">
       <Tooltip title={tooltipTitle} arrow placement="top">
         <IconButton onClick={onToggle} edge="end" aria-label={tooltipTitle} size="small">
-          <Icon name={iconName} size={20} color={iconColor} />
+          <Icon name={iconName} size={18} color={iconColor} />
         </IconButton>
       </Tooltip>
     </InputAdornment>

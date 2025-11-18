@@ -1,12 +1,14 @@
 import { useMemo } from 'react';
+import PropTypes from 'prop-types';
 
 import Table, { RowActionsMenu, useTable } from '@components/table';
 import Icon from '@components/display/Icon';
 import useTranslation from '@i18n/hooks/useTranslation';
 
 import createStudentColumns from '../utils/createStudentColumns.jsx';
+import { dummyStudents } from '../data/dummyStudents';
 
-function StudentsTable() {
+function StudentsTable({ onEdit }) {
   const { t } = useTranslation();
 
   const {
@@ -27,6 +29,7 @@ function StudentsTable() {
         renderActions: ({ row }) => (
           <RowActionsMenu
             tooltip={t('common.actions')}
+            row={row}
             actions={[
               {
                 label: t('students.viewStudent'),
@@ -36,7 +39,7 @@ function StudentsTable() {
               {
                 label: t('students.editStudent'),
                 icon: <Icon name="edit" size={18} />,
-                onClick: () => console.log('Edit student', row),
+                onClick: () => onEdit?.(row),
               },
               {
                 label: t('students.deleteStudent'),
@@ -47,7 +50,7 @@ function StudentsTable() {
           />
         ),
       }),
-    [t]
+    [t, onEdit]
   );
 
   // TODO: Use queryString to fetch data from server
@@ -55,7 +58,7 @@ function StudentsTable() {
 
   return (
     <Table
-      rows={[]}
+      rows={dummyStudents}
       columns={columns}
       paginationModel={paginationModel}
       onPaginationModelChange={handlePaginationModelChange}
@@ -67,5 +70,9 @@ function StudentsTable() {
     />
   );
 }
+
+StudentsTable.propTypes = {
+  onEdit: PropTypes.func,
+};
 
 export default StudentsTable;

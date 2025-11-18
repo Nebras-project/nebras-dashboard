@@ -1,14 +1,9 @@
 import { buildStudentColumns, TableProfileAvatar } from '@components/table';
 import { createColumnsBase } from '@components/table/utils/createColumnsBase';
+import { createPhoneRenderer } from '@utils/rtl';
 
 const STUDENT_COLUMN_DEFINITIONS = {
   profileImg: {
-    headerKey: 'table.columnHeaders.common.profileImage',
-    sortable: false,
-    filterable: false,
-    width: 48,
-    align: 'center',
-    headerAlign: 'center',
     renderer: 'profileAvatar',
   },
   userName: {
@@ -22,6 +17,7 @@ const STUDENT_COLUMN_DEFINITIONS = {
   },
   phoneNumber: {
     filterable: false,
+    renderer: 'phone',
   },
 };
 
@@ -30,6 +26,7 @@ const RENDERERS = {
     () =>
     ({ value, row }) =>
       <TableProfileAvatar user={{ ...row, avatar: value, profileImage: value }} size={36} />,
+  phone: createPhoneRenderer,
 };
 
 export default function createStudentColumns({

@@ -18,6 +18,11 @@ export { default as useResponsive } from './useResponsive';
 export { useSidebarNavigation } from './useSidebarNavigation';
 export { useDateTime } from './useDateTime';
 export { useConfirmDialog } from './useConfirmDialog';
+export { useEntityMutation } from './useEntityMutation';
+export { useEntity } from './useEntity';
+export { useDelete } from './useDelete';
+export { useCreate } from './useCreate';
+export { useUpdate } from './useUpdate';
 
 // i18n hooks
 export { default as useTranslation } from '@i18n/hooks/useTranslation';

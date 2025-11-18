@@ -7,7 +7,6 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-  ButtonGroup,
   Box,
 } from '@mui/material';
 
@@ -23,8 +22,7 @@ import { margin, gap, padding } from '@constants';
  */
 
 // Constants
-const DEFAULT_MIN_WIDTH = 350;
-const BUTTON_MIN_WIDTH = 120;
+const DEFAULT_MIN_WIDTH = 400;
 const ICON_SIZE = 48;
 
 // Icon mapping based on confirm color
@@ -67,6 +65,7 @@ const getActionsStyles = () => ({
 
 const getPaperStyles = (minWidth) => ({
   minWidth,
+  backgroundImage: 'none ',
   ...padding.all.sm,
 });
 
@@ -120,21 +119,14 @@ const DialogButtons = memo(function DialogButtons({
   t,
 }) {
   return (
-    <ButtonGroup
-      variant="outlined"
-      sx={{
-        '& .MuiButton-root': {
-          minWidth: BUTTON_MIN_WIDTH,
-        },
-      }}
-    >
-      <Button onClick={onCancel} color="inherit">
+    <>
+      <Button onClick={onCancel} color="inherit" variant="contained" size="medium">
         {cancelText || t('common.cancel')}
       </Button>
-      <Button onClick={onConfirm} color={confirmColor} variant="contained" autoFocus>
+      <Button onClick={onConfirm} color={confirmColor} variant="contained" autoFocus size="medium">
         {confirmText || t('common.confirm')}
       </Button>
-    </ButtonGroup>
+    </>
   );
 });
 

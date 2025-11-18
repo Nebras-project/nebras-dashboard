@@ -87,7 +87,7 @@ export const createAppTheme = (
       dark: baseColors.teal700,
       contrastText: baseColors.white,
     };
-    primaryBackground = mode === 'light' ? baseColors.teal50 : baseColors.teal900;
+    primaryBackground = mode === 'light' ? baseColors.teal50 : baseColors.teal400;
   }
 
   const baseTheme = createTheme({

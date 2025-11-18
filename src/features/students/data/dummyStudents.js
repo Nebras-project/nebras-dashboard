@@ -1,0 +1,88 @@
+/**
+ * Dummy Students Data
+ *
+ * Single Responsibility: Provide mock data for testing student features
+ */
+
+export const dummyStudents = [
+  {
+    id: 1,
+    UserName: 'ahmed_student',
+    Email: 'ahmed.student@example.com',
+    PhoneNumber: '771 234 567',
+    Class: 'third_secondary',
+    ProfileImg: null,
+    createdAt: '2024-01-10T09:00:00Z',
+    lastLogin: '2024-12-20T08:30:00Z',
+  },
+  {
+    id: 2,
+    UserName: 'sara_student',
+    Email: 'sara.student@example.com',
+    PhoneNumber: '770 123 456',
+    Class: 'ninth',
+    ProfileImg: null,
+    createdAt: '2024-02-15T11:15:00Z',
+    lastLogin: '2024-12-19T10:45:00Z',
+  },
+  {
+    id: 3,
+    UserName: 'mohammed_third',
+    Email: 'mohammed.third@example.com',
+    PhoneNumber: '773 456 789',
+    Class: 'third_secondary',
+    ProfileImg: null,
+    createdAt: '2024-03-05T12:20:00Z',
+    lastLogin: '2024-12-18T09:30:00Z',
+  },
+  {
+    id: 4,
+    UserName: 'fatima_ninth',
+    Email: 'fatima.ninth@example.com',
+    PhoneNumber: '778 789 012',
+    Class: 'ninth',
+    ProfileImg: null,
+    createdAt: '2024-04:12T14:40:00Z',
+    lastLogin: '2024-12-17T11:15:00Z',
+  },
+  {
+    id: 5,
+    UserName: 'ali_student',
+    Email: 'ali.student@example.com',
+    PhoneNumber: '717 345 678',
+    Class: 'third_secondary',
+    ProfileImg: null,
+    createdAt: '2024-05-20T16:50:00Z',
+    lastLogin: '2024-12-16T13:20:00Z',
+  },
+  {
+    id: 6,
+    UserName: 'noor_ninth',
+    Email: 'noor.ninth@example.com',
+    PhoneNumber: '701 567 890',
+    Class: 'ninth',
+    ProfileImg: null,
+    createdAt: '2024-06-08T07:25:00Z',
+    lastLogin: '2024-11-10T15:00:00Z',
+  },
+  {
+    id: 7,
+    UserName: 'khalid_student',
+    Email: 'khalid.student@example.com',
+    PhoneNumber: '737 890 123',
+    Class: 'third_secondary',
+    ProfileImg: null,
+    createdAt: '2024-07-15T13:10:00Z',
+    lastLogin: '2024-12-15T17:30:00Z',
+  },
+  {
+    id: 8,
+    UserName: 'layla_ninth',
+    Email: 'layla.ninth@example.com',
+    PhoneNumber: '738 012 345',
+    Class: 'ninth',
+    ProfileImg: null,
+    createdAt: '2024-08-22T11:45:00Z',
+    lastLogin: '2024-12-14T14:15:00Z',
+  },
+];

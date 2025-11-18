@@ -80,6 +80,7 @@ const ar = {
     serverErrorMessage: 'نواجه مشكلة في الخادم حالياً. يرجى المحاولة لاحقاً.',
     serviceUnavailableMessage: 'الخدمة غير متاحة مؤقتاً. يرجى المحاولة لاحقاً.',
     badGatewayMessage: 'حدثت مشكلة في الاتصال بالخدمة. يرجى المحاولة لاحقاً.',
+    fetchErrorMessage: 'فشل جلب {{entityName}}. يرجى المحاولة مرة أخرى.',
   },
 
   // Navigation
@@ -264,20 +265,29 @@ const ar = {
     totalScore: 'إجمالي النقاط',
     competitionsParticipated: 'المسابقات التي شارك فيها',
     description: 'إدارة بيانات الطلاب ومتابعة تقدمهم في المسابقات والامتحانات.',
+    classes: {
+      thirdSecondary: 'ثالث ثانوي',
+      ninth: 'تاسع',
+    },
   },
 
   // Admins
   admins: {
-    admin: 'مسؤول',
+    entityName: 'المدير',
+    admin: 'مدير',
     admins: 'المدراء',
-    adminName: 'اسم المسؤول',
-    adminEmail: 'البريد الإلكتروني للمسؤول',
-    adminPhone: 'رقم هاتف المسؤول',
+    adminName: 'اسم المدير',
+    adminEmail: 'البريد الإلكتروني للمدير',
+    adminPhone: 'رقم هاتف المدير',
+    personalInformation: 'المعلومات الشخصية',
+    additionalInformation: 'معلومات إضافية',
+    lastLogin: 'آخر تسجيل دخول',
     addAdmin: 'إضافة مدير',
     editAdmin: 'تعديل المدير',
     deleteAdmin: 'حذف المدير',
     viewAdmin: 'عرض المدير',
     adminDetails: 'تفاصيل المدير',
+    role: 'دور المدير',
     assignRole: 'تعيين الدور',
     generalAdmins: 'المدراء العامون',
     managers: 'المدراء',
@@ -296,6 +306,22 @@ const ar = {
     adminUpdatedMessage: 'تم تحديث المدير {{name}} بنجاح',
     adminOperationFailed: 'فشلت العملية',
     operationError: 'حدث خطأ أثناء تنفيذ العملية',
+    // Create/Update messages for hooks
+    createSuccessTitle: 'تم إنشاء المدير',
+    createSuccessMessage: 'تم إنشاء المدير {{name}} بنجاح',
+    createErrorTitle: 'فشل الإنشاء',
+    createErrorMessage: 'فشل إنشاء المدير. يرجى المحاولة مرة أخرى.',
+    updateSuccessTitle: 'تم تحديث المدير',
+    updateSuccessMessage: 'تم تحديث المدير {{name}} بنجاح',
+    updateErrorTitle: 'فشل التحديث',
+    updateErrorMessage: 'فشل تحديث المدير. يرجى المحاولة مرة أخرى.',
+    // Delete messages
+    deleteConfirmTitle: 'حذف المدير',
+    deleteConfirmMessage: 'هل أنت متأكد من حذف {{name}}؟ لا يمكن التراجع عن هذا الإجراء.',
+    deleteSuccessTitle: 'تم حذف المدير',
+    deleteSuccessMessage: 'تم حذف المدير {{name}} بنجاح',
+    deleteErrorTitle: 'فشل الحذف',
+    deleteErrorMessage: 'فشل حذف المدير {{name}}. يرجى المحاولة مرة أخرى.',
   },
 
   // Forms

@@ -2,16 +2,11 @@ import Chip from '@mui/material/Chip';
 
 import { buildAdminColumn, TableProfileAvatar } from '@components/table';
 import { createColumnsBase } from '@components/table/utils/createColumnsBase';
-import { ADMIN_ROLE_VALUES } from '@utils/roleUtils';
+import { createPhoneRenderer } from '@utils/rtl';
+import { buildRoleOptions } from '@utils/roleUtils';
 
 const ADMIN_COLUMN_DEFINITIONS = {
   profileImg: {
-    headerKey: 'table.columnHeaders.common.profileImage',
-    sortable: false,
-    filterable: false,
-    width: 48,
-    align: 'center',
-    headerAlign: 'center',
     renderer: 'profileAvatar',
   },
   userName: {
@@ -27,6 +22,7 @@ const ADMIN_COLUMN_DEFINITIONS = {
   },
   phoneNumber: {
     filterable: false,
+    renderer: 'phone',
   },
 };
 
@@ -35,6 +31,7 @@ const RENDERERS = {
     () =>
     ({ value, row }) =>
       <TableProfileAvatar user={{ ...row, avatar: value, profileImage: value }} size={36} />,
+  phone: createPhoneRenderer,
   roleChip:
     (t) =>
     ({ value }) =>
@@ -49,11 +46,7 @@ const RENDERERS = {
 };
 
 const VALUE_OPTIONS = {
-  roles: (t) =>
-    ADMIN_ROLE_VALUES.map((value) => ({
-      value,
-      label: t ? t(`admins.roles.${value}`) : value,
-    })),
+  roles: (t, { isOwner, isGeneralAdmin }) => buildRoleOptions(t, isOwner, isGeneralAdmin),
 };
 
 export default function createAdminColumns({
@@ -61,6 +54,8 @@ export default function createAdminColumns({
   includeActions,
   renderActions,
   rows,
+  isOwner,
+  isGeneralAdmin,
   overrides = {},
 } = {}) {
   return createColumnsBase({
@@ -73,5 +68,7 @@ export default function createAdminColumns({
     renderActions,
     rows,
     overrides,
+    isOwner,
+    isGeneralAdmin,
   });
 }

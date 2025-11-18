@@ -11,6 +11,7 @@ export {
   Message,
   Toast,
   ToastContainer,
+  EntityErrorState,
 } from './feedback';
 
 // Input components
@@ -27,6 +28,7 @@ export { default as LogoutButton } from './inputs/LogoutButton';
 export { default as Card } from './display/Card';
 export { default as ColorSwatch } from './display/ColorSwatch';
 export { default as DateTime } from './display/DateTime';
+export { default as DetailField } from './display/DetailField';
 export { default as Logo } from './display/Logo';
 export { default as UserAvatar } from './display/UserAvatar';
 export { default as Icon } from './display/Icon';
@@ -50,4 +52,4 @@ export { default as Menu } from './inputs/menu';
 export { default as Table } from './table';
 
 // Form components
-export { Form, UserFields } from './forms';
+export { Form, UserFields, EntityForm, EntityFormDialog } from './forms';

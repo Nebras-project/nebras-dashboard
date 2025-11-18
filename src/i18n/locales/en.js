@@ -80,6 +80,7 @@ const en = {
     serverErrorMessage: 'Our servers are having trouble right now. Please try again later.',
     serviceUnavailableMessage: 'The service is temporarily unavailable. Please try again soon.',
     badGatewayMessage: 'We are having trouble connecting to the service. Please try again later.',
+    fetchErrorMessage: 'Failed to fetch {{entityName}}. Please try again.',
   },
 
   // Navigation
@@ -263,20 +264,29 @@ const en = {
     totalScore: 'Total Score',
     competitionsParticipated: 'Competitions Participated',
     description: 'Manage student data and track their progress in competitions and exams.',
+    classes: {
+      thirdSecondary: 'Third Secondary',
+      ninth: 'Ninth Grade',
+    },
   },
 
   // Admins
   admins: {
+    entityName: 'admin',
     admin: 'Admin',
     admins: 'Admins',
     adminName: 'Admin Name',
     adminEmail: 'Admin Email',
     adminPhone: 'Admin Phone',
+    personalInformation: 'Personal Information',
+    additionalInformation: 'Additional Information',
+    lastLogin: 'Last Login',
     addAdmin: 'Add Admin',
     editAdmin: 'Edit Admin',
     deleteAdmin: 'Delete Admin',
     viewAdmin: 'View Admin',
     adminDetails: 'Admin Details',
+    role: 'Role',
     assignRole: 'Assign Role',
     generalAdmins: 'General Admins',
     managers: 'Managers',
@@ -295,6 +305,22 @@ const en = {
     adminUpdatedMessage: 'Admin {{name}} has been updated successfully',
     adminOperationFailed: 'Operation Failed',
     operationError: 'An error occurred while performing the operation',
+    // Create/Update messages for hooks
+    createSuccessTitle: 'Admin Created',
+    createSuccessMessage: 'Admin {{name}} has been created successfully',
+    createErrorTitle: 'Create Failed',
+    createErrorMessage: 'Failed to create admin. Please try again.',
+    updateSuccessTitle: 'Admin Updated',
+    updateSuccessMessage: 'Admin {{name}} has been updated successfully',
+    updateErrorTitle: 'Update Failed',
+    updateErrorMessage: 'Failed to update admin. Please try again.',
+    // Delete messages
+    deleteConfirmTitle: 'Delete Admin',
+    deleteConfirmMessage: 'Are you sure you want to delete {{name}}? This action cannot be undone.',
+    deleteSuccessTitle: 'Admin Deleted',
+    deleteSuccessMessage: 'Admin {{name}} has been deleted successfully',
+    deleteErrorTitle: 'Delete Failed',
+    deleteErrorMessage: 'Failed to delete admin {{name}}. Please try again.',
   },
 
   // Forms

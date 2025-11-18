@@ -3,15 +3,15 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 
 // internal imports
-import { Form, UserFields } from '@components';
+import { UserFields, EntityForm } from '@components';
 import { useTranslation } from '@hooks';
 import { useAdminForm } from '../hooks';
 
 /**
  * AdminForm Component
  *
- * Single Responsibility: Form for creating/editing admin users
- * Uses existing Form component and UserFields group without duplication
+ * Single Responsibility: Thin wrapper around generic EntityForm
+ * configured for admin users.
  */
 const AdminForm = memo(function AdminForm({
   mode = 'dialog',
@@ -19,48 +19,29 @@ const AdminForm = memo(function AdminForm({
   onClose,
   defaultValues = {},
   isEdit = false,
-  onSuccess,
-  onError,
 }) {
   const { t } = useTranslation();
-  const { roleOptions, formDefaultValues, handleSubmit, isLoading } = useAdminForm({
-    defaultValues,
-    isEdit,
-    onSuccess: (data, action) => {
-      onSuccess?.(data, action);
-      onClose?.();
-    },
-    onError,
-  });
 
   return (
-    <Form
+    <EntityForm
       mode={mode}
       open={open}
       onClose={onClose}
-      onSubmit={handleSubmit}
-      defaultValues={formDefaultValues}
-      dialogWidth="700px"
-      dialogMinWidth="700px"
-      dialogMaxWidth={false}
-    >
-      <Form.Title title={isEdit ? t('admins.editAdmin') : t('admins.addAdmin')} />
-      <Form.Content>
+      defaultValues={defaultValues}
+      isEdit={isEdit}
+      titleAdd={t('admins.addAdmin')}
+      titleEdit={t('admins.editAdmin')}
+      useFormHook={useAdminForm}
+      renderFields={({ roleOptions, isEdit: isEditFlag }) => (
         <UserFields
-          showPassword={!isEdit}
+          showPassword={!isEditFlag}
           showRole
           showProfileImage
           roleOptions={roleOptions}
-          isEdit={isEdit}
+          isEdit={isEditFlag}
         />
-      </Form.Content>
-      <Form.Actions>
-        <Form.ResetButton onClick={onClose}>{t('common.cancel')}</Form.ResetButton>
-        <Form.SubmitButton loading={isLoading}>
-          {isEdit ? t('common.update') : t('common.create')}
-        </Form.SubmitButton>
-      </Form.Actions>
-    </Form>
+      )}
+    />
   );
 });
 
@@ -70,8 +51,6 @@ AdminForm.propTypes = {
   onClose: PropTypes.func.isRequired,
   defaultValues: PropTypes.object,
   isEdit: PropTypes.bool,
-  onSuccess: PropTypes.func,
-  onError: PropTypes.func,
 };
 
 AdminForm.displayName = 'AdminForm';

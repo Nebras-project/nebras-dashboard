@@ -5,7 +5,6 @@ import PaginationItem from '@mui/material/PaginationItem';
 import Tooltip from '@mui/material/Tooltip';
 
 import { margin } from '@constants';
-import { useResponsive } from '@hooks';
 
 function TablePaginationControls({
   count,
@@ -21,15 +20,11 @@ function TablePaginationControls({
   boundaryCount,
   renderLabel,
 }) {
-  const { isSmallScreen } = useResponsive();
-
   const renderItem = (itemProps) => {
     const { type, page: itemPage } = itemProps;
     const title = renderLabel(type, itemPage);
 
-    const paginationItem = (
-      <PaginationItem sx={{ ...(isSmallScreen ? margin.x.xs : margin.xxs) }} {...itemProps} />
-    );
+    const paginationItem = <PaginationItem sx={{ ...margin.xxs }} {...itemProps} />;
 
     if (!title) {
       return paginationItem;

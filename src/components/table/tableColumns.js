@@ -26,6 +26,11 @@ const columnRegistry = {
   profileImg: {
     field: 'ProfileImg',
     headerKey: 'table.columnHeaders.common.profileImage',
+    sortable: false,
+    filterable: false,
+    width: 48,
+    align: 'center',
+    headerAlign: 'center',
     minWidth: 40,
     flex: 0.4,
   },
@@ -233,20 +238,35 @@ export function buildColumns(keys, options = {}) {
   return result;
 }
 
-export function buildAdminColumn(options = {}) {
-  const { includeActions = true } = options;
-  return buildColumns(['profileImg', 'userName', 'email', 'role', 'phoneNumber'], {
-    ...options,
+const USER_COLUMN_KEYS = {
+  admin: ['profileImg', 'userName', 'email', 'role', 'phoneNumber'],
+  student: ['profileImg', 'userName', 'class', 'email', 'phoneNumber'],
+};
+
+/**
+ * Build columns for user-like tables (admins, students, ...).
+ *
+ * @param {Object} options
+ * @param {'admin'|'student'} options.variant - Type of user table
+ * @param {boolean} [options.includeActions=true] - Whether to include actions column
+ * @returns {Array} columns definition for DataGrid
+ */
+export function buildUserColumns(options = {}) {
+  const { variant = 'admin', includeActions = true, ...rest } = options;
+  const keys = USER_COLUMN_KEYS[variant] || USER_COLUMN_KEYS.admin;
+
+  return buildColumns(keys, {
+    ...rest,
     includeActions,
   });
 }
 
+export function buildAdminColumn(options = {}) {
+  return buildUserColumns({ variant: 'admin', ...options });
+}
+
 export function buildStudentColumns(options = {}) {
-  const { includeActions = true } = options;
-  return buildColumns(['profileImg', 'userName', 'class', 'email', 'phoneNumber'], {
-    ...options,
-    includeActions,
-  });
+  return buildUserColumns({ variant: 'student', ...options });
 }
 
 export function buildCompetitionColumns(options = {}) {

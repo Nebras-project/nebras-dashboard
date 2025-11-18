@@ -1,16 +1,14 @@
 import { PageLayout } from '@components';
 import { useTranslation } from '@hooks';
-import { AddButton } from '@components';
 
-import { StudentsTable } from '../components';
+import { StudentsTable, StudentFormDialog } from '../components';
 
 function StudentsPage() {
   const { t } = useTranslation();
 
   return (
     <PageLayout title={t('students.students')} description={t('students.description')}>
-      <AddButton label={t('students.addStudent')} onClick={() => console.log('Add student')} />
-      <StudentsTable />
+      <StudentFormDialog>{({ onEdit }) => <StudentsTable onEdit={onEdit} />}</StudentFormDialog>
     </PageLayout>
   );
 }

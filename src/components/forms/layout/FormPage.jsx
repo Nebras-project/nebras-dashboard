@@ -6,14 +6,14 @@ import { Paper } from '@mui/material';
 // internal imports
 import { PageLayout } from '@components';
 import { padding } from '@constants';
-import { FORM_DEFAULTS } from './constants';
-import { useFormSetup } from './hooks';
-import FormProvider from './components/FormProvider';
+import { FORM_DEFAULTS } from '../constants';
+import { useFormSetup } from '../hooks';
+import FormProvider from '../components/FormProvider';
 import { borderRadius } from '@theme/components';
 
-const getPaperStyles = (padding, borderRadius) => ({
-  ...padding.all.lg,
-  borderRadius: borderRadius.xs,
+const getPaperStyles = (paddingValue, borderRadiusValue) => ({
+  ...paddingValue.all.lg,
+  borderRadius: borderRadiusValue.xs,
 });
 
 /**

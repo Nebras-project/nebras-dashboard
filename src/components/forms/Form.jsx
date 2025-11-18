@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 
 // internal imports
 import { FORM_DEFAULTS } from './constants';
-import FormDialog from './FormDialog';
-import FormPage from './FormPage';
+import FormDialog from './layout/FormDialog';
+import FormPage from './layout/FormPage';
 import {
   TextInput,
   EmailInput,

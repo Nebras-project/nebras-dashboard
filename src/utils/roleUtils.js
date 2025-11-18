@@ -83,6 +83,24 @@ export const filterRoleOptions = (isOwner, isGeneralAdmin) => {
 };
 
 /**
+ * Build role options (value/label) for selects and table filters
+ * using the same filtering rules as filterRoleOptions.
+ *
+ * @param {Function} t - Translation function (optional)
+ * @param {boolean} isOwner
+ * @param {boolean} isGeneralAdmin
+ * @returns {{ value: string, label: string }[]}
+ */
+export const buildRoleOptions = (t, isOwner, isGeneralAdmin) => {
+  const values = filterRoleOptions(isOwner, isGeneralAdmin);
+
+  return values.map((value) => ({
+    value,
+    label: t ? t(`admins.roles.${value}`) : value,
+  }));
+};
+
+/**
  * Check if row actions should be shown based on user permissions and row data.
  *
  * Rules:

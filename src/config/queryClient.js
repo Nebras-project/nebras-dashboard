@@ -1,4 +1,17 @@
-import { QueryClient } from "@tanstack/react-query";
+import { QueryClient } from '@tanstack/react-query';
+
+/**
+ * Central definition of React Query keys used across the app.
+ *
+ * Keeping them next to the queryClient makes it easy
+ * to manage cache namespaces and invalidation.
+ */
+export const QUERY_KEYS = {
+  ADMINS: 'admins',
+  STUDENTS: 'students',
+  COMPETITIONS: 'competitions',
+  QUESTIONS: 'questions',
+};
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,7 +39,7 @@ export const queryClient = new QueryClient({
 
       // Error handling
       onError: (error) => {
-        console.error("Query Error:", error);
+        console.error('Query Error:', error);
       },
     },
 
@@ -36,7 +49,7 @@ export const queryClient = new QueryClient({
 
       // Error handling
       onError: (error) => {
-        console.error("Mutation Error:", error);
+        console.error('Mutation Error:', error);
       },
     },
   },

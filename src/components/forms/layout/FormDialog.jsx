@@ -4,12 +4,9 @@ import PropTypes from 'prop-types';
 import { Dialog, useTheme } from '@mui/material';
 
 // internal imports
-import { FORM_DEFAULTS } from './constants';
-import { useFormSetup } from './hooks';
-import FormProvider from './components/FormProvider';
-import { useReduxTheme } from '@hooks';
-import { customBackgrounds } from '../../theme/colors';
-
+import { FORM_DEFAULTS } from '../constants';
+import { useFormSetup } from '../hooks';
+import FormProvider from '../components/FormProvider';
 /**
  * FormDialog Component
  *
@@ -36,7 +33,6 @@ const FormDialog = memo(function FormDialog({
   }
 
   const theme = useTheme();
-  const { isDark } = useReduxTheme();
 
   // Setup form (React Hook Form, context, handlers)
   const { methods, formId, handleSubmit, contextValue } = useFormSetup({
@@ -74,9 +70,7 @@ const FormDialog = memo(function FormDialog({
   const finalMinWidth = dialogMinWidth || dialogWidth || '600px';
   const finalMaxWidth = dialogMaxWidth === false ? dialogWidth || '600px' : undefined;
 
-  const dialogBG = isDark
-    ? theme.palette.background.default
-    : customBackgrounds.light.surface.level3;
+  const dialogBG = theme.palette.background.default;
 
   const dialogSx = {
     '& .MuiDialog-paper': {
@@ -103,11 +97,6 @@ const FormDialog = memo(function FormDialog({
       '& .MuiDialogActions-root': {
         backgroundColor: dialogBG,
       },
-    },
-    '& .MuiBackdrop-root': {
-      backdropFilter: 'blur(12px)',
-      WebkitBackdropFilter: 'blur(12px)', // Safari support
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
   };
 

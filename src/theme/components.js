@@ -210,8 +210,18 @@ export const getComponentOverrides = (mode) => ({
   },
   MuiDialog: {
     styleOverrides: {
-      paper: () => ({
+      paper: ({ theme }) => ({
         borderRadius: borderRadius.md,
+
+        '& .MuiDialogTitle-root': {
+          backgroundColor: theme.palette.background.default,
+        },
+        '& .MuiDialogContent-root': {
+          backgroundColor: theme.palette.background.default,
+        },
+        '& .MuiDialogActions-root': {
+          backgroundColor: theme.palette.background.default,
+        },
       }),
     },
   },

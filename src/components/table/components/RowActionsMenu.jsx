@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { isValidElement } from 'react';
 import { IconButton, ListItemIcon, ListItemText, Tooltip } from '@mui/material';
 
 import { Icon, Menu, NoAccessIcon } from '@components';
@@ -32,7 +33,11 @@ function RowActionsMenu({
     checkPermissions,
   });
 
-  const visibleActions = actions.filter((action) => !action.hide);
+  // Filter actions: if it's a component, always show; if it's an object, check hide property
+  const visibleActions = actions.filter((action) => {
+    if (isValidElement(action)) return true;
+    return !action.hide;
+  });
 
   if (!visibleActions.length) {
     return finalEmptyState;
@@ -59,15 +64,18 @@ function RowActionsMenu({
         minWidth={180}
         {...contentProps}
       >
-        {visibleActions.map(({ label, icon, onClick, disabled, ...itemProps }) => {
-          // Check if action is delete based on label (case-insensitive)
-          const labelString = typeof label === 'string' ? label.toLowerCase() : '';
-          const isDeleteAction =
-            labelString.includes('delete') ||
-            labelString.includes('حذف') ||
-            labelString.includes('مسح') ||
-            labelString === 'delete' ||
-            labelString === 'حذف';
+        {visibleActions.map((action, index) => {
+          // If action is a React component, render it directly
+          if (isValidElement(action)) {
+            return (
+              <Menu.Item key={action.key || index} autoClose={false}>
+                {action}
+              </Menu.Item>
+            );
+          }
+
+          // Otherwise, treat it as a regular action object
+          const { label, icon, onClick, disabled, ...itemProps } = action;
 
           return (
             <Menu.Item
@@ -86,21 +94,13 @@ function RowActionsMenu({
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: (theme) =>
-                      isDeleteAction ? theme.palette.error.main : theme.palette.text.secondary,
+                    color: (theme) => theme.palette.text.secondary,
                   }}
                 >
                   {icon}
                 </ListItemIcon>
               ) : null}
-              <ListItemText
-                primary={label}
-                primaryTypographyProps={{
-                  sx: {
-                    color: (theme) => (isDeleteAction ? theme.palette.error.main : 'inherit'),
-                  },
-                }}
-              />
+              <ListItemText primary={label} />
             </Menu.Item>
           );
         })}
@@ -111,13 +111,16 @@ function RowActionsMenu({
 
 RowActionsMenu.propTypes = {
   actions: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.node.isRequired,
-      icon: PropTypes.node,
-      onClick: PropTypes.func,
-      disabled: PropTypes.bool,
-      hide: PropTypes.bool,
-    })
+    PropTypes.oneOfType([
+      PropTypes.element, // React component
+      PropTypes.shape({
+        label: PropTypes.node.isRequired,
+        icon: PropTypes.node,
+        onClick: PropTypes.func,
+        disabled: PropTypes.bool,
+        hide: PropTypes.bool,
+      }),
+    ])
   ),
   tooltip: PropTypes.node,
   iconButtonProps: PropTypes.object,
