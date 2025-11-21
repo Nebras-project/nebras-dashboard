@@ -103,6 +103,9 @@ export const getNavigationHoverStyles = (theme, isActive, collapsed) => ({
       transform: NAV_HOVER_CONFIG.iconScale,
       color: NAV_HOVER_ICON_COLOR,
     },
+    '& .MuiListItemText-root': {
+      color: NAV_HOVER_ICON_COLOR,
+    },
   },
 
   // Icon styles
@@ -110,6 +113,7 @@ export const getNavigationHoverStyles = (theme, isActive, collapsed) => ({
     transition: TRANSITIONS.nav,
     position: 'relative',
     zIndex: 1,
+    
     ...(isActive && {
       color: NAV_HOVER_ICON_COLOR,
     }),
@@ -119,6 +123,9 @@ export const getNavigationHoverStyles = (theme, isActive, collapsed) => ({
   '& .MuiListItemText-root': {
     position: 'relative',
     zIndex: 1,
+    ...(isActive && {
+      color: NAV_HOVER_ICON_COLOR,
+    }),
   },
 });
 

@@ -3,7 +3,7 @@ import Chip from '@mui/material/Chip';
 import { buildAdminColumn, TableProfileAvatar } from '@components/table';
 import { createColumnsBase } from '@components/table/utils/createColumnsBase';
 import { createPhoneRenderer } from '@utils/rtl';
-import { buildRoleOptions } from '@utils/roleUtils';
+import { buildRoleOptions, getRoleLabel } from '@utils/roleUtils';
 
 const ADMIN_COLUMN_DEFINITIONS = {
   profileImg: {
@@ -37,7 +37,7 @@ const RENDERERS = {
     ({ value }) =>
       (
         <Chip
-          label={t ? t(`admins.roles.${value}`) : value}
+          label={t ? getRoleLabel(value, t) : value}
           size="small"
           color={['Owner', 'General Admin'].includes(value) ? 'primary' : 'default'}
           variant="outlined"

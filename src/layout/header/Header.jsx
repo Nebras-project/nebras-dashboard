@@ -7,6 +7,7 @@ import { useAuth, useSidebar, useLanguage, useResponsive } from '@hooks';
 import { HEADER_HEIGHT, spacing } from '@constants';
 import { DateTime, Icon } from '@components';
 import UserInfo from './components/UserInfo';
+import { borderRadius } from '../../theme/components';
 
 // Static toolbar styles
 const TOOLBAR_STYLES = {
@@ -44,6 +45,7 @@ function Header() {
       left: isSmallScreen ? 0 : `${sidebarWidth}px`,
       width: isSmallScreen ? '100%' : `calc(100% - ${sidebarWidth}px)`,
       height: HEADER_HEIGHT,
+      borderRadius: borderRadius.none,
       bgcolor: 'background.default',
       color: 'text.primary',
       zIndex: (theme) => theme.zIndex.appBar,

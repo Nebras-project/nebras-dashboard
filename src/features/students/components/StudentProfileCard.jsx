@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { Card, UserAvatar } from '@components';
 import { padding, margin } from '@constants';
 import { getStudentName, getStudentClass, getStudentProfileImage } from '../utils';
+import useTranslation from '@i18n/hooks/useTranslation';
 
 /**
  * StudentProfileCard Component
@@ -13,8 +14,9 @@ import { getStudentName, getStudentClass, getStudentProfileImage } from '../util
  * Single Responsibility: Display student profile information (avatar, name, class)
  */
 function StudentProfileCard({ student }) {
+  const { t } = useTranslation();
   const studentName = getStudentName(student);
-  const studentClass = getStudentClass(student);
+  const studentClass = getStudentClass(student, t);
 
   return (
     <Card sx={{ height: '100%' }}>

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 // internal imports
 import { Card, DetailField } from '@components';
 import Icon from '@components/display/Icon';
-import { useTranslation } from '@hooks';
+import { useTranslation } from '@i18n/hooks/useTranslation';
 import { getStudentName, getStudentEmail, getStudentPhone, getStudentClass } from '../utils';
 
 /**
@@ -19,12 +19,8 @@ function StudentDetailsCard({ student, onEdit }) {
   const studentName = getStudentName(student);
   const studentEmail = getStudentEmail(student);
   const studentPhone = getStudentPhone(student);
-  const studentClassRaw = getStudentClass(student);
-  // Translate class value (e.g., "ninth" -> "تاسع", "third_secondary" -> "ثالث ثانوي")
-  const studentClass =
-    studentClassRaw && studentClassRaw !== 'N/A'
-      ? t(`students.classes.${studentClassRaw}`, { defaultValue: studentClassRaw })
-      : studentClassRaw;
+  const studentClass= getStudentClass(student, t);
+ 
 
   return (
     <Card

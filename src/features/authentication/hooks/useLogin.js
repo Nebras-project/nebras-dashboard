@@ -22,7 +22,7 @@ export const useLogin = () => {
         const userData = {
           id: 1,
           name: 'Admin User',
-          email: data.email,
+          email: data.Email,
           role: 'generalAdmin',
         };
         // Mock JWT token - In real app, this would come from the API

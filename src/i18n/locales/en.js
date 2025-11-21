@@ -362,6 +362,7 @@ const en = {
     confirmPassword: 'Confirm Password',
     profileImage: 'Profile Image',
     chooseProfileImage: 'Choose Profile Image',
+    clickToUploadImage: 'Click to upload profile image',
     isActive: 'Active',
   },
 
@@ -442,7 +443,7 @@ const en = {
       common: {
         email: 'Email',
         userName: 'User Name',
-        role: 'Role',
+        permissions: 'Permissions',
         profileImage: 'Profile Image',
         phoneNumber: 'Phone Number',
         grade: 'Grade',

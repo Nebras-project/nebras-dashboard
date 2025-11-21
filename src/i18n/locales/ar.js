@@ -363,6 +363,7 @@ const ar = {
     confirmPassword: 'تأكيد كلمة المرور',
     profileImage: 'صورة الملف الشخصي',
     chooseProfileImage: 'اختر صورة الملف الشخصي',
+    clickToUploadImage: 'انقر لرفع صورة الملف الشخصي',
     isActive: 'نشط',
   },
 
@@ -443,7 +444,7 @@ const ar = {
       common: {
         email: 'البريد الإلكتروني',
         userName: 'اسم المستخدم',
-        role: 'الدور',
+        permissions: 'الصلاحيات',
         profileImage: 'صورة الملف',
         phoneNumber: 'رقم الهاتف',
         class: 'المرحلة الدراسية',

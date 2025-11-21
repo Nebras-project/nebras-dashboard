@@ -19,7 +19,7 @@ const columnRegistry = {
   },
   role: {
     field: 'Role',
-    headerKey: 'table.columnHeaders.common.role',
+    headerKey: 'table.columnHeaders.common.permissions',
     minWidth: 100,
     flex: 0.7,
   },

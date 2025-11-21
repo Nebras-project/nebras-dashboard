@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { borderRadius, fontWeights } from '@theme';
+import { borderRadius } from '@theme';
 
 const StyledListItemButton = styled(ListItemButton, {
   shouldForwardProp: (prop) => !['customVariant', 'customColor', 'collapsed'].includes(prop),
@@ -34,7 +34,7 @@ const StyledListItemButton = styled(ListItemButton, {
     return variantMap[variant] || variantMap.default;
   };
 
-  const getColorStyles = (color, selected) => {
+  const getColorStyles = (color) => {
     if (selected) {
       const colorMap = {
         primary: {
@@ -116,7 +116,6 @@ const StyledListItemText = styled(ListItemText, {
 })(({ customVariant }) => ({
   '& .MuiListItemText-primary': {
     fontSize: customVariant === 'dense' ? '0.75rem' : '0.875rem',
-    fontWeight: fontWeights.medium,
   },
 }));
 

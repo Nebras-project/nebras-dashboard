@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { Card, UserAvatar } from '@components';
 import { padding, margin } from '@constants';
 import { getAdminName, getAdminRole, getAdminProfileImage } from '../utils';
+import { useTranslation } from '@i18n/hooks/useTranslation';
 
 /**
  * AdminProfileCard Component
@@ -13,8 +14,9 @@ import { getAdminName, getAdminRole, getAdminProfileImage } from '../utils';
  * Single Responsibility: Display admin profile information (avatar, name, role)
  */
 function AdminProfileCard({ admin }) {
+  const { t } = useTranslation();
   const adminName = getAdminName(admin);
-  const adminRole = getAdminRole(admin);
+  const adminRole = getAdminRole(admin, t);
 
   return (
     <Card sx={{ height: '100%' }}>

@@ -3,6 +3,7 @@ import Chip from '@mui/material/Chip';
 import { buildStudentColumns, TableProfileAvatar } from '@components/table';
 import { createColumnsBase } from '@components/table/utils/createColumnsBase';
 import { createPhoneRenderer } from '@utils/rtl';
+import { getClassLabel } from '@utils/roleUtils';
 
 const STUDENT_COLUMN_DEFINITIONS = {
   profileImg: {
@@ -34,11 +35,9 @@ const RENDERERS = {
   classChip:
     (t) =>
     ({ value }) => {
-      // Map value to translation key (third_secondary -> thirdSecondary)
-      const translationKey = value === 'third_secondary' ? 'thirdSecondary' : value;
       return (
         <Chip
-          label={t ? t(`students.classes.${translationKey}`) : value}
+          label={t ? getClassLabel(value, t) : value}
           size="small"
           color="primary"
           variant="outlined"
@@ -51,11 +50,11 @@ const VALUE_OPTIONS = {
   classes: (t) => [
     {
       value: 'third_secondary',
-      label: t ? t('students.classes.thirdSecondary') : 'Third Secondary',
+      label: t ? getClassLabel('third_secondary', t) : 'Third Secondary',
     },
     {
       value: 'ninth',
-      label: t ? t('students.classes.ninth') : 'Ninth Grade',
+      label: t ? getClassLabel('ninth', t) : 'Ninth Grade',
     },
   ],
 };

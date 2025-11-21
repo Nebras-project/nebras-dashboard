@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 // internal imports
 import { useAuth } from '@hooks';
 import { fontWeights, fontSizes } from '@theme';
+import { Icon } from '@components';
 
 const SIZE_PRESETS = {
   small: {
@@ -55,9 +56,14 @@ const getSizeStyles = (size) => {
   return SIZE_PRESETS.medium;
 };
 
-const getUserInitial = (user, fallback) => {
-  const userName = typeof user === 'string' ? user : user?.name;
-  return userName?.charAt(0).toUpperCase() || fallback;
+const getIconSize = (size) => {
+  if (typeof size === 'string' && SIZE_PRESETS[size]) {
+    return SIZE_PRESETS[size].width * 0.7; // Icon is 50% of avatar size
+  }
+  if (typeof size === 'number') {
+    return size * 0.7;
+  }
+  return SIZE_PRESETS.medium.width * 0.7;
 };
 
 const getUserImage = (user) => {
@@ -65,14 +71,20 @@ const getUserImage = (user) => {
   return user.avatar || user.profileImage || user.image || null;
 };
 
-function UserAvatar({ user: propUser, size = 'medium', fallback = 'U', sx = {}, ...rest }) {
+function UserAvatar({
+  user: propUser,
+  size = 'medium',
+  fallback: _fallback = 'U',
+  sx = {},
+  ...rest
+}) {
   const { user: authUser } = useAuth();
   const user = propUser || authUser;
-  const initial = getUserInitial(user, fallback);
   const userName = typeof user === 'string' ? user : user?.name;
   const ariaLabel = userName ? `${userName} avatar` : 'User avatar';
   const userImage = getUserImage(user);
   const hasImage = !!userImage;
+  const iconSize = getIconSize(size);
 
   return (
     <Avatar
@@ -85,7 +97,7 @@ function UserAvatar({ user: propUser, size = 'medium', fallback = 'U', sx = {}, 
       aria-label={ariaLabel}
       {...rest}
     >
-      {!hasImage && initial}
+      {!hasImage && <Icon name="person" size={iconSize} />}
     </Avatar>
   );
 }
@@ -105,7 +117,7 @@ UserAvatar.propTypes = {
     PropTypes.number,
     PropTypes.object, // For responsive sizes
   ]),
-  fallback: PropTypes.string,
+  fallback: PropTypes.string, // Deprecated: kept for backward compatibility but no longer used
   sx: PropTypes.object,
 };
 

@@ -26,7 +26,7 @@ const getIconStyles = (isActive) => ({
 });
 
 const getTextProps = (isActive) => ({
-  fontWeight: isActive ? fontWeights.semiBold : fontWeights.regular,
+  fontWeight: isActive ? fontWeights.bold : fontWeights.semibold,
 });
 
 const NavigationItem = memo(function NavigationItem({ path, icon, text, isSettings = false }) {

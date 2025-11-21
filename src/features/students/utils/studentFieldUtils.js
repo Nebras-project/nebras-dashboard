@@ -5,6 +5,8 @@
  * Handles different naming conventions (PascalCase, camelCase, etc.)
  */
 
+import { getClassLabel } from '@utils/roleUtils';
+
 /**
  * Extracts student name from student object, handling different field name variations
  * @param {Object} student - Student object
@@ -35,10 +37,13 @@ export const getStudentPhone = (student) => {
 /**
  * Extracts student class from student object, handling different field name variations
  * @param {Object} student - Student object
- * @returns {string} Student class or 'N/A' if not found
+ * @param {Function} t - Translation function
+ * @returns {string} Translated student class or 'N/A' if not found
  */
-export const getStudentClass = (student) => {
-  return student?.Class || student?.class || 'N/A';
+export const getStudentClass = (student, t) => {
+  const classValue = student?.Class || student?.class;
+  if (!classValue) return 'N/A';
+  return getClassLabel(classValue, t) || 'N/A';
 };
 
 /**

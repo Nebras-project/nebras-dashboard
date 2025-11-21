@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 // internal imports
 import { Card, DetailField } from '@components';
 import Icon from '@components/display/Icon';
-import { useTranslation } from '@hooks';
+import { useTranslation } from '@i18n/hooks/useTranslation';
 import { getAdminName, getAdminEmail, getAdminPhone, getAdminRole } from '../utils';
 
 /**
@@ -19,13 +19,8 @@ function AdminDetailsCard({ admin, onEdit }) {
   const adminName = getAdminName(admin);
   const adminEmail = getAdminEmail(admin);
   const adminPhone = getAdminPhone(admin);
-  const adminRoleRaw = getAdminRole(admin);
+  const adminRole = getAdminRole(admin, t);
   // Translate role value (e.g., "Curriculum Manager" -> "مدير المناهج")
-  const adminRole =
-    adminRoleRaw && adminRoleRaw !== 'N/A'
-      ? t(`admins.roles.${adminRoleRaw}`, { defaultValue: adminRoleRaw })
-      : adminRoleRaw;
-
   return (
     <Card
       title={t('admins.personalInformation')}

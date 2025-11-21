@@ -93,7 +93,7 @@ export const baseColors = {
 
   // Grays (Light mode) - Complete gradient
   gray50: '#fcfcfc',
-  gray100: '#f8f8f8',
+  gray100: '#f9fbfc',
   gray200: '#e8e8e8',
   gray300: '#d4d4d4',
   gray400: '#b0b0b0',
@@ -193,7 +193,7 @@ export const customBackgrounds = {
 // Text colors for light and dark modes
 export const textColors = {
   light: {
-    primary: baseColors.gray900,
+    primary: baseColors.gray700,
     secondary: baseColors.gray700,
     disabled: baseColors.gray800,
   },

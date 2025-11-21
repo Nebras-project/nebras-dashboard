@@ -12,6 +12,29 @@ export const ROLES = {
   CONTENT_MANAGER: 'contentManager',
 };
 
+// Role translation keys mapping
+export const roleTranslationKeys = {
+  owner: 'users.owner',
+  generalAdmin: 'users.generalAdmin',
+  curriculumManager: 'users.curriculumManager',
+  competitionManager: 'users.competitionManager',
+  contentManager: 'users.contentManager',
+  // Handle PascalCase role values from API (e.g., "Owner", "General Admin")
+  Owner: 'users.owner',
+  'General Admin': 'admins.roles.General Admin',
+  'Curriculum Manager': 'admins.roles.Curriculum Manager',
+  'Competition Manager': 'admins.roles.Competition Manager',
+  'Content Manager': 'admins.roles.Content Manager',
+};
+
+// Student class translation keys mapping
+export const classTranslationKeys = {
+  thirdSecondary: 'students.classes.thirdSecondary',
+  ninth: 'students.classes.ninth',
+  // Handle snake_case variant
+  third_secondary: 'students.classes.thirdSecondary',
+};
+
 export const ADMIN_ROLE_VALUES = [
   'Owner',
   'General Admin',
@@ -96,8 +119,60 @@ export const buildRoleOptions = (t, isOwner, isGeneralAdmin) => {
 
   return values.map((value) => ({
     value,
-    label: t ? t(`admins.roles.${value}`) : value,
+    label: t ? getRoleLabel(value, t) : value,
   }));
+};
+
+/**
+ * Get translation key for a role
+ * Handles both camelCase (from user object) and PascalCase/display names (from admin API)
+ *
+ * @param {string} role - The role value (e.g., 'owner', 'Owner', 'General Admin')
+ * @returns {string} Translation key for the role
+ */
+export const getRoleTranslationKey = (role) => {
+  if (!role) return role;
+  return roleTranslationKeys[role] || role;
+};
+
+/**
+ * Get translated role label
+ * Convenience function that combines getRoleTranslationKey with translation function
+ *
+ * @param {string} role - The role value
+ * @param {Function} t - Translation function
+ * @returns {string} Translated role label
+ */
+export const getRoleLabel = (role, t) => {
+  if (!role || !t) return role || '';
+  const translationKey = getRoleTranslationKey(role);
+  return t(translationKey) || role;
+};
+
+/**
+ * Get translation key for a student class
+ * Handles both camelCase and snake_case variants
+ *
+ * @param {string} classValue - The class value (e.g., 'thirdSecondary', 'third_secondary', 'ninth')
+ * @returns {string} Translation key for the class
+ */
+export const getClassTranslationKey = (classValue) => {
+  if (!classValue) return classValue;
+  return classTranslationKeys[classValue] || classValue;
+};
+
+/**
+ * Get translated student class label
+ * Convenience function that combines getClassTranslationKey with translation function
+ *
+ * @param {string} classValue - The class value
+ * @param {Function} t - Translation function
+ * @returns {string} Translated class label
+ */
+export const getClassLabel = (classValue, t) => {
+  if (!classValue || !t) return classValue || '';
+  const translationKey = getClassTranslationKey(classValue);
+  return t(translationKey) || classValue;
 };
 
 /**

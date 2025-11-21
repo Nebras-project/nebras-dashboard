@@ -5,6 +5,8 @@
  * Handles different naming conventions (PascalCase, camelCase, etc.)
  */
 
+import { getRoleLabel } from '@utils/roleUtils';
+
 /**
  * Extracts admin name from admin object, handling different field name variations
  * @param {Object} admin - Admin object
@@ -35,10 +37,13 @@ export const getAdminPhone = (admin) => {
 /**
  * Extracts admin role from admin object, handling different field name variations
  * @param {Object} admin - Admin object
- * @returns {string} Admin role or 'N/A' if not found
+ * @param {Function} t - Translation function
+ * @returns {string} Translated admin role or 'N/A' if not found
  */
-export const getAdminRole = (admin) => {
-  return admin?.Role || admin?.role || 'N/A';
+export const getAdminRole = (admin, t) => {
+  const role = admin?.Role || admin?.role;
+  if (!role) return 'N/A';
+  return getRoleLabel(role, t) || 'N/A';
 };
 
 /**

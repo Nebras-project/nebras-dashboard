@@ -6,6 +6,7 @@ import { buildBaseUserDefaultValues } from '@components/forms/utils';
 
 // internal imports
 import { QUERY_KEYS } from '@config';
+import { getClassLabel } from '@utils/roleUtils';
 import { createStudent, updateStudent } from '../services/studentsApi';
 import { getStudentName } from '../utils';
 
@@ -28,12 +29,12 @@ export const useStudentForm = ({ defaultValues = {}, isEdit = false, onSuccess, 
   const classOptions = useMemo(
     () => [
       {
-        value: 'third_secondary',
-        label: t('students.classes.thirdSecondary'),
+        value: 'thirdSecondary',
+        label: getClassLabel('thirdSecondary', t),
       },
       {
         value: 'ninth',
-        label: t('students.classes.ninth'),
+        label: getClassLabel('ninth', t),
       },
     ],
     [t]

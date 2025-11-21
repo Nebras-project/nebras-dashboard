@@ -48,6 +48,22 @@ const UserFields = memo(function UserFields({
 
   return (
     <Grid container spacing={3}>
+      {/* Profile Image - At the top, centered */}
+      {showProfileImage && (
+        <Grid
+          item
+          sx={{
+            width: '100%',
+            flexBasis: '100%',
+            maxWidth: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <Form.ProfileImageInput name="ProfileImg" accept="image/*" size={70} />
+        </Grid>
+      )}
+
       {/* Username */}
       <Grid item {...gridItemProps}>
         <Form.UsernameInput />
@@ -108,25 +124,6 @@ const UserFields = memo(function UserFields({
             />
           </Grid>
         </>
-      )}
-
-      {/* Profile Image - At the end, always full width */}
-      {showProfileImage && (
-        <Grid
-          item
-          sx={{
-            width: '100%',
-            flexBasis: '100%',
-            maxWidth: '100%',
-          }}
-        >
-          <Form.FileInput
-            name="ProfileImg"
-            label={t('forms.profileImage')}
-            accept="image/*"
-            buttonText={t('forms.chooseProfileImage')}
-          />
-        </Grid>
       )}
     </Grid>
   );

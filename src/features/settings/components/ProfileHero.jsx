@@ -6,6 +6,7 @@ import { Card, UserAvatar, LogoutButton } from '@components';
 import { gap, margin, padding } from '@constants';
 import { useTranslation, useAuth, useResponsive } from '@hooks';
 import { fontWeights, borderRadius } from '@theme';
+import { getRoleLabel } from '@utils/roleUtils';
 
 const getContentStyles = () => ({
   ...padding.y.lg,
@@ -46,14 +47,14 @@ function ProfileHero() {
   return (
     <Card contentSx={getContentStyles()} sx={{ backgroundColor: 'background.paper' }}>
       <Box sx={getContainerStyles()}>
-        <UserAvatar user={user} size={{ mobile: 100, tablet: 80 }} sx={getAvatarStyles()} />
+        <UserAvatar user={user} size="xlarge" sx={getAvatarStyles()} />
 
         <Box sx={getUserInfoStyles()}>
           <Typography variant="h5" fontWeight={fontWeights.bold} gutterBottom>
             {user?.name || 'User'}
           </Typography>
           <Typography variant="caption" sx={getRoleBadgeStyles()}>
-            {user?.role ? t(`users.${user.role}`) : t('common.notAvailable')}
+            {user?.role ? getRoleLabel(user.role, t) : t('common.notAvailable')}
           </Typography>
         </Box>
 
