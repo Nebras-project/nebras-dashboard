@@ -1,4 +1,5 @@
 // external imports
+import { alpha } from '@mui/material/styles';
 import {
   NAV_HOVER_BORDER_INDICATOR,
   NAV_HOVER_ICON_COLOR,
@@ -44,12 +45,34 @@ const NAV_HOVER_CONFIG = {
 // =============================================================================
 
 /**
- * Navigation hover styles for sidebar items
+ * Navigation icon styles for collapsed sidebar
  * @param {Object} theme - MUI theme object
  * @param {boolean} isActive - Whether item is active
  * @param {boolean} collapsed - Whether sidebar is collapsed
  * @returns {Object} Style object
  */
+export const getNavigationIconStyles = (theme, isActive, collapsed) => {
+  if (!collapsed) {
+    return {};
+  }
+
+  return {
+    backgroundColor: isActive
+      ? theme.palette.mode === 'dark'
+        ? theme.palette.background.default || 'rgba(255, 255, 255, 0.15)'
+        : alpha(theme.palette.primary.main, 0.15)
+      : theme.palette.mode === 'dark'
+      ? theme.palette.background.surface?.level2 || 'rgba(255, 255, 255, 0.05)'
+      : theme.palette.action.hover || 'rgba(0, 0, 0, 0.04)',
+    // borderRadius: borderRadius.xxs,
+    padding: '8px',
+    width: '40  px',
+    height: '48px',
+  };
+};
+
+
+
 export const getNavigationHoverStyles = (theme, isActive, collapsed) => ({
   position: 'relative',
   overflow: 'hidden',
@@ -113,7 +136,7 @@ export const getNavigationHoverStyles = (theme, isActive, collapsed) => ({
     transition: TRANSITIONS.nav,
     position: 'relative',
     zIndex: 1,
-    
+
     ...(isActive && {
       color: NAV_HOVER_ICON_COLOR,
     }),

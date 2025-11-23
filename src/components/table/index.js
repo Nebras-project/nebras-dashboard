@@ -1,7 +1,6 @@
 export { default } from './Table';
 export { default as useTable } from './hooks/useTable';
-export { default as RowActionsMenu } from './components/RowActionsMenu';
-export { default as DeleteAction } from './components/DeleteAction';
+export { ActionsMenu, DeleteAction } from '@components';
 export { default as NoRowsMessage } from './components/NoRowsMessage';
 export { default as TableProfileAvatar } from './components/TableProfileAvatar';
 export {

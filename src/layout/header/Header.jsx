@@ -46,7 +46,7 @@ function Header() {
       width: isSmallScreen ? '100%' : `calc(100% - ${sidebarWidth}px)`,
       height: HEADER_HEIGHT,
       borderRadius: borderRadius.none,
-      bgcolor: 'background.default',
+      bgcolor: 'background.paper',
       color: 'text.primary',
       zIndex: (theme) => theme.zIndex.appBar,
       transition: (theme) =>

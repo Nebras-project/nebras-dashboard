@@ -2,7 +2,8 @@ import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-import Table, { RowActionsMenu, useTable, DeleteAction } from '@components/table';
+import { ActionsMenu, DeleteAction } from '@components';
+import Table, { useTable } from '@components/table';
 import Icon from '@components/display/Icon';
 import useTranslation from '@i18n/hooks/useTranslation';
 import { useRole } from '@hooks';
@@ -27,6 +28,8 @@ function AdminsTable({ onEdit }) {
     queryString,
   } = useTable();
 
+  console.log(queryString);
+
   // Fetch admins data using the hook
   const { admins, isLoading } = useAdmin({
     queryString,
@@ -40,7 +43,7 @@ function AdminsTable({ onEdit }) {
         isGeneralAdmin,
         includeActions: true,
         renderActions: ({ row }) => (
-          <RowActionsMenu
+          <ActionsMenu
             row={row}
             checkPermissions
             tooltip={t('common.actions')}

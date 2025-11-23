@@ -52,7 +52,6 @@ export const useEntityMutation = ({
 
       // Show success toast
       success({
-        title: t(`${entityName}.${action}SuccessTitle`),
         message: t(`${entityName}.${action}SuccessMessage`, { name: itemName, action }),
       });
 
@@ -72,7 +71,6 @@ export const useEntityMutation = ({
 
       // Show error toast
       showError({
-        title: t(`${entityName}.${action}ErrorTitle`),
         message: t(`${entityName}.${action}ErrorMessage`, { name: itemName, action }),
       });
 

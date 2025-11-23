@@ -13,8 +13,6 @@ const PROTECTED_ROUTES = [
   '/students',
   '/competitions',
   '/curriculums',
-  '/subjects',
-  '/units',
   '/admins',
   '/questions',
   '/settings',
@@ -32,6 +30,7 @@ const PROTECTED_ROUTE_PATTERNS = [
   /^\/competitions\/\d+\/members$/, // /competitions/:id/members - Competition members page
   /^\/competitions\/\d+\/exam$/, // /competitions/:id/exam - Competition exam page
   /^\/competitions\/\d+\/result$/, // /competitions/:id/result - Competition result page
+  /^\/curriculums\/\d+$/, // /curriculums/:id - Curriculum details page
 ];
 
 /**

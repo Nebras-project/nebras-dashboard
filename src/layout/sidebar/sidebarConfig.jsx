@@ -26,16 +26,6 @@ const menuItems = {
     icon: <Icon name="school" />,
     path: '/curriculums',
   },
-  subjects: {
-    text: 'navigation.subjects',
-    icon: <Icon name="autoStories" />,
-    path: '/subjects',
-  },
-  units: {
-    text: 'navigation.units',
-    icon: <Icon name="bookmark" />,
-    path: '/units',
-  },
   questions: {
     text: 'navigation.questions',
     icon: <Icon name="questionAnswer" />,
@@ -54,32 +44,29 @@ const fullAccessItems = [
   menuItems.students,
   menuItems.competitions,
   menuItems.curriculums,
-  menuItems.subjects,
-  menuItems.units,
   menuItems.questions,
   menuItems.settings,
 ];
 
 export const navigationItems = {
   owner: fullAccessItems,
-  general_admin: fullAccessItems,
-  curriculum_manager: [
+  generalAdmin: fullAccessItems,
+  curriculumManager: [
     menuItems.dashboard,
     menuItems.curriculums,
-    menuItems.subjects,
-    menuItems.units,
     menuItems.questions,
     menuItems.settings,
   ],
-  competition_manager: [
+  competitionManager: [
     menuItems.dashboard,
     menuItems.competitions,
     menuItems.students,
     menuItems.settings,
   ],
-  content_manager: [menuItems.dashboard, menuItems.questions, menuItems.settings],
+  contentManager: [menuItems.dashboard, menuItems.questions, menuItems.settings],
 };
 
 export const getNavigationItems = (role) => {
-  return navigationItems[role] || navigationItems.owner;
+  // Return items for the role, or empty array if role is invalid/undefined
+  return (role && navigationItems[role]) ?? [];
 };

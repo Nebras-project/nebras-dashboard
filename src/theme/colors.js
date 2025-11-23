@@ -109,6 +109,11 @@ export const baseColors = {
   dark700: '#1a1a1a', // Elevated surface
   dark600: '#262626', // More elevated
   dark500: '#323232', // Most elevated
+  dark400: '#3d3d3d', // Light dark
+  dark300: '#4a4a4a', // Lighter dark
+  dark200: '#5a5a5a', // Even lighter dark
+  dark100: '#6b6b6b', // Lightest dark
+  dark50: '#d1d0d0', // Lightest dark shade
 
   // White & Black
   white: '#ffffff',
@@ -211,8 +216,8 @@ export const dividerColors = {
 };
 // Border colors
 export const borderColors = {
-  light: baseColors.gray100,
-  dark: baseColors.dark700,
+  dark: baseColors.gray800,
+  light: baseColors.dark50,
 };
 
 // Background defaults

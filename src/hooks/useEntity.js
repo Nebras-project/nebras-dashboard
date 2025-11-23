@@ -45,7 +45,6 @@ export const useEntity = ({
     enabled: enabled, // isSingle already validates id != null
     onError: (error) => {
       showError({
-        title: t('common.error'),
         message: t('common.fetchErrorMessage', { entityName: t(`${entityName}.entityName`) }),
       });
       onError?.(error);

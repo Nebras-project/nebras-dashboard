@@ -3,7 +3,7 @@ import { List } from '@mui/material';
 import { useMemo, memo } from 'react';
 
 // internal imports
-import { padding } from '@constants';
+import { padding, gap } from '@constants';
 import { useTranslation, useAuth } from '@hooks';
 import { getNavigationItems } from '../sidebarConfig';
 import NavigationItem from './NavigationItem';
@@ -14,12 +14,13 @@ const getListStyles = () => ({
   flexGrow: 1,
   ...padding.x.md,
   ...padding.bottom.none,
+  ...gap.xs,
 });
 
 const NavigationMenu = memo(function NavigationMenu() {
   const { t } = useTranslation();
   const { role } = useAuth();
-  const menuItems = useMemo(() => getNavigationItems(role), [role]);
+  const menuItems = useMemo(() => getNavigationItems(role) || [], [role]);
 
   return (
     <List sx={getListStyles()}>

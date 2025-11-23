@@ -6,7 +6,13 @@ import { Box, Container } from '@mui/material';
 import { PageHeader } from '@components';
 import { padding } from '@constants';
 
-function PageLayout({ title, description, children, maxWidth = 'widescreen', showBackButton = false }) {
+function PageLayout({
+  title,
+  description,
+  children,
+  maxWidth = 'widescreen',
+  showBackButton = false,
+}) {
   return (
     <Container
       maxWidth={maxWidth}

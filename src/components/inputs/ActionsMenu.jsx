@@ -6,7 +6,7 @@ import { Icon, Menu, NoAccessIcon } from '@components';
 import { useRole } from '@hooks';
 import { checkRowActionsPermissions } from '@utils/roleUtils';
 
-function RowActionsMenu({
+function ActionsMenu({
   actions = [],
   tooltip,
   iconButtonProps,
@@ -109,7 +109,7 @@ function RowActionsMenu({
   );
 }
 
-RowActionsMenu.propTypes = {
+ActionsMenu.propTypes = {
   actions: PropTypes.arrayOf(
     PropTypes.oneOfType([
       PropTypes.element, // React component
@@ -133,4 +133,4 @@ RowActionsMenu.propTypes = {
   emptyState: PropTypes.node,
 };
 
-export default RowActionsMenu;
+export default ActionsMenu;

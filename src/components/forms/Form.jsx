@@ -14,9 +14,6 @@ import {
   PasswordInput,
   ConfirmPasswordInput,
   SelectInput,
-  DateInput,
-  FileInput,
-  ProfileImageInput,
   CheckboxInput,
   RadioInput,
 } from './inputs';
@@ -124,9 +121,6 @@ Form.PhoneInput = PhoneInput;
 Form.PasswordInput = PasswordInput;
 Form.ConfirmPasswordInput = ConfirmPasswordInput;
 Form.SelectInput = SelectInput;
-Form.DateInput = DateInput;
-Form.FileInput = FileInput;
-Form.ProfileImageInput = ProfileImageInput;
 Form.CheckboxInput = CheckboxInput;
 Form.RadioInput = RadioInput;
 

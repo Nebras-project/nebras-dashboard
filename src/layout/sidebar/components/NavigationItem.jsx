@@ -9,7 +9,7 @@ import { fontWeights } from '@theme';
 import { margin, padding } from '@constants';
 import { ListButton } from '@components';
 import { useSidebar, useSidebarNavigation } from '@hooks';
-import { getNavigationHoverStyles } from '@constants';
+import { getNavigationHoverStyles, getNavigationIconStyles } from '@constants';
 
 const getListItemStyles = (isSettings) => ({
   width: '100%',
@@ -21,8 +21,9 @@ const getListItemStyles = (isSettings) => ({
   }),
 });
 
-const getIconStyles = (isActive) => ({
+const getIconStyles = (theme, isActive, collapsed) => ({
   color: isActive ? 'inherit' : 'text.secondary',
+  ...getNavigationIconStyles(theme, isActive, collapsed),
 });
 
 const getTextProps = (isActive) => ({
@@ -49,7 +50,7 @@ const NavigationItem = memo(function NavigationItem({ path, icon, text, isSettin
         sx={{
           ...hoverStyles,
         }}
-        iconSx={getIconStyles(isActive)}
+        iconSx={getIconStyles(theme, isActive, collapsed)}
         textProps={getTextProps(isActive)}
       />
     </ListItem>

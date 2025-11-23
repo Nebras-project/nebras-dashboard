@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
-import Table, { RowActionsMenu, useTable } from '@components/table';
+import { ActionsMenu } from '@components';
+import Table, { useTable } from '@components/table';
 import Icon from '@components/display/Icon';
 import useTranslation from '@i18n/hooks/useTranslation';
 
@@ -20,14 +21,14 @@ function QuestionsTable() {
   } = useTable();
 
   console.log(queryString);
-  
+
   const columns = useMemo(
     () =>
       createQuestionColumns({
         t,
         includeActions: true,
         renderActions: ({ row }) => (
-          <RowActionsMenu
+          <ActionsMenu
             tooltip={t('common.actions')}
             actions={[
               {

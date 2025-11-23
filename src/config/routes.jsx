@@ -44,10 +44,9 @@ const CompetitionResultPage = lazy(() =>
 const CurriculumsPage = lazy(() =>
   import('@features/curriculums').then((m) => ({ default: m.CurriculumsPage }))
 );
-const SubjectsPage = lazy(() =>
-  import('@features/subjects').then((m) => ({ default: m.SubjectsPage }))
+const CurriculumPage = lazy(() =>
+  import('@features/curriculums').then((m) => ({ default: m.CurriculumPage }))
 );
-const UnitsPage = lazy(() => import('@features/units').then((m) => ({ default: m.UnitsPage })));
 
 // Question Pages
 const QuestionsPage = lazy(() =>
@@ -154,23 +153,11 @@ const routes = [
       </AuthenticatedRoute>
     ),
   },
-
-  // Protected Routes - Subjects (Owner, General Admin & Curriculum Manager)
   {
-    path: '/subjects',
+    path: '/curriculums/:id',
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
-        <SubjectsPage />
-      </AuthenticatedRoute>
-    ),
-  },
-
-  // Protected Routes - Units (Owner, General Admin & Curriculum Manager)
-  {
-    path: '/units',
-    element: (
-      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
-        <UnitsPage />
+        <CurriculumPage />
       </AuthenticatedRoute>
     ),
   },

@@ -31,13 +31,13 @@ export const borderWidth = {
 export const shadows = {
   light: {
     sm: '0 2px 4px rgba(0,0,0,0.1)',
-    md: '0 2px 8px rgba(0,0,0,0.1)',
+    md: '0 2px 8px rgba(0,0,0,0.08)',
     lg: '0 4px 16px rgba(0,0,0,0.15)',
   },
   dark: {
-    sm: '0 2px 4px rgba(0,0,0,0.3)',
-    md: '0 2px 8px rgba(0,0,0,0.3)',
-    lg: '0 4px 16px rgba(0,0,0,0.4)',
+    sm: '0 2px 4px rgba(0,0,0,0.1)',
+    md: '0 2px 8px rgba(0,0,0,0.03)',
+    lg: '0 4px 16px rgba(0,0,0,0.15)',
   },
 };
 

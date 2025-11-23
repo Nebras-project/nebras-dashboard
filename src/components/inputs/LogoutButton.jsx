@@ -56,7 +56,7 @@ function LogoutButton({
 
   const handleConfirmLogout = () => {
     logout();
-    success({ title: t('auth.logoutMessage') });
+    success({ message: t('auth.logoutMessage') });
     if (onLogout && typeof onLogout === 'function') {
       onLogout();
     }

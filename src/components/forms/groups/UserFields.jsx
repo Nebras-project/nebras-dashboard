@@ -18,7 +18,6 @@ const UserFields = memo(function UserFields({
   showPassword = false,
   showRole = false,
   showClass = false,
-  showProfileImage = true,
   roleOptions = [],
   classOptions = [],
   passwordRequired = true,
@@ -48,22 +47,6 @@ const UserFields = memo(function UserFields({
 
   return (
     <Grid container spacing={3}>
-      {/* Profile Image - At the top, centered */}
-      {showProfileImage && (
-        <Grid
-          item
-          sx={{
-            width: '100%',
-            flexBasis: '100%',
-            maxWidth: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          <Form.ProfileImageInput name="ProfileImg" accept="image/*" size={70} />
-        </Grid>
-      )}
-
       {/* Username */}
       <Grid item {...gridItemProps}>
         <Form.UsernameInput />
@@ -133,7 +116,6 @@ UserFields.propTypes = {
   showPassword: PropTypes.bool,
   showRole: PropTypes.bool,
   showClass: PropTypes.bool,
-  showProfileImage: PropTypes.bool,
   roleOptions: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,

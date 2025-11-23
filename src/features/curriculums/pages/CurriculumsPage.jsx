@@ -1,23 +1,20 @@
-import { Container, Box, Typography } from '@mui/material';
 import { PageLayout } from '@components';
 import { useTranslation } from '@hooks';
 
+import { CurriculumsGrid, CurriculumFormDialog } from '../components';
+import { useCurriculum } from '../hooks';
+
 function CurriculumsPage() {
   const { t } = useTranslation();
+  const { curriculums, isLoading } = useCurriculum();
 
   return (
-    <PageLayout
-      title={t('navigation.curriculums')}
-      description={t('curriculum.levels')}
-      maxWidth="lg"
-    >
-      <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Box sx={{ textAlign: 'center', py: 8, color: 'text.secondary' }}>
-          <Typography variant="body2" sx={{ mt: 1 }}>
-            Content coming soon
-          </Typography>
-        </Box>
-      </Container>
+    <PageLayout title={t('navigation.curriculums')} description={t('curriculum.pageDescription')}>
+      <CurriculumFormDialog>
+        {({ onEdit }) => (
+          <CurriculumsGrid curriculums={curriculums} isLoading={isLoading} onEdit={onEdit} />
+        )}
+      </CurriculumFormDialog>
     </PageLayout>
   );
 }

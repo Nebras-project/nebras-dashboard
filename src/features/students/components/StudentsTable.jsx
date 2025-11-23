@@ -2,7 +2,8 @@ import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-import Table, { RowActionsMenu, useTable, DeleteAction } from '@components/table';
+import { ActionsMenu, DeleteAction } from '@components';
+import Table, { useTable } from '@components/table';
 import Icon from '@components/display/Icon';
 import useTranslation from '@i18n/hooks/useTranslation';
 
@@ -36,7 +37,7 @@ function StudentsTable({ onEdit }) {
         t,
         includeActions: true,
         renderActions: ({ row }) => (
-          <RowActionsMenu
+          <ActionsMenu
             tooltip={t('common.actions')}
             row={row}
             actions={[

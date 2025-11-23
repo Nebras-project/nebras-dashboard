@@ -12,5 +12,8 @@ export { default as Message } from './Message';
 export { default as Toast } from './Toast';
 export { default as ToastContainer } from './ToastContainer';
 
+// Empty state components
+export { default as EmptyState } from './EmptyState';
+
 // Error state components
 export { default as EntityErrorState } from './EntityErrorState';

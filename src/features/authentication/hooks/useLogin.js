@@ -23,7 +23,7 @@ export const useLogin = () => {
           id: 1,
           name: 'Admin User',
           email: data.Email,
-          role: 'generalAdmin',
+          role: 'owner',
         };
         // Mock JWT token - In real app, this would come from the API
         const mockToken = 'mock-jwt-token-' + Date.now();
@@ -32,13 +32,11 @@ export const useLogin = () => {
         login({ user: userData, token: mockToken });
 
         success({
-          title: t('auth.loginSuccess'),
           content: t('auth.welcomeMessage', { name: userData.name }),
         });
         navigate('/dashboard');
       } catch (err) {
         error({
-          title: t('auth.loginError'),
           content: err.message || t('auth.invalidCredentials'),
         });
       }

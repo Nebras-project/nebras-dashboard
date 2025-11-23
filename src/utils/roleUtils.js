@@ -35,6 +35,10 @@ export const classTranslationKeys = {
   third_secondary: 'students.classes.thirdSecondary',
 };
 
+// Admin role values in PascalCase/display format (as returned by API and used in forms)
+// These values MUST match the exact format that the API expects/returns for admin roles.
+// If the API format changes, update this array to match the new format.
+// Used for admin creation/editing forms and table filters.
 export const ADMIN_ROLE_VALUES = [
   'Owner',
   'General Admin',

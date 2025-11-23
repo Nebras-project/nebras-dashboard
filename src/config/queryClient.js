@@ -11,6 +11,7 @@ export const QUERY_KEYS = {
   STUDENTS: 'students',
   COMPETITIONS: 'competitions',
   QUESTIONS: 'questions',
+  CURRICULUMS: 'curriculums',
 };
 
 export const queryClient = new QueryClient({
