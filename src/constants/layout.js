@@ -91,7 +91,7 @@ export const getNavigationIconStyles = (theme, isActive, collapsed) => {
       : baseColors.gray150,
 
     ...padding.all.sm,
-    borderRadius: borderRadius.xxs,
+    // borderRadius: borderRadius.xxs,
     width: `${NAV_ITEM_DIMENSIONS.icon.collapsedSize}px`,
     height: `${NAV_ITEM_DIMENSIONS.icon.collapsedSize}px`,
     aspectRatio: '1 / 1',

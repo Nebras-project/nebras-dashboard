@@ -34,7 +34,7 @@ function CurriculumsGrid({ curriculums, isLoading, onEdit }) {
   return (
     <Grid container spacing={3}>
       {curriculums.map((curriculum) => (
-        <Grid item size={{ mobile: 12, tablet: 6, desktop: 4, widescreen: 3 }} key={curriculum.id}>
+        <Grid size={{ mobile: 12, tablet: 6, desktop: 4, widescreen: 3 }} key={curriculum.id}>
           <CurriculumCard curriculum={curriculum} onEdit={onEdit} />
         </Grid>
       ))}
