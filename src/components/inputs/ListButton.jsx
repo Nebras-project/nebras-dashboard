@@ -9,29 +9,20 @@ import {
 import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { borderRadius } from '@theme';
+import { NAV_ITEM_DIMENSIONS } from '@constants';
 
 const StyledListItemButton = styled(ListItemButton, {
   shouldForwardProp: (prop) => !['customVariant', 'customColor', 'collapsed'].includes(prop),
 })(({ theme, customVariant, customColor, selected, collapsed }) => {
   const getVariantStyles = (variant) => {
-    const variantMap = {
-      default: {
-        height: '48px',
-        minHeight: '48px',
-        padding: '0 16px',
-      },
-      dense: {
-        height: '40px',
-        minHeight: '40px',
-        padding: '0 12px',
-      },
-      comfortable: {
-        height: '56px',
-        minHeight: '56px',
-        padding: '0 20px',
-      },
+    const variantConfig =
+      NAV_ITEM_DIMENSIONS.variants[variant] || NAV_ITEM_DIMENSIONS.variants.default;
+
+    return {
+      height: `${variantConfig.height}px`,
+      minHeight: `${variantConfig.height}px`,
+      padding: `0 ${variantConfig.paddingX}px`,
     };
-    return variantMap[variant] || variantMap.default;
   };
 
   const getColorStyles = (color) => {
@@ -89,7 +80,7 @@ const StyledListItemButton = styled(ListItemButton, {
     display: 'flex',
     alignItems: 'center',
     width: '100%',
-    transition: 'all 0.2s ease-in-out',
+    transition: NAV_ITEM_DIMENSIONS.transition,
     justifyContent: collapsed ? 'center' : 'flex-start',
     ...variantStyles,
     ...colorStyles,
@@ -99,14 +90,14 @@ const StyledListItemButton = styled(ListItemButton, {
 const StyledListItemIcon = styled(ListItemIcon, {
   shouldForwardProp: (prop) => prop !== 'collapsed',
 })(({ collapsed }) => ({
-  minWidth: collapsed ? 'auto' : '40px',
+  minWidth: collapsed ? 'auto' : `${NAV_ITEM_DIMENSIONS.icon.minWidth}px`,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  transition: 'all 0.2s ease-in-out',
-  fontSize: '1.25rem',
+  transition: NAV_ITEM_DIMENSIONS.transition,
+  fontSize: NAV_ITEM_DIMENSIONS.icon.fontSize,
   '& svg': {
-    fontSize: '1.25rem',
+    fontSize: NAV_ITEM_DIMENSIONS.icon.fontSize,
     display: 'block',
   },
 }));
@@ -158,7 +149,15 @@ const ListButton = forwardRef(
         {...rest}
       >
         <StyledListItemIcon collapsed={collapsed} sx={iconSx} aria-hidden="true">
-          {loading ? <CircularProgress size={20} color="inherit" aria-hidden="true" /> : icon}
+          {loading ? (
+            <CircularProgress
+              size={NAV_ITEM_DIMENSIONS.loaderSize}
+              color="inherit"
+              aria-hidden="true"
+            />
+          ) : (
+            icon
+          )}
         </StyledListItemIcon>
 
         {!collapsed && text && (

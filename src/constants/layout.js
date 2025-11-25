@@ -42,6 +42,31 @@ const NAV_HOVER_CONFIG = {
   iconScale: 'scale(1.1) rotate(-5deg)',
 };
 
+// Navigation item shared dimensions
+export const NAV_ITEM_DIMENSIONS = {
+  transition: 'all 0.2s ease-in-out',
+  loaderSize: 20,
+  icon: {
+    minWidth: 40,
+    collapsedSize: 48,
+    fontSize: '1.25rem',
+  },
+  variants: {
+    default: {
+      height: 48,
+      paddingX: 16,
+    },
+    dense: {
+      height: 40,
+      paddingX: 12,
+    },
+    comfortable: {
+      height: 56,
+      paddingX: 20,
+    },
+  },
+};
+
 // =============================================================================
 // STYLE FUNCTIONS
 // =============================================================================
@@ -65,9 +90,14 @@ export const getNavigationIconStyles = (theme, isActive, collapsed) => {
       ? baseColors.dark700
       : baseColors.gray150,
 
-    padding: '8px',
-    width: '40px',
-    height: '48px',
+    ...padding.all.sm,
+    borderRadius: borderRadius.xxs,
+    width: `${NAV_ITEM_DIMENSIONS.icon.collapsedSize}px`,
+    height: `${NAV_ITEM_DIMENSIONS.icon.collapsedSize}px`,
+    aspectRatio: '1 / 1',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   };
 };
 
