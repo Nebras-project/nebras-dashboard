@@ -8,13 +8,13 @@ import { resolveLanguage } from '@utils';
 /**
  * Get curriculum name based on current language (supports bilingual)
  * @param {Object} curriculum - Curriculum object
- * @param {string} currentLanguage - Current language ('ar' | 'en' | 'system'), defaults to 'ar'
+ * @param {string} currentLanguage - Current language ('ar' | 'en'), defaults to 'ar'
  * @returns {string} Curriculum name in the current language
  */
 export const getCurriculumName = (curriculum, currentLanguage = 'ar') => {
   if (!curriculum) return 'N/A';
 
-  // Resolve language if it's 'system'
+  // Resolve language (handles legacy 'system' values)
   const resolvedLang = resolveLanguage(currentLanguage);
 
   // Get name based on resolved language

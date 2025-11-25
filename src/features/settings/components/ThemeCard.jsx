@@ -41,12 +41,6 @@ const ThemeCard = memo(function ThemeCard() {
   const themeOptions = useMemo(
     () => [
       {
-        value: 'system',
-        label: t('common.systemMode'),
-        icon: <Icon name="contrast" />,
-        onClick: () => handleThemeChange('system'),
-      },
-      {
         value: 'light',
         label: t('common.lightMode'),
         icon: <Icon name="lightMode" />,

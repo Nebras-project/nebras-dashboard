@@ -6,7 +6,7 @@ const initialLanguage = DEFAULT_LANGUAGE;
 const resolvedInitialLanguage = resolveLanguage(initialLanguage);
 
 const initialState = {
-  currentLanguage: initialLanguage, // 'en', 'ar', or 'system' - Will be overridden by preloadedState
+  currentLanguage: initialLanguage, // 'en' or 'ar' - Will be overridden by preloadedState
   isRTL: resolvedInitialLanguage === 'ar',
 };
 

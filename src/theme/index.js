@@ -72,9 +72,6 @@ export const createAppTheme = (
   colorScheme = 'default',
   customColor = null
 ) => {
-  // Ensure mode is valid ('light' or 'dark'), default to 'light' if invalid
-  const validMode = mode === 'light' || mode === 'dark' ? mode : 'light';
-
   // Determine primary colors based on color scheme
   let primaryColors;
   let primaryBackground;
@@ -82,7 +79,7 @@ export const createAppTheme = (
   if (colorScheme === 'custom' && customColor) {
     // Generate palette from custom color
     primaryColors = generateColorPalette(customColor);
-    primaryBackground = generateBackgroundColor(customColor, validMode);
+    primaryBackground = generateBackgroundColor(customColor, mode);
   } else if (colorScheme === 'default') {
     primaryColors = {
       main: baseColors.teal500,
@@ -90,30 +87,23 @@ export const createAppTheme = (
       dark: baseColors.teal700,
       contrastText: baseColors.white,
     };
-    primaryBackground = validMode === 'light' ? baseColors.teal50 : baseColors.teal400;
+    primaryBackground = mode === 'light' ? baseColors.teal50 : baseColors.teal400;
   }
-
-  // Get background values with fallbacks
-  const backgrounds = customBackgrounds[validMode] || customBackgrounds.light;
-  const defaults = backgroundDefaults[validMode] || backgroundDefaults.light;
-  const text = textColors[validMode] || textColors.light;
-  const divider =
-    dividerColors[validMode] !== undefined ? dividerColors[validMode] : dividerColors.light;
 
   const baseTheme = createTheme({
     palette: {
-      mode: validMode,
+      mode,
       ...colors,
       primary: primaryColors,
       background: {
-        default: defaults.default,
-        paper: defaults.paper,
+        default: backgroundDefaults[mode].default,
+        paper: backgroundDefaults[mode].paper,
         primary: primaryBackground,
-        secondary: backgrounds.secondary,
-        surface: backgrounds.surface,
+        secondary: customBackgrounds[mode].secondary,
+        surface: customBackgrounds[mode].surface,
       },
-      text: text,
-      divider: divider,
+      text: textColors[mode],
+      divider: dividerColors[mode],
     },
     typography,
     direction,
@@ -123,7 +113,7 @@ export const createAppTheme = (
     breakpoints: {
       values: breakpoints,
     },
-    components: getComponentOverrides(validMode),
+    components: getComponentOverrides(mode),
     transitions,
     zIndex,
   });

@@ -95,8 +95,8 @@ export const MAX_FILE_SIZE = getNumberEnv('VITE_MAX_FILE_SIZE', 5242880); // 5MB
 // ============================================
 // UI CONFIGURATION
 // ============================================
-export const DEFAULT_THEME = getEnv('VITE_DEFAULT_THEME', 'system');
-export const DEFAULT_LANGUAGE = getEnv('VITE_DEFAULT_LANGUAGE', 'system');
+export const DEFAULT_THEME = getEnv('VITE_DEFAULT_THEME', 'dark');
+export const DEFAULT_LANGUAGE = getEnv('VITE_DEFAULT_LANGUAGE', 'ar');
 export const SIDEBAR_DEFAULT_COLLAPSED = getBoolEnv('VITE_SIDEBAR_DEFAULT_COLLAPSED', false);
 
 // ============================================

@@ -31,6 +31,9 @@ const PROTECTED_ROUTE_PATTERNS = [
   /^\/competitions\/\d+\/exam$/, // /competitions/:id/exam - Competition exam page
   /^\/competitions\/\d+\/result$/, // /competitions/:id/result - Competition result page
   /^\/curriculums\/\d+$/, // /curriculums/:id - Curriculum details page
+  /^\/curriculums\/\d+\/subjects\/\d+$/, // /curriculums/:curriculumId/subjects/:subjectId - Subject details page
+  /^\/curriculums\/\d+\/subjects\/\d+\/units\/\d+$/, // /curriculums/:curriculumId/subjects/:subjectId/units/:unitId - Unit details page
+  /^\/curriculums\/\d+\/subjects\/\d+\/units\/\d+\/lessons\/\d+$/, // /curriculums/:curriculumId/subjects/:subjectId/units/:unitId/lessons/:lessonId - Lesson details page
 ];
 
 /**

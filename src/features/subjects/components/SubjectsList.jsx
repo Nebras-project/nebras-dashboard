@@ -84,7 +84,6 @@ function SubjectsList({
                 lessonsLabel={t('curriculum.lessons')}
               />
               <SubjectActions actions={actions} />
-              
             </ListItem>
             {index < subjects.length - 1 && <Divider sx={margin.y.xs} />}
           </Box>

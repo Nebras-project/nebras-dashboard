@@ -8,13 +8,13 @@ import { resolveLanguage } from '@utils';
 /**
  * Get unit name based on current language (supports bilingual)
  * @param {Object} unit - Unit object
- * @param {string} currentLanguage - Current language ('ar' | 'en' | 'system'), defaults to 'ar'
+ * @param {string} currentLanguage - Current language ('ar' | 'en'), defaults to 'ar'
  * @returns {string} Unit name in the current language
  */
 export const getUnitName = (unit, currentLanguage = 'ar') => {
   if (!unit) return 'N/A';
 
-  // Resolve language if it's 'system'
+  // Resolve language (handles legacy 'system' values)
   const resolvedLang = resolveLanguage(currentLanguage);
 
   // Get name based on resolved language

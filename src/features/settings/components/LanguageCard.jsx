@@ -41,12 +41,6 @@ const LanguageCard = memo(function LanguageCard() {
   const languageOptions = useMemo(
     () => [
       {
-        value: 'system',
-        label: t('common.systemMode'),
-        icon: <Icon name="earth" />,
-        onClick: () => handleLanguageChange('system'),
-      },
-      {
         value: 'ar',
         label: t('common.arabic'),
         icon: <Icon name="language" />,

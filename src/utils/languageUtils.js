@@ -18,5 +18,10 @@ export const getBrowserLanguage = () => {
 };
 
 export const resolveLanguage = (storedLanguage) => {
-  return storedLanguage === 'system' ? getBrowserLanguage() : storedLanguage;
+  // If stored language is 'system' (from old version), default to 'ar'
+  // Otherwise return the stored language directly
+  if (storedLanguage === 'system') {
+    return 'ar';
+  }
+  return storedLanguage || 'ar';
 };

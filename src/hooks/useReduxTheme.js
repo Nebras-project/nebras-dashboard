@@ -13,14 +13,22 @@ export const useReduxTheme = () => {
   const toggleThemeAction = useCallback(() => dispatch(toggleTheme()), [dispatch]);
   const setThemeModeAction = useCallback((mode) => dispatch(setThemeMode(mode)), [dispatch]);
 
+  // Normalize mode to ensure it's always 'light' or 'dark'
+  const normalizedMode = theme.mode === 'light' || theme.mode === 'dark' ? theme.mode : 'dark';
+
+  // Calculate dark mode state
+  const isDark = normalizedMode === 'dark';
+  const isLight = normalizedMode === 'light';
+
   return useMemo(
     () => ({
       ...theme,
-      isDark: theme.mode === 'dark',
-      isLight: theme.mode === 'light',
+      mode: normalizedMode,
+      isDark,
+      isLight,
       toggleTheme: toggleThemeAction,
       setThemeMode: setThemeModeAction,
     }),
-    [theme, toggleThemeAction, setThemeModeAction]
+    [theme, normalizedMode, isDark, isLight, toggleThemeAction, setThemeModeAction]
   );
 };
