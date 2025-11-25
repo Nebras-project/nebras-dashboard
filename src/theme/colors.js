@@ -94,6 +94,7 @@ export const baseColors = {
   // Grays (Light mode) - Complete gradient
   gray50: '#fcfcfc',
   gray100: '#f9fbfc',
+  gray150: '#f0f0f0',
   gray200: '#e8e8e8',
   gray300: '#d4d4d4',
   gray400: '#b0b0b0',

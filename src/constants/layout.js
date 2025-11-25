@@ -1,5 +1,4 @@
 // external imports
-import { alpha } from '@mui/material/styles';
 import {
   NAV_HOVER_BORDER_INDICATOR,
   NAV_HOVER_ICON_COLOR,
@@ -61,20 +60,18 @@ export const getNavigationIconStyles = (theme, isActive, collapsed) => {
 
   return {
     backgroundColor: isActive
-      ? theme.palette.mode === 'dark'
-        ? theme.palette.background.default || 'rgba(255, 255, 255, 0.15)'
-        : alpha(theme.palette.primary.main, 0.15)
+      ? theme.palette.background.default
       : theme.palette.mode === 'dark'
-      ? theme.palette.background.surface?.level2 || 'rgba(255, 255, 255, 0.05)'
-      : theme.palette.action.hover || 'rgba(0, 0, 0, 0.04)',
-    // borderRadius: borderRadius.xxs,
+      ? baseColors.dark700
+      : baseColors.gray150,
+
     padding: '8px',
-    width: '40  px',
+    width: '40px',
     height: '48px',
   };
 };
 
-export const getCardActionsButtonStyles = (isLight) => ({
+export const getActionsButtonStyles = (isLight) => ({
   bgcolor: isLight ? baseColors.gray200 : baseColors.dark900,
   color: isLight ? 'primary.main' : 'primary.contrastText',
   backdropFilter: 'blur(8px)',

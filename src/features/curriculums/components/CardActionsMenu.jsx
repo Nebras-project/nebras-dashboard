@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { Icon } from '@components';
 import { ActionsMenu, DeleteAction } from '@components';
 import { useTranslation, useReduxTheme, useLanguage } from '@hooks';
-import { getCardActionsButtonStyles } from '@constants/layout';
+import { getActionsButtonStyles } from '@constants/layout';
 import { getCurriculumName } from '../utils';
 
 /**
@@ -62,7 +62,7 @@ function CardActionsMenu({ curriculum, onView, onEdit, onDelete }) {
         actions={actions}
         iconButtonProps={{
           size: 'small',
-          sx: getCardActionsButtonStyles(isLight),
+          sx: getActionsButtonStyles(isLight),
         }}
         checkPermissions={false}
       />

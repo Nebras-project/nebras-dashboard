@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // internal imports
 import { Icon, ActionsMenu } from '@components';
 import { useTranslation, useReduxTheme } from '@hooks';
-import { getCardActionsButtonStyles } from '@constants/layout';
+import { getActionsButtonStyles } from '@constants/layout';
 
 /**
  * SubjectsHeader Component
@@ -39,7 +39,7 @@ function SubjectsHeader({ onAdd }) {
           ]}
           iconButtonProps={{
             size: 'small',
-            sx: getCardActionsButtonStyles(isLight),
+            sx: getActionsButtonStyles(isLight),
           }}
           checkPermissions={false}
         />
