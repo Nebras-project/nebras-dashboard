@@ -34,7 +34,9 @@ const StyledListItemButton = styled(ListItemButton, {
           color: theme.palette.mode === 'dark' ? 'text.primary' : 'primary.main',
           '&:hover': {
             backgroundColor:
-              theme.palette.mode === 'dark' ? 'background.surface.level2' : 'primary.light',
+              theme.palette.mode === 'dark'
+                ? theme.palette.background.surface?.level2 || theme.palette.background.paper
+                : 'primary.light',
             color: theme.palette.mode === 'dark' ? 'text.primary' : 'primary.dark',
           },
           '& .MuiListItemIcon-root': {

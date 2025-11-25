@@ -13,11 +13,6 @@ import apiClient, { API_ENDPOINTS } from '@config/axios';
 // Import utilities
 import { createFormData } from '@utils';
 
-const SHOULD_USE_DUMMY_DATA =
-  typeof import.meta !== 'undefined'
-    ? import.meta.env?.VITE_USE_DUMMY_CURRICULUMS !== 'false'
-    : true;
-
 /**
  * FormData options for curriculum create/update operations
  */
@@ -50,13 +45,8 @@ const handleApiError = async (error, fallbackFn) => {
  * @returns {Promise} API response
  */
 export const fetchCurriculums = async (_params = {}) => {
-  if (SHOULD_USE_DUMMY_DATA) {
-    return dummyCurriculums;
-  }
-
   try {
-    const response = await apiClient.get(API_ENDPOINTS.CURRICULUMS.BASE);
-    return response?.data ?? response;
+    return await apiClient.get(API_ENDPOINTS.CURRICULUMS.BASE);
   } catch (error) {
     return handleApiError(error, () => Promise.resolve(dummyCurriculums));
   }
@@ -68,19 +58,8 @@ export const fetchCurriculums = async (_params = {}) => {
  * @returns {Promise} API response
  */
 export const fetchCurriculumById = async (id) => {
-  if (SHOULD_USE_DUMMY_DATA) {
-    const curriculum = dummyCurriculums.find((c) => c.id === Number(id) || c.id === String(id));
-
-    if (!curriculum) {
-      throw new Error('Curriculum not found');
-    }
-
-    return curriculum;
-  }
-
   try {
-    const response = await apiClient.get(API_ENDPOINTS.CURRICULUMS.BY_ID(id));
-    return response?.data ?? response;
+    return await apiClient.get(API_ENDPOINTS.CURRICULUMS.BY_ID(id));
   } catch (error) {
     return handleApiError(error, () => {
       const curriculum = dummyCurriculums.find((c) => c.id === Number(id) || c.id === String(id));
