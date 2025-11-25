@@ -24,9 +24,11 @@ export const useMuiTheme = () => {
   // Determine the actual mode to use
   const effectiveMode = useMemo(() => {
     if (mode === 'system') {
-      return systemPrefersDark ? 'dark' : 'light';
+      // If systemPrefersDark is undefined (during SSR or initial render), default to 'light'
+      return systemPrefersDark === true ? 'dark' : 'light';
     }
-    return mode;
+    // Ensure mode is valid, default to 'light' if invalid
+    return mode === 'light' || mode === 'dark' ? mode : 'light';
   }, [mode, systemPrefersDark]);
 
   // Create theme based on mode, direction, and color scheme
