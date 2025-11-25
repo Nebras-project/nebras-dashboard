@@ -6,6 +6,7 @@ import { Box, Stack, useTheme, alpha } from '@mui/material';
 import { useAuth, useTranslation } from '@hooks';
 import { Form, Icon } from '@components';
 import { gap } from '@constants';
+import { NAVIGATION_PATHS } from '@config';
 import { useLogin } from '../hooks/useLogin';
 import LoginHeader from '../components/LoginHeader';
 
@@ -64,7 +65,7 @@ const LoginPage = memo(function LoginPage() {
 
   // Early return for authenticated users
   if (isAuthenticated) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to={NAVIGATION_PATHS.DASHBOARD} replace />;
   }
 
   return (

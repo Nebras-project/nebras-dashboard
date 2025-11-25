@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 // internal imports
 import { useAuth, useTranslation, useToast } from '@hooks';
+import { NAVIGATION_PATHS } from '@config';
 
 /**
  * Custom hook for handling login functionality
@@ -34,7 +35,7 @@ export const useLogin = () => {
         success({
           content: t('auth.welcomeMessage', { name: userData.name }),
         });
-        navigate('/dashboard');
+        navigate(NAVIGATION_PATHS.DASHBOARD);
       } catch (err) {
         error({
           content: err.message || t('auth.invalidCredentials'),

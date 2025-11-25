@@ -4,6 +4,7 @@ export { ErrorBoundary, ErrorFallback, useErrorBoundary } from './errors';
 // Feedback components
 export {
   Loader,
+  CircularLoader,
   FireLoader,
   LoadingLogo,
   LoadingMessage,

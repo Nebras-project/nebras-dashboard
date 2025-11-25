@@ -7,3 +7,5 @@ export { default as CurriculumCardStatItem } from './CurriculumCardStatItem';
 export { default as CurriculumsGrid } from './CurriculumsGrid';
 export { default as CurriculumForm } from './CurriculumForm';
 export { default as CurriculumFormDialog } from './CurriculumFormDialog';
+export { default as CurriculumDetails } from './CurriculumDetails';
+export { default as CurriculumErrorState } from './CurriculumErrorState';

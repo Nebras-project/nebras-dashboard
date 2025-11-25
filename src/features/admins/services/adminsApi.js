@@ -93,14 +93,25 @@ export const createAdmin = async (adminData) => {
 };
 
 /**
- * Update an existing admin
+ * Update an existing admin (full replacement)
  * @param {number|string} id - Admin ID
- * @param {Object} adminData - Updated admin data
+ * @param {Object} adminData - Updated admin data (full resource)
  * @returns {Promise} API response
  */
 export const updateAdmin = async (id, adminData) => {
   const formData = createFormData(adminData, ADMIN_FORM_DATA_OPTIONS);
   return await apiClient.put(API_ENDPOINTS.ADMINS.BY_ID(id), formData);
+};
+
+/**
+ * Partially update an existing admin
+ * @param {number|string} id - Admin ID
+ * @param {Object} adminData - Partial admin data to update
+ * @returns {Promise} API response
+ */
+export const patchAdmin = async (id, adminData) => {
+  const formData = createFormData(adminData, ADMIN_FORM_DATA_OPTIONS);
+  return await apiClient.patch(API_ENDPOINTS.ADMINS.BY_ID(id), formData);
 };
 
 /**

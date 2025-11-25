@@ -6,6 +6,9 @@ import {
   NAV_HOVER_SHIMMER_LIGHT,
   NAV_HOVER_SHIMMER_DARK,
 } from '@theme/colors';
+import { baseColors, borderColors } from '../theme/colors';
+import { borderRadius } from '../theme/components';
+import { padding } from './spacing';
 
 // =============================================================================
 // LAYOUT DIMENSIONS
@@ -71,7 +74,30 @@ export const getNavigationIconStyles = (theme, isActive, collapsed) => {
   };
 };
 
+export const getCardActionsButtonStyles = (isLight) => ({
+  bgcolor: isLight ? baseColors.gray200 : baseColors.dark900,
+  color: isLight ? 'primary.main' : 'primary.contrastText',
+  backdropFilter: 'blur(8px)',
+  transition: 'all 0.2s ease',
+  '&:hover': {
+    bgcolor: isLight ? baseColors.gray300 : baseColors.dark800,
+    transform: 'scale(1.05)',
+  },
+});
 
+/**
+ * Get common Paper styles for sections
+ * @param {string} mode - Theme mode ('light' or 'dark')
+ * @param {Object} overrides - Additional styles to override defaults
+ * @returns {Object} Style object for Paper component
+ */
+export const getSectionPaperStyles = (mode, overrides = {}) => ({
+  ...padding.all.md,
+  borderRadius: borderRadius.xxs,
+  border: `1px solid ${borderColors[mode]}`,
+  bgcolor: 'background.default',
+  ...overrides,
+});
 
 export const getNavigationHoverStyles = (theme, isActive, collapsed) => ({
   position: 'relative',

@@ -9,6 +9,7 @@ import { useTranslation, useResponsive } from '@hooks';
 import { Icon, BackButton, Button } from '@components';
 import { borderRadius, fontWeights } from '@theme';
 import { gap, getErrorConfig, getErrorIconColor, margin, padding, spacing } from '@constants';
+import { NAVIGATION_PATHS } from '@config';
 import Message from '@components/feedback/Message';
 
 // Animation configurations
@@ -193,7 +194,7 @@ function ActionButtons({ navigate, t, isSmallScreen }) {
         <Button
           variant="contained"
           size="large"
-          onClick={() => navigate('/dashboard')}
+          onClick={() => navigate(NAVIGATION_PATHS.DASHBOARD)}
           startIcon={<Icon name="home" />}
           sx={buttonStyles}
           fullWidth={isSmallScreen}

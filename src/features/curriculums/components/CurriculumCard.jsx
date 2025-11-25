@@ -8,6 +8,7 @@ import { getCurriculumName } from '../utils';
 import { useDeleteCurriculum } from '../hooks';
 import { useReduxTheme, useLanguage } from '@hooks';
 import { borderColors } from '@theme/colors';
+import { NAVIGATION_PATHS } from '@config';
 import CardActionsMenu from './CardActionsMenu';
 import CurriculumCardImage from './CurriculumCardImage';
 import CurriculumCardName from './CurriculumCardName';
@@ -28,7 +29,7 @@ function CurriculumCard({ curriculum, onEdit }) {
   const curriculumName = getCurriculumName(curriculum, currentLanguage);
 
   const handleView = () => {
-    navigate(`/curriculums/${curriculum.id}`);
+    navigate(NAVIGATION_PATHS.CURRICULUMS.BY_ID(curriculum.id));
   };
 
   const handleEdit = () => {
@@ -40,7 +41,7 @@ function CurriculumCard({ curriculum, onEdit }) {
   };
 
   return (
-    <Card
+    <Card 
       sx={{
         border: `1px solid ${borderColors[mode]}`,
         bgcolor: 'background.default',

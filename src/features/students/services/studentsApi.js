@@ -93,14 +93,25 @@ export const createStudent = async (studentData) => {
 };
 
 /**
- * Update an existing student
+ * Update an existing student (full replacement)
  * @param {number|string} id - Student ID
- * @param {Object} studentData - Updated student data
+ * @param {Object} studentData - Updated student data (full resource)
  * @returns {Promise} API response
  */
 export const updateStudent = async (id, studentData) => {
   const formData = createFormData(studentData, STUDENT_FORM_DATA_OPTIONS);
   return await apiClient.put(API_ENDPOINTS.STUDENTS.BY_ID(id), formData);
+};
+
+/**
+ * Partially update an existing student
+ * @param {number|string} id - Student ID
+ * @param {Object} studentData - Partial student data to update
+ * @returns {Promise} API response
+ */
+export const patchStudent = async (id, studentData) => {
+  const formData = createFormData(studentData, STUDENT_FORM_DATA_OPTIONS);
+  return await apiClient.patch(API_ENDPOINTS.STUDENTS.BY_ID(id), formData);
 };
 
 /**

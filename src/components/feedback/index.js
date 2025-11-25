@@ -1,5 +1,6 @@
 // Main components
 export { default as Loader } from './Loader';
+export { default as CircularLoader } from './CircularLoader';
 
 // Sub-components
 export { default as FireLoader } from './FireLoader';

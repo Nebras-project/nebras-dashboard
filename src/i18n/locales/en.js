@@ -51,6 +51,7 @@ const en = {
     phone: 'Phone',
     address: 'Address',
     notes: 'Notes',
+    order: 'Order',
     settings: 'Settings',
     profile: 'Profile',
     logout: 'Logout',
@@ -171,6 +172,10 @@ const en = {
     editSubject: 'Edit Subject',
     editUnit: 'Edit Unit',
     editLesson: 'Edit Lesson',
+    viewCurriculum: 'View Curriculum',
+    viewSubject: 'View Subject',
+    viewUnit: 'View Unit',
+    viewLesson: 'View Lesson',
     deleteCurriculum: 'Delete Curriculum',
     deleteSubject: 'Delete Subject',
     deleteUnit: 'Delete Unit',
@@ -185,9 +190,12 @@ const en = {
     noCurriculums: 'No curriculums found',
     noCurriculumsDescription:
       'Start by creating a new curriculum to manage subjects, units, and lessons',
+    noSubjects: 'No subjects found',
+    noSubjectsDescription: 'Start by adding a new subject to this curriculum',
+    noUnits: 'No units found',
+    noLessons: 'No lessons found',
     pageDescription: 'Manage educational curriculums and organize subjects, units, and lessons',
     curriculumDetails: 'Curriculum Details',
-    viewCurriculum: 'View Curriculum',
     curriculumNotFound: 'Curriculum Not Found',
     curriculumNotFoundDescription: 'The requested curriculum does not exist or has been deleted',
     deleteConfirmTitle: 'Delete Curriculum',
@@ -199,10 +207,38 @@ const en = {
 
   // Curriculums (plural - for entity operations)
   curriculums: {
+    entityName: 'curriculum',
     deleteConfirmTitle: 'Delete Curriculum',
     deleteConfirmMessage: 'Are you sure you want to delete {{name}}? This action cannot be undone.',
     deleteErrorTitle: 'Delete Failed',
     deleteErrorMessage: 'Failed to delete curriculum {{name}}. Please try again.',
+  },
+
+  // Subjects (plural - for entity operations)
+  subjects: {
+    entityName: 'subject',
+    deleteConfirmTitle: 'Delete Subject',
+    deleteConfirmMessage: 'Are you sure you want to delete {{name}}? This action cannot be undone.',
+    deleteErrorTitle: 'Delete Failed',
+    deleteErrorMessage: 'Failed to delete subject {{name}}. Please try again.',
+  },
+
+  // Units (plural - for entity operations)
+  units: {
+    entityName: 'unit',
+    deleteConfirmTitle: 'Delete Unit',
+    deleteConfirmMessage: 'Are you sure you want to delete {{name}}? This action cannot be undone.',
+    deleteErrorTitle: 'Delete Failed',
+    deleteErrorMessage: 'Failed to delete unit {{name}}. Please try again.',
+  },
+
+  // Lessons (plural - for entity operations)
+  lessons: {
+    entityName: 'lesson',
+    deleteConfirmTitle: 'Delete Lesson',
+    deleteConfirmMessage: 'Are you sure you want to delete {{name}}? This action cannot be undone.',
+    deleteErrorTitle: 'Delete Failed',
+    deleteErrorMessage: 'Failed to delete lesson {{name}}. Please try again.',
   },
 
   // Questions

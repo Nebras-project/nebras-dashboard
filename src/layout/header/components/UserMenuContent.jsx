@@ -11,6 +11,7 @@ import { useTranslation } from '@hooks';
 import { fontWeights, borderRadius, borderWidth } from '@theme';
 import { borderColors } from '@theme/colors';
 import { useMuiTheme } from '@hooks';
+import { NAVIGATION_PATHS } from '@config';
 
 // Header component constants
 const USER_MENU_MIN_WIDTH = 250;
@@ -82,7 +83,7 @@ function UserMenuContent({ user }) {
       {/* User Info Section */}
       <Box sx={MENU_CONTAINER_STYLES}>
         {/* User Name - Links to settings page */}
-        <Menu.Item component={Link} to="/settings" sx={NAME_MENU_ITEM_STYLES}>
+        <Menu.Item component={Link} to={NAVIGATION_PATHS.SETTINGS} sx={NAME_MENU_ITEM_STYLES}>
           <Typography
             variant="subtitle1"
             fontWeight={fontWeights.semiBold}

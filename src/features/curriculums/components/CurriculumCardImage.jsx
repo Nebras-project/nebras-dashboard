@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 // internal imports
 import { useReduxTheme } from '@hooks';
 import darkImage from '@data/images/default-course-image-dark.png';
-import lightImage from '@data/images/default-course-image-light-removebg-preview.png';
+import lightImage from '@data/images/default-course-image-light.png';
 
 /**
  * CurriculumCardImage Component

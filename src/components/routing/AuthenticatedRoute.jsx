@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useAuth } from '@hooks';
 import { useRole } from '@features/authentication';
 import { Loader } from '@components';
+import { NAVIGATION_PATHS } from '@config';
 
 /**
  * AuthenticatedRoute Component
@@ -26,12 +27,12 @@ function AuthenticatedRoute({ children, allowedRoles, requireAuth = true }) {
 
   // Check authentication
   if (requireAuth && !isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to={NAVIGATION_PATHS.LOGIN} replace />;
   }
 
   // Check role-based access if allowedRoles is provided
   if (allowedRoles && !hasRole(allowedRoles)) {
-    return <Navigate to="/access-denied" replace />;
+    return <Navigate to={NAVIGATION_PATHS.ACCESS_DENIED} replace />;
   }
 
   return children;

@@ -41,10 +41,10 @@ const handleApiError = async (error, fallbackFn) => {
 
 /**
  * Fetch all curriculums
- * @param {Object} params - Query parameters
+ * @param {Object} _params - Query parameters (unused but kept for API consistency)
  * @returns {Promise} API response
  */
-export const fetchCurriculums = async (params = {}) => {
+export const fetchCurriculums = async (_params = {}) => {
   try {
     return await apiClient.get(API_ENDPOINTS.CURRICULUMS.BASE);
   } catch (error) {
@@ -82,14 +82,25 @@ export const createCurriculum = async (curriculumData) => {
 };
 
 /**
- * Update an existing curriculum
+ * Update an existing curriculum (full replacement)
  * @param {number|string} id - Curriculum ID
- * @param {Object} curriculumData - Updated curriculum data
+ * @param {Object} curriculumData - Updated curriculum data (full resource)
  * @returns {Promise} API response
  */
 export const updateCurriculum = async (id, curriculumData) => {
   const formData = createFormData(curriculumData, CURRICULUM_FORM_DATA_OPTIONS);
   return await apiClient.put(API_ENDPOINTS.CURRICULUMS.BY_ID(id), formData);
+};
+
+/**
+ * Partially update an existing curriculum
+ * @param {number|string} id - Curriculum ID
+ * @param {Object} curriculumData - Partial curriculum data to update
+ * @returns {Promise} API response
+ */
+export const patchCurriculum = async (id, curriculumData) => {
+  const formData = createFormData(curriculumData, CURRICULUM_FORM_DATA_OPTIONS);
+  return await apiClient.patch(API_ENDPOINTS.CURRICULUMS.BY_ID(id), formData);
 };
 
 /**

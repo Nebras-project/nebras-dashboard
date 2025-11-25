@@ -51,6 +51,7 @@ const ar = {
     phone: 'رقم الهاتف',
     address: 'العنوان',
     notes: 'ملاحظات',
+    order: 'الترتيب',
     settings: 'الإعدادات',
     profile: 'الملف الشخصي',
     logout: 'تسجيل الخروج',
@@ -172,6 +173,10 @@ const ar = {
     editSubject: 'تعديل المادة',
     editUnit: 'تعديل الوحدة',
     editLesson: 'تعديل الدرس',
+    viewCurriculum: 'عرض المنهج',
+    viewSubject: 'عرض المادة',
+    viewUnit: 'عرض الوحدة',
+    viewLesson: 'عرض الدرس',
     deleteCurriculum: 'حذف المنهج',
     deleteSubject: 'حذف المادة',
     deleteUnit: 'حذف الوحدة',
@@ -185,9 +190,12 @@ const ar = {
     selectLesson: 'اختر الدرس',
     noCurriculums: 'لا توجد مناهج',
     noCurriculumsDescription: 'ابدأ بإنشاء منهج جديد لإدارة المواد والوحدات والدروس',
+    noSubjects: 'لا توجد مواد',
+    noSubjectsDescription: 'ابدأ بإضافة مادة جديدة لهذا المنهج',
+    noUnits: 'لا توجد وحدات',
+    noLessons: 'لا توجد دروس',
     pageDescription: 'إدارة المناهج التعليمية وإنشاء وتنظيم المواد والوحدات والدروس',
     curriculumDetails: 'تفاصيل المنهج',
-    viewCurriculum: 'عرض المنهج',
     curriculumNotFound: 'المنهج غير موجود',
     curriculumNotFoundDescription: 'المنهج المطلوب غير موجود أو تم حذفه',
     deleteConfirmTitle: 'حذف المنهج',
@@ -199,10 +207,38 @@ const ar = {
 
   // Curriculums (plural - for entity operations)
   curriculums: {
+    entityName: 'منهج',
     deleteConfirmTitle: 'حذف المنهج',
     deleteConfirmMessage: 'هل أنت متأكد من حذف {{name}}؟ لا يمكن التراجع عن هذا الإجراء.',
     deleteErrorTitle: 'فشل الحذف',
     deleteErrorMessage: 'فشل حذف المنهج {{name}}. يرجى المحاولة مرة أخرى.',
+  },
+
+  // Subjects (plural - for entity operations)
+  subjects: {
+    entityName: 'مادة',
+    deleteConfirmTitle: 'حذف المادة',
+    deleteConfirmMessage: 'هل أنت متأكد من حذف {{name}}؟ لا يمكن التراجع عن هذا الإجراء.',
+    deleteErrorTitle: 'فشل الحذف',
+    deleteErrorMessage: 'فشل حذف المادة {{name}}. يرجى المحاولة مرة أخرى.',
+  },
+
+  // Units (plural - for entity operations)
+  units: {
+    entityName: 'وحدة',
+    deleteConfirmTitle: 'حذف الوحدة',
+    deleteConfirmMessage: 'هل أنت متأكد من حذف {{name}}؟ لا يمكن التراجع عن هذا الإجراء.',
+    deleteErrorTitle: 'فشل الحذف',
+    deleteErrorMessage: 'فشل حذف الوحدة {{name}}. يرجى المحاولة مرة أخرى.',
+  },
+
+  // Lessons (plural - for entity operations)
+  lessons: {
+    entityName: 'درس',
+    deleteConfirmTitle: 'حذف الدرس',
+    deleteConfirmMessage: 'هل أنت متأكد من حذف {{name}}؟ لا يمكن التراجع عن هذا الإجراء.',
+    deleteErrorTitle: 'فشل الحذف',
+    deleteErrorMessage: 'فشل حذف الدرس {{name}}. يرجى المحاولة مرة أخرى.',
   },
 
   // Questions

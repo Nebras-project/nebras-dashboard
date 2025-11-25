@@ -2,6 +2,7 @@ import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import AuthenticatedRoute from '../components/routing/AuthenticatedRoute';
 import { ALLOWED_ROLES } from '@utils';
+import { NAVIGATION_PATHS } from './navigationPaths';
 
 // Lazy load pages for code splitting
 
@@ -48,6 +49,19 @@ const CurriculumPage = lazy(() =>
   import('@features/curriculums').then((m) => ({ default: m.CurriculumPage }))
 );
 
+// Subject Pages (nested under curriculum)
+const SubjectPage = lazy(() =>
+  import('@features/subjects/pages').then((m) => ({ default: m.SubjectPage }))
+);
+
+// Unit Pages (nested under curriculum/subject)
+const UnitPage = lazy(() => import('@features/units/pages').then((m) => ({ default: m.UnitPage })));
+
+// Lesson Pages (nested under curriculum/subject/unit)
+const LessonPage = lazy(() =>
+  import('@features/lessons/pages').then((m) => ({ default: m.LessonPage }))
+);
+
 // Question Pages
 const QuestionsPage = lazy(() =>
   import('@features/questions').then((m) => ({ default: m.QuestionsPage }))
@@ -65,18 +79,18 @@ const routes = [
   // Root - Redirect to dashboard
   {
     path: '/',
-    element: <Navigate to="/dashboard" replace />,
+    element: <Navigate to={NAVIGATION_PATHS.DASHBOARD} replace />,
   },
 
   // Public Routes
   {
-    path: '/login',
+    path: NAVIGATION_PATHS.LOGIN,
     element: <LoginPage />,
   },
 
   // Protected Routes - Dashboard (All authenticated users)
   {
-    path: '/dashboard',
+    path: NAVIGATION_PATHS.DASHBOARD,
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.ALL}>
         <DashboardPage />
@@ -86,7 +100,7 @@ const routes = [
 
   // Protected Routes - Students (Owner & General Admin only)
   {
-    path: '/students',
+    path: NAVIGATION_PATHS.STUDENTS.BASE,
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.OWNER_AND_ADMIN}>
         <StudentsPage />
@@ -94,7 +108,7 @@ const routes = [
     ),
   },
   {
-    path: '/students/:id',
+    path: NAVIGATION_PATHS.STUDENTS.BY_ID(':id'),
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.OWNER_AND_ADMIN}>
         <StudentPage />
@@ -104,7 +118,7 @@ const routes = [
 
   // Protected Routes - Competitions (Owner, General Admin & Competition Manager)
   {
-    path: '/competitions',
+    path: NAVIGATION_PATHS.COMPETITIONS.BASE,
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
         <CompetitionsPage />
@@ -112,7 +126,7 @@ const routes = [
     ),
   },
   {
-    path: '/competitions/:id',
+    path: NAVIGATION_PATHS.COMPETITIONS.BY_ID(':id'),
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
         <CompetitionPage />
@@ -120,7 +134,7 @@ const routes = [
     ),
   },
   {
-    path: '/competitions/:id/members',
+    path: NAVIGATION_PATHS.COMPETITIONS.MEMBERS(':id'),
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
         <CompetitionMembersPage />
@@ -128,7 +142,7 @@ const routes = [
     ),
   },
   {
-    path: '/competitions/:id/exam',
+    path: NAVIGATION_PATHS.COMPETITIONS.EXAM(':id'),
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
         <CompetitionExamPage />
@@ -136,7 +150,7 @@ const routes = [
     ),
   },
   {
-    path: '/competitions/:id/result',
+    path: NAVIGATION_PATHS.COMPETITIONS.RESULT(':id'),
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
         <CompetitionResultPage />
@@ -146,7 +160,7 @@ const routes = [
 
   // Protected Routes - Curriculums (Owner, General Admin & Curriculum Manager)
   {
-    path: '/curriculums',
+    path: NAVIGATION_PATHS.CURRICULUMS.BASE,
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
         <CurriculumsPage />
@@ -154,17 +168,49 @@ const routes = [
     ),
   },
   {
-    path: '/curriculums/:id',
+    path: NAVIGATION_PATHS.CURRICULUMS.BY_ID(':curriculumId'),
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
         <CurriculumPage />
       </AuthenticatedRoute>
     ),
   },
+  // Nested: Subjects within curriculum
+  {
+    path: NAVIGATION_PATHS.CURRICULUMS.SUBJECT(':curriculumId', ':subjectId'),
+    element: (
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
+        <SubjectPage />
+      </AuthenticatedRoute>
+    ),
+  },
+  // Nested: Units within subject within curriculum
+  {
+    path: NAVIGATION_PATHS.CURRICULUMS.UNIT(':curriculumId', ':subjectId', ':unitId'),
+    element: (
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
+        <UnitPage />
+      </AuthenticatedRoute>
+    ),
+  },
+  // Nested: Lessons within unit within subject within curriculum
+  {
+    path: NAVIGATION_PATHS.CURRICULUMS.LESSON(
+      ':curriculumId',
+      ':subjectId',
+      ':unitId',
+      ':lessonId'
+    ),
+    element: (
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
+        <LessonPage />
+      </AuthenticatedRoute>
+    ),
+  },
 
   // Protected Routes - Admins (Owner only)
   {
-    path: '/admins',
+    path: NAVIGATION_PATHS.ADMINS.BASE,
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.OWNER_AND_ADMIN}>
         <AdminsPage />
@@ -172,7 +218,7 @@ const routes = [
     ),
   },
   {
-    path: '/admins/:id',
+    path: NAVIGATION_PATHS.ADMINS.BY_ID(':id'),
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.OWNER_AND_ADMIN}>
         <AdminPage />
@@ -182,7 +228,7 @@ const routes = [
 
   // Protected Routes - Questions (Owner, General Admin & Content Manager)
   {
-    path: '/questions',
+    path: NAVIGATION_PATHS.QUESTIONS.BASE,
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.QUESTIONS}>
         <QuestionsPage />
@@ -192,7 +238,7 @@ const routes = [
 
   // Protected Routes - Settings (All authenticated users)
   {
-    path: '/settings',
+    path: NAVIGATION_PATHS.SETTINGS,
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.ALL}>
         <SettingsPage />
@@ -202,7 +248,7 @@ const routes = [
 
   // Unauthorized Page (Public)
   {
-    path: '/access-denied',
+    path: NAVIGATION_PATHS.ACCESS_DENIED,
     element: <UnauthorizedPage />,
   },
 

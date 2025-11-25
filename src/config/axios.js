@@ -6,6 +6,7 @@
 
 import axios from 'axios';
 import { API_URL, API_TIMEOUT } from './env.js';
+import { NAVIGATION_PATHS } from '@config';
 
 /**
  * Create axios instance with default configuration
@@ -61,8 +62,8 @@ apiClient.interceptors.response.use(
     // HttpOnly cookies are automatically cleared by browser when expired/invalid
     if (status === 401) {
       // Redirect to login page if not already there
-      if (window.location.pathname !== '/login') {
-        window.location.href = '/login';
+      if (window.location.pathname !== NAVIGATION_PATHS.LOGIN) {
+        window.location.href = NAVIGATION_PATHS.LOGIN;
       }
       throw new Error(data?.message || 'Unauthorized - Please login again');
     }
@@ -89,30 +90,43 @@ apiClient.interceptors.response.use(
 
 /**
  * API Endpoints
- * Centralized endpoint definitions
+ * Centralized endpoint definitions following RESTful conventions
+ *
+ * RESTful API Conventions:
+ * - Use plural nouns for resource names (e.g., /admins, /students)
+ * - Use HTTP methods correctly:
+ *   - GET: Retrieve resources (list or single)
+ *   - POST: Create new resources
+ *   - PUT: Full resource replacement
+ *   - PATCH: Partial resource update
+ *   - DELETE: Remove resources
+ * - Use nested resources for relationships (e.g., /curriculums/:id/subjects)
+ * - Use query parameters for filtering, sorting, and pagination
+ * - Use proper HTTP status codes (handled in response interceptor)
  */
 export const API_ENDPOINTS = {
   // Authentication
+  // Note: Auth endpoints may not strictly follow REST, but are common patterns
   AUTH: {
-    LOGIN: '/auth/login',
-    LOGOUT: '/auth/logout',
-    REFRESH: '/auth/refresh',
-    ME: '/auth/me',
+    LOGIN: '/auth/login', // POST - Create session
+    LOGOUT: '/auth/logout', // POST/DELETE - Destroy session
+    REFRESH: '/auth/refresh', // POST - Refresh session token
+    ME: '/auth/me', // GET - Get current authenticated user
   },
 
-  // Admins
+  // Admins Resource
   ADMINS: {
     BASE: '/admins',
     BY_ID: (id) => `/admins/${id}`,
   },
 
-  // Students
+  // Students Resource
   STUDENTS: {
     BASE: '/students',
     BY_ID: (id) => `/students/${id}`,
   },
 
-  // Competitions
+  // Competitions Resource
   COMPETITIONS: {
     BASE: '/competitions',
     BY_ID: (id) => `/competitions/${id}`,
@@ -121,34 +135,31 @@ export const API_ENDPOINTS = {
     RESULT: (id) => `/competitions/${id}/result`,
   },
 
-  // Questions
+  // Questions Resource
   QUESTIONS: {
     BASE: '/questions',
     BY_ID: (id) => `/questions/${id}`,
   },
 
-  // Curriculums
+  // Curriculums Resource
   CURRICULUMS: {
     BASE: '/curriculums',
     BY_ID: (id) => `/curriculums/${id}`,
-  },
 
-  // Subjects
-  SUBJECTS: {
-    BASE: '/subjects',
-    BY_ID: (id) => `/subjects/${id}`,
-  },
+    // Nested: Subjects within curriculum
+    SUBJECTS: (curriculumId) => `/curriculums/${curriculumId}/subjects`,
+    SUBJECT: (curriculumId, subjectId) => `/curriculums/${curriculumId}/subjects/${subjectId}`,
 
-  // Units
-  UNITS: {
-    BASE: '/units',
-    BY_ID: (id) => `/units/${id}`,
-  },
+    // Nested: Units within subject within curriculum
+    UNITS: (curriculumId, subjectId) => `/curriculums/${curriculumId}/subjects/${subjectId}/units`,
+    UNIT: (curriculumId, subjectId, unitId) =>
+      `/curriculums/${curriculumId}/subjects/${subjectId}/units/${unitId}`,
 
-  // Lessons
-  LESSONS: {
-    BASE: '/lessons',
-    BY_ID: (id) => `/lessons/${id}`,
+    // Nested: Lessons within unit within subject within curriculum
+    LESSONS: (curriculumId, subjectId, unitId) =>
+      `/curriculums/${curriculumId}/subjects/${subjectId}/units/${unitId}/lessons`,
+    LESSON: (curriculumId, subjectId, unitId, lessonId) =>
+      `/curriculums/${curriculumId}/subjects/${subjectId}/units/${unitId}/lessons/${lessonId}`,
   },
 };
 

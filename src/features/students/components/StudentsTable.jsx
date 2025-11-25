@@ -6,6 +6,7 @@ import { ActionsMenu, DeleteAction } from '@components';
 import Table, { useTable } from '@components/table';
 import Icon from '@components/display/Icon';
 import useTranslation from '@i18n/hooks/useTranslation';
+import { NAVIGATION_PATHS } from '@config';
 
 import createStudentColumns from '../utils/createStudentColumns.jsx';
 import { useStudent, useDeleteStudent } from '../hooks';
@@ -44,7 +45,7 @@ function StudentsTable({ onEdit }) {
               {
                 label: t('students.viewStudent'),
                 icon: <Icon name="visibility" size={18} />,
-                onClick: () => navigate(`/students/${row.id}`),
+                onClick: () => navigate(NAVIGATION_PATHS.STUDENTS.BY_ID(row.id)),
               },
               {
                 label: t('students.editStudent'),

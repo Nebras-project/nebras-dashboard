@@ -7,6 +7,7 @@ import Table, { useTable } from '@components/table';
 import Icon from '@components/display/Icon';
 import useTranslation from '@i18n/hooks/useTranslation';
 import { useRole } from '@hooks';
+import { NAVIGATION_PATHS } from '@config';
 
 import createAdminColumns from '../utils/createAdminColumns.jsx';
 import { useDeleteAdmin, useAdmin } from '../hooks';
@@ -51,7 +52,7 @@ function AdminsTable({ onEdit }) {
               {
                 label: t('admins.viewAdmin'),
                 icon: <Icon name="visibility" size={18} />,
-                onClick: () => navigate(`/admins/${row.id}`),
+                onClick: () => navigate(NAVIGATION_PATHS.ADMINS.BY_ID(row.id)),
               },
               {
                 label: t('admins.editAdmin'),

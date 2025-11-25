@@ -12,6 +12,9 @@ export const QUERY_KEYS = {
   COMPETITIONS: 'competitions',
   QUESTIONS: 'questions',
   CURRICULUMS: 'curriculums',
+  SUBJECTS: 'subjects',
+  UNITS: 'units',
+  LESSONS: 'lessons',
 };
 
 export const queryClient = new QueryClient({
