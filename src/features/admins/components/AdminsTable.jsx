@@ -32,7 +32,7 @@ function AdminsTable({ onEdit }) {
   console.log(queryString);
 
   // Fetch admins data using the hook
-  const { admins, isLoading } = useAdmin({
+  const { admins = [], isLoading } = useAdmin({
     queryString,
   });
 
@@ -81,11 +81,11 @@ function AdminsTable({ onEdit }) {
 
   return (
     <Table
-      rows={admins || []}
+      rows={admins}
       columns={columns}
       disableRowSelectionOnClick
       checkRowSelection
-      rowCount={admins?.length || 0}
+      rowCount={admins.length}
       paginationModel={paginationModel}
       onPaginationModelChange={handlePaginationModelChange}
       sortModel={sortModel}

@@ -31,20 +31,9 @@ export const useStudent = ({ id, queryString, params, enabled = true, onError } 
   });
 
   // Return with student-specific property names
-  if (id) {
     return {
-      student: data,
-      students: undefined,
-      isLoading,
-      isError,
-      error,
-      refetch,
-    };
-  }
-
-  return {
-    student: undefined,
-    students: data,
+    student: id ? data : undefined,
+    students: id ? undefined : data,
     isLoading,
     isError,
     error,

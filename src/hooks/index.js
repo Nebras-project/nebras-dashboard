@@ -18,6 +18,7 @@ export { default as useResponsive } from './useResponsive';
 export { useSidebarNavigation } from './useSidebarNavigation';
 export { useDateTime } from './useDateTime';
 export { useConfirmDialog } from './useConfirmDialog';
+export { default as useClickableArea } from './useClickableArea';
 export { useEntityMutation } from './useEntityMutation';
 export { useEntity } from './useEntity';
 export { useDelete } from './useDelete';

@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 // internal imports
 import { useTranslation, useToast } from '@hooks';
+import { formatErrorMessage } from '@utils';
 
 /**
  * useEntity Hook
@@ -44,26 +45,24 @@ export const useEntity = ({
     queryFn: () => (isSingle ? getSingleFn(id) : getListFn(params || {})),
     enabled: enabled, // isSingle already validates id != null
     onError: (error) => {
+      // Generic error message
+      const genericMessage = t('common.fetchErrorMessage', {
+        entityName: t(`${entityName}.entityName`, { defaultValue: t('common.data') }),
+      });
+
+      // Format message with API error details if available
+      const errorMessage = formatErrorMessage(genericMessage, error);
+
       showError({
-        message: t('common.fetchErrorMessage', { entityName: t(`${entityName}.entityName`) }),
+        message: errorMessage,
       });
       onError?.(error);
     },
   });
 
   // Return appropriate data structure based on whether it's single or list
-  if (isSingle) {
-    return {
-      data: query.data,
-      isLoading: query.isLoading,
-      isError: query.isError,
-      error: query.error,
-      refetch: query.refetch,
-    };
-  }
-
   return {
-    data: query.data || [],
+    data: isSingle ? query.data : query.data || [],
     isLoading: query.isLoading,
     isError: query.isError,
     error: query.error,

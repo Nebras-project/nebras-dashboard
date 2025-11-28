@@ -61,7 +61,7 @@ function ActionsMenu({
       <Menu.Content
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        minWidth={180}
+        minWidth={200}
         {...contentProps}
       >
         {visibleActions.map((action, index) => {

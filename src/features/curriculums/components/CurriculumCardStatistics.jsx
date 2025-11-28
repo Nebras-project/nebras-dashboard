@@ -42,7 +42,7 @@ function CurriculumCardStatistics({ lessonsCount, unitsCount, studentsCount }) {
         value={unitsCount}
         label={t('curriculum.units')}
       />
-      <CurriculumCardStatItem icon="people" value={studentsCount} label={t('students.students')} />
+      <CurriculumCardStatItem icon="groups" value={studentsCount} label={t('students.students')} />
     </Box>
   );
 }

@@ -21,7 +21,11 @@ function LessonsSection({ unit, curriculumId, subjectId, enabled = true }) {
 
   const unitId = unit?.id;
 
-  const { lessons, isLoading, refetch } = useLessons({
+  const {
+    lessons = [],
+    isLoading,
+    refetch,
+  } = useLessons({
     curriculumId,
     subjectId,
     unitId,

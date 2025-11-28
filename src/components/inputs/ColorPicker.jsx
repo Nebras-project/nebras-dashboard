@@ -15,7 +15,7 @@ const FIXED_COLORS = [
   baseColors.colorPickerColors.red,
   baseColors.colorPickerColors.green,
   baseColors.colorPickerColors.pink,
-  baseColors.colorPickerColors.orange,
+  baseColors.colorPickerColors.teal,
   baseColors.colorPickerColors.purple,
 ];
 

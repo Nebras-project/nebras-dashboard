@@ -6,4 +6,4 @@ export { default as UnitForm } from './UnitForm';
 export { default as UnitFormFields } from './UnitFormFields';
 export { default as UnitActionsMenu } from './UnitActionsMenu';
 export { default as UnitSummary } from './UnitSummary';
-export { default as UnitInfo } from './UnitInfo';
+export { default as UnitSummaryInfo } from './UnitSummaryInfo';

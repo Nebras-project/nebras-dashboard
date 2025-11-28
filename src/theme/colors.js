@@ -130,7 +130,7 @@ export const baseColors = {
     red: '#ef4444',
     green: '#22c55e',
     pink: '#ec4899',
-    orange: '#ff8200',
+    teal: '#17cd96',
     purple: '#a855f7',
   },
 };

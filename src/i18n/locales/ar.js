@@ -82,6 +82,8 @@ const ar = {
     serviceUnavailableMessage: 'الخدمة غير متاحة مؤقتاً. يرجى المحاولة لاحقاً.',
     badGatewayMessage: 'حدثت مشكلة في الاتصال بالخدمة. يرجى المحاولة لاحقاً.',
     fetchErrorMessage: 'فشل جلب {{entityName}}. يرجى المحاولة مرة أخرى.',
+    mutationErrorMessage: 'حدث خطأ أثناء تنفيذ العملية. يرجى المحاولة مرة أخرى.',
+    data: 'البيانات',
   },
 
   // Navigation
@@ -283,6 +285,7 @@ const ar = {
     questionCount: 'عدد الأسئلة',
     passingScore: 'درجة النجاح',
     participants: 'المشاركون',
+    examCount: 'عدد الامتحانات',
     results: 'النتائج',
     leaderboard: 'لوحة المتصدرين',
     addCompetition: 'إضافة مسابقة',
@@ -296,8 +299,18 @@ const ar = {
     upcomingCompetition: 'مسابقة قادمة',
     activeCompetition: 'مسابقة نشطة',
     completedCompetition: 'مسابقة منتهية',
+    changeStatus: 'اختر حالة المسابقة',
+    activateCompetition: 'تنشيط المسابقة',
+    completeCompetition: 'إنهاء المسابقة',
+    closeCompetition: 'إغلاق المسابقة',
+    addedByCompetitionManager: 'أضيفت بواسطة مدير المسابقات',
     description:
       'إدارة المسابقات التعليمية للطلاب. قم بإنشاء وإدارة المسابقات وتحديد التواريخ والمعايير.',
+    // Error messages
+    createErrorMessage: 'فشل إنشاء المسابقة. يرجى المحاولة مرة أخرى.',
+    updateErrorMessage: 'فشل تحديث المسابقة. يرجى المحاولة مرة أخرى.',
+    deleteErrorMessage: 'فشل حذف المسابقة {{name}}. يرجى المحاولة مرة أخرى.',
+    statusUpdateErrorMessage: 'فشل تحديث حالة المسابقة. يرجى المحاولة مرة أخرى.',
   },
 
   // Students

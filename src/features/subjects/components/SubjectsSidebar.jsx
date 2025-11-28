@@ -13,12 +13,11 @@ import { useDeleteSubject, useSubjects, useAutoSelectSubject } from '../hooks';
 import { getSectionPaperStyles } from '@constants/layout';
 
 /**
- * SubjectSidebar Component
+ * SubjectsSidebar Component
  *
  * Displays subjects sidebar with name, units count, and lessons count
- * Uses dummy data directly for design purposes
  */
-function SubjectSidebar({ curriculumId, selectedSubjectId, onSubjectSelect }) {
+function SubjectsSidebar({ curriculumId, selectedSubjectId, onSubjectSelect }) {
   const { mode } = useReduxTheme();
 
   // Delete subject hook
@@ -34,7 +33,11 @@ function SubjectSidebar({ curriculumId, selectedSubjectId, onSubjectSelect }) {
   });
 
   // Fetch subjects from API
-  const { subjects, isLoading, isError } = useSubjects({
+  const {
+    subjects = [],
+    isLoading,
+    isError,
+  } = useSubjects({
     curriculumId,
     enabled: !!curriculumId,
   });
@@ -85,14 +88,14 @@ function SubjectSidebar({ curriculumId, selectedSubjectId, onSubjectSelect }) {
   );
 }
 
-SubjectSidebar.propTypes = {
+SubjectsSidebar.propTypes = {
   curriculumId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   selectedSubjectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onSubjectSelect: PropTypes.func.isRequired,
 };
 
-SubjectSidebar.defaultProps = {
+SubjectsSidebar.defaultProps = {
   selectedSubjectId: null,
 };
 
-export default SubjectSidebar;
+export default SubjectsSidebar;

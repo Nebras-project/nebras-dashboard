@@ -71,7 +71,7 @@ export const getComponentOverrides = (mode) => ({
   MuiCard: {
     styleOverrides: {
       root: {
-        borderRadius: borderRadius.md,
+        borderRadius: borderRadius.sm,
         backgroundColor: backgroundDefaults[mode].default,
       },
     },

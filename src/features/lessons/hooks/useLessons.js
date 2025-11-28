@@ -48,20 +48,9 @@ export const useLessons = ({
     onError,
   });
 
-  if (effectiveLessonId) {
     return {
-      lesson: data,
-      lessons: undefined,
-      isLoading,
-      isError,
-      error,
-      refetch,
-    };
-  }
-
-  return {
-    lesson: undefined,
-    lessons: data,
+    lesson: effectiveLessonId ? data : undefined,
+    lessons: effectiveLessonId ? undefined : data,
     isLoading,
     isError,
     error,

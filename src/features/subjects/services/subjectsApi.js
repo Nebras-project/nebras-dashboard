@@ -4,29 +4,8 @@
  * Single Responsibility: Handle all API calls related to subject management
  */
 
-// Import dummy data for fallback
-import { dummySubjects } from '../data/dummySubjects';
-
 // Import API client and endpoints
 import apiClient, { API_ENDPOINTS } from '@config/axios';
-
-/**
- * Helper function to handle API errors and fallback to dummy data
- * @param {Error} error - Error object
- * @param {Function} fallbackFn - Function to get fallback data
- * @returns {Promise} Fallback data or throws error
- */
-const handleApiError = async (error, fallbackFn) => {
-  // If it's a network error or API not available, use fallback
-  if (
-    error.message.includes('Network Error') ||
-    error.message.includes('timeout') ||
-    error.message.includes('ECONNREFUSED')
-  ) {
-    return fallbackFn();
-  }
-  throw error;
-};
 
 /**
  * Fetch all subjects for a curriculum
@@ -35,13 +14,7 @@ const handleApiError = async (error, fallbackFn) => {
  * @returns {Promise} API response
  */
 export const fetchSubjects = async (curriculumId, params = {}) => {
-  try {
     return await apiClient.get(API_ENDPOINTS.CURRICULUMS.SUBJECTS(curriculumId), { params });
-  } catch (error) {
-    return handleApiError(error, () => {
-      return Promise.resolve(dummySubjects.filter((s) => s.curriculumId === Number(curriculumId)));
-    });
-  }
 };
 
 /**
@@ -51,19 +24,7 @@ export const fetchSubjects = async (curriculumId, params = {}) => {
  * @returns {Promise} API response
  */
 export const fetchSubjectById = async (curriculumId, subjectId) => {
-  try {
     return await apiClient.get(API_ENDPOINTS.CURRICULUMS.SUBJECT(curriculumId, subjectId));
-  } catch (error) {
-    return handleApiError(error, () => {
-      const subject = dummySubjects.find(
-        (s) => s.id === Number(subjectId) && s.curriculumId === Number(curriculumId)
-      );
-      if (subject) {
-        return Promise.resolve(subject);
-      }
-      throw new Error('Subject not found');
-    });
-  }
 };
 
 /**

@@ -1,1 +1,2 @@
-export { default as createCompetitionColumns } from './createCompetitionColumns';
+
+export { getCompetitionName } from './getCompetitionName';

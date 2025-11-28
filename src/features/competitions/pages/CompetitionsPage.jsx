@@ -1,19 +1,19 @@
 import { PageLayout } from '@components';
 import { useTranslation } from '@hooks';
-import { AddButton } from '@components';
 
-import { CompetitionsTable } from '../components';
+import { CompetitionsGrid, CompetitionFormDialog } from '../components';
+import { useCompetition } from '../hooks';
+import { mockCompetitions } from '../data/mockCompetitions';
 
 function CompetitionsPage() {
   const { t } = useTranslation();
+  const { competitions = mockCompetitions, isLoading } = useCompetition();
 
   return (
     <PageLayout title={t('competitions.competitions')} description={t('competitions.description')}>
-      <AddButton
-        label={t('competitions.addCompetition')}
-        onClick={() => console.log('Add competition')}
-      />
-      <CompetitionsTable />
+      <CompetitionFormDialog showAddButton={true}>
+        <CompetitionsGrid competitions={mockCompetitions} isLoading={isLoading} />
+      </CompetitionFormDialog>
     </PageLayout>
   );
 }

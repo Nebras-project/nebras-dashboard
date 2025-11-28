@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { baseColors } from '@theme/colors';
 
-const DEFAULT_COLOR = baseColors.teal500; // Default teal color
+const DEFAULT_COLOR = baseColors.orange500; // Default orange color
 
 const initialState = {
   scheme: 'default', // 'default' or 'custom'
@@ -13,7 +13,7 @@ const colorSchemeSlice = createSlice({
   initialState,
   reducers: {
     setDefaultColor: (state) => {
-      // Reset to default teal scheme
+      // Reset to default orange scheme
       state.scheme = 'default';
       state.customColor = DEFAULT_COLOR;
     },

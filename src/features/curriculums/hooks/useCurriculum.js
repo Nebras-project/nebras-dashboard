@@ -31,20 +31,9 @@ export const useCurriculum = ({ id, queryString, params, enabled = true, onError
   });
 
   // Return with curriculum-specific property names
-  if (id) {
-    return {
-      curriculum: data,
-      curriculums: undefined,
-      isLoading,
-      isError,
-      error,
-      refetch,
-    };
-  }
-
   return {
-    curriculum: undefined,
-    curriculums: data,
+    curriculum: id ? data : undefined,
+    curriculums: id ? undefined : data,
     isLoading,
     isError,
     error,

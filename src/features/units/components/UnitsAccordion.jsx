@@ -15,14 +15,18 @@ import { useUnits } from '../hooks';
  * UnitsAccordion Component
  *
  * Displays units accordion for a selected subject
- * Uses dummy data directly for design purposes
  */
 function UnitsAccordion({ subjectId, curriculumId, title, subtitle }) {
   const { t } = useTranslation();
   const { mode } = useReduxTheme();
 
-  // Fetch units from API (fallback to dummy data via service)
-  const { units, isLoading, isError, refetch } = useUnits({
+  // Fetch units from API
+  const {
+    units = [],
+    isLoading,
+    isError,
+    refetch,
+  } = useUnits({
     curriculumId,
     subjectId,
     enabled: !!curriculumId && !!subjectId,

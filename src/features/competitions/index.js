@@ -1,2 +1,8 @@
 // Pages
-export * from "./pages";
+export {
+  CompetitionsPage,
+  CompetitionPage,
+  CompetitionMembersPage,
+  CompetitionExamPage,
+  CompetitionResultPage,
+} from './pages';

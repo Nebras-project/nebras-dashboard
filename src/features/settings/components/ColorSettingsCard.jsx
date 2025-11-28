@@ -8,7 +8,7 @@ import { useTranslation, useColorScheme } from '@hooks';
 import { COLOR_INDICATOR_SIZE, margin } from '@constants';
 import { baseColors } from '@theme';
 
-const DEFAULT_COLOR = baseColors.teal500;
+const DEFAULT_COLOR = baseColors.orange500;
 
 const getContainerStyles = () => ({
   minWidth: 280,
@@ -24,14 +24,14 @@ const getIconStyles = () => ({
 
 function ColorSettingsCard() {
   const { t } = useTranslation();
-  const { scheme, customColor, setCustomColor, setColorScheme } = useColorScheme();
+  const { scheme, customColor, setCustomColor, setDefaultColor } = useColorScheme();
 
   const handleDefaultColor = useCallback(() => {
     // Avoid state update if scheme hasn't changed
     if (scheme === 'default') return;
 
-    setColorScheme('default');
-  }, [scheme, setColorScheme]);
+    setDefaultColor();
+  }, [scheme, setDefaultColor]);
 
   const handleCustomColorChange = useCallback(
     (color) => {

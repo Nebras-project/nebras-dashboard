@@ -1,5 +1,5 @@
 // external imports
-import { ListItem, ListItemIcon, ListItemText, Box } from '@mui/material';
+import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import PropTypes from 'prop-types';
 
 // internal imports
@@ -35,25 +35,15 @@ function LessonListItem({ lessonName, actions, mode }) {
       <ListItemIcon sx={{ minWidth: 32 }}>
         <Icon name="book" size={18} color="primary" />
       </ListItemIcon>
-      
+
       <ListItemText
         primary={lessonName}
         slotProps={{
           primary: { variant: 'body2' },
         }}
       />
-      <Box
-        sx={{
-          position: 'absolute',
-          right: 0,
-          top: 0,
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        <LessonActions actions={actions} />
-      </Box>
+      {/* Actions are absolutely positioned inside LessonActions itself */}
+      <LessonActions actions={actions} />
     </ListItem>
   );
 }

@@ -25,7 +25,7 @@ function MenuItem({ children, sx, onClick, ...props }) {
   };
 
   return (
-    <StyledMenuItem sx={sx} onClick={handleClick} role="menuitem" {...props}>
+    <StyledMenuItem sx={sx} disableRipple onClick={handleClick} role="menuitem" {...props}>
       {children}
     </StyledMenuItem>
   );

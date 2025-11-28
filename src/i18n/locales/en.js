@@ -82,6 +82,8 @@ const en = {
     serviceUnavailableMessage: 'The service is temporarily unavailable. Please try again soon.',
     badGatewayMessage: 'We are having trouble connecting to the service. Please try again later.',
     fetchErrorMessage: 'Failed to fetch {{entityName}}. Please try again.',
+    mutationErrorMessage: 'An error occurred while performing the operation. Please try again.',
+    data: 'data',
   },
 
   // Navigation
@@ -283,6 +285,7 @@ const en = {
     questionCount: 'Question Count',
     passingScore: 'Passing Score',
     participants: 'Participants',
+    examCount: 'Exam Count',
     results: 'Results',
     leaderboard: 'Leaderboard',
     addCompetition: 'Add Competition',
@@ -296,8 +299,18 @@ const en = {
     upcomingCompetition: 'Upcoming Competition',
     activeCompetition: 'Active Competition',
     completedCompetition: 'Completed Competition',
+    changeStatus: 'Select Competition Status',
+    activateCompetition: 'Activate Competition',
+    completeCompetition: 'Complete Competition',
+    closeCompetition: 'Close Competition',
+    addedByCompetitionManager: 'Added by Competition Manager',
     description:
       'Manage educational competitions for students. Create and manage competitions, set dates and criteria.',
+    // Error messages
+    createErrorMessage: 'Failed to create competition. Please try again.',
+    updateErrorMessage: 'Failed to update competition. Please try again.',
+    deleteErrorMessage: 'Failed to delete competition {{name}}. Please try again.',
+    statusUpdateErrorMessage: 'Failed to update competition status. Please try again.',
   },
 
   // Students

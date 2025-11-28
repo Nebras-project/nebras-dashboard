@@ -53,6 +53,9 @@ import {
   MdEdit,
   MdDelete,
   MdAdd,
+  MdTaskAlt,
+  MdPlayArrow,
+  MdSwapHoriz,
 } from 'react-icons/md';
 import { GoSidebarExpand, GoSidebarCollapse } from 'react-icons/go';
 
@@ -64,6 +67,7 @@ import { RiEnglishInput } from 'react-icons/ri';
 import { FaEarthAmericas } from 'react-icons/fa6';
 import { BiSolidSelectMultiple } from 'react-icons/bi';
 import { HiMenuAlt2, HiMenuAlt3 } from 'react-icons/hi';
+import { FaCalendarCheck } from 'react-icons/fa';
 
 // Icon map - centralized icon registry
 const ICON_MAP = {
@@ -157,6 +161,16 @@ const ICON_MAP = {
 
   // Security
   lock: MdLock,
+
+  // Completion & Tasks
+  taskAlt: MdTaskAlt,
+
+  // Actions
+  playArrow: MdPlayArrow,
+  swapHoriz: MdSwapHoriz,
+
+  // Calendar & Events
+  calendarCheck: FaCalendarCheck,
 };
 
 const Icon = memo(function Icon({

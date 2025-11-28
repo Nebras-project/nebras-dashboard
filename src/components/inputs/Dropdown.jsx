@@ -4,13 +4,10 @@ import { useState, useId } from 'react';
 import PropTypes from 'prop-types';
 
 // internal imports
-import { ListButton, Icon } from '@components';
+import { ListButton, ExpandIcon, Icon } from '@components';
 import { padding, margin } from '@constants';
 
 const getEndContentStyles = () => ({
-  display: 'flex',
-  alignItems: 'center',
-  color: 'text.secondary',
   ...margin.left.auto,
   ...padding.left.sm,
 });
@@ -79,8 +76,8 @@ function Dropdown({
         text={currentOption?.label || label}
         iconSx={{ color: 'text.secondary' }}
         endContent={
-          <Box sx={getEndContentStyles()} aria-hidden="true">
-            {isOpen ? <Icon name="expandLess" size={20} /> : <Icon name="expandMore" size={20} />}
+          <Box sx={getEndContentStyles()}>
+            <ExpandIcon isOpen={isOpen} transitionDuration="0.1s" />
           </Box>
         }
         sx={getButtonStyles(buttonSx)}

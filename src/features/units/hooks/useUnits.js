@@ -57,20 +57,9 @@ export const useUnits = ({
   });
 
   // Return with unit-specific property names
-  if (id) {
-    return {
-      unit: data,
-      units: undefined,
-      isLoading,
-      isError,
-      error,
-      refetch,
-    };
-  }
-
   return {
-    unit: undefined,
-    units: data,
+    unit: id ? data : undefined,
+    units: id ? undefined : data,
     isLoading,
     isError,
     error,

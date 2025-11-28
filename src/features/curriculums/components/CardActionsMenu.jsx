@@ -59,6 +59,7 @@ function CardActionsMenu({ curriculum, onView, onEdit, onDelete }) {
   return (
     <Box sx={getCardActionsMenuStyles()} onClick={(e) => e.stopPropagation()}>
       <ActionsMenu
+        tooltip={t('common.actions')}
         actions={actions}
         iconButtonProps={{
           size: 'small',

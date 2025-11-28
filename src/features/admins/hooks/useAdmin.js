@@ -31,20 +31,9 @@ export const useAdmin = ({ id, queryString, params, enabled = true, onError } = 
   });
 
   // Return with admin-specific property names
-  if (id) {
-    return {
-      admin: data,
-      admins: undefined,
-      isLoading,
-      isError,
-      error,
-      refetch,
-    };
-  }
-
   return {
-    admin: undefined,
-    admins: data,
+    admin: id ? data : undefined,
+    admins: id ? undefined : data,
     isLoading,
     isError,
     error,

@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 
 // internal imports
-import UnitInfo from './UnitInfo';
+import UnitSummaryInfo from './UnitSummaryInfo';
 import UnitActionsMenu from './UnitActionsMenu';
 
 function UnitSummary({
@@ -26,7 +26,7 @@ function UnitSummary({
         width: '100%',
       }}
     >
-      <UnitInfo
+      <UnitSummaryInfo
         unitName={unitName}
         lessonsCount={lessonsCount}
         lessonsLabel={lessonsLabel}
@@ -64,4 +64,3 @@ UnitSummary.defaultProps = {
 };
 
 export default UnitSummary;
-

@@ -1,4 +1,4 @@
-export { default as SubjectSidebar } from './SubjectSidebar';
+export { default as SubjectsSidebar } from './SubjectsSidebar';
 export { default as SubjectFormDialog } from './SubjectFormDialog';
 export { default as SubjectsEmptyState } from './SubjectsEmptyState';
 export { default as SubjectsHeader } from './SubjectsHeader';

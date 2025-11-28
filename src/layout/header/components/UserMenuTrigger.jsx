@@ -3,7 +3,7 @@ import { IconButton, Box } from '@mui/material';
 import PropTypes from 'prop-types';
 
 // internal imports
-import { UserAvatar, Icon } from '@components';
+import { UserAvatar, ExpandIcon } from '@components';
 import { useMenuContext } from '@components/inputs/menu';
 import { margin, padding, gap } from '@constants';
 
@@ -26,31 +26,12 @@ const AVATAR_CONTAINER_STYLES = {
   ...gap.xs,
 };
 
-const getArrowIconStyles = (isOpen) => ({
-  display: 'flex',
-  alignItems: 'center',
-  color: 'text.secondary',
-  transition: 'transform 0.2s, color 0.2s',
-  transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-  '&:hover': {
-    color: 'primary.main',
-  },
-});
-
 // Header component constants
 const AVATAR_SIZE = 35;
 
-// Arrow icon component that uses menu context
-function ArrowIcon() {
-  const { open } = useMenuContext();
-  return (
-    <Box sx={getArrowIconStyles(open)}>
-      <Icon name="expandMore" size={20} />
-    </Box>
-  );
-}
-
 function UserMenuTrigger({ user, onClick, ...props }) {
+  const { open } = useMenuContext();
+
   return (
     <IconButton
       aria-label="user menu"
@@ -60,7 +41,7 @@ function UserMenuTrigger({ user, onClick, ...props }) {
       {...props}
     >
       <Box sx={AVATAR_CONTAINER_STYLES}>
-        <ArrowIcon />
+        <ExpandIcon isOpen={open} />
         <UserAvatar user={user} size={AVATAR_SIZE} />
       </Box>
     </IconButton>

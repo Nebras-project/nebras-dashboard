@@ -6,7 +6,7 @@ import { useCurriculum } from '../hooks';
 
 function CurriculumsPage() {
   const { t } = useTranslation();
-  const { curriculums, isLoading } = useCurriculum();
+  const { curriculums = [], isLoading } = useCurriculum();
 
   return (
     <PageLayout title={t('navigation.curriculums')} description={t('curriculum.pageDescription')}>

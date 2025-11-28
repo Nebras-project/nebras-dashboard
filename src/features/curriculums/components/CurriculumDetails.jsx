@@ -4,7 +4,7 @@ import { Grid } from '@mui/material';
 import PropTypes from 'prop-types';
 
 // internal imports
-import { SubjectSidebar } from '@features/subjects/components';
+import { SubjectsSidebar } from '@features/subjects/components';
 import { UnitsAccordion } from '@features/units/components';
 import { useTranslation } from '@hooks';
 
@@ -23,7 +23,7 @@ function CurriculumDetails({ curriculumId }) {
     <Grid container spacing={3}>
       {/* Subjects Sidebar - Left */}
       <Grid item size={{ mobile: 12, desktop: 3 }}>
-        <SubjectSidebar
+        <SubjectsSidebar
           curriculumId={curriculumId}
           selectedSubjectId={selectedSubjectId}
           onSubjectSelect={setSelectedSubjectId}
@@ -32,11 +32,11 @@ function CurriculumDetails({ curriculumId }) {
 
       {/* Units Accordion - Right */}
       <Grid item size={{ mobile: 12, desktop: 9 }}>
-          <UnitsAccordion
-            subjectId={selectedSubjectId}
-            curriculumId={curriculumId}
-            title={t('curriculum.units')}
-          />
+        <UnitsAccordion
+          subjectId={selectedSubjectId}
+          curriculumId={curriculumId}
+          title={t('curriculum.units')}
+        />
       </Grid>
     </Grid>
   );

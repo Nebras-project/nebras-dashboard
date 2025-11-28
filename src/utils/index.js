@@ -25,6 +25,10 @@ export { dayjs, getLocalizedDayjs, formatDate, getDateSeparator } from './dateUt
 
 // Error utilities
 export { logError, logErrorWithMessage } from './errorLogger';
+export { getErrorMessage, formatErrorMessage } from './errorUtils';
+
+// Case utilities (PascalCase / snake_case -> camelCase)
+export { toCamelCase, keysToCamelCase, normalizeApiResponse } from './caseUtils';
 
 // Role utilities
 export {
