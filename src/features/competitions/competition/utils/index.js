@@ -1,0 +1,1 @@
+export { getCompetitionName } from './getCompetitionName';

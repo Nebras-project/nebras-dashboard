@@ -133,6 +133,8 @@ export const API_ENDPOINTS = {
     MEMBERS: (id) => `/competitions/${id}/members`,
     EXAM: (id) => `/competitions/${id}/exam`,
     RESULT: (id) => `/competitions/${id}/result`,
+    EXAMS: (competitionId) => `/competitions/${competitionId}/exams`,
+    EXAM_BY_ID: (competitionId, examId) => `/competitions/${competitionId}/exams/${examId}`,
   },
 
   // Questions Resource

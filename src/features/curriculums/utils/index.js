@@ -43,3 +43,16 @@ export const getCurriculumNames = (curriculum) => {
     nameEn: curriculum.nameEn || curriculum.name || 'N/A',
   };
 };
+
+/**
+ * Build curriculum options for select input
+ * @param {Array} curriculums - Array of curriculum objects
+ * @param {string} currentLanguage - Current language ('ar' | 'en'), defaults to 'ar'
+ * @returns {Array} Array of options with value and label
+ */
+export const getCurriculumOptions = (curriculums = [], currentLanguage = 'ar') => {
+  return curriculums.map((curriculum) => ({
+    value: curriculum.id,
+    label: getCurriculumName(curriculum, currentLanguage),
+  }));
+};

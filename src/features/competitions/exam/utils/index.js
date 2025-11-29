@@ -1,0 +1,1 @@
+export { getExamName } from './getExamName';

@@ -84,7 +84,7 @@ export const createAppTheme = (
     primaryColors = {
       main: baseColors.orange500,
       light: baseColors.orange400,
-      dark: baseColors.orange900,
+      dark: baseColors.orange600, // Changed from orange900 to orange600 for better hover color
       contrastText: baseColors.white,
     };
     primaryBackground = mode === 'light' ? baseColors.orange50 : baseColors.orange900;

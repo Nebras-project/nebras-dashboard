@@ -31,8 +31,8 @@ const CompetitionsPage = lazy(() =>
 const CompetitionPage = lazy(() =>
   import('@features/competitions').then((m) => ({ default: m.CompetitionPage }))
 );
-const CompetitionMembersPage = lazy(() =>
-  import('@features/competitions').then((m) => ({ default: m.CompetitionMembersPage }))
+const CompetitionParticipantsPage = lazy(() =>
+  import('@features/competitions').then((m) => ({ default: m.CompetitionParticipantsPage }))
 );
 const CompetitionExamPage = lazy(() =>
   import('@features/competitions').then((m) => ({ default: m.CompetitionExamPage }))
@@ -137,7 +137,7 @@ const routes = [
     path: NAVIGATION_PATHS.COMPETITIONS.MEMBERS(':id'),
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.COMPETITION}>
-        <CompetitionMembersPage />
+        <CompetitionParticipantsPage />
       </AuthenticatedRoute>
     ),
   },

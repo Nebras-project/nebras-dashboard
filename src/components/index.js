@@ -51,6 +51,7 @@ export { default as AuthenticatedRoute } from './routing/AuthenticatedRoute';
 
 // Dialog components
 export { default as ConfirmDialog } from './dialogs/ConfirmDialog';
+export { default as TimePickerDialog } from './dialogs/TimePickerDialog';
 
 // Compound components
 export { default as Menu } from './inputs/menu';

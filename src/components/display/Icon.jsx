@@ -56,6 +56,9 @@ import {
   MdTaskAlt,
   MdPlayArrow,
   MdSwapHoriz,
+  MdBarChart,
+  MdCalendarToday,
+  MdAccessTime,
 } from 'react-icons/md';
 import { GoSidebarExpand, GoSidebarCollapse } from 'react-icons/go';
 
@@ -131,6 +134,7 @@ const ICON_MAP = {
 
   // Content & Education
   book: MdMenuBook,
+  menuBook: MdMenuBook,
   school: MdSchool,
   autoStories: MdAutoStories,
   bookmark: MdBookmark,
@@ -169,8 +173,13 @@ const ICON_MAP = {
   playArrow: MdPlayArrow,
   swapHoriz: MdSwapHoriz,
 
+  // Charts & Analytics
+  barChart: MdBarChart,
+
   // Calendar & Events
   calendarCheck: FaCalendarCheck,
+  calendarToday: MdCalendarToday,
+  accessTime: MdAccessTime,
 };
 
 const Icon = memo(function Icon({

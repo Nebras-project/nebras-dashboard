@@ -8,7 +8,7 @@ import { LogoutButton, Menu } from '@components';
 import { margin, padding } from '@constants';
 import { getRoleLabel } from '@utils/roleUtils';
 import { useTranslation } from '@hooks';
-import { fontWeights, borderRadius, borderWidth } from '@theme';
+import { fontWeights, borderRadius } from '@theme';
 import { borderColors } from '@theme/colors';
 import { useMuiTheme } from '@hooks';
 import { NAVIGATION_PATHS } from '@config';
@@ -17,14 +17,9 @@ import { NAVIGATION_PATHS } from '@config';
 const USER_MENU_MIN_WIDTH = 250;
 
 const USER_MENU_PAPER_PROPS = {
-  elevation: 1,
   sx: {
     ...margin.top.sm,
     minWidth: USER_MENU_MIN_WIDTH,
-    border: borderWidth.xs,
-    borderColor: 'divider',
-    borderRadius: borderRadius.xs,
-    overflow: 'visible',
   },
 };
 

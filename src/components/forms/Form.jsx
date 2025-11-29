@@ -16,6 +16,9 @@ import {
   SelectInput,
   CheckboxInput,
   RadioInput,
+  DateInput,
+  TimeInput,
+  NumberInput,
 } from './inputs';
 import {
   FormTitle,
@@ -123,6 +126,9 @@ Form.ConfirmPasswordInput = ConfirmPasswordInput;
 Form.SelectInput = SelectInput;
 Form.CheckboxInput = CheckboxInput;
 Form.RadioInput = RadioInput;
+Form.DateInput = DateInput;
+Form.TimeInput = TimeInput;
+Form.NumberInput = NumberInput;
 
 Form.displayName = 'Form';
 

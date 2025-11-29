@@ -7,3 +7,6 @@ export { default as ConfirmPasswordInput } from './ConfirmPasswordInput';
 export { default as SelectInput } from './SelectInput';
 export { default as CheckboxInput } from './CheckboxInput';
 export { default as RadioInput } from './RadioInput';
+export { default as DateInput } from './DateInput';
+export { default as TimeInput } from './TimeInput';
+export { default as NumberInput } from './NumberInput';

@@ -6,7 +6,7 @@ import {
   NAV_HOVER_SHIMMER_DARK,
 } from '@theme/colors';
 import { baseColors, borderColors } from '../theme/colors';
-import { borderRadius } from '../theme/components';
+import { borderRadius, shadows } from '../theme/components';
 import { padding } from './spacing';
 
 // =============================================================================
@@ -124,6 +124,23 @@ export const getSectionPaperStyles = (mode, overrides = {}) => ({
   border: `1px solid ${borderColors[mode]}`,
   bgcolor: 'background.default',
   ...overrides,
+});
+
+/**
+ * Get common Card styles
+ * @param {string} mode - Theme mode ('light' or 'dark')
+ * @param {Object} options - Options object
+ * @param {Object} options.overrides - Additional styles to override defaults
+ * @param {Object} options.padding - Padding styles (defaults to lg)
+ * @returns {Object} Style object for Card component
+ */
+export const getCardStyles = (mode, additionalSx = {}) => ({
+  bgcolor: 'background.default',
+  border: `1px solid ${borderColors[mode]}`,
+  borderRadius: borderRadius.xxs,
+  boxShadow: shadows[mode].sm,
+  ...padding.all.lg,
+  ...additionalSx,
 });
 
 export const getNavigationHoverStyles = (theme, isActive, collapsed) => ({

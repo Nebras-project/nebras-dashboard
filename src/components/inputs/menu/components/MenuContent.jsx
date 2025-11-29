@@ -3,18 +3,20 @@ import { Menu as MuiMenu, styled } from '@mui/material';
 
 import { borderRadius } from '@theme';
 import { margin } from '@constants';
-
+import { borderColors } from '@theme/colors';
 import { useMenuContext } from '../MenuContext';
+import { shadows } from '@theme/components';
 
 const StyledMenu = styled(MuiMenu, {
   shouldForwardProp: (prop) => prop !== 'minWidth',
 })(({ theme, minWidth }) => ({
   '& .MuiPaper-root': {
     borderRadius: borderRadius.sm,
-    ...margin.top.sm,
     minWidth: minWidth,
-    border: `1px solid ${theme.palette.divider}`,
-    boxShadow: theme.shadows[3],
+    border: `1px solid ${borderColors[theme.palette.mode]}`,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: shadows[theme.palette.mode].sm,
+    ...margin.top.sm,
   },
 }));
 
@@ -39,6 +41,7 @@ function MenuContent({
       anchorOrigin={anchorOrigin}
       transformOrigin={transformOrigin}
       slotProps={slotProps}
+      elevation={0}
       sx={sx}
       role="menu"
       aria-label={props['aria-label'] || 'Menu'}

@@ -7,13 +7,13 @@ import PropTypes from 'prop-types';
 import { getCurriculumName } from '../utils';
 import { useDeleteCurriculum } from '../hooks';
 import { useReduxTheme, useLanguage } from '@hooks';
-import { borderColors } from '@theme/colors';
 import { NAVIGATION_PATHS } from '@config';
 import CardActionsMenu from './CardActionsMenu';
 import CurriculumCardImage from './CurriculumCardImage';
 import CurriculumCardName from './CurriculumCardName';
 import CurriculumCardStatistics from './CurriculumCardStatistics';
 import { padding } from '@constants';
+import { getCardStyles } from '@constants/layout';
 
 /**
  * CurriculumCard Component
@@ -41,13 +41,8 @@ function CurriculumCard({ curriculum, onEdit }) {
   };
 
   return (
-    <Card 
-      sx={{
-        border: `1px solid ${borderColors[mode]}`,
-        bgcolor: 'background.default',
-        position: 'relative',
-        cursor: 'pointer',
-      }}
+    <Card
+      sx={getCardStyles(mode, { position: 'relative', cursor: 'pointer' })}
       onClick={handleView}
     >
       {/* Actions Menu - Three Dots */}

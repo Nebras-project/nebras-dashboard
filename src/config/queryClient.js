@@ -14,6 +14,7 @@ export const QUERY_KEYS = {
   ADMINS: 'admins',
   STUDENTS: 'students',
   COMPETITIONS: 'competitions',
+  EXAMS: 'exams',
   QUESTIONS: 'questions',
   CURRICULUMS: 'curriculums',
   SUBJECTS: 'subjects',
