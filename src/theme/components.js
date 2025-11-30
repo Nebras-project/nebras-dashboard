@@ -88,11 +88,15 @@ export const getComponentOverrides = (mode) => ({
   },
   MuiTextField: {
     styleOverrides: {
-      root: {
+      root: ({ theme }) => ({
         '& .MuiOutlinedInput-root': {
           borderRadius: borderRadius.md,
         },
-      },
+        // Set caret color to primary for all text inputs
+        '& .MuiInputBase-input': {
+          caretColor: theme.palette.primary.main,
+        },
+      }),
     },
   },
   MuiDrawer: {
@@ -227,11 +231,15 @@ export const getComponentOverrides = (mode) => ({
   },
   MuiInputBase: {
     styleOverrides: {
-      root: {
+      root: ({ theme }) => ({
+        // Set caret color to primary for all input bases
+        '& .MuiInputBase-input': {
+          caretColor: theme.palette.primary.main,
+        },
         '&.Mui-disabled': {
           cursor: 'not-allowed',
         },
-      },
+      }),
     },
   },
 });

@@ -13,6 +13,8 @@ const ar = {
     update: 'تعديل  ',
     search: 'بحث',
     filter: 'تصفية',
+    showFilters: 'إظهار الفلاتر',
+    hideFilters: 'إخفاء الفلاتر',
     export: 'تصدير',
     import: 'استيراد',
     loading: 'جاري التحميل...',
@@ -312,6 +314,15 @@ const ar = {
     competitionNotFoundDescription: 'المسابقة المطلوبة غير موجودة أو تم حذفها',
     description:
       'إدارة المسابقات التعليمية للطلاب. قم بإنشاء وإدارة المسابقات وتحديد التواريخ والمعايير.',
+    // Filter
+    filter: {
+      searchPlaceholder: 'البحث في المسابقات بالاسم...',
+      status: 'حالة المسابقة',
+      curriculum: 'المرحلة الدراسية',
+      clearAll: 'مسح جميع الفلاتر',
+      allStatuses: 'جميع الحالات',
+      allCurricula: 'جميع المراحل',
+    },
     // Error messages
     createErrorMessage: 'فشل إنشاء المسابقة. يرجى المحاولة مرة أخرى.',
     updateErrorMessage: 'فشل تحديث المسابقة. يرجى المحاولة مرة أخرى.',

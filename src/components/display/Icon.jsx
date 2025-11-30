@@ -59,6 +59,9 @@ import {
   MdBarChart,
   MdCalendarToday,
   MdAccessTime,
+  MdSearch,
+  MdFilterList,
+  MdClear,
 } from 'react-icons/md';
 import { GoSidebarExpand, GoSidebarCollapse } from 'react-icons/go';
 
@@ -69,7 +72,8 @@ import { CgColorBucket } from 'react-icons/cg';
 import { RiEnglishInput } from 'react-icons/ri';
 import { FaEarthAmericas } from 'react-icons/fa6';
 import { BiSolidSelectMultiple } from 'react-icons/bi';
-import { HiMenuAlt2, HiMenuAlt3 } from 'react-icons/hi';
+import { HiMenuAlt2, HiMenuAlt3, HiViewGridAdd } from 'react-icons/hi';
+import { HiDocumentPlus } from 'react-icons/hi2';
 import { FaCalendarCheck } from 'react-icons/fa';
 
 // Icon map - centralized icon registry
@@ -103,6 +107,11 @@ const ICON_MAP = {
   edit: MdEdit,
   delete: MdDelete,
   add: MdAdd,
+  addGrid: HiViewGridAdd,
+  documentPlus: HiDocumentPlus,
+  search: MdSearch,
+  filterList: MdFilterList,
+  clear: MdClear,
 
   // Theme
   contrast: MdContrast,

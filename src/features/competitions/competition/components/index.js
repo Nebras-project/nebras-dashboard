@@ -11,3 +11,5 @@ export { default as CompetitionFormDialog } from './CompetitionFormDialog';
 export { default as CompetitionFormFields } from './CompetitionFormFields';
 export { default as CompetitionsGrid } from './CompetitionsGrid';
 export { default as CompetitionInfo } from './CompetitionInfo';
+export { default as CompetitionFilter } from './CompetitionFilter';
+export { default as CompetitionFilterActions } from './CompetitionFilterActions';

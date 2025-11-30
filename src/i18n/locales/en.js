@@ -13,6 +13,8 @@ const en = {
     update: 'Update',
     search: 'Search',
     filter: 'Filter',
+    showFilters: 'Show filters',
+    hideFilters: 'Hide filters',
     export: 'Export',
     import: 'Import',
     loading: 'Loading...',
@@ -312,6 +314,15 @@ const en = {
     competitionNotFoundDescription: 'The requested competition does not exist or has been deleted',
     description:
       'Manage educational competitions for students. Create and manage competitions, set dates and criteria.',
+    // Filter
+    filter: {
+      searchPlaceholder: 'Search competitions by name...',
+      status: 'Competition Status',
+      curriculum: 'Curriculum',
+      clearAll: 'Clear all filters',
+      allStatuses: 'All Statuses',
+      allCurricula: 'All Curriculums',
+    },
     // Error messages
     createErrorMessage: 'Failed to create competition. Please try again.',
     updateErrorMessage: 'Failed to update competition. Please try again.',

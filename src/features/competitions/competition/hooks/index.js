@@ -7,3 +7,4 @@ export { useCompetitionForm } from './useCompetitionForm';
 export { default as useCompetitionCard } from './useCompetitionCard';
 export { useDeleteCompetition } from './useDeleteCompetition';
 export { useUpdateCompetitionStatus } from './useUpdateCompetitionStatus';
+export { useCompetitionFilter } from './useCompetitionFilter';
