@@ -58,16 +58,19 @@ import {
   MdSwapHoriz,
   MdBarChart,
   MdCalendarToday,
+  MdDateRange,
   MdAccessTime,
   MdSearch,
   MdFilterList,
   MdClear,
+  MdKeyboardArrowUp,
+  MdKeyboardArrowDown,
 } from 'react-icons/md';
 import { GoSidebarExpand, GoSidebarCollapse } from 'react-icons/go';
 
 import { LuEye, LuEyeClosed } from 'react-icons/lu';
 import { IoClose, IoLanguage } from 'react-icons/io5';
-import { TbPalette, TbLayoutDashboardFilled } from 'react-icons/tb';
+import { TbPalette, TbLayoutDashboardFilled, TbClock24 } from 'react-icons/tb';
 import { CgColorBucket } from 'react-icons/cg';
 import { RiEnglishInput } from 'react-icons/ri';
 import { FaEarthAmericas } from 'react-icons/fa6';
@@ -98,6 +101,8 @@ const ICON_MAP = {
   eyeClosed: LuEyeClosed,
   expandMore: MdExpandMore,
   expandLess: MdExpandLess,
+  keyboardArrowUp: MdKeyboardArrowUp,
+  keyboardArrowDown: MdKeyboardArrowDown,
   check: MdCheck,
   checkCircle: MdCheckCircle,
   logout: MdLogout,
@@ -188,7 +193,9 @@ const ICON_MAP = {
   // Calendar & Events
   calendarCheck: FaCalendarCheck,
   calendarToday: MdCalendarToday,
+  dateRange: MdDateRange,
   accessTime: MdAccessTime,
+  clock: TbClock24,
 };
 
 const Icon = memo(function Icon({

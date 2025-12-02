@@ -2,12 +2,12 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { useFormContext, Controller } from 'react-hook-form';
-import { TextField, IconButton, InputAdornment, Box, Divider } from '@mui/material';
-import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md';
+import { TextField, IconButton, InputAdornment, Box, Divider, useTheme } from '@mui/material';
 
 // internal imports
 import { useFormFieldError } from '../hooks';
 import { FORM_DEFAULTS } from '../constants';
+import { Icon } from '@components';
 
 /**
  * NumberInput Component
@@ -32,16 +32,21 @@ const isWithinMaxLength = (value, maxLength) => {
 
 // Increment/Decrement button component
 const NumberInputButtons = memo(function NumberInputButtons({ onIncrement, onDecrement }) {
+  const theme = useTheme();
   return (
     <InputAdornment position="end">
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
         <Divider orientation="vertical" flexItem sx={{ marginX: 1 }} />
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <IconButton size="small" onClick={onIncrement} sx={{ width: '20px', padding: 0 }}>
-            <MdKeyboardArrowUp size={18} />
+            <Icon name="keyboardArrowUp" size={18} style={{ color: theme.palette.primary.main }} />
           </IconButton>
           <IconButton size="small" onClick={onDecrement} sx={{ width: '20px', padding: 0 }}>
-            <MdKeyboardArrowDown size={18} />
+            <Icon
+              name="keyboardArrowDown"
+              size={18}
+              style={{ color: theme.palette.primary.main }}
+            />
           </IconButton>
         </Box>
       </Box>

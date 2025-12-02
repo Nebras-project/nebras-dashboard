@@ -3,11 +3,11 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Controller } from 'react-hook-form';
 import { useFormContext } from '../hooks';
-import { TextField } from '@mui/material';
+import { TextField, InputAdornment, useTheme } from '@mui/material';
 
 // internal imports
 import { useFormFieldError } from '../hooks';
-import { TimePickerDialog } from '@components';
+import { TimePickerDialog, Icon } from '@components';
 
 /**
  * TimeInput Component
@@ -19,6 +19,7 @@ function TimeInput({ name, label, rules, ...props }) {
   const { control } = useFormContext();
   const { hasError, helperText } = useFormFieldError(name);
   const [open, setOpen] = useState(false);
+  const theme = useTheme();
 
   return (
     <Controller
@@ -34,8 +35,19 @@ function TimeInput({ name, label, rules, ...props }) {
             helperText={helperText}
             fullWidth
             onClick={() => setOpen(true)}
-            InputProps={{
-              readOnly: true,
+            slotProps={{
+              input: {
+                readOnly: true,
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Icon
+                      name="clock"
+                      size={20}
+                      style={{ color: theme.palette.primary.main, cursor: 'pointer' }}
+                    />
+                  </InputAdornment>
+                ),
+              },
             }}
             {...props}
           />

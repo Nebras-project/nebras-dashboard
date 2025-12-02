@@ -5,11 +5,13 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Controller } from 'react-hook-form';
 import { useFormContext } from '../hooks';
+import { useTheme, InputAdornment } from '@mui/material';
 import dayjs from 'dayjs';
 
 // internal imports
 import { useFormFieldError } from '../hooks';
 import { useLanguage } from '@hooks';
+import { Icon } from '@components';
 import 'dayjs/locale/ar';
 import 'dayjs/locale/en';
 
@@ -22,6 +24,7 @@ function DateInput({ name, label, rules, ...props }) {
   const { control } = useFormContext();
   const { hasError, helperText } = useFormFieldError(name);
   const { currentLanguage } = useLanguage();
+  const theme = useTheme();
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={currentLanguage}>
@@ -42,6 +45,19 @@ function DateInput({ name, label, rules, ...props }) {
                 error: hasError,
                 helperText: helperText,
                 fullWidth: true,
+                slotProps: {
+                  input: {
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <Icon
+                          name="dateRange"
+                          size={20}
+                          style={{ color: theme.palette.primary.main, cursor: 'pointer' }}
+                        />
+                      </InputAdornment>
+                    ),
+                  },
+                },
                 ...props,
               },
             }}
