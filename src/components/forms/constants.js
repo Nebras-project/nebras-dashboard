@@ -160,6 +160,23 @@ export const getNumberRules = (t, label, { required = true, min, max } = {}) => 
   return rules;
 };
 
+/**
+ * Get validation rules for a radio input field
+ * Supports required validation
+ *
+ * @param {Function} t - Translation function
+ * @param {string} label - Field label for error messages
+ * @param {boolean} [required=true] - Whether the field is required
+ * @returns {Object} React Hook Form validation rules
+ */
+export const getRadioRules = (t, label, required = true) => {
+  const rules = {};
+  if (required) {
+    rules.required = t('validation.required', { field: label });
+  }
+  return rules;
+};
+
 export const getPhoneRules = (t, label) => ({
   required: t('validation.required', { field: label || t('forms.phoneNumber') }),
   validate: (value) => {
@@ -307,6 +324,51 @@ export const getEndDateRules = (
     return true;
   },
 });
+
+/**
+ * Year Validation Rules
+ * General validation rules for year fields
+ */
+
+/**
+ * Get validation rules for a year field
+ * Ensures the selected year is less than or equal to the current year
+ *
+ * @param {Function} t - Translation function
+ * @param {string} label - Field label for error messages
+ * @param {boolean} [required=true] - Whether the field is required
+ * @returns {Object} React Hook Form validation rules
+ */
+export const getYearRules = (t, label, required = true) => {
+  const rules = {};
+
+  if (required) {
+    rules.required = t('validation.required', { field: label });
+  }
+
+  rules.validate = (value) => {
+    if (!value && !required) return true;
+    if (!value && required) return t('validation.required', { field: label });
+
+    const selectedYear = typeof value === 'number' ? value : parseInt(value, 10);
+    const currentYear = dayjs().year();
+
+    if (isNaN(selectedYear)) {
+      return t('validation.invalidYear', { field: label });
+    }
+
+    if (selectedYear > currentYear) {
+      return t('validation.yearMustBeLessOrEqualCurrentYear', {
+        field: label,
+        currentYear,
+      });
+    }
+
+    return true;
+  };
+
+  return rules;
+};
 
 /**
  * Time Validation Rules

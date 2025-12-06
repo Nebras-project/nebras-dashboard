@@ -1,2 +1,2 @@
 // Pages
-export * from "./pages";
+export { default as QuestionsPage } from './pages/QuestionsPage';

@@ -14,7 +14,7 @@ import { useFilter } from './useFilter';
  * @returns {Object} Filter state and handlers
  */
 export const useDebouncedFilter = (initialFilters = {}, onFilterChange, debounceMs = 500) => {
-  const [debouncedFilters, setDebouncedFilters] = useState(initialFilters);
+  const [debouncedFilters, setDebouncedFilters] = useState(() => initialFilters);
   const filterHook = useFilter(initialFilters);
 
   // Debounce filter changes

@@ -21,7 +21,7 @@ export const useCompetitionFilter = (onFilterChange, competitions = [], debounce
   // Use debounced filter for all filters (search, status, curriculum)
   const { filters, hasActiveFilters, updateFilter, clearAllFilters } = useDebouncedFilter(
     {
-      search: '',
+      competitionName: '',
       status: '',
       curriculum: '',
     },
@@ -29,7 +29,7 @@ export const useCompetitionFilter = (onFilterChange, competitions = [], debounce
     debounceMs
   );
 
-  const searchTerm = filters.search || '';
+  const searchTerm = filters.competitionName || '';
   const status = filters.status || '';
   const curriculum = filters.curriculum || '';
 
@@ -47,7 +47,7 @@ export const useCompetitionFilter = (onFilterChange, competitions = [], debounce
   }, [competitions]);
 
   // Convenience setters
-  const setSearchTerm = (value) => updateFilter('search', value);
+  const setSearchTerm = (value) => updateFilter('competitionName', value);
   const setStatus = (value) => updateFilter('status', value);
   const setCurriculum = (value) => updateFilter('curriculum', value);
 

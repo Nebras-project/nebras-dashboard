@@ -15,11 +15,11 @@ Reusable wrapper around MUI X `DataGrid` with opinionated defaults tailored for
   - `NoRowsMessage.jsx`: Empty-state overlay used for both “no rows” and “no results”.
   - `RowActionsMenu.jsx`: Reusable vertical-ellipsis menu for per-row actions.
 - `hooks/`
-  - `useTable.js`: Local state for pagination, sorting, filtering, and deriving `queryString`.
+  - `useTable.js`: Local state for pagination, sorting, and deriving `queryString`.
   - `useServerData.js`: Fetches row data, tracks loading/error, and normalises `rowCount`.
   - `usePagination.js`: Bridges DataGrid pagination state with the custom pagination components.
   - `useTableLayout.js`: Computes responsive sizing/layout behaviour for table containers.
-  - `useQueryStringBuilder.js`: Converts pagination/sort/filter models into REST-friendly query strings.
+  - `useQueryStringBuilder.js`: Converts pagination/sort models and custom filters into REST-friendly query strings.
 - `examples/`
   - `SampleTable.jsx`: Demonstrates server-side pagination with row actions against JSONPlaceholder.
   - `index.js`: Re-exports bundled examples for Storybook or documentation sandboxes.
@@ -50,7 +50,7 @@ Most consumers stick to `Table`, `useTable`, and `useServerData`. The additional
 
 ### Hooks
 
-- `useTable`: Drives local state for pagination, sorting, and filtering (client or server). Produces a `queryString` compatible with REST endpoints.
+- `useTable`: Drives local state for pagination and sorting (client or server). Produces a `queryString` compatible with REST endpoints. Accepts `customFilters` for filter parameters from external filter components.
 - `useServerData`: Accepts an endpoint (and optional `fetcher`/`transform`) to retrieve rows, compute `rowCount`, and expose `loading`, `error`, and `refetch`.
 - `usePagination`: Provides the reactive pagination state used by `TablePagination` and friends. Handles page changes and synchronises page-size updates with the DataGrid.
 - `useTableLayout`: Supplies responsive layout helpers (auto height vs fixed height, compact spacing, etc.).
@@ -106,9 +106,6 @@ return (
     sortingMode="server"
     sortModel={tableState.sortModel}
     onSortModelChange={tableState.handleSortModelChange}
-    filterMode="server"
-    filterModel={tableState.filterModel}
-    onFilterModelChange={tableState.handleFilterModelChange}
   />
 );
 ```
@@ -196,7 +193,7 @@ Pick and mix these pieces when building bespoke footers.
       description: 'Start by creating your first record.',
     },
     noResultsOverlay: {
-      description: 'Nothing matches these filters. Try a different query.',
+      description: 'Nothing matches your search. Try a different query.',
     },
   }}
 />

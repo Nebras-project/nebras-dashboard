@@ -1,10 +1,10 @@
 // external imports
 import PropTypes from 'prop-types';
-import { Box, Grid, Paper, Collapse } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 
 // internal imports
 import { useTranslation } from '@hooks';
-import { FilterSearchBar, FilterSelect } from '@components';
+import { FilterSearchBar, FilterSelect, Menu } from '@components';
 import { useCompetitionFilter } from '../hooks';
 import CompetitionFilterActions from './CompetitionFilterActions';
 import { margin, padding } from '@constants';
@@ -34,8 +34,8 @@ function CompetitionFilter({ onFilterChange, competitions = [], addButton }) {
   } = useCompetitionFilter(onFilterChange, competitions);
 
   return (
-    <Paper sx={{ ...padding.all.md, ...margin.bottom.xxl }}>
-      <Box sx={{ ...margin.bottom.lg }}>
+    <Box sx={{ ...margin.y.xxl }}>
+      <Menu id="competition-filter-menu">
         <FilterSearchBar
           value={searchTerm}
           onChange={setSearchTerm}
@@ -47,15 +47,17 @@ function CompetitionFilter({ onFilterChange, competitions = [], addButton }) {
               hasActiveFilters={hasActiveFilters}
               onClearFilters={handleClearFilters}
               addButton={addButton}
+              filterButtonWrapper={Menu.Trigger}
             />
           }
           showClearButton={false}
         />
-      </Box>
-
-      <Collapse in={showFilters}>
-        <Grid container spacing={2}>
-          <Grid size={{ mobile: 12, tablet: 6, desktop: 3 }}>
+        <Menu.Content
+          minWidth={300}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        >
+          <Stack direction="column" spacing={2} sx={{ ...padding.all.md }}>
             <FilterSelect
               label={t('competitions.filter.status')}
               value={status}
@@ -63,9 +65,7 @@ function CompetitionFilter({ onFilterChange, competitions = [], addButton }) {
               options={filterOptions.statuses}
               allLabel={t('competitions.filter.allStatuses')}
             />
-          </Grid>
 
-          <Grid size={{ mobile: 12, tablet: 6, desktop: 3 }}>
             <FilterSelect
               label={t('competitions.filter.curriculum')}
               value={curriculum}
@@ -73,10 +73,10 @@ function CompetitionFilter({ onFilterChange, competitions = [], addButton }) {
               options={filterOptions.curricula}
               allLabel={t('competitions.filter.allCurricula')}
             />
-          </Grid>
-        </Grid>
-      </Collapse>
-    </Paper>
+          </Stack>
+        </Menu.Content>
+      </Menu>
+    </Box>
   );
 }
 

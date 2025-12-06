@@ -20,10 +20,8 @@ function StudentsTable({ onEdit }) {
   const {
     paginationModel,
     sortModel,
-    filterModel,
     handlePaginationModelChange,
     handleSortModelChange,
-    handleFilterModelChange,
     queryString,
   } = useTable();
 
@@ -83,8 +81,6 @@ function StudentsTable({ onEdit }) {
       onPaginationModelChange={handlePaginationModelChange}
       sortModel={sortModel}
       onSortModelChange={handleSortModelChange}
-      filterModel={filterModel}
-      onFilterModelChange={handleFilterModelChange}
     />
   );
 }

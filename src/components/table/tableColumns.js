@@ -40,64 +40,10 @@ const columnRegistry = {
     minWidth: 100,
     flex: 0.5,
   },
-  score: {
-    field: 'Score',
-    headerKey: 'table.columnHeaders.competitions.score',
-    minWidth: 140,
-    flex: 0.8,
-  },
-  class: {
-    field: 'Class',
-    headerKey: 'table.columnHeaders.common.class',
-    minWidth: 140,
-    flex: 0.8,
-  },
   name: {
     field: 'Name',
     headerKey: 'table.columnHeaders.common.name',
     minWidth: 200,
-    flex: 1,
-  },
-  gradeName: {
-    field: 'Grade',
-    headerKey: 'table.columnHeaders.competitions.gradeName',
-    minWidth: 160,
-    flex: 1,
-  },
-  level: {
-    field: 'Level',
-    headerKey: 'table.columnHeaders.competitions.level',
-    minWidth: 140,
-    flex: 0.8,
-  },
-  curriculum: {
-    field: 'Curriculum',
-    headerKey: 'table.columnHeaders.competitions.curriculum',
-    minWidth: 160,
-    flex: 1,
-  },
-  preparationStatus: {
-    field: 'PreparationStatus',
-    headerKey: 'table.columnHeaders.competitions.preparationStatus',
-    minWidth: 180,
-    flex: 1,
-  },
-  runningState: {
-    field: 'RunningState',
-    headerKey: 'table.columnHeaders.competitions.runningState',
-    minWidth: 180,
-    flex: 1,
-  },
-  startDate: {
-    field: 'StartDate',
-    headerKey: 'table.columnHeaders.common.startDate',
-    minWidth: 180,
-    flex: 1,
-  },
-  endDate: {
-    field: 'EndDate',
-    headerKey: 'table.columnHeaders.common.endDate',
-    minWidth: 180,
     flex: 1,
   },
   question: {
@@ -136,29 +82,43 @@ const columnRegistry = {
     minWidth: 160,
     flex: 1,
   },
-  manager: {
-    field: 'Manager',
-    headerKey: 'table.columnHeaders.common.manager',
-    minWidth: 200,
-    flex: 1,
-  },
+
   lesson: {
     field: 'Lesson',
     headerKey: 'table.columnHeaders.questions.lesson',
     minWidth: 200,
     flex: 1,
   },
-  formNumber: {
-    field: 'FormNumber',
-    headerKey: 'table.columnHeaders.questions.formNumber',
-    minWidth: 140,
-    flex: 0.8,
+  unit: {
+    field: 'Unit',
+    headerKey: 'table.columnHeaders.questions.unit',
+    minWidth: 180,
+    flex: 1,
   },
-  year: {
-    field: 'Year',
-    headerKey: 'table.columnHeaders.questions.year',
-    minWidth: 140,
-    flex: 0.8,
+  subject: {
+    field: 'Subject',
+    headerKey: 'table.columnHeaders.questions.subject',
+    minWidth: 180,
+    flex: 1,
+  },
+  curriculum: {
+    field: 'Curriculum',
+    headerKey: 'table.columnHeaders.questions.curriculum',
+    minWidth: 160,
+    flex: 1,
+  },
+
+  yearForm: {
+    field: 'YearForm',
+    headerKey: 'table.columnHeaders.questions.yearForm',
+    minWidth: 160,
+    flex: 1,
+  },
+  addedBy: {
+    field: 'AddedBy',
+    headerKey: 'table.columnHeaders.questions.addedBy',
+    minWidth: 200,
+    flex: 1,
   },
   actions: (options = {}) => {
     const width = options.actionsWidth ?? 80;
@@ -301,22 +261,25 @@ export function buildQuestionColumns(options = {}) {
   } = options;
 
   let keys = [
+    'img',
     'question',
     'choices',
     'correctChoice',
-    'img',
-    'state',
-    'type',
-    'manager',
+    'curriculum',
+    'subject',
+    'unit',
     'lesson',
-    'formNumber',
-    'year',
+    'type',
+    'yearForm',
+    'addedBy',
   ];
 
   if (Array.isArray(visibleFields) && visibleFields.length) {
     keys = visibleFields;
   } else if (questionType && QUESTION_TYPES_WITHOUT_YEAR.has(questionType.toLowerCase())) {
-    keys = keys.filter((key) => key !== 'formNumber' && key !== 'year');
+    // For enrichment questions, use yearForm which can handle empty values
+    // or filter it out if needed
+    keys = keys.filter((key) => key !== 'yearForm');
   }
 
   const mergedHiddenFields = Array.isArray(hiddenFields) ? hiddenFields : [];

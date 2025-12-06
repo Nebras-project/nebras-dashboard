@@ -65,19 +65,29 @@ import {
   MdClear,
   MdKeyboardArrowUp,
   MdKeyboardArrowDown,
+  MdNumbers,
+  MdFunctions,
 } from 'react-icons/md';
-import { GoSidebarExpand, GoSidebarCollapse } from 'react-icons/go';
+import { GoSidebarExpand, GoSidebarCollapse, GoDotFill } from 'react-icons/go';
 
-import { LuEye, LuEyeClosed } from 'react-icons/lu';
+import { LuEye, LuEyeClosed, LuLayoutList } from 'react-icons/lu';
 import { IoClose, IoLanguage } from 'react-icons/io5';
-import { TbPalette, TbLayoutDashboardFilled, TbClock24 } from 'react-icons/tb';
+import {
+  TbPalette,
+  TbLayoutDashboardFilled,
+  TbClock24,
+  TbLayoutListFilled,
+  TbAlphabetGreek,
+} from 'react-icons/tb';
 import { CgColorBucket } from 'react-icons/cg';
 import { RiEnglishInput } from 'react-icons/ri';
-import { FaEarthAmericas } from 'react-icons/fa6';
+import { FaEarthAmericas, FaListOl } from 'react-icons/fa6';
 import { BiSolidSelectMultiple } from 'react-icons/bi';
 import { HiMenuAlt2, HiMenuAlt3, HiViewGridAdd } from 'react-icons/hi';
 import { HiDocumentPlus } from 'react-icons/hi2';
-import { FaCalendarCheck } from 'react-icons/fa';
+import { FaCalendarCheck, FaClipboardList } from 'react-icons/fa';
+import { PiListNumbersFill } from 'react-icons/pi';
+import { TiThListOutline } from 'react-icons/ti';
 
 // Icon map - centralized icon registry
 const ICON_MAP = {
@@ -117,6 +127,7 @@ const ICON_MAP = {
   search: MdSearch,
   filterList: MdFilterList,
   clear: MdClear,
+  dot: GoDotFill,
 
   // Theme
   contrast: MdContrast,
@@ -169,6 +180,8 @@ const ICON_MAP = {
   class: MdClass,
   libraryBooks: MdLibraryBooks,
   trendingUp: MdTrendingUp,
+  functions: MdFunctions,
+  alphabetGreek: TbAlphabetGreek,
 
   // Status & Time
   upcoming: MdUpcoming,
@@ -196,6 +209,17 @@ const ICON_MAP = {
   dateRange: MdDateRange,
   accessTime: MdAccessTime,
   clock: TbClock24,
+
+  // Numbers & Forms
+  numbers: MdNumbers,
+
+  // Lists & Views
+  clipboardList: FaClipboardList,
+  layoutListFilled: TbLayoutListFilled,
+  listNumbersFill: PiListNumbersFill,
+  listOl: FaListOl,
+  layoutList: LuLayoutList,
+  thListOutline: TiThListOutline,
 };
 
 const Icon = memo(function Icon({

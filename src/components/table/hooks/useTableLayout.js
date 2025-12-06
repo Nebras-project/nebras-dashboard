@@ -7,7 +7,6 @@ import { buildLocaleText, buildSlotProps, buildSlots } from '../tableConfig';
 export default function useTableLayout({
   rows,
   rowCount,
-  showToolbar,
   slotProps,
   slots,
   pageSizeOptions,
@@ -39,11 +38,11 @@ export default function useTableLayout({
   );
 
   const resolvedSlotProps = useMemo(
-    () => buildSlotProps({ showToolbar, slotProps, t, pageSizeOptions: resolvedPageSizeOptions }),
-    [resolvedPageSizeOptions, showToolbar, slotProps, t]
+    () => buildSlotProps({ slotProps, t, pageSizeOptions: resolvedPageSizeOptions }),
+    [resolvedPageSizeOptions, slotProps, t]
   );
 
-  const resolvedSlots = useMemo(() => buildSlots({ showToolbar, slots }), [showToolbar, slots]);
+  const resolvedSlots = useMemo(() => buildSlots({ slots }), [slots]);
 
   const resolvedLocaleText = useMemo(() => buildLocaleText({ t, localeText }), [localeText, t]);
 

@@ -22,17 +22,13 @@ function AdminsTable({ onEdit }) {
   const {
     paginationModel,
     sortModel,
-    filterModel,
     handlePaginationModelChange,
     handleSortModelChange,
-    handleFilterModelChange,
     queryString,
   } = useTable();
 
-  console.log(queryString);
-
   // Fetch admins data using the hook
-  const { admins = [], isLoading } = useAdmin({
+  const { admins, isLoading } = useAdmin({
     queryString,
   });
 
@@ -90,8 +86,6 @@ function AdminsTable({ onEdit }) {
       onPaginationModelChange={handlePaginationModelChange}
       sortModel={sortModel}
       onSortModelChange={handleSortModelChange}
-      filterModel={filterModel}
-      onFilterModelChange={handleFilterModelChange}
     />
   );
 }

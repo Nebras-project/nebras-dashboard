@@ -18,6 +18,7 @@ const CompetitionFilterActions = memo(function CompetitionFilterActions({
   hasActiveFilters,
   onClearFilters,
   addButton,
+  filterButtonWrapper,
 }) {
   const { t } = useTranslation();
 
@@ -34,6 +35,7 @@ const CompetitionFilterActions = memo(function CompetitionFilterActions({
         hasActiveFilters={hasActiveFilters}
         onClearFilters={onClearFilters}
         clearAllLabel={t('competitions.filter.clearAll')}
+        filterButtonWrapper={filterButtonWrapper}
       />
       {addButton && <>{addButton}</>}
     </Box>
@@ -46,6 +48,7 @@ CompetitionFilterActions.propTypes = {
   hasActiveFilters: PropTypes.bool.isRequired,
   onClearFilters: PropTypes.func.isRequired,
   addButton: PropTypes.node, // Optional: Add button to render in the same row
+  filterButtonWrapper: PropTypes.elementType, // Optional: Component to wrap the filter button
 };
 
 CompetitionFilterActions.displayName = 'CompetitionFilterActions';

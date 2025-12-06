@@ -1,32 +1,37 @@
 import { useMemo } from 'react';
+import PropTypes from 'prop-types';
 
 import { ActionsMenu } from '@components';
 import Table, { useTable } from '@components/table';
 import Icon from '@components/display/Icon';
 import useTranslation from '@i18n/hooks/useTranslation';
 
-import createQuestionColumns from '../utils/createQuestionColumns.jsx';
+import { createQuestionColumns } from '../../utils';
 
-function QuestionsTable() {
+function QuestionsTable({ customFilters = {} }) {
   const { t } = useTranslation();
 
   const {
     paginationModel,
     sortModel,
-    filterModel,
     handlePaginationModelChange,
     handleSortModelChange,
-    handleFilterModelChange,
     queryString,
-  } = useTable();
+  } = useTable({ customFilters });
 
   console.log(queryString);
+
+  // Extract type and category from filters
+  const type = customFilters.type || '';
+  const category = customFilters.category || '';
 
   const columns = useMemo(
     () =>
       createQuestionColumns({
         t,
         includeActions: true,
+        type,
+        category,
         renderActions: ({ row }) => (
           <ActionsMenu
             tooltip={t('common.actions')}
@@ -50,7 +55,7 @@ function QuestionsTable() {
           />
         ),
       }),
-    [t]
+    [t, type, category]
   );
 
   // TODO: Use queryString to fetch data from server
@@ -64,11 +69,14 @@ function QuestionsTable() {
       onPaginationModelChange={handlePaginationModelChange}
       sortModel={sortModel}
       onSortModelChange={handleSortModelChange}
-      filterModel={filterModel}
-      onFilterModelChange={handleFilterModelChange}
       disableRowSelectionOnClick
+      sx={{ borderTop: 'none', borderTopLeftRadius: '0', borderTopRightRadius: '0' }}
     />
   );
 }
+
+QuestionsTable.propTypes = {
+  customFilters: PropTypes.object, // Filter params from QuestionFilter
+};
 
 export default QuestionsTable;

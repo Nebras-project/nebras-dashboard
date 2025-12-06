@@ -19,13 +19,14 @@ const AddIconButton = memo(function AddIconButton({
   color,
   size = 24,
   iconName = 'addGrid',
+  placement = 'top',
   ...iconButtonProps
 }) {
   const { t } = useTranslation();
   const tooltipText = tooltip || label || t('common.add');
 
   return (
-    <Tooltip title={tooltipText}>
+    <Tooltip title={tooltipText} placement={placement}>
       <IconButton color={color} onClick={onClick} {...iconButtonProps}>
         <Icon name={iconName} size={size} />
       </IconButton>
@@ -47,6 +48,7 @@ AddIconButton.propTypes = {
     'warning',
   ]),
   size: PropTypes.number,
+  placement: PropTypes.string,
   iconName: PropTypes.string,
 };
 

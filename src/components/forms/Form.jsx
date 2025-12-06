@@ -16,10 +16,14 @@ import {
   SelectInput,
   CheckboxInput,
   RadioInput,
+  RadioTextInput,
+  RadioTextInputGroup,
   DateInput,
   TimeInput,
   NumberInput,
+  YearInput,
 } from './inputs';
+import { MathSymbolsInput } from './inputs/MathSymbols';
 import {
   FormTitle,
   FormContent,
@@ -126,9 +130,13 @@ Form.ConfirmPasswordInput = ConfirmPasswordInput;
 Form.SelectInput = SelectInput;
 Form.CheckboxInput = CheckboxInput;
 Form.RadioInput = RadioInput;
+Form.RadioTextInput = RadioTextInput;
+Form.RadioTextInputGroup = RadioTextInputGroup;
 Form.DateInput = DateInput;
 Form.TimeInput = TimeInput;
 Form.NumberInput = NumberInput;
+Form.YearInput = YearInput;
+Form.MathSymbolsInput = MathSymbolsInput;
 
 Form.displayName = 'Form';
 

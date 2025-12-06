@@ -65,6 +65,8 @@ export { Form, UserFields, EntityForm, EntityFormDialog } from './forms';
 // Filter components
 export {
   FilterSearchBar,
+  TableFilterSearchBar,
+  FilterContent,
   FilterSelect,
   FilterActions,
   useFilter,

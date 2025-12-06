@@ -17,7 +17,7 @@ const getButtonStyles = () => ({
  */
 const FormSubmitButton = memo(function FormSubmitButton({
   children = 'Submit',
-  variant = 'contained',
+  variant = 'outlined',
   color = 'primary',
   loading,
   disabled,

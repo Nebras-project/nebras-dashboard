@@ -16,7 +16,6 @@ function Table({
   disableRowSelectionOnClick = true,
   slots,
   slotProps,
-  showToolbar = true,
   checkRowSelection = true,
   sx,
   paginationMode = 'server',
@@ -25,9 +24,6 @@ function Table({
   sortingMode = 'server',
   sortModel: sortModelProp,
   onSortModelChange,
-  filterMode = 'server',
-  filterModel: filterModelProp,
-  onFilterModelChange,
   ariaLabel,
   ariaDescribedBy,
   initialState: initialStateProp,
@@ -45,7 +41,6 @@ function Table({
   } = useTableLayout({
     rows,
     rowCount: rowCountProp,
-    showToolbar,
     slotProps,
     slots,
     pageSizeOptions,
@@ -61,7 +56,6 @@ function Table({
       columns={columns}
       rowCount={effectiveRowCount}
       loading={loading}
-      showToolbar={showToolbar}
       density={density}
       checkRowSelection
       disableRowSelectionOnClick={disableRowSelectionOnClick}
@@ -75,9 +69,6 @@ function Table({
       sortingMode={sortingMode}
       sortModel={sortModelProp}
       onSortModelChange={onSortModelChange}
-      filterMode={filterMode}
-      filterModel={filterModelProp}
-      onFilterModelChange={onFilterModelChange}
       aria-label={ariaLabel}
       aria-describedby={ariaDescribedBy}
       slots={resolvedSlots}
@@ -97,7 +88,6 @@ Table.propTypes = {
   disableRowSelectionOnClick: PropTypes.bool,
   slots: PropTypes.object,
   slotProps: PropTypes.object,
-  showToolbar: PropTypes.bool,
   sx: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.func,
@@ -119,13 +109,6 @@ Table.propTypes = {
     })
   ),
   onSortModelChange: PropTypes.func,
-  filterMode: PropTypes.oneOf(['client', 'server']),
-  filterModel: PropTypes.shape({
-    items: PropTypes.array,
-    quickFilterValues: PropTypes.array,
-    logicOperator: PropTypes.oneOf(['and', 'or']),
-  }),
-  onFilterModelChange: PropTypes.func,
   ariaLabel: PropTypes.string,
   ariaDescribedBy: PropTypes.string,
   initialState: PropTypes.object,

@@ -122,7 +122,7 @@ export const getSectionPaperStyles = (mode, overrides = {}) => ({
   ...padding.all.md,
   borderRadius: borderRadius.xxs,
   border: `1px solid ${borderColors[mode]}`,
-  bgcolor: 'background.default',
+  bgcolor: 'background.default', // MUI sx prop shorthand for backgroundColor
   ...overrides,
 });
 

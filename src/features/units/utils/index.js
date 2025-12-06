@@ -25,3 +25,17 @@ export const getUnitName = (unit, currentLanguage = 'ar') => {
   }
 };
 
+/**
+ * Get unit options for select input
+ * Transforms an array of units into options format { value, label }
+ *
+ * @param {Array} units - Array of unit objects
+ * @param {string} currentLanguage - Current language ('ar' | 'en'), defaults to 'ar'
+ * @returns {Array} Array of options with value and label
+ */
+export const getUnitOptions = (units = [], currentLanguage = 'ar') => {
+  return units.map((unit) => ({
+    value: unit.id,
+    label: getUnitName(unit, currentLanguage),
+  }));
+};

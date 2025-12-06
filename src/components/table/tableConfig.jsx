@@ -1,7 +1,7 @@
 import NoRowsMessage from './components/NoRowsMessage';
 import TablePagination from './components/TablePagination';
 
-export function buildSlotProps({ showToolbar, slotProps, t, pageSizeOptions }) {
+export function buildSlotProps({ slotProps, t, pageSizeOptions }) {
   const userBasePagination = slotProps?.basePagination ?? {};
   const basePagination = {
     showFirstButton: userBasePagination.showFirstButton ?? true,
@@ -13,7 +13,9 @@ export function buildSlotProps({ showToolbar, slotProps, t, pageSizeOptions }) {
     ? slotProps.pagination.pageSizeOptions
     : pageSizeOptions;
 
-  const overlaySlotProps = {
+  return {
+    ...slotProps,
+    basePagination,
     noRowsOverlay: {
       title: t('table.noRecords'),
       description: t('table.noRecordsDescription'),
@@ -31,32 +33,9 @@ export function buildSlotProps({ showToolbar, slotProps, t, pageSizeOptions }) {
       pageSizeOptions: resolvedPageSizeOptions,
     },
   };
-
-  if (!showToolbar) {
-    return {
-      ...slotProps,
-      basePagination,
-      ...overlaySlotProps,
-    };
-  }
-
-  return {
-    ...slotProps,
-    basePagination,
-    ...overlaySlotProps,
-    toolbar: {
-      showQuickFilter: true,
-      ...slotProps?.toolbar,
-      quickFilterProps: {
-        placeholder: t('table.toolbar.quickFilterPlaceholder'),
-        quickFilterFormatter: (value) => t('table.toolbar.quickFilterValue', { value }),
-        ...slotProps?.toolbar?.quickFilterProps,
-      },
-    },
-  };
 }
 
-export function buildSlots({ slots, showToolbar }) {
+export function buildSlots({ slots }) {
   const mergedSlots = {
     ...slots,
   };
@@ -73,20 +52,12 @@ export function buildSlots({ slots, showToolbar }) {
     mergedSlots.pagination = TablePagination;
   }
 
-  if (!showToolbar && mergedSlots.toolbar) {
-    delete mergedSlots.toolbar;
-  }
-
   return mergedSlots;
 }
 
 const localeTextMappings = (t) => ({
   toolbarColumns: t('table.toolbar.columns'),
   toolbarColumnsLabel: t('table.toolbar.columnsLabel'),
-  toolbarFilters: t('table.toolbar.filters'),
-  toolbarFiltersLabel: t('table.toolbar.filtersLabel'),
-  toolbarFiltersTooltipHide: t('table.toolbar.filtersTooltipHide'),
-  toolbarFiltersTooltipShow: t('table.toolbar.filtersTooltipShow'),
   toolbarDensity: t('table.toolbar.density'),
   toolbarDensityLabel: t('table.toolbar.densityLabel'),
   toolbarDensityCompact: t('table.toolbar.densityCompact'),
@@ -96,13 +67,9 @@ const localeTextMappings = (t) => ({
   toolbarExportLabel: t('table.toolbar.exportLabel'),
   toolbarExportCSV: t('table.toolbar.exportCSV'),
   toolbarExportPrint: t('table.toolbar.exportPrint'),
-  toolbarQuickFilterPlaceholder: t('table.toolbar.quickFilterPlaceholder'),
-  toolbarQuickFilterLabel: t('table.toolbar.quickFilterLabel'),
-  toolbarQuickFilterDeleteIconLabel: t('table.toolbar.quickFilterDeleteIconLabel'),
   columnMenuLabel: t('table.columnMenu.label'),
   columnMenuShowColumns: t('table.columnMenu.showColumns'),
   columnMenuManageColumns: t('table.columnMenu.manageColumns'),
-  columnMenuFilter: t('table.columnMenu.filter'),
   columnMenuHideColumn: t('table.columnMenu.hideColumn'),
   columnMenuUnsort: t('table.columnMenu.unsort'),
   columnMenuSortAsc: t('table.columnMenu.sortAsc'),
@@ -112,39 +79,7 @@ const localeTextMappings = (t) => ({
   columnsManagementShowHideAllText: t('table.columnsManagement.showHideAll'),
   columnsManagementReset: t('table.columnsManagement.reset'),
   columnsManagementDeleteIconLabel: t('table.columnsManagement.deleteIconLabel'),
-  columnHeaderFiltersTooltipActive: (count) =>
-    t('table.columnHeader.filtersTooltipActive', { count }),
-  columnHeaderFiltersTooltipInactive: t('table.columnHeader.filtersTooltipInactive'),
-  columnHeaderFiltersLabel: t('table.columnHeader.filtersLabel'),
   columnHeaderSortIconLabel: t('table.columnHeader.sortIconLabel'),
-  filterPanelAddFilter: t('table.filterPanel.addFilter'),
-  filterPanelRemoveAll: t('table.filterPanel.removeAll'),
-  filterPanelDeleteIconLabel: t('table.filterPanel.deleteIconLabel'),
-  filterPanelColumns: t('table.filterPanel.columns'),
-  filterPanelOperator: t('table.filterPanel.operator'),
-  filterPanelInputLabel: t('table.filterPanel.inputLabel'),
-  filterPanelInputPlaceholder: t('table.filterPanel.inputPlaceholder'),
-  filterOperatorContains: t('table.filterOperators.contains'),
-  filterOperatorDoesNotContain: t('table.filterOperators.doesNotContain'),
-  filterOperatorEquals: t('table.filterOperators.equals'),
-  filterOperatorDoesNotEqual: t('table.filterOperators.doesNotEqual'),
-  filterOperatorStartsWith: t('table.filterOperators.startsWith'),
-  filterOperatorEndsWith: t('table.filterOperators.endsWith'),
-  filterOperatorIs: t('table.filterOperators.is'),
-  filterOperatorNot: t('table.filterOperators.not'),
-  filterOperatorAfter: t('table.filterOperators.after'),
-  filterOperatorOnOrAfter: t('table.filterOperators.onOrAfter'),
-  filterOperatorBefore: t('table.filterOperators.before'),
-  filterOperatorOnOrBefore: t('table.filterOperators.onOrBefore'),
-  filterOperatorIsEmpty: t('table.filterOperators.isEmpty'),
-  filterOperatorIsNotEmpty: t('table.filterOperators.isNotEmpty'),
-  filterOperatorIsAnyOf: t('table.filterOperators.isAnyOf'),
-  'filterOperator=': t('table.filterOperators.equalsSymbol'),
-  'filterOperator!=': t('table.filterOperators.notEqualSymbol'),
-  'filterOperator>': t('table.filterOperators.greaterThanSymbol'),
-  'filterOperator>=': t('table.filterOperators.greaterThanOrEqualSymbol'),
-  'filterOperator<': t('table.filterOperators.lessThanSymbol'),
-  'filterOperator<=': t('table.filterOperators.lessThanOrEqualSymbol'),
   noRowsLabel: t('table.noRecords'),
   noResultsOverlayLabel: t('table.noRecordsFound'),
   footerTotalRows: t('table.footer.totalRows'),

@@ -1,7 +1,7 @@
 // external imports
 import { memo } from 'react';
 import PropTypes from 'prop-types';
-import { MenuItem, FormControl, InputLabel, Select, FormHelperText } from '@mui/material';
+import { MenuItem, TextField, InputAdornment, CircularProgress } from '@mui/material';
 import { useFormContext, Controller } from 'react-hook-form';
 
 // internal imports
@@ -23,6 +23,7 @@ const SelectInput = memo(function SelectInput({
   defaultValue = FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
   fullWidth = true,
   margin = FORM_MARGINS.NORMAL,
+  loading = false,
   ...selectProps
 }) {
   const { control } = useFormContext();
@@ -35,27 +36,43 @@ const SelectInput = memo(function SelectInput({
       rules={rules}
       defaultValue={defaultValue}
       render={({ field }) => (
-        <FormControl fullWidth={fullWidth} margin={margin} error={hasError}>
-          <InputLabel id={`${name}-label`}>{label}</InputLabel>
-          <Select
-            {...field}
-            {...selectProps}
-            labelId={`${name}-label`}
-            label={label}
-            error={hasError}
-          >
-            {options.map((option) => {
-              const { value, label: optionLabel } = parseOption(option);
+        <TextField
+          {...field}
+          {...selectProps}
+          select
+          label={label}
+          error={hasError}
+          helperText={helperText}
+          fullWidth={fullWidth}
+          margin={margin}
+          slotProps={{
+            ...selectProps.slotProps,
+            input: {
+              ...selectProps.slotProps?.input,
+              endAdornment: loading ? (
+                <InputAdornment position="end">
+                  <CircularProgress size={20} />
+                </InputAdornment>
+              ) : (
+                selectProps.slotProps?.input?.endAdornment
+              ),
+            },
+            select: {
+              ...selectProps.slotProps?.select,
+              IconComponent: loading ? () => null : selectProps.slotProps?.select?.IconComponent,
+            },
+          }}
+        >
+          {options.map((option) => {
+            const { value, label: optionLabel } = parseOption(option);
 
-              return (
-                <MenuItem key={value} value={value}>
-                  {optionLabel}
-                </MenuItem>
-              );
-            })}
-          </Select>
-          {hasError && <FormHelperText>{helperText}</FormHelperText>}
-        </FormControl>
+            return (
+              <MenuItem key={value} value={value}>
+                {optionLabel}
+              </MenuItem>
+            );
+          })}
+        </TextField>
       )}
     />
   );
@@ -78,6 +95,7 @@ SelectInput.propTypes = {
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   fullWidth: PropTypes.bool,
   margin: PropTypes.oneOf(['none', 'dense', 'normal']),
+  loading: PropTypes.bool,
 };
 
 SelectInput.displayName = 'SelectInput';

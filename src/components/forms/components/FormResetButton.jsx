@@ -13,7 +13,7 @@ import { useFormContext as useReactHookFormContext } from 'react-hook-form';
  */
 const FormResetButton = memo(function FormResetButton({
   children = 'Reset',
-  variant = 'outlined',
+  variant = 'text',
   color = 'primary',
   onClick,
   ...buttonProps

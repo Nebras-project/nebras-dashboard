@@ -8,17 +8,16 @@ import { useFormContext } from '../hooks/useFormContext';
 import { padding, gap } from '@constants';
 import { borderWidth } from '@theme/components';
 
-const getDialogActionsStyles = (padding, gap) => ({
+const getDialogActionsStyles = (padding) => ({
   ...padding.x.lg,
   ...padding.y.md,
-  ...gap.sm,
 });
 
 const getPageActionsStyles = (padding, gap) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
-  ...gap.md,
+  ...gap.sm,
   ...padding.top.lg,
   ...padding.bottom.md,
 });
