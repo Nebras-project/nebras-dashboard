@@ -5,6 +5,7 @@ import Icon from '@components/display/Icon';
 import { borderRadius } from '@theme';
 import { borderColors } from '@theme/colors';
 import { padding } from '@constants';
+import { toCamelCase } from '@utils';
 
 /**
  * QuestionChoiceItem Component
@@ -14,7 +15,7 @@ import { padding } from '@constants';
 function QuestionChoiceItem({ choiceKey, choiceValue, isCorrect }) {
   const { t } = useTranslation();
   const { mode } = useReduxTheme();
-  const choiceLabel = t(`questions.${choiceKey}`);
+  const choiceLabel = t(`questions.${toCamelCase(choiceKey)}`);
 
   return (
     <Stack direction="row" spacing={1} alignItems="center">

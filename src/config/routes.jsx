@@ -66,6 +66,9 @@ const LessonPage = lazy(() =>
 const QuestionsPage = lazy(() =>
   import('@features/questions').then((m) => ({ default: m.QuestionsPage }))
 );
+const QuestionPage = lazy(() =>
+  import('@features/questions').then((m) => ({ default: m.QuestionPage }))
+);
 // Settings Pages
 const SettingsPage = lazy(() =>
   import('@features/settings').then((m) => ({ default: m.SettingsPage }))
@@ -232,6 +235,14 @@ const routes = [
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.QUESTIONS}>
         <QuestionsPage />
+      </AuthenticatedRoute>
+    ),
+  },
+  {
+    path: NAVIGATION_PATHS.QUESTIONS.BY_ID(':id'),
+    element: (
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.QUESTIONS}>
+        <QuestionPage />
       </AuthenticatedRoute>
     ),
   },

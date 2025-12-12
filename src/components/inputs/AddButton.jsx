@@ -24,7 +24,7 @@ function AddButton({ label, onClick, sx = {}, ...props }) {
       <Button
         variant="outlined"
         color="primary"
-        startIcon={<Icon name="add" size={20} />}
+        startIcon={<Icon name="addToQueue" size={20} />}
         onClick={onClick}
         {...props}
       >

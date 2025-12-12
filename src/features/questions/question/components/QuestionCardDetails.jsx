@@ -18,15 +18,11 @@ function QuestionCardDetails({ question }) {
     const value = question[key];
     if (!value && value !== 0) return null;
 
-    return (
-      <QuestionCardDetailItem
-        key={key}
-        iconName={icon}
-        label={t(label)}
-        value={ value}
-      />
-    );
+    return <QuestionCardDetailItem key={key} iconName={icon} label={t(label)} value={value} />;
   };
+
+  const type = question.Type;
+  const category = question.Category;
 
   return (
     <Stack direction="column" spacing={2}>
@@ -34,20 +30,20 @@ function QuestionCardDetails({ question }) {
       <QuestionCardDetailItem
         iconName="questionAnswer"
         label={t('questions.questionText')}
-        value={question.question || t('questions.emptyQuestion')}
-        show={!!question.question}
+        value={question.Question || t('questions.emptyQuestion')}
+        show={!!question.Question}
       />
 
       {/* Multiple Choice: Choices - Display in 2 rows, 2 choices per row */}
-      {question.type === 'multipleChoice' && <QuestionChoices question={question} />}
+      {type === 'MultipleChoice' && <QuestionChoices question={question} />}
 
       {/* True/False: Correct Answer */}
-      {question.type === 'trueFalse' && <TrueFalseAnswer question={question} />}
+      {type === 'TrueFalse' && <TrueFalseAnswer question={question} />}
 
       {/* Question Image */}
-      {question.questionImage &&
+      {question.QuestionImage &&
         renderSetting({
-          key: 'questionImage',
+          key: 'QuestionImage',
           icon: 'visibility',
           label: 'questions.questionImage',
         })}
@@ -56,8 +52,7 @@ function QuestionCardDetails({ question }) {
       {SETTINGS_FIELDS.map((field) => renderSetting(field))}
 
       {/* Ministerial Fields */}
-      {question.category === 'ministerial' &&
-        MINISTERIAL_FIELDS.map((field) => renderSetting(field))}
+      {category === 'Ministerial' && MINISTERIAL_FIELDS.map((field) => renderSetting(field))}
     </Stack>
   );
 }

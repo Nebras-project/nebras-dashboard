@@ -29,8 +29,8 @@ function TrueFalseAnswer({ question }) {
 
 TrueFalseAnswer.propTypes = {
   question: PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    correctAnswer: PropTypes.string.isRequired,
+    Type: PropTypes.string.isRequired,
+    CorrectAnswer: PropTypes.string.isRequired,
   }).isRequired,
 };
 

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
 import QuestionChoiceItem from './QuestionChoiceItem';
+import { CHOICE_KEYS } from '../../constants';
 
 /**
  * QuestionChoices Component
@@ -8,12 +9,16 @@ import QuestionChoiceItem from './QuestionChoiceItem';
  * Single Responsibility: Render all question choices in a grid layout (2 rows, 2 choices per row)
  */
 function QuestionChoices({ question }) {
-  const choices = [
-    { key: 'choiceA', value: question.choiceA },
-    { key: 'choiceB', value: question.choiceB },
-    { key: 'choiceC', value: question.choiceC },
-    { key: 'choiceD', value: question.choiceD },
-  ];
+  // Handle array format from backend
+  const choices =
+    question.Choices && Array.isArray(question.Choices)
+      ? question.Choices.map((value, index) => ({
+          key: CHOICE_KEYS[index],
+          value: value,
+        }))
+      : [];
+
+  const correctAnswer = question.CorrectAnswer;
 
   return (
     <Grid container spacing={2}>
@@ -22,7 +27,7 @@ function QuestionChoices({ question }) {
           <QuestionChoiceItem
             choiceKey={choice.key}
             choiceValue={choice.value}
-            isCorrect={question.correctAnswer === choice.key}
+            isCorrect={correctAnswer === choice.key}
           />
         </Grid>
       ))}
@@ -32,11 +37,8 @@ function QuestionChoices({ question }) {
 
 QuestionChoices.propTypes = {
   question: PropTypes.shape({
-    choiceA: PropTypes.string,
-    choiceB: PropTypes.string,
-    choiceC: PropTypes.string,
-    choiceD: PropTypes.string,
-    correctAnswer: PropTypes.string.isRequired,
+    Choices: PropTypes.arrayOf(PropTypes.string).isRequired,
+    CorrectAnswer: PropTypes.string.isRequired,
   }).isRequired,
 };
 

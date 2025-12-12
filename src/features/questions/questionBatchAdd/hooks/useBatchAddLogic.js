@@ -3,6 +3,7 @@ import { useConfirmDialog, useTranslation } from '@hooks';
 import { useSavedQuestions } from './useSavedQuestions';
 import { useBatchQuestionForm } from './useBatchQuestionForm';
 import { hasFormData } from '../../utils';
+import { createQuestions } from '../../services/questionsApi';
 
 /**
  * useBatchAddLogic Hook
@@ -58,19 +59,19 @@ export const useBatchAddLogic = ({ open, onClose, onSuccess }) => {
       return;
     }
 
-      if (isEditing()) {
-        const questionId = formRef.current._editingQuestionId;
-        const question = await updateFormQuestion(questionId);
-        if (question) {
+    if (isEditing()) {
+      const questionId = formRef.current._editingQuestionId;
+      const question = await updateFormQuestion(questionId);
+      if (question) {
         // Update the question in its original position in the list
         updateListQuestion(questionId, question);
-          clearEditing();
-        }
-      } else {
-        const question = await saveQuestion(getNextId);
-        if (question) {
-          addQuestion(question);
-        }
+        clearEditing();
+      }
+    } else {
+      const question = await saveQuestion(getNextId);
+      if (question) {
+        addQuestion(question);
+      }
     }
   }, [
     formRef,
@@ -132,28 +133,25 @@ export const useBatchAddLogic = ({ open, onClose, onSuccess }) => {
     async (skipFormValidation = false) => {
       // Validate form if not skipping validation
       if (!skipFormValidation) {
-    if (!formRef.current) return;
+        if (!formRef.current) return;
 
-    const formData = getFormData();
-    if (hasFormData(formData)) {
-      const isValid = await formRef.current.trigger();
-      if (!isValid) return;
+        const formData = getFormData();
+        if (hasFormData(formData)) {
+          const isValid = await formRef.current.trigger();
+          if (!isValid) return;
         }
-    }
+      }
 
       // Prepare questions for save (with or without current form data)
       const formRefToUse = skipFormValidation ? null : formRef;
       const allQuestions = prepareQuestionsForSave(formRefToUse);
-    if (allQuestions.length === 0) return;
+      if (allQuestions.length === 0) return;
 
-    // TODO: Replace with actual batch create API call
-    console.log('Saving questions batch:', allQuestions);
-
-    const result = { success: true, data: allQuestions };
-    if (result.success) {
-      onSuccess?.(result.data);
+      // Call batch create API (all questions are created via batch)
+      // Error handling is done by the API interceptor (toast notifications)
+      const result = await createQuestions(allQuestions);
+      onSuccess?.(result);
       handleClose();
-    }
     },
     [getFormData, prepareQuestionsForSave, onSuccess, formRef, handleClose]
   );

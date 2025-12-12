@@ -284,6 +284,7 @@ const en = {
     deleteConfirmTitle: 'Delete Question',
     deleteConfirmMessage: 'Are you sure you want to delete {{name}}? This action cannot be undone.',
     viewQuestion: 'View Question',
+    questionDetails: 'Question Details',
     viewAllQuestions: 'View All Questions',
     noQuestionsSaved: 'No questions saved',
     emptyQuestion: 'Empty question',
@@ -553,6 +554,17 @@ const en = {
     isActive: 'Active',
     invalidFileType: 'Invalid file type. Please select an image file.',
     fileReadError: 'Failed to read file. Please try again.',
+    // Image upload
+    uploadImage: 'Upload Image',
+    dragDropImage: 'Drag and drop an image here, or click to browse',
+    maxSize: 'Max size: {{size}}MB',
+    replace: 'Replace Image',
+    remove: 'Remove',
+    chooseFile: 'Choose Image',
+    invalidFile: 'Invalid file',
+    invalidImageFormat:
+      'Invalid image format. Please upload JPEG, PNG, GIF, WebP, SVG, BMP, ICO, TIFF, AVIF, or HEIC',
+    fileSizeExceeded: 'File size must be less than {{maxSize}}MB',
   },
 
   // Validation
@@ -655,9 +667,11 @@ const en = {
         question: 'Question',
         choices: 'Choices',
         correctChoice: 'Correct Choice',
+        correctAnswer: 'Correct Answer',
         image: 'Image',
         state: 'State',
         type: 'Type',
+        category: 'Category',
         subject: 'Subject',
         unit: 'Unit',
         curriculum: 'Curriculum',

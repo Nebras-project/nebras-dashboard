@@ -45,7 +45,7 @@ function QuestionSettingsFields() {
         <Grid container spacing={2}>
           <Grid size={{ mobile: 12, tablet: 6 }}>
             <Form.SelectInput
-              name="type"
+              name="Type"
               label={t('questions.questionType')}
               options={typeOptions}
               rules={{ required: t('validation.required', { field: t('questions.questionType') }) }}
@@ -53,7 +53,7 @@ function QuestionSettingsFields() {
           </Grid>
           <Grid size={{ mobile: 12, tablet: 6 }}>
             <Form.SelectInput
-              name="category"
+              name="Category"
               label={t('questions.category')}
               options={categoryOptions}
               rules={{ required: t('validation.required', { field: t('questions.category') }) }}
@@ -65,7 +65,7 @@ function QuestionSettingsFields() {
         <Grid container spacing={2}>
           <Grid size={{ mobile: 12, tablet: 6 }}>
             <Form.SelectInput
-              name="curriculumId"
+              name="CurriculumId"
               label={t('questions.curriculum')}
               options={curriculumOptions}
               disabled={isLoadingCurriculums}
@@ -75,7 +75,7 @@ function QuestionSettingsFields() {
           </Grid>
           <Grid size={{ mobile: 12, tablet: 6 }}>
             <Form.SelectInput
-              name="subjectId"
+              name="SubjectId"
               label={t('questions.subject')}
               options={subjectOptions}
               disabled={isLoadingSubjects || !curriculumId}
@@ -89,7 +89,7 @@ function QuestionSettingsFields() {
         <Grid container spacing={2}>
           <Grid size={{ mobile: 12, tablet: 6 }}>
             <Form.SelectInput
-              name="unitId"
+              name="UnitId"
               label={t('questions.unit')}
               options={unitOptions}
               disabled={isLoadingUnits || !curriculumId || !subjectId}
@@ -99,7 +99,7 @@ function QuestionSettingsFields() {
           </Grid>
           <Grid size={{ mobile: 12, tablet: 6 }}>
             <Form.SelectInput
-              name="lessonId"
+              name="LessonId"
               label={t('questions.lesson')}
               options={lessonOptions}
               disabled={isLoadingLessons || !curriculumId || !subjectId || !unitId}
@@ -114,14 +114,14 @@ function QuestionSettingsFields() {
           <Grid container spacing={2}>
             <Grid size={{ mobile: 12, tablet: 6 }}>
               <Form.YearInput
-                name="year"
+                name="Year"
                 label={t('questions.year')}
                 rules={getYearRules(t, t('questions.year'), true)}
               />
             </Grid>
             <Grid size={{ mobile: 12, tablet: 6 }}>
               <Form.NumberInput
-                name="formNumber"
+                name="FormNumber"
                 label={t('questions.formNumber')}
                 maxLength={2}
                 rules={getNumberRules(t, t('questions.formNumber'), {

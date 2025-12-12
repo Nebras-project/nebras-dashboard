@@ -1,15 +1,20 @@
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
-import { ActionsMenu } from '@components';
+import { ActionsMenu, DeleteAction } from '@components';
 import Table, { useTable } from '@components/table';
 import Icon from '@components/display/Icon';
 import useTranslation from '@i18n/hooks/useTranslation';
+import { NAVIGATION_PATHS } from '@config';
 
 import { createQuestionColumns } from '../../utils';
+import { useQuestion, useDeleteQuestion } from '../hooks';
+import dummyQuestions from '../../utils/dummyQuestionsData';
 
-function QuestionsTable({ customFilters = {} }) {
+function QuestionsTable({ customFilters = {}, onEdit }) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const {
     paginationModel,
@@ -19,7 +24,17 @@ function QuestionsTable({ customFilters = {} }) {
     queryString,
   } = useTable({ customFilters });
 
-  console.log(queryString);
+  // Fetch questions using the query string
+  const { questions, isLoading } = useQuestion({
+    queryString,
+  });
+
+  // Delete question hook
+  const { deleteQuestion } = useDeleteQuestion();
+
+  // Use dummy data as fallback for development/preview
+  // TODO: Remove this when real API is connected
+  const displayQuestions = questions || dummyQuestions;
 
   // Extract type and category from filters
   const type = customFilters.type || '';
@@ -39,36 +54,39 @@ function QuestionsTable({ customFilters = {} }) {
               {
                 label: t('questions.viewQuestion'),
                 icon: <Icon name="visibility" size={18} />,
-                onClick: () => console.log('View question', row),
+                onClick: () => navigate(NAVIGATION_PATHS.QUESTIONS.BY_ID(row.id)),
               },
               {
                 label: t('questions.editQuestion'),
                 icon: <Icon name="edit" size={18} />,
-                onClick: () => console.log('Edit question', row),
+                onClick: () => onEdit?.(row),
               },
-              {
-                label: t('questions.deleteQuestion'),
-                icon: <Icon name="delete" size={18} />,
-                onClick: () => console.log('Delete question', row),
-              },
+              <DeleteAction
+                key="delete"
+                row={row}
+                deleteFn={deleteQuestion}
+                getItemName={(question) =>
+                  question.Question || t('questions.questionNumber', { number: question.id })
+                }
+                entityName="questions"
+                label={t('questions.deleteQuestion')}
+              />,
             ]}
           />
         ),
       }),
-    [t, type, category]
+    [t, type, category, onEdit, deleteQuestion, navigate]
   );
-
-  // TODO: Use queryString to fetch data from server
-  // Example: const { data, isLoading } = useQuery(['questions', queryString], () => fetchQuestions(queryString));
 
   return (
     <Table
-      rows={[]}
+      rows={displayQuestions}
       columns={columns}
       paginationModel={paginationModel}
       onPaginationModelChange={handlePaginationModelChange}
       sortModel={sortModel}
       onSortModelChange={handleSortModelChange}
+      loading={isLoading}
       disableRowSelectionOnClick
       sx={{ borderTop: 'none', borderTopLeftRadius: '0', borderTopRightRadius: '0' }}
     />
@@ -77,6 +95,7 @@ function QuestionsTable({ customFilters = {} }) {
 
 QuestionsTable.propTypes = {
   customFilters: PropTypes.object, // Filter params from QuestionFilter
+  onEdit: PropTypes.func, // Callback function to handle edit action
 };
 
 export default QuestionsTable;

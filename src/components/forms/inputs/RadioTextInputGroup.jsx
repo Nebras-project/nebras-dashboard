@@ -25,6 +25,9 @@ const RadioTextInputGroup = memo(function RadioTextInputGroup({
   choices = [],
   rules,
   defaultValue = FORM_DEFAULTS.RADIO_DEFAULT_VALUE,
+  showSymbolsButton = false,
+  subjectId,
+  subjectOptions = [],
   ...radioGroupProps
 }) {
   const { control, watch, setValue } = useFormContext();
@@ -86,6 +89,9 @@ const RadioTextInputGroup = memo(function RadioTextInputGroup({
                       textInputRules={textInputRules}
                       textInputDefaultValue={textInputDefaultValue}
                       textInputProps={textInputProps}
+                      showSymbolsButton={showSymbolsButton}
+                      subjectId={subjectId}
+                      subjectOptions={subjectOptions}
                       {...radioProps}
                     />
                   </Grid>
@@ -116,6 +122,14 @@ RadioTextInputGroup.propTypes = {
   ).isRequired,
   rules: PropTypes.object,
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  showSymbolsButton: PropTypes.bool,
+  subjectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  subjectOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      label: PropTypes.string.isRequired,
+    })
+  ),
 };
 
 RadioTextInputGroup.displayName = 'RadioTextInputGroup';

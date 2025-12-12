@@ -30,7 +30,7 @@ function CompetitionFormFields() {
     <Stack spacing={3} sx={{ ...margin.top.md }}>
       {/* Competition Name */}
       <Form.TextInput
-        name="nameAr"
+        name="name"
         label={competitionNameLabel}
         rules={getTextRules(t, competitionNameLabel, { minLength: 8 })}
       />

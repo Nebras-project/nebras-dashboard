@@ -1,14 +1,14 @@
 // external imports
 import { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { Autocomplete, TextField } from '@mui/material';
-import { useTranslation } from '@hooks';
+import { MenuItem, TextField } from '@mui/material';
 import { parseOption } from '@components/forms/utils';
+import { useMenuContext } from '@components/inputs/menu/MenuContext';
 
 /**
  * FilterSelect Component
  *
- * Single Responsibility: Reusable ComboBox (Autocomplete) for filtering
+ * Single Responsibility: Reusable Select dropdown for filtering
  */
 const FilterSelect = memo(function FilterSelect({
   label,
@@ -17,42 +17,45 @@ const FilterSelect = memo(function FilterSelect({
   options = [],
   allLabel = 'All',
   fullWidth = true,
-  ...autocompleteProps
+  ...selectProps
 }) {
-  const { t } = useTranslation();
-  // Transform options to Autocomplete format
-  const autocompleteOptions = useMemo(() => {
-    const transformedOptions = options.map(parseOption);
+  // Get menu context to close menu on change (if inside a Menu)
+  let handleClose = null;
+  const menuContext = useMenuContext();
+  handleClose = menuContext?.handleClose;
 
-    // Add "All" option at the beginning
+  // Transform options and add "All" option at the beginning
+  const selectOptions = useMemo(() => {
+    const transformedOptions = options.map(parseOption);
     return [{ value: '', label: allLabel }, ...transformedOptions];
   }, [options, allLabel]);
 
-  // Find the selected option
-  const selectedOption = useMemo(() => {
-    return autocompleteOptions.find((opt) => opt.value === value) || autocompleteOptions[0];
-  }, [autocompleteOptions, value]);
-
-  const handleChange = (event, newValue) => {
-    if (newValue) {
-      onChange(newValue.value);
-    } else {
-      // onChange('');
+  const handleChange = (event) => {
+    onChange(event.target.value);
+    // Close menu if inside a Menu context
+    if (handleClose) {
+      handleClose();
     }
   };
 
   return (
-    <Autocomplete
+    <TextField
+      select
       fullWidth={fullWidth}
-      options={autocompleteOptions}
-      value={selectedOption}
+      label={label}
+      value={value || ''}
       onChange={handleChange}
-      getOptionLabel={(option) => option.label || ''}
-      isOptionEqualToValue={(option, value) => option.value === value.value}
-      noOptionsText={t('common.noOptions')}
-      renderInput={(params) => <TextField {...params} label={label} />}
-      {...autocompleteProps}
-    />
+      {...selectProps}
+    >
+      {selectOptions.map((option) => {
+        const { value: optionValue, label: optionLabel } = parseOption(option);
+        return (
+          <MenuItem key={optionValue} value={optionValue}>
+            {optionLabel}
+          </MenuItem>
+        );
+      })}
+    </TextField>
   );
 });
 

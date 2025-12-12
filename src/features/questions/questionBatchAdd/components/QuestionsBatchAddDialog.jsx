@@ -1,11 +1,20 @@
 import PropTypes from 'prop-types';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Stack } from '@mui/material';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { useTranslation } from '@hooks';
 import { FormProvider } from '@components/forms/components';
 import { QuestionFormFields } from '../../formFields/components';
 import QuestionsBatchAddToolbar from './QuestionsBatchAddToolbar';
 import { QUESTION_DIALOG_WIDTH } from '../../constants';
 import { padding } from '@constants';
+import { CloseButton } from '@components';
 
 /**
  * QuestionsBatchAddDialog Component
@@ -31,8 +40,9 @@ function QuestionsBatchAddDialog({
       // onClose={onClose}
       slotProps={{ paper: { sx: { width: QUESTION_DIALOG_WIDTH } } }}
     >
-      <DialogTitle>
-        {t('questions.addQuestions')} ({totalQuestionsCount})
+      <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Typography variant="h5"> {t('questions.addQuestions')}</Typography>
+        <CloseButton onClick={onClose} size="medium" iconName="closeAlt" showTooltip />
       </DialogTitle>
 
       <DialogContent>

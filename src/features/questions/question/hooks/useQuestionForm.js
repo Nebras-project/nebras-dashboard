@@ -5,9 +5,7 @@ import { FORM_DEFAULTS } from '@components/forms/constants';
 
 // internal imports
 import { filterQuestionData, getChoiceValue } from '../../utils';
-
-// TODO: Import question API functions when available
-// import { createQuestion, updateQuestion } from '../services/questionsApi';
+import { createQuestions, updateQuestion } from '../../services/questionsApi';
 
 /**
  * useQuestionForm Hook
@@ -25,41 +23,38 @@ import { filterQuestionData, getChoiceValue } from '../../utils';
 const buildDefaultValues = (values) => {
   return {
     // Question Settings Fields (always displayed)
-    type: values.type || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
-    category: values.category || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
-    curriculumId: values.curriculumId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
-    subjectId: values.subjectId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
-    unitId: values.unitId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
-    lessonId: values.lessonId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
-    year: values.year || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
-    formNumber: values.formNumber || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
+    Type: values.Type || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
+    Category: values.Category || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
+    CurriculumId: values.CurriculumId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
+    SubjectId: values.SubjectId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
+    UnitId: values.UnitId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
+    LessonId: values.LessonId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
+    Year: values.Year || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
+    FormNumber: values.FormNumber || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
 
     // Question Content Fields (displayed based on type)
-    question: values.question || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
-    questionImage: values.questionImage || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
-    correctAnswer: values.correctAnswer || FORM_DEFAULTS.RADIO_DEFAULT_VALUE,
+    Question: values.Question || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
+    QuestionImage: values.QuestionImage || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
+    CorrectAnswer: values.CorrectAnswer || FORM_DEFAULTS.RADIO_DEFAULT_VALUE,
 
-    // Multiple Choice Fields (displayed when type === 'multipleChoice')
-    choiceA: getChoiceValue(values, 'choiceA'),
-    choiceB: getChoiceValue(values, 'choiceB'),
-    choiceC: getChoiceValue(values, 'choiceC'),
-    choiceD: getChoiceValue(values, 'choiceD'),
+    // Multiple Choice Fields (displayed when type === 'MultipleChoice')
+    ChoiceA: getChoiceValue(values, 'ChoiceA'),
+    ChoiceB: getChoiceValue(values, 'ChoiceB'),
+    ChoiceC: getChoiceValue(values, 'ChoiceC'),
+    ChoiceD: getChoiceValue(values, 'ChoiceD'),
   };
 };
 
-// TODO: Replace with actual API functions
-const createQuestion = async (data) => {
+// Wrapper function to filter question data and send as batch (even for single question)
+const createQuestionWithFilter = async (data) => {
   const filteredData = filterQuestionData(data);
-  console.log('Creating question:', filteredData);
-  // return await questionsApi.create(filteredData);
-  return { id: Date.now(), ...filteredData };
+  // All question creation uses batch - send single question as array
+  return await createQuestions([filteredData]);
 };
 
-const updateQuestion = async (id, data) => {
+const updateQuestionWithFilter = async (id, data) => {
   const filteredData = filterQuestionData(data);
-  console.log('Updating question:', id, filteredData);
-  // return await questionsApi.update(id, filteredData);
-  return { id, ...filteredData };
+  return await updateQuestion(id, filteredData);
 };
 
 export const useQuestionForm = ({
@@ -74,12 +69,12 @@ export const useQuestionForm = ({
     isEdit,
     onSuccess,
     onError,
-    createFn: createQuestion,
-    updateFn: ({ id, data }) => updateQuestion(id, data),
+    createFn: createQuestionWithFilter,
+    updateFn: ({ id, data }) => updateQuestionWithFilter(id, data),
     buildDefaultValues,
     entityName: 'questions',
     getItemName: (data) => {
-      const question = data.Question || data.question || data.questionAr || '';
+      const question = data.Question || '';
       return question || 'Question';
     },
   });

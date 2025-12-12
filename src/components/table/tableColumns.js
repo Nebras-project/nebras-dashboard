@@ -58,9 +58,9 @@ const columnRegistry = {
     minWidth: 220,
     flex: 1.2,
   },
-  correctChoice: {
-    field: 'CorrectChoice',
-    headerKey: 'table.columnHeaders.questions.correctChoice',
+  correctAnswer: {
+    field: 'CorrectAnswer',
+    headerKey: 'table.columnHeaders.questions.correctAnswer',
     minWidth: 180,
     flex: 1,
   },
@@ -82,7 +82,12 @@ const columnRegistry = {
     minWidth: 160,
     flex: 1,
   },
-
+  category: {
+    field: 'Category',
+    headerKey: 'table.columnHeaders.questions.category',
+    minWidth: 160,
+    flex: 1,
+  },
   lesson: {
     field: 'Lesson',
     headerKey: 'table.columnHeaders.questions.lesson',
@@ -254,9 +259,8 @@ export const QUESTION_TYPES_WITHOUT_YEAR = new Set(['enrichment']);
 export function buildQuestionColumns(options = {}) {
   const {
     includeActions = true,
-    questionType,
+
     hiddenFields = [],
-    visibleFields,
     overrides,
   } = options;
 
@@ -264,22 +268,23 @@ export function buildQuestionColumns(options = {}) {
     'img',
     'question',
     'choices',
-    'correctChoice',
+    'correctAnswer',
     'curriculum',
     'subject',
     'unit',
     'lesson',
     'type',
+    'category',
     'yearForm',
     'addedBy',
   ];
 
-  if (Array.isArray(visibleFields) && visibleFields.length) {
-    keys = visibleFields;
-  } else if (questionType && QUESTION_TYPES_WITHOUT_YEAR.has(questionType.toLowerCase())) {
-    // For enrichment questions, use yearForm which can handle empty values
-    // or filter it out if needed
-    keys = keys.filter((key) => key !== 'yearForm');
+  // Filter out columns that have hide: true in overrides
+  if (overrides) {
+    keys = keys.filter((key) => {
+      const override = overrides[key];
+      return !(override && override.hide === true);
+    });
   }
 
   const mergedHiddenFields = Array.isArray(hiddenFields) ? hiddenFields : [];

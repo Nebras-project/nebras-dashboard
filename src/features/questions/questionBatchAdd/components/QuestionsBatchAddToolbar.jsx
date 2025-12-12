@@ -3,6 +3,7 @@ import { Stack, Box, Paper, Typography } from '@mui/material';
 import { useTranslation, useReduxTheme } from '@hooks';
 import { IconButtonWithTooltip } from '@components';
 import { QUESTION_FORM_CARD_STYLES } from '../../constants';
+import { useResponsive } from '@hooks';
 
 /**
  * QuestionsBatchAddToolbar Component
@@ -12,21 +13,28 @@ import { QUESTION_FORM_CARD_STYLES } from '../../constants';
 function QuestionsBatchAddToolbar({ onAddQuestion, onViewAll, savedQuestionsCount }) {
   const { t } = useTranslation();
   const { mode } = useReduxTheme();
+  const { isSmallScreen } = useResponsive();
   return (
     <Paper sx={QUESTION_FORM_CARD_STYLES(mode)} elevation={0}>
       <Stack direction="row" spacing={1} alignItems="center" justifyContent="space-between">
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <IconButtonWithTooltip
-            iconName="documentPlus"
-            tooltip={t('questions.addAnotherQuestion')}
+            iconName="addToQueue"
+            tooltip={isSmallScreen ? t('questions.addAnotherQuestion') : undefined}
             onClick={onAddQuestion}
+            text={t('questions.addAnotherQuestion')}
           />
           {savedQuestionsCount > 0 && (
             <Box sx={{ position: 'relative' }}>
               <IconButtonWithTooltip
                 iconName="thListOutline"
-                tooltip={`${t('questions.viewAllQuestions')} (${savedQuestionsCount})`}
+                tooltip={
+                  isSmallScreen
+                    ? `${t('questions.viewAllQuestions')} (${savedQuestionsCount})`
+                    : undefined
+                }
                 onClick={onViewAll}
+                text={t('questions.viewAllQuestions')}
               />
               <Box
                 sx={{

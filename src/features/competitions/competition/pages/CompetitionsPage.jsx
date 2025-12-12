@@ -32,7 +32,6 @@ function CompetitionsPage() {
                 <AddIconButton
                   onClick={() => renderProps.onEdit(null)}
                   tooltip={t('competitions.addCompetition')}
-                  iconName="documentPlus"
                 />
               }
             />

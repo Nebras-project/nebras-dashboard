@@ -31,7 +31,7 @@ function QuestionTrueFalse() {
       <Stack spacing={2}>
         {/* Question Text */}
         <Form.MathSymbolsInput
-          name="question"
+          name="Question"
           label={t('questions.questionText')}
           rules={getTextRules(t, t('questions.questionText'), { required: true, minLength: 15 })}
           multiline
@@ -40,9 +40,15 @@ function QuestionTrueFalse() {
           subjectOptions={subjectOptions}
         />
 
+        <Form.ImageInput
+          name="QuestionImage"
+          label={t('questions.questionImage')}
+          rules={{ required: false }}
+        />
+
         {/* True/False Radio Buttons */}
         <Form.RadioInput
-          name="correctAnswer"
+          name="CorrectAnswer"
           label={t('questions.correctAnswer')}
           options={trueFalseOptions}
           rules={getRadioRules(t, t('questions.correctAnswer'), true)}

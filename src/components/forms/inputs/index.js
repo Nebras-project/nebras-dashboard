@@ -13,4 +13,5 @@ export { default as DateInput } from './DateInput';
 export { default as TimeInput } from './TimeInput';
 export { default as NumberInput } from './NumberInput';
 export { default as YearInput } from './YearInput';
+export { default as ImageInput } from './ImageInput/index';
 export { MathSymbolsInput } from './MathSymbols';

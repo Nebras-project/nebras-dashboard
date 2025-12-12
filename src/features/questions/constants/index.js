@@ -25,8 +25,8 @@ export const QUESTION_FORM_CARD_STYLES = (mode) => ({
  * @returns {Array} Array of type options with value and label
  */
 export const getQuestionTypeOptions = (t) => [
-  { value: 'multipleChoice', label: t('questions.types.multipleChoice') },
-  { value: 'trueFalse', label: t('questions.types.trueFalse') },
+  { value: 'MultipleChoice', label: t('questions.types.multipleChoice') },
+  { value: 'TrueFalse', label: t('questions.types.trueFalse') },
 ];
 
 /**
@@ -36,8 +36,8 @@ export const getQuestionTypeOptions = (t) => [
  * @returns {Array} Array of category options with value and label
  */
 export const getQuestionCategoryOptions = (t) => [
-  { value: 'ministerial', label: t('questions.categories.ministerial') },
-  { value: 'enrichment', label: t('questions.categories.enrichment') },
+  { value: 'Ministerial', label: t('questions.categories.ministerial') },
+  { value: 'Enrichment', label: t('questions.categories.enrichment') },
 ];
 
 /**
@@ -48,30 +48,30 @@ export const getQuestionCategoryOptions = (t) => [
  */
 export const getQuestionChoices = (t) => [
   {
-    radioValue: 'choiceA',
+    radioValue: 'ChoiceA',
     label: t('questions.choiceA'),
-    textInputName: 'choiceA',
+    textInputName: 'ChoiceA',
     textInputLabel: t('questions.choiceLabelA'),
     textInputRules: getTextRules(t, t('questions.choiceLabelA'), { required: true }),
   },
   {
-    radioValue: 'choiceB',
+    radioValue: 'ChoiceB',
     label: t('questions.choiceB'),
-    textInputName: 'choiceB',
+    textInputName: 'ChoiceB',
     textInputLabel: t('questions.choiceLabelB'),
     textInputRules: getTextRules(t, t('questions.choiceLabelB'), { required: true }),
   },
   {
-    radioValue: 'choiceC',
+    radioValue: 'ChoiceC',
     label: t('questions.choiceC'),
-    textInputName: 'choiceC',
+    textInputName: 'ChoiceC',
     textInputLabel: t('questions.choiceLabelC'),
     textInputRules: getTextRules(t, t('questions.choiceLabelC'), { required: true }),
   },
   {
-    radioValue: 'choiceD',
+    radioValue: 'ChoiceD',
     label: t('questions.choiceD'),
-    textInputName: 'choiceD',
+    textInputName: 'ChoiceD',
     textInputLabel: t('questions.choiceLabelD'),
     textInputRules: getTextRules(t, t('questions.choiceLabelD'), { required: true }),
   },
@@ -79,25 +79,25 @@ export const getQuestionChoices = (t) => [
 
 // True/False options
 export const getTrueFalseOptions = (t) => [
-  { value: 'true', label: t('questions.true') },
-  { value: 'false', label: t('questions.false') },
+  { value: 'True', label: t('questions.true') },
+  { value: 'False', label: t('questions.false') },
 ];
 
 // Question Card Constants
-export const CHOICE_KEYS = ['choiceA', 'choiceB', 'choiceC', 'choiceD'];
+export const CHOICE_KEYS = ['ChoiceA', 'ChoiceB', 'ChoiceC', 'ChoiceD'];
 
 export const SETTINGS_FIELDS = [
   {
-    key: 'curriculumId',
+    key: 'CurriculumId',
     icon: 'school',
     label: 'questions.curriculum',
   },
-  { key: 'subjectId', icon: 'book', label: 'questions.subject' },
-  { key: 'unitId', icon: 'libraryBooks', label: 'questions.unit' },
-  { key: 'lessonId', icon: 'autoStories', label: 'questions.lesson' },
+  { key: 'SubjectId', icon: 'book', label: 'questions.subject' },
+  { key: 'UnitId', icon: 'libraryBooks', label: 'questions.unit' },
+  { key: 'LessonId', icon: 'autoStories', label: 'questions.lesson' },
 ];
 
 export const MINISTERIAL_FIELDS = [
-  { key: 'year', icon: 'calendarToday', label: 'questions.year' },
-  { key: 'formNumber', icon: 'numbers', label: 'questions.formNumber' },
+  { key: 'Year', icon: 'calendarToday', label: 'questions.year' },
+  { key: 'FormNumber', icon: 'numbers', label: 'questions.formNumber' },
 ];

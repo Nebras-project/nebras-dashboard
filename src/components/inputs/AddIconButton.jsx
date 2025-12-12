@@ -1,10 +1,9 @@
 // external imports
 import { memo } from 'react';
 import PropTypes from 'prop-types';
-import { IconButton, Tooltip } from '@mui/material';
 
 // internal imports
-import Icon from '@components/display/Icon';
+import { IconButtonWithTooltip } from '@components';
 import { useTranslation } from '@hooks';
 
 /**
@@ -17,8 +16,7 @@ const AddIconButton = memo(function AddIconButton({
   label,
   tooltip,
   color,
-  size = 24,
-  iconName = 'addGrid',
+  iconName = 'addToQueue',
   placement = 'top',
   ...iconButtonProps
 }) {
@@ -26,11 +24,15 @@ const AddIconButton = memo(function AddIconButton({
   const tooltipText = tooltip || label || t('common.add');
 
   return (
-    <Tooltip title={tooltipText} placement={placement}>
-      <IconButton color={color} onClick={onClick} {...iconButtonProps}>
-        <Icon name={iconName} size={size} />
-      </IconButton>
-    </Tooltip>
+    <IconButtonWithTooltip
+      iconName={iconName}
+      tooltip={tooltipText}
+      onClick={onClick}
+      color={color}
+      placement={placement}
+      text={t('common.add')}
+      {...iconButtonProps}
+    />
   );
 });
 

@@ -1,10 +1,11 @@
 // external imports
 import { memo } from 'react';
 import PropTypes from 'prop-types';
-import { IconButton, Tooltip } from '@mui/material';
+import { IconButton, Tooltip, Typography } from '@mui/material';
 
 // internal imports
 import { Icon } from '@components';
+import { useResponsive } from '@hooks';
 
 /**
  * IconButtonWithTooltip Component
@@ -16,35 +17,58 @@ const IconButtonWithTooltip = memo(function IconButtonWithTooltip({
   iconName,
   tooltip,
   onClick,
-  color = 'default',
-  size = 24,
+  color ,
+  size = 20,
   disabled = false,
   placement = 'top',
   arrow = true,
   minWidth,
+  text,
   ...iconButtonProps
 }) {
+  const { isDesktop } = useResponsive();
+
   const button = (
     <IconButton
       onClick={onClick}
       color={color}
       disabled={disabled}
-      sx={{ minWidth, ...iconButtonProps.sx }}
+      disableRipple
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 0.5,
+        '&:hover': {
+          backgroundColor: 'transparent',
+        },
+        '&:active': {
+          backgroundColor: 'transparent',
+        },
+        '&:focus': {
+          backgroundColor: 'transparent',
+        },
+        ...iconButtonProps.sx,
+      }}
       {...iconButtonProps}
     >
-      <Icon name={iconName} size={size} />
+      <Icon name={iconName} size={size} color={color} />
+      {isDesktop && (
+        <Typography variant="body2" sx={{ color: color ? color : 'primary.main' }}>
+          {text}
+        </Typography>
+      )}
     </IconButton>
   );
 
-  if (tooltip) {
-    return (
-      <Tooltip title={tooltip} placement={placement} arrow={arrow}>
-        {button}
-      </Tooltip>
-    );
-  }
+  const wrappedButton = tooltip ? (
+    <Tooltip title={tooltip} placement={placement} arrow={arrow}>
+      {button}
+    </Tooltip>
+  ) : (
+    button
+  );
 
-  return button;
+  return wrappedButton;
 });
 
 IconButtonWithTooltip.propTypes = {
@@ -65,6 +89,7 @@ IconButtonWithTooltip.propTypes = {
   placement: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
   arrow: PropTypes.bool,
   minWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  text: PropTypes.string, // Optional: Text to display beside the icon button
 };
 
 IconButtonWithTooltip.displayName = 'IconButtonWithTooltip';

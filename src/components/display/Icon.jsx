@@ -51,7 +51,6 @@ import {
   MdMoreVert,
   MdContentCopy,
   MdEdit,
-  MdDelete,
   MdAdd,
   MdTaskAlt,
   MdPlayArrow,
@@ -62,12 +61,14 @@ import {
   MdAccessTime,
   MdSearch,
   MdFilterList,
-  MdClear,
   MdKeyboardArrowUp,
   MdKeyboardArrowDown,
   MdNumbers,
   MdFunctions,
+  MdOutlineDeleteSweep,
+  MdOutlineDelete,
 } from 'react-icons/md';
+
 import { GoSidebarExpand, GoSidebarCollapse, GoDotFill } from 'react-icons/go';
 
 import { LuEye, LuEyeClosed, LuLayoutList } from 'react-icons/lu';
@@ -79,11 +80,12 @@ import {
   TbLayoutListFilled,
   TbAlphabetGreek,
 } from 'react-icons/tb';
+
 import { CgColorBucket } from 'react-icons/cg';
 import { RiEnglishInput } from 'react-icons/ri';
 import { FaEarthAmericas, FaListOl } from 'react-icons/fa6';
-import { BiSolidSelectMultiple } from 'react-icons/bi';
-import { HiMenuAlt2, HiMenuAlt3, HiViewGridAdd } from 'react-icons/hi';
+import { BiSolidSelectMultiple, BiAddToQueue } from 'react-icons/bi';
+import { HiMenuAlt2, HiMenuAlt3, HiViewGridAdd, HiOutlineFilter } from 'react-icons/hi';
 import { HiDocumentPlus } from 'react-icons/hi2';
 import { FaCalendarCheck, FaClipboardList } from 'react-icons/fa';
 import { PiListNumbersFill } from 'react-icons/pi';
@@ -120,13 +122,15 @@ const ICON_MAP = {
   moreVert: MdMoreVert,
   contentCopy: MdContentCopy,
   edit: MdEdit,
-  delete: MdDelete,
+  delete: MdOutlineDelete,
   add: MdAdd,
   addGrid: HiViewGridAdd,
+  addToQueue: BiAddToQueue,
   documentPlus: HiDocumentPlus,
   search: MdSearch,
   filterList: MdFilterList,
-  clear: MdClear,
+  filterOutline: HiOutlineFilter,
+  clear: MdOutlineDeleteSweep,
   dot: GoDotFill,
 
   // Theme

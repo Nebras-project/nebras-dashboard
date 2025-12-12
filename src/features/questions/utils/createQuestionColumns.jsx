@@ -1,5 +1,6 @@
 import { buildQuestionColumns } from '@components/table';
 import { createColumnsBase } from '@components/table/utils/createColumnsBase';
+import { yearFormRenderer, choicesRenderer, typeRenderer, categoryRenderer } from './cellRenderers';
 
 const QUESTION_COLUMN_DEFINITIONS = {
   question: {
@@ -10,7 +11,7 @@ const QUESTION_COLUMN_DEFINITIONS = {
     filterable: false,
     sortable: false,
   },
-  correctChoice: {
+  correctAnswer: {
     filterable: false,
     sortable: false,
   },
@@ -19,6 +20,10 @@ const QUESTION_COLUMN_DEFINITIONS = {
     filterable: false,
   },
   type: {
+    filterable: false,
+    sortable: true,
+  },
+  category: {
     filterable: false,
     sortable: true,
   },
@@ -60,50 +65,36 @@ export default function createQuestionColumns({
   category,
   overrides = {},
 } = {}) {
-  // Custom renderer for Year/Form column that combines Year and FormNumber
-  const yearFormRenderer = ({ row }) => {
-    const year = row.Year ?? row.year ?? null;
-    const formNumber = row.FormNumber ?? row.formNumber ?? null;
-
-    // Handle null/undefined/empty string cases
-    const yearValue = year !== null && year !== undefined && year !== '' ? String(year) : null;
-    const formValue =
-      formNumber !== null && formNumber !== undefined && formNumber !== ''
-        ? String(formNumber)
-        : null;
-
-    if (!yearValue && !formValue) {
-      return '-';
-    }
-
-    const parts = [];
-    if (yearValue) parts.push(yearValue);
-    if (formValue) parts.push(formValue);
-
-    return parts.join(' / ');
-  };
-
   // Calculate column visibility based on type and category filters
   // Hide yearForm column for enrichment questions
-  const yearFormVisible = category !== 'enrichment';
+  const yearFormHidden = category === 'Enrichment';
 
   // Hide img and choices columns for trueFalse questions
-  const isTrueFalse = type === 'trueFalse';
+  const isTrueFalse = type === 'TrueFalse';
 
   const combinedOverrides = {
     ...overrides,
     yearForm: {
       ...overrides.yearForm,
       renderCell: overrides.yearForm?.renderCell || yearFormRenderer,
-      visible: yearFormVisible,
+      hide: yearFormHidden,
     },
     img: {
       ...overrides.img,
-      visible: !isTrueFalse,
+      hide: isTrueFalse,
     },
     choices: {
       ...overrides.choices,
-      visible: !isTrueFalse,
+      renderCell: overrides.choices?.renderCell || choicesRenderer,
+      hide: isTrueFalse,
+    },
+    type: {
+      ...overrides.type,
+      renderCell: overrides.type?.renderCell || typeRenderer(t),
+    },
+    category: {
+      ...overrides.category,
+      renderCell: overrides.category?.renderCell || categoryRenderer(t),
     },
     addedBy: {
       ...overrides.addedBy,

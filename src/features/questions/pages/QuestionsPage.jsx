@@ -30,11 +30,10 @@ function QuestionsPage() {
                 <AddIconButton
                   onClick={() => renderProps.onEdit(null)}
                   tooltip={t('questions.addQuestion')}
-                  iconName="documentPlus"
                 />
               }
             />
-            <QuestionsTable customFilters={filterParams} />
+            <QuestionsTable customFilters={filterParams} onEdit={renderProps.onEdit} />
           </>
         )}
       </QuestionFormDialog>

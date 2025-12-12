@@ -22,6 +22,7 @@ import {
   TimeInput,
   NumberInput,
   YearInput,
+  ImageInput,
 } from './inputs';
 import { MathSymbolsInput } from './inputs/MathSymbols';
 import {
@@ -136,6 +137,7 @@ Form.DateInput = DateInput;
 Form.TimeInput = TimeInput;
 Form.NumberInput = NumberInput;
 Form.YearInput = YearInput;
+Form.ImageInput = ImageInput;
 Form.MathSymbolsInput = MathSymbolsInput;
 
 Form.displayName = 'Form';

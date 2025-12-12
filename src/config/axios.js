@@ -6,7 +6,6 @@
 
 import axios from 'axios';
 import { API_URL, API_TIMEOUT } from './env.js';
-import { NAVIGATION_PATHS } from '@config';
 
 /**
  * Create axios instance with default configuration
@@ -50,42 +49,7 @@ apiClient.interceptors.response.use(
     // Return data directly (axios wraps it in data property)
     return response.data;
   },
-  async (error) => {
-    // Handle network errors
-    if (!error.response) {
-      throw new Error(error.message || 'Network error occurred');
-    }
-
-    const { status, data } = error.response;
-
-    // Handle 401 Unauthorized - redirect to login
-    // HttpOnly cookies are automatically cleared by browser when expired/invalid
-    if (status === 401) {
-      // Redirect to login page if not already there
-      if (window.location.pathname !== NAVIGATION_PATHS.LOGIN) {
-        window.location.href = NAVIGATION_PATHS.LOGIN;
-      }
-      throw new Error(data?.message || 'Unauthorized - Please login again');
-    }
-
-    // Handle 403 Forbidden
-    if (status === 403) {
-      throw new Error(data?.message || 'Access forbidden');
-    }
-
-    // Handle 404 Not Found
-    if (status === 404) {
-      throw new Error(data?.message || 'Resource not found');
-    }
-
-    // Handle 500 Server Error
-    if (status >= 500) {
-      throw new Error(data?.message || 'Server error occurred');
-    }
-
-    // Handle other errors
-    throw new Error(data?.message || `Request failed with status ${status}`);
-  }
+  async () => {}
 );
 
 /**
