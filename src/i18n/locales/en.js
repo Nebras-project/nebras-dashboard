@@ -209,6 +209,8 @@ const en = {
     description: 'Description',
     noDescription: 'No description available',
     additionalInfo: 'Additional Information',
+    image: 'Image',
+    curriculumImage: 'Curriculum Image',
   },
 
   // Curriculums (plural - for entity operations)
@@ -543,6 +545,7 @@ const en = {
     // Form fields
     userName: 'User Name',
     email: 'Email',
+    emailConfirmed: 'Email Confirmed',
     phoneNumber: 'Phone Number',
     role: 'Role',
     class: 'Class',
@@ -551,6 +554,7 @@ const en = {
     profileImage: 'Profile Image',
     chooseProfileImage: 'Choose Profile Image',
     clickToUploadImage: 'Click to upload profile image',
+    image: 'Image',
     isActive: 'Active',
     invalidFileType: 'Invalid file type. Please select an image file.',
     fileReadError: 'Failed to read file. Please try again.',

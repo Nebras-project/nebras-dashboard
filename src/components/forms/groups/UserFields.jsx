@@ -5,7 +5,10 @@ import { Grid, useTheme } from '@mui/material';
 
 // internal imports
 import { Form } from '@components';
-import { useTranslation } from '@hooks';
+import { useTranslation, useReduxTheme } from '@hooks';
+import { borderColors } from '@theme/colors';
+import { padding } from '@constants';
+import { borderRadius } from '@theme/components';
 
 /**
  * UserFields Component
@@ -21,11 +24,11 @@ const UserFields = memo(function UserFields({
   roleOptions = [],
   classOptions = [],
   passwordRequired = true,
-  isEdit = false,
+  phoneRequired = true,
 }) {
   const { t } = useTranslation();
   const theme = useTheme();
-
+  const { mode } = useReduxTheme();
   // Grid item props for responsive layout
   // mobile (0-767px): full width (12 columns) - single column
   // tablet (768-1023px): full width (12 columns) - single column
@@ -59,7 +62,7 @@ const UserFields = memo(function UserFields({
 
       {/* Phone Number */}
       <Grid item {...gridItemProps}>
-        <Form.PhoneInput />
+        <Form.PhoneInput required={phoneRequired} />
       </Grid>
 
       {/* Role - Only for admins */}
@@ -80,7 +83,7 @@ const UserFields = memo(function UserFields({
       {showClass && classOptions.length > 0 && (
         <Grid item {...gridItemProps}>
           <Form.SelectInput
-            name="class"
+            name="Grade"
             label={t('forms.class')}
             options={classOptions}
             rules={{
@@ -90,8 +93,8 @@ const UserFields = memo(function UserFields({
         </Grid>
       )}
 
-      {/* Password Fields - Only show when creating new user */}
-      {showPassword && !isEdit && (
+      {/* Password Fields - Show when showPassword is true (both create and edit modes) */}
+      {showPassword && (
         <>
           <Grid item {...gridItemProps}>
             <Form.PasswordInput />
@@ -108,6 +111,25 @@ const UserFields = memo(function UserFields({
           </Grid>
         </>
       )}
+
+      {/* Email Confirmed Checkbox */}
+      <Grid
+        item
+        size={12}
+        sx={{
+          border: `1px solid ${borderColors[mode]}`,
+          ...padding.all.md,
+          borderRadius: borderRadius.xxs,
+          
+        }}
+      >
+        <Form.CheckboxInput name="isEmailConfirmed" label={t('forms.emailConfirmed')} />
+      </Grid>
+
+      {/* Image */}
+      <Grid item size={12}>
+        <Form.ImageInput name="UserProfile" label={t('forms.profileImage')} />
+      </Grid>
     </Grid>
   );
 });
@@ -129,7 +151,7 @@ UserFields.propTypes = {
     })
   ),
   passwordRequired: PropTypes.bool,
-  isEdit: PropTypes.bool,
+  phoneRequired: PropTypes.bool,
 };
 
 UserFields.displayName = 'UserFields';

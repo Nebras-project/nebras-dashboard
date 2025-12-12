@@ -244,6 +244,25 @@ export const LAYOUT_STYLES = {
 };
 
 // =============================================================================
+// BREAKPOINT UTILITIES
+// =============================================================================
+
+/**
+ * Map custom breakpoint names to Material-UI's standard values
+ * @param {string} customValue - Custom breakpoint value ('mobile', 'tablet', 'desktop', 'widescreen')
+ * @returns {string} Material-UI breakpoint value ('xs', 'sm', 'md', 'lg')
+ */
+export const mapMaxWidth = (customValue) => {
+  const mapping = {
+    mobile: 'xs',
+    tablet: 'sm',
+    desktop: 'md',
+    widescreen: 'lg',
+  };
+  return mapping[customValue] || 'lg';
+};
+
+// =============================================================================
 // LEGACY EXPORTS (for backward compatibility)
 // =============================================================================
 

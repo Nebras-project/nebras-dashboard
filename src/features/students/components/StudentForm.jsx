@@ -36,13 +36,13 @@ const StudentForm = memo(function StudentForm({
       titleAdd={t('students.addStudent')}
       titleEdit={t('students.editStudent')}
       useFormHook={useStudentForm}
-      renderFields={({ classOptions, isEdit: isEditFlag }) => (
+      renderFields={({ classOptions }) => (
         <UserFields
-          showPassword={!isEditFlag}
+          showPassword
           showClass
           showProfileImage
           classOptions={classOptions}
-          isEdit={isEditFlag}
+          phoneRequired={false}
         />
       )}
     />

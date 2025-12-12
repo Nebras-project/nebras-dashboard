@@ -177,22 +177,40 @@ export const getRadioRules = (t, label, required = true) => {
   return rules;
 };
 
-export const getPhoneRules = (t, label) => ({
-  required: t('validation.required', { field: label || t('forms.phoneNumber') }),
+/**
+ * Phone number format validation
+ * Validates that phone number has correct format: 9 digits, starts with 7, second digit is 0, 1, 3, 7, or 8
+ * @param {string} value - Phone number value
+ * @param {Function} t - Translation function
+ * @returns {string|boolean} Error message if invalid, true if valid
+ */
+export const validatePhoneFormat = (value, t) => {
+  // Remove spaces for validation
+  const digitsOnly = value?.replace(/\s/g, '') || '';
+  if (digitsOnly.length !== 9) {
+    return t('validation.phoneLength');
+  }
+  if (!digitsOnly.startsWith('7')) {
+    return t('validation.phoneFirstDigit');
+  }
+  const secondDigit = digitsOnly[1];
+  if (!['0', '1', '3', '7', '8'].includes(secondDigit)) {
+    return t('validation.phoneSecondDigit');
+  }
+  return true;
+};
+
+export const getPhoneRules = (t, label, requiredPhone = true) => ({
+  required: requiredPhone
+    ? t('validation.required', { field: label || t('forms.phoneNumber') })
+    : false,
   validate: (value) => {
-    // Remove spaces for validation
-    const digitsOnly = value?.replace(/\s/g, '') || '';
-    if (digitsOnly.length !== 9) {
-      return t('validation.phoneLength');
+    // If not required and empty, it's valid
+    if (!requiredPhone && (!value || value.trim() === '')) {
+      return true;
     }
-    if (!digitsOnly.startsWith('7')) {
-      return t('validation.phoneFirstDigit');
-    }
-    const secondDigit = digitsOnly[1];
-    if (!['0', '1', '3', '7', '8'].includes(secondDigit)) {
-      return t('validation.phoneSecondDigit');
-    }
-    return true;
+    // Validate format using the extracted function
+    return validatePhoneFormat(value, t);
   },
 });
 

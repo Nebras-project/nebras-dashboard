@@ -21,10 +21,8 @@ import { getCurriculumName } from '../utils';
  */
 
 const buildDefaultValues = (values) => ({
-  name: values.name || values.nameAr || '',
-  nameAr: values.nameAr || values.name || '',
-  nameEn: values.nameEn || values.name || '',
-  image: values.image || null,
+  name: values.Name || '',
+  image: values.Image || null,
 });
 
 export const useCurriculumForm = ({

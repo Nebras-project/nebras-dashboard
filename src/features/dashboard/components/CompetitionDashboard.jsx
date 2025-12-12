@@ -3,7 +3,11 @@ import { PageLayout } from '@components';
 
 function CompetitionDashboard() {
   return (
-    <PageLayout title="Competition Dashboard" description="Competition Dashboard" maxWidth="lg">
+    <PageLayout
+      title="Competition Dashboard"
+      description="Competition Dashboard"
+      maxWidth="desktop"
+    >
       <Container maxWidth="lg" sx={{ py: 4 }}>
         <Box sx={{ textAlign: 'center', py: 8, color: 'text.secondary' }}>
           <Typography variant="body2" sx={{ mt: 1 }}>

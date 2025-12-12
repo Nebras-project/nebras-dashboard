@@ -14,22 +14,17 @@ import { useTranslation } from '@hooks';
 function CurriculumFormFields() {
   const { t } = useTranslation();
 
-  const nameArLabel = t('curriculum.curriculumName') + ' (عربي)';
-  const nameEnLabel = t('curriculum.curriculumName') + ' (English)';
-
+  const nameLabel = t('curriculum.curriculumName');
+  const imageLabel = t('curriculum.curriculumImage');
   return (
     <Stack spacing={3} sx={{ ...margin.top.sm }}>
       <Form.TextInput
-        name="nameAr"
-        label={nameArLabel}
-        rules={{ required: t('validation.required', { field: nameArLabel }) }}
-      />
-      <Form.TextInput
-        name="nameEn"
-        label={nameEnLabel}
-        rules={{ required: t('validation.required', { field: nameEnLabel }) }}
+        name="Name"
+        label={nameLabel}
+        rules={{ required: t('validation.required', { field: nameLabel }) }}
       />
       {/* Image upload will be added later */}
+      <Form.ImageInput name="Image" label={imageLabel} />
     </Stack>
   );
 }

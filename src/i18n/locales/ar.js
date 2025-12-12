@@ -209,6 +209,8 @@ const ar = {
     description: 'الوصف',
     noDescription: 'لا يوجد وصف متاح',
     additionalInfo: 'معلومات إضافية',
+    image: 'صورة',
+    curriculumImage: 'صورة المرحلة الدراسية',
   },
 
   // Curriculums (plural - for entity operations)
@@ -539,6 +541,7 @@ const ar = {
     // Form fields
     userName: 'اسم المستخدم',
     email: 'البريد الإلكتروني',
+    emailConfirmed: 'البريد الإلكتروني مؤكد',
     phoneNumber: 'رقم الهاتف',
     role: 'الدور',
     class: 'المرحلة الدراسية',
@@ -547,6 +550,7 @@ const ar = {
     profileImage: 'صورة الملف الشخصي',
     chooseProfileImage: 'اختر صورة الملف الشخصي',
     clickToUploadImage: 'انقر لرفع صورة الملف الشخصي',
+    image: 'الصورة',
     isActive: 'نشط',
     invalidFileType: 'نوع الملف غير صحيح. يرجى اختيار ملف صورة.',
     fileReadError: 'فشل في قراءة الملف. يرجى المحاولة مرة أخرى.',

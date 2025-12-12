@@ -9,7 +9,7 @@ function CurriculumDashboard() {
     <PageLayout
       title={t('navigation.dashboard')}
       description={t('dashboard.overview')}
-      maxWidth="lg"
+      maxWidth="desktop"
     >
       <Container maxWidth="lg" sx={{ py: 4 }}>
         <Box sx={{ textAlign: 'center', py: 8, color: 'text.secondary' }}>

@@ -50,7 +50,7 @@ export const useStudentForm = ({ defaultValues = {}, isEdit = false, onSuccess, 
     updateFn: ({ id, data }) => updateStudent(id, data),
     buildDefaultValues: (values) => ({
       ...buildBaseUserDefaultValues(values),
-      class: values.Class || values.class || '',
+      Grade: values.Grade || '',
     }),
     entityName: 'students',
     getItemName: (data) => {

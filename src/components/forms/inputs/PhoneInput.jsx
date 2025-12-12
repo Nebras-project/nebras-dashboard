@@ -35,6 +35,7 @@ const PhoneInput = memo(function PhoneInput({
   name = 'PhoneNumber',
   label,
   rules,
+  required = true,
   defaultValue = FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
   ...textFieldProps
 }) {
@@ -48,9 +49,9 @@ const PhoneInput = memo(function PhoneInput({
 
   // Merge default phone rules with custom rules (custom rules take precedence)
   const mergedRules = useMemo(() => {
-    const defaultRules = getPhoneRules(t, label);
+    const defaultRules = getPhoneRules(t, label, required);
     return rules ? { ...defaultRules, ...rules } : defaultRules;
-  }, [t, label, rules]);
+  }, [t, label, rules, required]);
 
   // Handle input change with formatting
   const handleChange = useCallback(
@@ -96,6 +97,7 @@ PhoneInput.propTypes = {
   name: PropTypes.string,
   label: PropTypes.string,
   rules: PropTypes.object,
+  required: PropTypes.bool,
   defaultValue: PropTypes.string,
 };
 

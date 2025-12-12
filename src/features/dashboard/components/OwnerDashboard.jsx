@@ -9,7 +9,7 @@ function OwnerDashboard() {
     <PageLayout
       title={t('navigation.dashboard')}
       description={t('dashboard.overview')}
-      maxWidth="lg"
+      maxWidth="desktop"
     >
       <Box sx={{ textAlign: 'center', py: 8, color: 'text.secondary' }}>
         <Typography variant="body2" sx={{ mt: 1 }}>

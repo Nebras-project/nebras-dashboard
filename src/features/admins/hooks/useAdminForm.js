@@ -42,7 +42,7 @@ export const useAdminForm = ({ defaultValues = {}, isEdit = false, onSuccess, on
     updateFn: ({ id, data }) => updateAdmin(id, data),
     buildDefaultValues: (values) => ({
       ...buildBaseUserDefaultValues(values),
-      Role: values.Role || values.role || '',
+      Role: values.Role || '',
     }),
     entityName: 'admins',
     getItemName: (data) => {

@@ -8,8 +8,6 @@ import { useTranslation } from '@hooks';
 import { toCamelCase } from '@utils';
 import { CHOICE_KEYS } from '../../constants';
 
-
-
 const buildChoices = (question, t) => {
   if (!question.Choices || !Array.isArray(question.Choices)) {
     return [];
@@ -29,7 +27,6 @@ const getDropdownLabel = (choices) => {
   if (choices.length === 0) return '-';
   return choices[0].value;
 };
-
 
 /**
  * ChoicesDropdown Component
@@ -99,7 +96,7 @@ function ChoicesDropdown({ row }) {
 ChoicesDropdown.propTypes = {
   row: PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    Choices: PropTypes.arrayOf(PropTypes.string).isRequired,
+    Choices: PropTypes.arrayOf(PropTypes.string),
     CorrectAnswer: PropTypes.string,
   }).isRequired,
 };
