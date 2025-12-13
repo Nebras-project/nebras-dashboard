@@ -20,9 +20,9 @@ import { borderRadius } from '@theme/components';
 const UserFields = memo(function UserFields({
   showPassword = false,
   showRole = false,
-  showClass = false,
+  showCurriculum = false,
   roleOptions = [],
-  classOptions = [],
+  curriculumOptions = [],
   passwordRequired = true,
   phoneRequired = true,
 }) {
@@ -79,15 +79,16 @@ const UserFields = memo(function UserFields({
         </Grid>
       )}
 
-      {/* Class - Only for students */}
-      {showClass && classOptions.length > 0 && (
+      {/* Curriculum - Only for students */}
+      {/* {showCurriculum && curriculumOptions.length > 0 && ( */}
+      {showCurriculum && (
         <Grid item {...gridItemProps}>
           <Form.SelectInput
             name="Grade"
-            label={t('forms.class')}
-            options={classOptions}
+            label={t('forms.curriculum')}
+            options={curriculumOptions}
             rules={{
-              required: t('validation.required', { field: t('forms.class') }),
+              required: t('validation.required', { field: t('forms.curriculum') }),
             }}
           />
         </Grid>
@@ -96,19 +97,21 @@ const UserFields = memo(function UserFields({
       {/* Password Fields - Show when showPassword is true (both create and edit modes) */}
       {showPassword && (
         <>
-          <Grid item {...gridItemProps}>
-            <Form.PasswordInput />
+          <Grid item  size={{mobile: 12, desktop: passwordRequired ? 6 : 12}}>
+            <Form.PasswordInput required={passwordRequired} />
           </Grid>
 
           {/* Confirm Password */}
-          <Grid item {...gridItemProps}>
-            <Form.ConfirmPasswordInput
-              name="ConfirmPassword"
-              label={t('forms.confirmPassword')}
-              autoComplete="new-password"
-              passwordRequired={passwordRequired}
-            />
-          </Grid>
+          {passwordRequired && (
+            <Grid item {...gridItemProps}>
+              <Form.ConfirmPasswordInput
+                name="ConfirmPassword"
+                label={t('forms.confirmPassword')}
+                autoComplete="new-password"
+                passwordRequired={passwordRequired}
+              />
+            </Grid>
+          )}
         </>
       )}
 
@@ -118,9 +121,9 @@ const UserFields = memo(function UserFields({
         size={12}
         sx={{
           border: `1px solid ${borderColors[mode]}`,
-          ...padding.all.md,
+          ...padding.y.sm,
+          ...padding.x.md,
           borderRadius: borderRadius.xxs,
-          
         }}
       >
         <Form.CheckboxInput name="isEmailConfirmed" label={t('forms.emailConfirmed')} />
@@ -137,14 +140,14 @@ const UserFields = memo(function UserFields({
 UserFields.propTypes = {
   showPassword: PropTypes.bool,
   showRole: PropTypes.bool,
-  showClass: PropTypes.bool,
+  showCurriculum: PropTypes.bool,
   roleOptions: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
       label: PropTypes.string.isRequired,
     })
   ),
-  classOptions: PropTypes.arrayOf(
+  curriculumOptions: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
       label: PropTypes.string.isRequired,

@@ -11,6 +11,7 @@ import { NAVIGATION_PATHS } from '@config';
 import { createQuestionColumns } from '../../utils';
 import { useQuestion, useDeleteQuestion } from '../hooks';
 import dummyQuestions from '../../utils/dummyQuestionsData';
+import { getTopTableStyles } from '@constants/layout';
 
 function QuestionsTable({ customFilters = {}, onEdit }) {
   const { t } = useTranslation();
@@ -88,8 +89,8 @@ function QuestionsTable({ customFilters = {}, onEdit }) {
       onSortModelChange={handleSortModelChange}
       loading={isLoading}
       disableRowSelectionOnClick
-      sx={{ borderTop: 'none', borderTopLeftRadius: '0', borderTopRightRadius: '0' }}
-    />
+      sx={getTopTableStyles()}
+      />
   );
 }
 

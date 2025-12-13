@@ -5,8 +5,6 @@
  * Handles different naming conventions (PascalCase, camelCase, etc.)
  */
 
-import { getClassLabel } from '@utils/roleUtils';
-
 /**
  * Extracts student name from student object, handling different field name variations
  * @param {Object} student - Student object
@@ -35,15 +33,12 @@ export const getStudentPhone = (student) => {
 };
 
 /**
- * Extracts student class from student object, handling different field name variations
+ * Extracts student curriculum from student object, handling different field name variations
  * @param {Object} student - Student object
- * @param {Function} t - Translation function
- * @returns {string} Translated student class or 'N/A' if not found
+ * @returns {string} Student curriculum or 'N/A' if not found
  */
-export const getStudentClass = (student, t) => {
-  const classValue = student?.Class || student?.class;
-  if (!classValue) return 'N/A';
-  return getClassLabel(classValue, t) || 'N/A';
+export const getStudentCurriculum = (student) => {
+  return student?.Grade || 'N/A';
 };
 
 /**
@@ -52,7 +47,7 @@ export const getStudentClass = (student, t) => {
  * @returns {string|null} Student profile image URL or null if not found
  */
 export const getStudentProfileImage = (student) => {
-  return student?.ProfileImg || student?.profileImage || null;
+  return student?.UserProfile || null;
 };
 
 /**
@@ -68,7 +63,7 @@ export const normalizeStudent = (student) => {
     name: getStudentName(student),
     email: getStudentEmail(student),
     phone: getStudentPhone(student),
-    class: getStudentClass(student),
+    curriculum: getStudentCurriculum(student),
     profileImage: getStudentProfileImage(student),
     createdAt: student.createdAt,
     lastLogin: student.lastLogin,

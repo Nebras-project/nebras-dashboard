@@ -52,7 +52,7 @@ export const getAdminRole = (admin, t) => {
  * @returns {string|null} Admin profile image URL or null if not found
  */
 export const getAdminProfileImage = (admin) => {
-  return admin?.ProfileImg || admin?.profileImage || null;
+  return admin?.UserProfile || null;
 };
 
 /**

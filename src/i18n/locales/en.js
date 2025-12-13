@@ -454,6 +454,7 @@ const en = {
     deleteStudent: 'Delete Student',
     viewStudent: 'View Student',
     studentDetails: 'Student Details',
+    personalInformation: 'Personal Information',
     studentProgress: 'Student Progress',
     studentActivity: 'Student Activity',
     registeredAt: 'Registered At',
@@ -477,9 +478,12 @@ const en = {
     deleteSuccessMessage: 'Student {{name}} has been deleted successfully',
     deleteErrorTitle: 'Delete Failed',
     deleteErrorMessage: 'Failed to delete student {{name}}. Please try again.',
-    classes: {
-      thirdSecondary: 'High School',
-      ninth: 'Ninth Grade',
+    curriculum: 'Curriculum',
+    filter: {
+      searchPlaceholder: 'Search students by name...',
+      curriculum: 'Curriculum',
+      clearAll: 'Clear all filters',
+      allCurricula: 'All Curricula',
     },
   },
 
@@ -528,6 +532,12 @@ const en = {
     deleteSuccessMessage: 'Admin {{name}} has been deleted successfully',
     deleteErrorTitle: 'Delete Failed',
     deleteErrorMessage: 'Failed to delete admin {{name}}. Please try again.',
+    filter: {
+      searchPlaceholder: 'Search admins by name...',
+      role: 'Role',
+      clearAll: 'Clear all filters',
+      allRoles: 'All Roles',
+    },
   },
 
   // Forms
@@ -549,6 +559,7 @@ const en = {
     phoneNumber: 'Phone Number',
     role: 'Role',
     class: 'Class',
+    curriculum: 'Curriculum',
     password: 'Password',
     confirmPassword: 'Confirm Password',
     profileImage: 'Profile Image',
@@ -658,7 +669,7 @@ const en = {
         email: 'Email',
         userName: 'User Name',
         permissions: 'Permissions',
-        profileImage: 'Profile Image',
+        userProfile: 'User Profile',
         phoneNumber: 'Phone Number',
         grade: 'Grade',
         class: 'Class',

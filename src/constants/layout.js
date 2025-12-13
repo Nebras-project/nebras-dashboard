@@ -72,6 +72,16 @@ export const NAV_ITEM_DIMENSIONS = {
 // =============================================================================
 
 /**
+ * Get common styles for top table
+ * @returns {Object} Style object for table component
+ */
+export const getTopTableStyles = () => ({
+  borderTop: 'none',
+  borderTopLeftRadius: '0',
+  borderTopRightRadius: '0',
+});
+
+/**
  * Navigation icon styles for collapsed sidebar
  * @param {Object} theme - MUI theme object
  * @param {boolean} isActive - Whether item is active

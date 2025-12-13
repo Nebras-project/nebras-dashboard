@@ -2,17 +2,7 @@
 
 // Base color values
 export const baseColors = {
-  // Primary - Blue - Improved gradient
-  blue50: '#e6f3ff',
-  blue100: '#b3d9ff',
-  blue200: '#80bfff',
-  blue300: '#4da3ff',
-  blue400: '#1a87ff',
-  blue500: '#0075ff', // Blue brand color
-  blue600: '#0066e6',
-  blue700: '#005acc',
-  blue800: '#0047b3',
-  blue900: '#003d99',
+
 
   // Primary - Teal - Improved gradient
   teal50: '#e6f9f3',
@@ -67,6 +57,18 @@ export const baseColors = {
   red800: '#9f1a1a',
   red900: '#7f0000',
 
+  // Purples (Purple) - Improved gradient
+  purple50: '#f3e5f5',
+  purple100: '#e1bee7',
+  purple200: '#ce93d8',
+  purple300: '#ba68c8',
+  purple400: '#ab47bc',
+  purple500: '#9c27b0',
+  purple600: '#8e24aa',
+  purple700: '#7b1fa2',
+  purple800: '#6a1b9a',
+  purple900: '#4a148c',
+
   // Oranges (Warning) - Improved gradient
   orange50: '#fff3e0',
   orange100: '#ffe0b2',
@@ -78,6 +80,67 @@ export const baseColors = {
   orange700: '#e65100',
   orange800: '#d84315',
   orange900: '#bf360c',
+
+  // Amber - Improved gradient
+  amber50: '#fff8e1',
+  amber100: '#ffecb3',
+  amber200: '#ffe082',
+  amber300: '#ffd54f',
+  amber400: '#ffca28',
+  amber500: '#ffc107',
+  amber600: '#ffb300',
+  amber700: '#ffa000',
+  amber800: '#ff8f00',
+  amber900: '#ff6f00',
+
+  // Indigo - Improved gradient
+  indigo50: '#e8eaf6',
+  indigo100: '#c5cae9',
+  indigo200: '#9fa8da',
+  indigo300: '#7986cb',
+  indigo400: '#5c6bc0',
+  indigo500: '#3f51b5',
+  indigo600: '#3949ab',
+  indigo700: '#303f9f',
+  indigo800: '#283593',
+  indigo900: '#1a237e',
+
+  // Yellows (Yellow) - Improved gradient
+  yellow50: '#fffde7',
+  yellow100: '#fff9c4',
+  yellow200: '#fff59d',
+  yellow300: '#fff176',
+  yellow400: '#ffee58',
+  yellow500: '#ffeb3b',
+  yellow600: '#fdd835',
+  yellow700: '#fbc02d',
+  yellow800: '#f9a825',
+  yellow900: '#f57f17',
+
+
+    // Primary - Blue - Improved gradient
+  blue50: '#e6f3ff',
+  blue100: '#b3d9ff',
+  blue200: '#80bfff',
+  blue300: '#4da3ff',
+  blue400: '#1a87ff',
+  blue500: '#0075ff', // Blue brand color
+  blue600: '#0066e6',
+  blue700: '#005acc',
+  blue800: '#0047b3',
+  blue900: '#003d99',
+
+  // cyan colors
+  cyan50: '#e0f7fa',
+  cyan100: '#b2ebf2',
+  cyan200: '#80deea',
+  cyan300: '#4dd0e1',
+  cyan400: '#26c6da',
+  cyan500: '#00bcd4',
+  cyan600: '#00acc1',
+  cyan700: '#0097a7',
+  cyan800: '#00838f',
+  cyan900: '#006064',
 
   // Light Blues (Info) - Improved gradient
   lightBlue50: '#e1f5fe',
@@ -170,6 +233,73 @@ export const colors = {
     main: baseColors.lightBlue500,
     light: baseColors.lightBlue300,
     dark: baseColors.lightBlue900,
+    contrastText: baseColors.white,
+  },
+
+  pink: {
+    main: baseColors.pink500,
+    light: baseColors.pink400,
+    dark: baseColors.pink800,
+    contrastText: baseColors.white,
+  },
+  purple: {
+    main: baseColors.purple500,
+    light: baseColors.purple400,
+    dark: baseColors.purple800,
+    contrastText: baseColors.white,
+  },
+  teal: {
+    main: baseColors.teal500,
+    light: baseColors.teal400,
+    dark: baseColors.teal800,
+    contrastText: baseColors.white,
+  },
+  green: {
+    main: baseColors.green500,
+    light: baseColors.green400,
+    dark: baseColors.green800,
+    contrastText: baseColors.white,
+  },
+  red: {
+    main: baseColors.red500,
+    light: baseColors.red400,
+    dark: baseColors.red800,
+    contrastText: baseColors.white,
+  },
+  gray: {
+    main: baseColors.gray500,
+    light: baseColors.gray400,
+    dark: baseColors.gray800,
+    contrastText: baseColors.white,
+  },
+  blue: {
+    main: baseColors.blue500,
+    light: baseColors.blue400,
+    dark: baseColors.blue800,
+    contrastText: baseColors.white,
+  },
+  cyan: {
+    main: baseColors.cyan500,
+    light: baseColors.cyan400,
+    dark: baseColors.cyan800,
+    contrastText: baseColors.white,
+  },
+  yellow: {
+    main: baseColors.yellow500,
+    light: baseColors.yellow400,
+    dark: baseColors.yellow800,
+    contrastText: baseColors.white,
+  },
+  amber: {
+    main: baseColors.amber500,
+    light: baseColors.amber400,
+    dark: baseColors.amber800,
+    contrastText: baseColors.white,
+  },
+  indigo: {
+    main: baseColors.indigo500,
+    light: baseColors.indigo400,
+    dark: baseColors.indigo800,
     contrastText: baseColors.white,
   },
 };

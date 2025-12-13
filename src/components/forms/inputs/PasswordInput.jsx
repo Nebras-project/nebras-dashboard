@@ -53,6 +53,7 @@ const PasswordInput = memo(function PasswordInput({
   autoComplete = 'current-password',
   showVisibilityToggle = true,
   minLength,
+  required = true,
 }) {
   const { t } = useTranslation();
   const { hasError } = useFormFieldError(name);
@@ -65,9 +66,9 @@ const PasswordInput = memo(function PasswordInput({
 
   // Merge default password rules with custom rules (custom rules take precedence)
   const mergedRules = useMemo(() => {
-    const defaultRules = getPasswordRules(t, minLength);
+    const defaultRules = getPasswordRules(t, minLength, required);
     return rules ? { ...defaultRules, ...rules } : defaultRules;
-  }, [t, rules, minLength]);
+  }, [t, rules, minLength, required]);
 
   // Build InputProps with visibility toggle
   const inputProps = useMemo(() => {
@@ -105,6 +106,7 @@ PasswordInput.propTypes = {
   autoComplete: PropTypes.oneOf(['current-password', 'new-password', 'off']),
   showVisibilityToggle: PropTypes.bool,
   minLength: PropTypes.number,
+  required: PropTypes.bool,
 };
 
 PasswordInput.displayName = 'PasswordInput';

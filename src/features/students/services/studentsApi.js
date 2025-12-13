@@ -14,8 +14,8 @@ import { createFormData } from '@utils';
  * FormData options for student create/update operations
  */
 const STUDENT_FORM_DATA_OPTIONS = {
-  fileFields: 'profileImage',
-  excludeFields: ['confirmPassword'],
+  fileFields: 'UserProfile',
+  excludeFields: ['ConfirmPassword'],
 };
 
 /**

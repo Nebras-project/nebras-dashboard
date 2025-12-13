@@ -1,6 +1,11 @@
 import { buildQuestionColumns } from '@components/table';
 import { createColumnsBase } from '@components/table/utils/createColumnsBase';
-import { yearFormRenderer, choicesRenderer, typeRenderer, categoryRenderer } from './cellRenderers';
+import {
+  yearFormRenderer,
+  choicesRenderer,
+  typeRenderer,
+  categoryRenderer,
+} from './questionRenderers';
 
 const QUESTION_COLUMN_DEFINITIONS = {
   question: {
@@ -38,6 +43,7 @@ const QUESTION_COLUMN_DEFINITIONS = {
   curriculum: {
     filterable: false,
     sortable: false,
+    
   },
   lesson: {
     filterable: false,

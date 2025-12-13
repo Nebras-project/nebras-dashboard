@@ -4,3 +4,4 @@ export { default as AdminFormDialog } from './AdminFormDialog';
 export { default as AdminProfileCard } from './AdminProfileCard';
 export { default as AdminDetailsCard } from './AdminDetailsCard';
 export { default as AdminErrorState } from './AdminErrorState';
+export { default as AdminFilter } from './AdminFilter';

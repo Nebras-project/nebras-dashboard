@@ -64,8 +64,8 @@ function QuestionFilter({ onFilterChange, questions = [], addButton }) {
         />
         <Menu.Content
           minWidth={300}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'center' }}
         >
           <FilterContent>
             <FilterSelect

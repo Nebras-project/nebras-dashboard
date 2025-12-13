@@ -1,9 +1,10 @@
 // external imports
-import { Box, Chip } from '@mui/material';
+import { Box } from '@mui/material';
 
 // internal imports
 import ChoicesDropdown from '../question/components/ChoicesDropdown';
 import { toCamelCase } from '@utils';
+import { TypeChip, CategoryChip } from './questionChips';
 
 /**
  * Custom renderer for Year/Form column that combines Year and FormNumber
@@ -70,7 +71,7 @@ export const typeRenderer = (t) => {
     const translationKey = `questions.types.${toCamelCase(row.Type)}`;
     const label = t(translationKey) || row.Type;
 
-    return <Chip label={label} size="small" color="info" variant="filled" />;
+    return <TypeChip label={label} value={row.Type} />;
   };
   return renderType;
 };
@@ -88,7 +89,7 @@ export const categoryRenderer = (t) => {
     const translationKey = `questions.categories.${toCamelCase(row.Category)}`;
     const label = t(translationKey) || row.Category;
 
-    return <Chip label={label} size="small" color="warning" variant="filled" />;
+    return <CategoryChip label={label} value={row.Category} />;
   };
   return renderCategory;
 };

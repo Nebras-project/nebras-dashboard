@@ -12,8 +12,9 @@ import { NAVIGATION_PATHS } from '@config';
 import createAdminColumns from '../utils/createAdminColumns.jsx';
 import { useDeleteAdmin, useAdmin } from '../hooks';
 import { getAdminName } from '../utils';
+import { getTopTableStyles } from '@constants/layout';
 
-function AdminsTable({ onEdit }) {
+function AdminsTable({ customFilters = {}, onEdit }) {
   const { t } = useTranslation();
   const { isOwner, isGeneralAdmin } = useRole();
   const { deleteAdmin } = useDeleteAdmin();
@@ -25,7 +26,7 @@ function AdminsTable({ onEdit }) {
     handlePaginationModelChange,
     handleSortModelChange,
     queryString,
-  } = useTable();
+  } = useTable({ customFilters });
 
   // Fetch admins data using the hook
   const { admins, isLoading } = useAdmin({
@@ -77,20 +78,22 @@ function AdminsTable({ onEdit }) {
 
   return (
     <Table
-      rows={admins}
+      rows={admins || []}
       columns={columns}
       disableRowSelectionOnClick
-      checkRowSelection
-      rowCount={admins.length}
+      // checkRowSelection
+      rowCount={admins?.length || 0}
       paginationModel={paginationModel}
       onPaginationModelChange={handlePaginationModelChange}
       sortModel={sortModel}
       onSortModelChange={handleSortModelChange}
+      sx={getTopTableStyles()}
     />
   );
 }
 
 AdminsTable.propTypes = {
+  customFilters: PropTypes.object,
   onEdit: PropTypes.func,
 };
 

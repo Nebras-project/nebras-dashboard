@@ -1,5 +1,5 @@
 // external imports
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 import PropTypes from 'prop-types';
 
 // internal imports
@@ -17,11 +17,12 @@ import { useTranslation } from '@hooks';
  */
 function EntityErrorState({ entityName = 'items' }) {
   const { t } = useTranslation();
+  const theme = useTheme();
 
   return (
     <Card>
       <Box sx={{ textAlign: 'center', ...padding.all.lg }}>
-        <Icon name="error" color="error" size={64} sx={{ ...margin.bottom.md }} />
+        <Icon name="error" color={theme.palette.error.main} size={64} sx={{ ...margin.bottom.md }} />
         <Typography variant="h6" color="error" sx={{ ...margin.bottom.lg }}>
           {t('common.fetchErrorMessage', { entityName: t(`${entityName}.entityName`) })}
         </Typography>

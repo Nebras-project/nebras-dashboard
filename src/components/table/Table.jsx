@@ -16,7 +16,7 @@ function Table({
   disableRowSelectionOnClick = true,
   slots,
   slotProps,
-  checkRowSelection = true,
+  // checkRowSelection = true,
   sx,
   paginationMode = 'server',
   paginationModel: paginationModelProp,
@@ -73,7 +73,7 @@ function Table({
       aria-describedby={ariaDescribedBy}
       slots={resolvedSlots}
       localeText={resolvedLocaleText}
-      checkboxSelection={checkRowSelection}
+      // checkboxSelection={checkRowSelection}
       {...props}
     />
   );

@@ -72,17 +72,40 @@ export const getEmailRules = (t) => ({
   },
 });
 
-export const getPasswordRules = (t, minLength = 8) => ({
-  required: t('input.passwordRequired'),
-  minLength: {
-    value: minLength,
-    message: t('input.passwordMinLength', { min: minLength }),
-  },
-  pattern: {
-    value: VALIDATION.PASSWORD_PATTERN,
-    message: t('validation.passwordComplexity'),
-  },
-});
+export const getPasswordRules = (t, minLength = 8, required = true) => {
+  const rules = {};
+
+  if (required) {
+    rules.required = t('input.passwordRequired');
+  }
+
+  // Only apply minLength and pattern validation if password is provided
+  rules.validate = (value) => {
+    // If not required and empty, it's valid
+    if (!required && (!value || value.trim() === '')) {
+      return true;
+    }
+
+    // If required and empty, return required error
+    if (required && (!value || value.trim() === '')) {
+      return t('input.passwordRequired');
+    }
+
+    // Validate minLength
+    if (value && value.length < minLength) {
+      return t('input.passwordMinLength', { min: minLength });
+    }
+
+    // Validate pattern
+    if (value && !VALIDATION.PASSWORD_PATTERN.test(value)) {
+      return t('validation.passwordComplexity');
+    }
+
+    return true;
+  };
+
+  return rules;
+};
 
 export const getUsernameRules = (t, label, minLength = VALIDATION.USERNAME_MIN_LENGTH) => ({
   required: t('validation.required', { field: label || t('forms.userName') }),

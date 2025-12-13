@@ -38,6 +38,7 @@ const ConfirmPasswordInput = memo(function ConfirmPasswordInput({
       autoComplete={autoComplete}
       showVisibilityToggle={showVisibilityToggle}
       rules={mergedRules}
+      required={passwordRequired}
       {...passwordInputProps}
     />
   );

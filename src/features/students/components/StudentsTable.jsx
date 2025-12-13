@@ -11,8 +11,9 @@ import { NAVIGATION_PATHS } from '@config';
 import createStudentColumns from '../utils/createStudentColumns.jsx';
 import { useStudent, useDeleteStudent } from '../hooks';
 import { getStudentName } from '../utils';
+import { getTopTableStyles } from '@constants/layout';
 
-function StudentsTable({ onEdit }) {
+function StudentsTable({ customFilters = {}, onEdit }) {
   const { t } = useTranslation();
   const { deleteStudent } = useDeleteStudent();
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ function StudentsTable({ onEdit }) {
     handlePaginationModelChange,
     handleSortModelChange,
     queryString,
-  } = useTable();
+  } = useTable({ customFilters });
 
   // Fetch students data using the hook
   const { students, isLoading } = useStudent({
@@ -75,17 +76,19 @@ function StudentsTable({ onEdit }) {
       rows={students || []}
       columns={columns}
       disableRowSelectionOnClick
-      checkRowSelection
+      // checkRowSelection
       rowCount={students?.length || 0}
       paginationModel={paginationModel}
       onPaginationModelChange={handlePaginationModelChange}
       sortModel={sortModel}
       onSortModelChange={handleSortModelChange}
+      sx={getTopTableStyles()}
     />
   );
 }
 
 StudentsTable.propTypes = {
+  customFilters: PropTypes.object,
   onEdit: PropTypes.func,
 };
 

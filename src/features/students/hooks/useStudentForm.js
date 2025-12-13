@@ -1,12 +1,13 @@
 // external imports
 import { useMemo } from 'react';
-import { useTranslation } from '@hooks';
+import { useLanguage } from '@hooks';
 import { useEntityForm } from '@components/forms/hooks';
 import { buildBaseUserDefaultValues } from '@components/forms/utils';
 
 // internal imports
 import { QUERY_KEYS } from '@config';
-import { getClassLabel } from '@utils/roleUtils';
+import { useCurriculum } from '@features/curriculums/hooks';
+import { getCurriculumOptions } from '@features/curriculums/utils';
 import { createStudent, updateStudent } from '../services/studentsApi';
 import { getStudentName } from '../utils';
 
@@ -23,21 +24,13 @@ import { getStudentName } from '../utils';
  * @returns {Object} Form hook object with methods and state
  */
 export const useStudentForm = ({ defaultValues = {}, isEdit = false, onSuccess, onError } = {}) => {
-  const { t } = useTranslation();
+  const { currentLanguage } = useLanguage();
+  const { curriculums = [] } = useCurriculum();
 
-  // Class options for students
-  const classOptions = useMemo(
-    () => [
-      {
-        value: 'thirdSecondary',
-        label: getClassLabel('thirdSecondary', t),
-      },
-      {
-        value: 'ninth',
-        label: getClassLabel('ninth', t),
-      },
-    ],
-    [t]
+  // Curriculum options for students
+  const curriculumOptions = useMemo(
+    () => getCurriculumOptions(curriculums, currentLanguage),
+    [curriculums, currentLanguage]
   );
 
   const { formDefaultValues, handleSubmit, isLoading, isError, error } = useEntityForm({
@@ -60,7 +53,7 @@ export const useStudentForm = ({ defaultValues = {}, isEdit = false, onSuccess, 
   });
 
   return {
-    classOptions,
+    curriculumOptions,
     formDefaultValues,
     handleSubmit,
     isLoading,

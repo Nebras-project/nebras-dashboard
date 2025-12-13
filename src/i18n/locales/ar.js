@@ -450,6 +450,7 @@ const ar = {
     deleteStudent: 'حذف الطالب',
     viewStudent: 'عرض الطالب',
     studentDetails: 'تفاصيل الطالب',
+    personalInformation: 'المعلومات الشخصية',
     studentProgress: 'تقدم الطالب',
     studentActivity: 'نشاط الطالب',
     registeredAt: 'تاريخ التسجيل',
@@ -473,9 +474,13 @@ const ar = {
     deleteSuccessMessage: 'تم حذف الطالب {{name}} بنجاح',
     deleteErrorTitle: 'فشل الحذف',
     deleteErrorMessage: 'فشل حذف الطالب {{name}}. يرجى المحاولة مرة أخرى.',
-    classes: {
-      thirdSecondary: 'ثالث ثانوي',
-      ninth: 'تاسع',
+    curriculum: 'المرحلة الدراسية',
+
+    filter: {
+      searchPlaceholder: 'البحث عن الطلاب بالاسم...',
+      curriculum: 'المرحلة الدراسية',
+      clearAll: 'مسح جميع الفلاتر',
+      allCurricula: 'جميع المراحل الدراسية',
     },
   },
 
@@ -524,6 +529,12 @@ const ar = {
     deleteSuccessMessage: 'تم حذف المدير {{name}} بنجاح',
     deleteErrorTitle: 'فشل الحذف',
     deleteErrorMessage: 'فشل حذف المدير {{name}}. يرجى المحاولة مرة أخرى.',
+    filter: {
+      searchPlaceholder: 'البحث عن المدراء بالاسم...',
+      role: 'الصلاحيات',
+      clearAll: 'مسح جميع الفلاتر',
+      allRoles: 'جميع الصلاحيات',
+    },
   },
 
   // Forms
@@ -545,6 +556,7 @@ const ar = {
     phoneNumber: 'رقم الهاتف',
     role: 'الدور',
     class: 'المرحلة الدراسية',
+    curriculum: 'المرحلة الدراسية',
     password: 'كلمة المرور',
     confirmPassword: 'تأكيد كلمة المرور',
     profileImage: 'صورة الملف الشخصي',
@@ -654,7 +666,7 @@ const ar = {
         email: 'البريد الإلكتروني',
         userName: 'اسم المستخدم',
         permissions: 'الصلاحيات',
-        profileImage: 'صورة الملف',
+        userProfile: 'الملف الشخصي',
         phoneNumber: 'رقم الهاتف',
         class: 'المرحلة الدراسية',
         name: 'الاسم',

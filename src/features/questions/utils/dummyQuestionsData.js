@@ -20,7 +20,7 @@ export const dummyQuestions = [
     LessonId: 1,
     Year: '2024',
     FormNumber: '1',
-    Curriculum: 'المرحلة الابتدائية',
+    Grade: 'المرحلة الابتدائية',
     Subject: 'الرياضيات',
     Unit: 'الوحدة الأولى',
     Lesson: 'الدرس الأول',

@@ -23,9 +23,9 @@ const columnRegistry = {
     minWidth: 100,
     flex: 0.7,
   },
-  profileImg: {
-    field: 'ProfileImg',
-    headerKey: 'table.columnHeaders.common.profileImage',
+  userProfile: {
+    field: 'UserProfile',
+    headerKey: 'table.columnHeaders.common.userProfile',
     sortable: false,
     filterable: false,
     width: 48,
@@ -107,7 +107,7 @@ const columnRegistry = {
     flex: 1,
   },
   curriculum: {
-    field: 'Curriculum',
+    field: 'Grade',
     headerKey: 'table.columnHeaders.questions.curriculum',
     minWidth: 160,
     flex: 1,
@@ -204,8 +204,8 @@ export function buildColumns(keys, options = {}) {
 }
 
 const USER_COLUMN_KEYS = {
-  admin: ['profileImg', 'userName', 'email', 'role', 'phoneNumber'],
-  student: ['profileImg', 'userName', 'class', 'email', 'phoneNumber'],
+  admin: ['userProfile', 'userName', 'email', 'role', 'phoneNumber'],
+  student: ['userProfile', 'userName', 'email', 'curriculum', 'phoneNumber'],
 };
 
 /**
@@ -269,12 +269,12 @@ export function buildQuestionColumns(options = {}) {
     'question',
     'choices',
     'correctAnswer',
+    'type',
+    'category',
     'curriculum',
     'subject',
     'unit',
     'lesson',
-    'type',
-    'category',
     'yearForm',
     'addedBy',
   ];
