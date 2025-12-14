@@ -11,14 +11,14 @@ import { CHOICE_KEYS } from '../../constants';
 function QuestionChoices({ question }) {
   // Handle array format from backend
   const choices =
-    question.Choices && Array.isArray(question.Choices)
-      ? question.Choices.map((value, index) => ({
+    question.choices && Array.isArray(question.choices)
+      ? question.choices.map((value, index) => ({
           key: CHOICE_KEYS[index],
           value: value,
         }))
       : [];
 
-  const correctAnswer = question.CorrectAnswer;
+  const correctAnswer = question.correctAnswer;
 
   return (
     <Grid container spacing={2}>
@@ -37,8 +37,8 @@ function QuestionChoices({ question }) {
 
 QuestionChoices.propTypes = {
   question: PropTypes.shape({
-    Choices: PropTypes.arrayOf(PropTypes.string).isRequired,
-    CorrectAnswer: PropTypes.string.isRequired,
+    choices: PropTypes.arrayOf(PropTypes.string).isRequired,
+    correctAnswer: PropTypes.string.isRequired,
   }).isRequired,
 };
 

@@ -69,7 +69,7 @@ const UserFields = memo(function UserFields({
       {showRole && roleOptions.length > 0 && (
         <Grid item {...gridItemProps}>
           <Form.SelectInput
-            name="Role"
+            name="role"
             label={t('forms.role')}
             options={roleOptions}
             rules={{
@@ -84,7 +84,7 @@ const UserFields = memo(function UserFields({
       {showCurriculum && (
         <Grid item {...gridItemProps}>
           <Form.SelectInput
-            name="Grade"
+            name="grade"
             label={t('forms.curriculum')}
             options={curriculumOptions}
             rules={{
@@ -131,7 +131,7 @@ const UserFields = memo(function UserFields({
 
       {/* Image */}
       <Grid item size={12}>
-        <Form.ImageInput name="UserProfile" label={t('forms.profileImage')} />
+        <Form.ImageInput name="userProfile" label={t('forms.profileImage')} />
       </Grid>
     </Grid>
   );

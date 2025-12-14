@@ -32,7 +32,7 @@ const formatPhoneNumber = (value) => {
  * Single Responsibility: Phone number input field with built-in validation, formatting, and icon
  */
 const PhoneInput = memo(function PhoneInput({
-  name = 'PhoneNumber',
+  name = 'phoneNumber',
   label,
   rules,
   required = true,

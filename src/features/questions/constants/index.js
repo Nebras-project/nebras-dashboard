@@ -25,8 +25,8 @@ export const QUESTION_FORM_CARD_STYLES = (mode) => ({
  * @returns {Array} Array of type options with value and label
  */
 export const getQuestionTypeOptions = (t) => [
-  { value: 'MultipleChoice', label: t('questions.types.multipleChoice') },
-  { value: 'TrueFalse', label: t('questions.types.trueFalse') },
+  { value: 'multipleChoice', label: t('questions.types.multipleChoice') },
+  { value: 'trueFalse', label: t('questions.types.trueFalse') },
 ];
 
 /**
@@ -48,30 +48,30 @@ export const getQuestionCategoryOptions = (t) => [
  */
 export const getQuestionChoices = (t) => [
   {
-    radioValue: 'ChoiceA',
+    radioValue: 'choiceA',
     label: t('questions.choiceA'),
-    textInputName: 'ChoiceA',
+    textInputName: 'choiceA',
     textInputLabel: t('questions.choiceLabelA'),
     textInputRules: getTextRules(t, t('questions.choiceLabelA'), { required: true }),
   },
   {
-    radioValue: 'ChoiceB',
+    radioValue: 'choiceB',
     label: t('questions.choiceB'),
-    textInputName: 'ChoiceB',
+    textInputName: 'choiceB',
     textInputLabel: t('questions.choiceLabelB'),
     textInputRules: getTextRules(t, t('questions.choiceLabelB'), { required: true }),
   },
   {
-    radioValue: 'ChoiceC',
+    radioValue: 'choiceC',
     label: t('questions.choiceC'),
-    textInputName: 'ChoiceC',
+    textInputName: 'choiceC',
     textInputLabel: t('questions.choiceLabelC'),
     textInputRules: getTextRules(t, t('questions.choiceLabelC'), { required: true }),
   },
   {
-    radioValue: 'ChoiceD',
+    radioValue: 'choiceD',
     label: t('questions.choiceD'),
-    textInputName: 'ChoiceD',
+    textInputName: 'choiceD',
     textInputLabel: t('questions.choiceLabelD'),
     textInputRules: getTextRules(t, t('questions.choiceLabelD'), { required: true }),
   },
@@ -84,20 +84,20 @@ export const getTrueFalseOptions = (t) => [
 ];
 
 // Question Card Constants
-export const CHOICE_KEYS = ['ChoiceA', 'ChoiceB', 'ChoiceC', 'ChoiceD'];
+export const CHOICE_KEYS = ['choiceA', 'choiceB', 'choiceC', 'choiceD'];
 
 export const SETTINGS_FIELDS = [
   {
-    key: 'CurriculumId',
+    key: 'curriculumId',
     icon: 'school',
     label: 'questions.curriculum',
   },
-  { key: 'SubjectId', icon: 'book', label: 'questions.subject' },
-  { key: 'UnitId', icon: 'libraryBooks', label: 'questions.unit' },
-  { key: 'LessonId', icon: 'autoStories', label: 'questions.lesson' },
+  { key: 'subjectId', icon: 'book', label: 'questions.subject' },
+  { key: 'unitId', icon: 'libraryBooks', label: 'questions.unit' },
+  { key: 'lessonId', icon: 'autoStories', label: 'questions.lesson' },
 ];
 
 export const MINISTERIAL_FIELDS = [
-  { key: 'Year', icon: 'calendarToday', label: 'questions.year' },
-  { key: 'FormNumber', icon: 'numbers', label: 'questions.formNumber' },
+  { key: 'year', icon: 'calendarToday', label: 'questions.year' },
+  { key: 'formNumber', icon: 'numbers', label: 'questions.formNumber' },
 ];

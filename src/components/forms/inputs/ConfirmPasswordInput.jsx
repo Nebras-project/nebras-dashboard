@@ -14,7 +14,7 @@ import PasswordInput from './PasswordInput';
  * Uses PasswordInput component to avoid duplication
  */
 const ConfirmPasswordInput = memo(function ConfirmPasswordInput({
-  name = 'ConfirmPassword',
+  name = 'confirmPassword',
   label,
   rules,
   autoComplete = 'new-password',

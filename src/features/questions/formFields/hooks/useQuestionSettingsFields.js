@@ -30,10 +30,10 @@ export const useQuestionSettingsFields = () => {
   const { watch, setValue } = useFormContext();
 
   // Watch form values for cascading selects
-  const curriculumId = watch('CurriculumId');
-  const subjectId = watch('SubjectId');
-  const unitId = watch('UnitId');
-  const category = watch('Category');
+  const curriculumId = watch('curriculumId');
+  const subjectId = watch('subjectId');
+  const unitId = watch('unitId');
+  const category = watch('category');
 
   // Check if category is ministerial (for conditional field display)
   const isMinisterial = category === 'Ministerial';
@@ -117,22 +117,22 @@ export const useQuestionSettingsFields = () => {
   // Reset dependent fields when parent field changes
   useEffect(() => {
     if (!curriculumId) {
-      setValue('SubjectId', '');
-      setValue('UnitId', '');
-      setValue('LessonId', '');
+      setValue('subjectId', '');
+      setValue('unitId', '');
+      setValue('lessonId', '');
     }
   }, [curriculumId, setValue]);
 
   useEffect(() => {
     if (!subjectId) {
-      setValue('UnitId', '');
-      setValue('LessonId', '');
+      setValue('unitId', '');
+      setValue('lessonId', '');
     }
   }, [subjectId, setValue]);
 
   useEffect(() => {
     if (!unitId) {
-      setValue('LessonId', '');
+      setValue('lessonId', '');
     }
   }, [unitId, setValue]);
 

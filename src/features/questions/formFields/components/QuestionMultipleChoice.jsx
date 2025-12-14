@@ -32,7 +32,7 @@ function QuestionMultipleChoice() {
       <Stack spacing={2}>
         {/* Question Text */}
         <Form.MathSymbolsInput
-          name="Question"
+          name="question"
           label={t('questions.questionText')}
           rules={getTextRules(t, t('questions.questionText'), { required: true, minLength: 15 })}
           multiline
@@ -43,14 +43,14 @@ function QuestionMultipleChoice() {
 
         {/* Question Image */}
         <Form.ImageInput
-          name="QuestionImage"
+          name="questionImage"
           label={t('questions.questionImage')}
           rules={{ required: false }}
         />
 
         {/* Answer Choices */}
         <RadioTextInputGroup
-          name="CorrectAnswer"
+          name="correctAnswer"
           label={t('questions.correctChoice')}
           choices={choices}
           rules={getRadioRules(t, t('questions.correctChoice'), true)}

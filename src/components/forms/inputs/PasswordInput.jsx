@@ -47,7 +47,7 @@ PasswordVisibilityToggle.propTypes = {
  * Single Responsibility: Password input field with built-in password validation and visibility toggle
  */
 const PasswordInput = memo(function PasswordInput({
-  name = 'Password',
+  name = 'password',
   label,
   rules,
   autoComplete = 'current-password',

@@ -23,25 +23,25 @@ import { createQuestions, updateQuestion } from '../../services/questionsApi';
 const buildDefaultValues = (values) => {
   return {
     // Question Settings Fields (always displayed)
-    Type: values.Type || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
-    Category: values.Category || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
-    CurriculumId: values.CurriculumId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
-    SubjectId: values.SubjectId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
-    UnitId: values.UnitId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
-    LessonId: values.LessonId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
-    Year: values.Year || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
-    FormNumber: values.FormNumber || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
+    type: values.type || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
+    category: values.category || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
+    curriculumId: values.curriculumId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
+    subjectId: values.subjectId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
+    unitId: values.unitId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
+    lessonId: values.lessonId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
+    year: values.year || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
+    formNumber: values.formNumber || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
 
     // Question Content Fields (displayed based on type)
-    Question: values.Question || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
-    QuestionImage: values.QuestionImage || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
-    CorrectAnswer: values.CorrectAnswer || FORM_DEFAULTS.RADIO_DEFAULT_VALUE,
+    question: values.question || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
+    questionImage: values.questionImage || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
+    correctAnswer: values.correctAnswer || FORM_DEFAULTS.RADIO_DEFAULT_VALUE,
 
     // Multiple Choice Fields (displayed when type === 'MultipleChoice')
-    ChoiceA: getChoiceValue(values, 'ChoiceA'),
-    ChoiceB: getChoiceValue(values, 'ChoiceB'),
-    ChoiceC: getChoiceValue(values, 'ChoiceC'),
-    ChoiceD: getChoiceValue(values, 'ChoiceD'),
+    choiceA: getChoiceValue(values, 'choiceA'),
+    choiceB: getChoiceValue(values, 'choiceB'),
+    choiceC: getChoiceValue(values, 'choiceC'),
+    choiceD: getChoiceValue(values, 'choiceD'),
   };
 };
 
@@ -74,7 +74,7 @@ export const useQuestionForm = ({
     buildDefaultValues,
     entityName: 'questions',
     getItemName: (data) => {
-      const question = data.Question || '';
+      const question = data.question || '';
       return question || 'Question';
     },
   });

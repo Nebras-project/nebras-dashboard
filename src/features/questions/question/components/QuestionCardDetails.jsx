@@ -21,8 +21,8 @@ function QuestionCardDetails({ question }) {
     return <QuestionCardDetailItem key={key} iconName={icon} label={t(label)} value={value} />;
   };
 
-  const type = question.Type;
-  const category = question.Category;
+  const type = question.type;
+  const category = question.category;
 
   return (
     <Stack direction="column" spacing={2}>
@@ -30,20 +30,20 @@ function QuestionCardDetails({ question }) {
       <QuestionCardDetailItem
         iconName="questionAnswer"
         label={t('questions.questionText')}
-        value={question.Question || t('questions.emptyQuestion')}
-        show={!!question.Question}
+        value={question.question || t('questions.emptyQuestion')}
+        show={!!question.question}
       />
 
       {/* Multiple Choice: Choices - Display in 2 rows, 2 choices per row */}
-      {type === 'MultipleChoice' && <QuestionChoices question={question} />}
+      {type === 'multipleChoice' && <QuestionChoices question={question} />}
 
       {/* True/False: Correct Answer */}
-      {type === 'TrueFalse' && <TrueFalseAnswer question={question} />}
+      {type === 'trueFalse' && <TrueFalseAnswer question={question} />}
 
       {/* Question Image */}
-      {question.QuestionImage &&
+      {question.questionImage &&
         renderSetting({
-          key: 'QuestionImage',
+          key: 'questionImage',
           icon: 'visibility',
           label: 'questions.questionImage',
         })}

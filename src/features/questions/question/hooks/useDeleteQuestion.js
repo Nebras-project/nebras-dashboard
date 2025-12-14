@@ -21,7 +21,7 @@ export const useDeleteQuestion = ({ onSuccess, onError } = {}) => {
     queryKey: [QUERY_KEYS.QUESTIONS],
     entityName: 'questions',
     getItemName: (question) => {
-      const questionText = question.Question || '';
+      const questionText = question.question || '';
       return questionText || t('questions.questionNumber', { number: question.id });
     },
     onSuccess,

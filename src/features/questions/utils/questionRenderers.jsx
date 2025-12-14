@@ -14,8 +14,8 @@ import { TypeChip, CategoryChip } from './questionChips';
  * @returns {string} Formatted year/form string or '-'
  */
 export const yearFormRenderer = ({ row }) => {
-  const year = row.Year ?? null;
-  const formNumber = row.FormNumber ?? null;
+  const year = row.year ?? null;
+  const formNumber = row.formNumber ?? null;
 
   // Handle null/undefined/empty string cases
   const yearValue = year !== null && year !== undefined && year !== '' ? String(year) : null;
@@ -67,11 +67,11 @@ export const choicesRenderer = ({ row }) => {
  */
 export const typeRenderer = (t) => {
   const renderType = ({ row }) => {
-    if (!row.Type) return '-';
-    const translationKey = `questions.types.${toCamelCase(row.Type)}`;
-    const label = t(translationKey) || row.Type;
+    if (!row.type) return '-';
+    const translationKey = `questions.types.${toCamelCase(row.type)}`;
+    const label = t(translationKey) || row.type;
 
-    return <TypeChip label={label} value={row.Type} />;
+    return <TypeChip label={label} value={row.type} />;
   };
   return renderType;
 };
@@ -85,11 +85,11 @@ export const typeRenderer = (t) => {
  */
 export const categoryRenderer = (t) => {
   const renderCategory = ({ row }) => {
-    if (!row.Category) return '-';
-    const translationKey = `questions.categories.${toCamelCase(row.Category)}`;
-    const label = t(translationKey) || row.Category;
+    if (!row.category) return '-';
+    const translationKey = `questions.categories.${toCamelCase(row.category)}`;
+    const label = t(translationKey) || row.category;
 
-    return <CategoryChip label={label} value={row.Category} />;
+    return <CategoryChip label={label} value={row.category} />;
   };
   return renderCategory;
 };

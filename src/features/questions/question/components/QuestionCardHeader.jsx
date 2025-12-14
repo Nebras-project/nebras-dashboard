@@ -3,7 +3,6 @@ import { Box, Stack, Typography, Chip } from '@mui/material';
 import { useTranslation } from '@hooks';
 import { margin } from '@constants';
 import QuestionCardActions from './QuestionCardActions';
-import { toCamelCase } from '@utils';
 /**
  * QuestionCardHeader Component
  *
@@ -25,17 +24,17 @@ function QuestionCardHeader({ question, questionNumber, onEdit, onDelete }) {
         <Typography variant="h4">
           {t('questions.questionNumber', { number: questionNumber })}
         </Typography>
-        {question.Type && (
+        {question.type && (
           <Chip
-            label={t(`questions.types.${toCamelCase(question.Type)}`)}
+            label={t(`questions.types.${question.type}`)}
             size="small"
             color="info"
             variant="filled"
           />
         )}
-        {question.Category && (
+        {question.category && (
           <Chip
-            label={t(`questions.categories.${toCamelCase(question.Category)}`)}
+            label={t(`questions.categories.${question.category}`)}
             size="small"
             color="warning"
             variant="filled"

@@ -15,7 +15,7 @@ import { filterQuestionData } from '../utils';
  * FormData options for question create/update operations
  */
 const QUESTION_FORM_DATA_OPTIONS = {
-  fileFields: 'QuestionImage',
+  fileFields: 'questionImage',
   excludeFields: [],
 };
 
@@ -62,8 +62,8 @@ export const createQuestions = async (questionsData) => {
   // Filter each question's data before processing
   const filteredQuestions = questionsArray.map((question) => filterQuestionData(question));
 
-  // Check if any question has File objects for QuestionImage
-  const hasFiles = filteredQuestions.some((question) => question.QuestionImage instanceof File);
+  // Check if any question has File objects for questionImage
+  const hasFiles = filteredQuestions.some((question) => question.questionImage instanceof File);
 
   if (hasFiles) {
     // Use FormData for batch with files
@@ -78,9 +78,9 @@ export const createQuestions = async (questionsData) => {
         formData.append(`questions[${index}][${key}]`, value);
       });
 
-      // Handle QuestionImage that is a string URL (not a File) - createFormData skips it
-      if (question.QuestionImage && !(question.QuestionImage instanceof File)) {
-        formData.append(`questions[${index}][QuestionImage]`, String(question.QuestionImage));
+      // Handle questionImage that is a string URL (not a File) - createFormData skips it
+      if (question.questionImage && !(question.questionImage instanceof File)) {
+        formData.append(`questions[${index}][questionImage]`, String(question.questionImage));
       }
     });
 

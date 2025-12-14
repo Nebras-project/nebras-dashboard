@@ -67,7 +67,7 @@ function QuestionsTable({ customFilters = {}, onEdit }) {
                 row={row}
                 deleteFn={deleteQuestion}
                 getItemName={(question) =>
-                  question.Question || t('questions.questionNumber', { number: question.id })
+                  question.question || t('questions.questionNumber', { number: question.id })
                 }
                 entityName="questions"
                 label={t('questions.deleteQuestion')}
@@ -90,7 +90,7 @@ function QuestionsTable({ customFilters = {}, onEdit }) {
       loading={isLoading}
       disableRowSelectionOnClick
       sx={getTopTableStyles()}
-      />
+    />
   );
 }
 

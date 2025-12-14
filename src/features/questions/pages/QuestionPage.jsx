@@ -54,7 +54,7 @@ function QuestionPage() {
       {({ onEdit }) => (
         <PageLayout
           title={t('questions.questionDetails')}
-          description={question.Question || t('questions.questionNumber', { number: question.id })}
+          description={question.question || t('questions.questionNumber', { number: question.id })}
           showBackButton
         >
           <Container>

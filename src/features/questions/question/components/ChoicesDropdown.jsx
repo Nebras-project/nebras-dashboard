@@ -9,18 +9,20 @@ import { toCamelCase } from '@utils';
 import { CHOICE_KEYS } from '../../constants';
 
 const buildChoices = (question, t) => {
-  if (!question.Choices || !Array.isArray(question.Choices)) {
+  if (!question.choices || !Array.isArray(question.choices)) {
     return [];
   }
 
-  return question.Choices.map((value, index) => {
-    const key = CHOICE_KEYS[index];
-    return {
-      key,
-      label: t(`questions.${toCamelCase(key)}`),
-      value,
-    };
-  }).filter((choice) => choice.value);
+  return question.choices
+    .map((value, index) => {
+      const key = CHOICE_KEYS[index];
+      return {
+        key,
+        label: t(`questions.${toCamelCase(key)}`),
+        value,
+      };
+    })
+    .filter((choice) => choice.value);
 };
 
 const getDropdownLabel = (choices) => {
@@ -38,7 +40,7 @@ function ChoicesDropdown({ row }) {
 
   const choices = buildChoices(row, t);
   const labelText = getDropdownLabel(choices);
-  const isCorrect = (choiceKey) => row.CorrectAnswer === choiceKey;
+  const isCorrect = (choiceKey) => row.correctAnswer === choiceKey;
 
   if (choices.length === 0) {
     return <Typography variant="body2">-</Typography>;
@@ -96,8 +98,8 @@ function ChoicesDropdown({ row }) {
 ChoicesDropdown.propTypes = {
   row: PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    Choices: PropTypes.arrayOf(PropTypes.string),
-    CorrectAnswer: PropTypes.string,
+    choices: PropTypes.arrayOf(PropTypes.string),
+    correctAnswer: PropTypes.string,
   }).isRequired,
 };
 

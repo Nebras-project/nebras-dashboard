@@ -15,14 +15,14 @@ import QuestionTrueFalse from './QuestionTrueFalse';
  */
 function QuestionFormFields() {
   const { watch } = useFormContext();
-  const type = watch('Type');
+  const type = watch('type');
 
   return (
     <Stack spacing={3} sx={{ ...margin.top.md }}>
       <QuestionSettingsFields />
 
-      {type === 'MultipleChoice' && <QuestionMultipleChoice />}
-      {type === 'TrueFalse' && <QuestionTrueFalse />}
+      {type === 'multipleChoice' && <QuestionMultipleChoice />}
+      {type === 'trueFalse' && <QuestionTrueFalse />}
     </Stack>
   );
 }

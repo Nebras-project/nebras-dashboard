@@ -16,7 +16,7 @@ import TextInput from './TextInput';
  * Single Responsibility: Username input field with built-in validation and icon
  */
 const UsernameInput = memo(function UsernameInput({
-  name = 'UserName',
+  name = 'userName',
   label,
   rules,
   ...textFieldProps

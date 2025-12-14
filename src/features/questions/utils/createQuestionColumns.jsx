@@ -76,7 +76,7 @@ export default function createQuestionColumns({
   const yearFormHidden = category === 'Enrichment';
 
   // Hide img and choices columns for trueFalse questions
-  const isTrueFalse = type === 'TrueFalse';
+  const isTrueFalse = type === 'trueFalse';
 
   const combinedOverrides = {
     ...overrides,
@@ -87,7 +87,7 @@ export default function createQuestionColumns({
     },
     img: {
       ...overrides.img,
-      hide: isTrueFalse,
+      // hide: isTrueFalse,
     },
     choices: {
       ...overrides.choices,

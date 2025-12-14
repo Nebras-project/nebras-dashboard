@@ -45,14 +45,14 @@ export const loadQuestionIntoForm = (form, question) => {
  */
 export const extractSharedSettings = (formData) => {
   return {
-    Type: formData.Type,
-    Category: formData.Category,
-    CurriculumId: formData.CurriculumId,
-    SubjectId: formData.SubjectId,
-    UnitId: formData.UnitId,
-    LessonId: formData.LessonId,
-    Year: formData.Year,
-    FormNumber: formData.FormNumber,
+    type: formData.type,
+    category: formData.category,
+    curriculumId: formData.curriculumId,
+    subjectId: formData.subjectId,
+    unitId: formData.unitId,
+    lessonId: formData.lessonId,
+    year: formData.year,
+    formNumber: formData.formNumber,
   };
 };
 
@@ -64,34 +64,34 @@ export const extractSharedSettings = (formData) => {
  * @returns {Object} Filtered data
  */
 export const filterQuestionData = (data) => {
-  const type = data.Type;
-  const category = data.Category;
+  const type = data.type;
+  const category = data.category;
 
   const filtered = {
-    Type: type,
-    Category: category,
+    type: type,
+    category: category,
     // Always include these fields
-    Question: data.Question,
-    CorrectAnswer: data.CorrectAnswer,
-    CurriculumId: data.CurriculumId,
-    SubjectId: data.SubjectId,
-    UnitId: data.UnitId,
-    LessonId: data.LessonId,
+    question: data.question,
+    correctAnswer: data.correctAnswer,
+    curriculumId: data.curriculumId,
+    subjectId: data.subjectId,
+    unitId: data.unitId,
+    lessonId: data.lessonId,
   };
 
   // Include image and choice fields only for multiple choice questions
-  if (type === 'MultipleChoice') {
-    filtered.QuestionImage = data.QuestionImage || null;
-    filtered.ChoiceA = data.ChoiceA;
-    filtered.ChoiceB = data.ChoiceB;
-    filtered.ChoiceC = data.ChoiceC;
-    filtered.ChoiceD = data.ChoiceD;
+  if (type === 'multipleChoice') {
+    filtered.questionImage = data.questionImage || null;
+    filtered.choiceA = data.choiceA;
+    filtered.choiceB = data.choiceB;
+    filtered.choiceC = data.choiceC;
+    filtered.choiceD = data.choiceD;
   }
 
   // Include year and formNumber only for ministerial questions
   if (category === 'Ministerial') {
-    filtered.Year = data.Year || null;
-    filtered.FormNumber = data.FormNumber || null;
+    filtered.year = data.year || null;
+    filtered.formNumber = data.formNumber || null;
   }
 
   return filtered;
@@ -101,17 +101,17 @@ export const filterQuestionData = (data) => {
  * Helper to extract choice value from options array or direct field
  *
  * @param {Object} values - Question values object
- * @param {string} choiceKey - Choice key ('ChoiceA', 'ChoiceB', 'ChoiceC', 'ChoiceD')
+ * @param {string} choiceKey - Choice key ('choiceA', 'choiceB', 'choiceC', 'choiceD')
  * @returns {string} Choice value
  */
 export const getChoiceValue = (values, choiceKey) => {
-  // Try direct field first (ChoiceA, ChoiceB, etc.)
+  // Try direct field first (choiceA, choiceB, etc.)
   if (values[choiceKey]) return values[choiceKey];
 
   // Try from options array (if backend provides options array)
   if (values.options && Array.isArray(values.options)) {
     const choiceIndex =
-      choiceKey === 'ChoiceA' ? 0 : choiceKey === 'ChoiceB' ? 1 : choiceKey === 'ChoiceC' ? 2 : 3;
+      choiceKey === 'choiceA' ? 0 : choiceKey === 'choiceB' ? 1 : choiceKey === 'choiceC' ? 2 : 3;
     const option = values.options[choiceIndex];
     if (option) {
       // Return text in current language or fallback
@@ -130,22 +130,22 @@ export const getChoiceValue = (values, choiceKey) => {
  * @returns {string} Formatted correct answer label
  */
 export const getCorrectAnswerLabel = (question, t) => {
-  const correctAnswer = question.CorrectAnswer;
-  const type = question.Type;
+  const correctAnswer = question.correctAnswer;
+  const type = question.type;
 
   if (!correctAnswer) return '-';
 
-  if (type === 'MultipleChoice') {
+  if (type === 'multipleChoice') {
     const choiceLabels = {
-      ChoiceA: t('questions.choiceA'),
-      ChoiceB: t('questions.choiceB'),
-      ChoiceC: t('questions.choiceC'),
-      ChoiceD: t('questions.choiceD'),
+      choiceA: t('questions.choiceA'),
+      choiceB: t('questions.choiceB'),
+      choiceC: t('questions.choiceC'),
+      choiceD: t('questions.choiceD'),
     };
     return choiceLabels[correctAnswer] || correctAnswer;
   }
 
-  if (type === 'TrueFalse') {
+  if (type === 'trueFalse') {
     return correctAnswer === 'True' ? t('questions.true') : t('questions.false');
   }
 

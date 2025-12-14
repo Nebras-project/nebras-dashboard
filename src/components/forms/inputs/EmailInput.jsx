@@ -16,7 +16,7 @@ import TextInput from './TextInput';
  * Single Responsibility: Email input field with built-in email validation and icon
  */
 const EmailInput = memo(function EmailInput({
-  name = 'Email',
+  name = 'email',
   label,
   rules,
   autoComplete = 'email',
