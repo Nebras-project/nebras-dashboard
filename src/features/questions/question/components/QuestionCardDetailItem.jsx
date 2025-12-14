@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
-import { Stack, Typography } from '@mui/material';
+import { Stack, Typography, useTheme } from '@mui/material';
 import { Icon } from '@components';
+import { useLanguage } from '@hooks';
 
 /**
  * QuestionCardDetailItem Component
@@ -14,6 +15,9 @@ import { Icon } from '@components';
  * @param {boolean} show - Whether to show the item
  */
 function QuestionCardDetailItem({ iconName, label, value, children, show = true }) {
+  const theme = useTheme();
+  const { isRTL } = useLanguage();
+
   if (!show) {
     return null;
   }
@@ -22,13 +26,16 @@ function QuestionCardDetailItem({ iconName, label, value, children, show = true 
   const hasLabelValue = label !== undefined && value !== undefined;
 
   return (
-    <Stack direction="row" spacing={1} alignItems="center">
+    <Stack direction="row" spacing={1} alignItems="center"  >
       <Icon name={iconName} size={18} />
       {hasLabelValue ? (
         <>
           <Typography variant="body2" component="span" fontWeight={600}>
-            {label}:
-          </Typography>{' '}
+            {label}
+          </Typography>
+
+          <Icon name={isRTL ? 'arrowLeftLines' : 'arrowRightLines'} size={21} color={theme.palette.primary.main} />
+
           <Typography variant="body2" component="span" color="text.primary">
             {value}
           </Typography>

@@ -36,8 +36,8 @@ export const getQuestionTypeOptions = (t) => [
  * @returns {Array} Array of category options with value and label
  */
 export const getQuestionCategoryOptions = (t) => [
-  { value: 'Ministerial', label: t('questions.categories.ministerial') },
-  { value: 'Enrichment', label: t('questions.categories.enrichment') },
+  { value: 'ministerial', label: t('questions.categories.ministerial') },
+  { value: 'enrichment', label: t('questions.categories.enrichment') },
 ];
 
 /**

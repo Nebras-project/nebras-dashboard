@@ -1,0 +1,1 @@
+export { useQuestionImage } from './useQuestionImage';

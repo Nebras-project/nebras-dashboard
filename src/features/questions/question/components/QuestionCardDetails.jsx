@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
-import { Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { useTranslation } from '@hooks';
 import QuestionCardDetailItem from './QuestionCardDetailItem';
 import QuestionChoices from './QuestionChoices';
 import TrueFalseAnswer from './TrueFalseAnswer';
 import { SETTINGS_FIELDS, MINISTERIAL_FIELDS } from '../../constants';
-
+import { QuestionImage } from '../../utils/renderers/QuestionImage';
+import { Icon } from '@components';
+import { useTheme } from '@mui/material';
 /**
  * QuestionCardDetails Component
  *
@@ -13,7 +15,7 @@ import { SETTINGS_FIELDS, MINISTERIAL_FIELDS } from '../../constants';
  */
 function QuestionCardDetails({ question }) {
   const { t } = useTranslation();
-
+  const theme = useTheme();
   const renderSetting = ({ key, icon, label }) => {
     const value = question[key];
     if (!value && value !== 0) return null;
@@ -41,18 +43,25 @@ function QuestionCardDetails({ question }) {
       {type === 'trueFalse' && <TrueFalseAnswer question={question} />}
 
       {/* Question Image */}
-      {question.questionImage &&
-        renderSetting({
-          key: 'questionImage',
-          icon: 'visibility',
-          label: 'questions.questionImage',
-        })}
 
       {/* Settings Information */}
       {SETTINGS_FIELDS.map((field) => renderSetting(field))}
 
       {/* Ministerial Fields */}
       {category === 'Ministerial' && MINISTERIAL_FIELDS.map((field) => renderSetting(field))}
+
+      {question.questionImage && (
+        <Stack spacing={3} alignItems="center" justifyContent="center">
+          <Stack direction="row" spacing={1} alignItems="center">
+            <Typography variant="body1" component="span" fontWeight={700}>
+              {t('questions.questionImage')}
+            </Typography>
+            <Icon name="arrowDownLines"  color={theme.palette.primary.main} />
+          </Stack>
+
+          <QuestionImage image={question.questionImage} />
+        </Stack>
+      )}
     </Stack>
   );
 }

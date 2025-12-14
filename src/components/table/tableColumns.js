@@ -65,10 +65,12 @@ const columnRegistry = {
     flex: 1,
   },
   img: {
-    field: 'questionImage',
+    field: 'image',
     headerKey: 'table.columnHeaders.questions.image',
     minWidth: 140,
     flex: 0.8,
+    align: 'center',
+    headerAlign: 'center',
   },
   state: {
     field: 'state',

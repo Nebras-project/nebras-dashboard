@@ -5,7 +5,8 @@ import {
   choicesRenderer,
   typeRenderer,
   categoryRenderer,
-} from './questionRenderers';
+  imageRenderer,
+} from './renderers';
 
 const QUESTION_COLUMN_DEFINITIONS = {
   question: {
@@ -21,6 +22,7 @@ const QUESTION_COLUMN_DEFINITIONS = {
     sortable: false,
   },
   img: {
+    field: 'questionImage',
     sortable: false,
     filterable: false,
   },
@@ -43,7 +45,6 @@ const QUESTION_COLUMN_DEFINITIONS = {
   curriculum: {
     filterable: false,
     sortable: false,
-    
   },
   lesson: {
     filterable: false,
@@ -87,6 +88,7 @@ export default function createQuestionColumns({
     },
     img: {
       ...overrides.img,
+      renderCell: overrides.img?.renderCell || imageRenderer,
       // hide: isTrueFalse,
     },
     choices: {

@@ -67,7 +67,7 @@ import {
   MdFunctions,
   MdOutlineDeleteSweep,
   MdOutlineDelete,
-} from 'react-icons/md';
+} from 'react-icons/md';  
 
 import { GoSidebarExpand, GoSidebarCollapse, GoDotFill } from 'react-icons/go';
 
@@ -79,6 +79,9 @@ import {
   TbClock24,
   TbLayoutListFilled,
   TbAlphabetGreek,
+  TbArrowBigRightLines,
+  TbArrowBigLeftLines,
+  TbArrowBigDownLines,
 } from 'react-icons/tb';
 
 import { CgColorBucket } from 'react-icons/cg';
@@ -132,7 +135,9 @@ const ICON_MAP = {
   filterOutline: HiOutlineFilter,
   clear: MdOutlineDeleteSweep,
   dot: GoDotFill,
-
+  arrowLeftLines: TbArrowBigLeftLines,
+  arrowRightLines: TbArrowBigRightLines,
+  arrowDownLines: TbArrowBigDownLines,
   // Theme
   contrast: MdContrast,
   lightMode: MdLightMode,

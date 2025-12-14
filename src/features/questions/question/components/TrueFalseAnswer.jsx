@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
-import { Typography, Chip } from '@mui/material';
-import { useTranslation } from '@hooks';
-import QuestionCardDetailItem from './QuestionCardDetailItem';
+import { Typography, Chip, useTheme, Stack } from '@mui/material';
+import { useTranslation, useLanguage } from '@hooks';
 import { getCorrectAnswerLabel } from '../../utils';
-
+import { Icon } from '@components';
 /**
  * TrueFalseAnswer Component
  *
@@ -11,19 +10,26 @@ import { getCorrectAnswerLabel } from '../../utils';
  */
 function TrueFalseAnswer({ question }) {
   const { t } = useTranslation();
-
+  const theme = useTheme();
+  const { isRTL } = useLanguage();
   return (
-    <QuestionCardDetailItem iconName="checkCircle">
+    <Stack direction="row" spacing={1} alignItems="center">
+      <Icon name="checkCircle" size={18}  />
       <Typography variant="body2" component="span" fontWeight={600} sx={{ mr: 1 }}>
-        {t('questions.correctAnswer')}:
+        {t('questions.correctAnswer')}
       </Typography>
+      <Icon
+        name={isRTL ? 'arrowLeftLines' : 'arrowRightLines'}
+        size={21}
+        color={theme.palette.primary.main}
+      />
       <Chip
         label={getCorrectAnswerLabel(question, t)}
         size="small"
         color="success"
         variant="filled"
       />
-    </QuestionCardDetailItem>
+    </Stack>
   );
 }
 
