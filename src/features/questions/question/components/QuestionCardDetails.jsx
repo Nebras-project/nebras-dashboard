@@ -56,7 +56,7 @@ function QuestionCardDetails({ question }) {
             <Typography variant="body1" component="span" fontWeight={700}>
               {t('questions.questionImage')}
             </Typography>
-            <Icon name="arrowDownLines"  color={theme.palette.primary.main} />
+            <Icon name="arrowDownLines" color={theme.palette.primary.main} />
           </Stack>
 
           <QuestionImage image={question.questionImage} />

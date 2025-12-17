@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import AuthenticatedRoute from '../components/routing/AuthenticatedRoute';
 import { ALLOWED_ROLES } from '@utils';
-import { NAVIGATION_PATHS } from './navigationPaths';
+import { NAVIGATION_PATHS } from '@constants/navigationPaths';
 
 // Lazy load pages for code splitting
 

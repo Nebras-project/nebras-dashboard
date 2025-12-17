@@ -16,8 +16,8 @@ export function CategoryChip({ label, value }) {
 
   // Assign different colors based on category value
   const getColor = () => {
-    if (value === 'Ministerial') return 'teal';
-    if (value === 'Enrichment') return 'cyan';
+    if (value === 'ministerial') return 'teal';
+    if (value === 'enrichment') return 'cyan';
     return 'primary'; // fallback
   };
 

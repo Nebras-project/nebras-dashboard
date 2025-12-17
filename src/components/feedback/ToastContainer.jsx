@@ -9,7 +9,17 @@ import { useToast } from '@hooks';
  * Single Responsibility: Manages toast state and renders Toast component
  */
 const ToastContainer = memo(function ToastContainer() {
-  const { open, closeToast, ...toastProps } = useToast();
+  // Don't forward action creators to <Toast /> (they end up on MUI <Snackbar /> root <div>)
+  const {
+    open,
+    closeToast,
+    showToast: _showToast,
+    success: _success,
+    warning: _warning,
+    error: _error,
+    info: _info,
+    ...toastProps
+  } = useToast();
 
   return <Toast open={open} onClose={closeToast} {...toastProps} />;
 });

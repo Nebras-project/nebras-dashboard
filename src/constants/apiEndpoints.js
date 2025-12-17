@@ -1,58 +1,4 @@
 /**
- * Axios Configuration
- *
- * Single Responsibility: Centralized axios instance with interceptors
- */
-
-import axios from 'axios';
-import { API_URL, API_TIMEOUT } from './env.js';
-
-/**
- * Create axios instance with default configuration
- */
-const apiClient = axios.create({
-  baseURL: API_URL,
-  timeout: API_TIMEOUT,
-  withCredentials: true, // Include cookies for authentication
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-/**
- * Request Interceptor
- * Modify requests before they are sent
- * Note: Authentication is handled via HttpOnly cookies (withCredentials: true)
- * No need to manually add tokens - cookies are automatically included
- */
-apiClient.interceptors.request.use(
-  (config) => {
-    // Handle FormData - remove Content-Type header to let browser set it
-    if (config.data instanceof FormData) {
-      delete config.headers['Content-Type'];
-    }
-
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
-
-/**
- * Response Interceptor
- * Handle errors globally
- * Note: HttpOnly cookies are automatically managed by the browser
- */
-apiClient.interceptors.response.use(
-  (response) => {
-    // Return data directly (axios wraps it in data property)
-    return response.data;
-  },
-  async () => {}
-);
-
-/**
  * API Endpoints
  * Centralized endpoint definitions following RESTful conventions
  *
@@ -66,8 +12,8 @@ apiClient.interceptors.response.use(
  *   - DELETE: Remove resources
  * - Use nested resources for relationships (e.g., /curriculums/:id/subjects)
  * - Use query parameters for filtering, sorting, and pagination
- * - Use proper HTTP status codes (handled in response interceptor)
  */
+
 export const API_ENDPOINTS = {
   // Authentication
   // Note: Auth endpoints may not strictly follow REST, but are common patterns
@@ -132,6 +78,3 @@ export const API_ENDPOINTS = {
       `/curriculums/${curriculumId}/subjects/${subjectId}/units/${unitId}/lessons/${lessonId}`,
   },
 };
-
-// Export axios instance
-export default apiClient;

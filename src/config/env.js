@@ -61,7 +61,7 @@ export const IS_PROD = import.meta.env.PROD;
 // ============================================
 // API CONFIGURATION
 // ============================================
-export const API_URL = getEnv('VITE_API_URL', 'http://localhost:5000/api');
+export const API_URL = getEnv('VITE_API_URL', 'http://localhost:8080/api');
 export const API_TIMEOUT = getNumberEnv('VITE_API_TIMEOUT', 30000);
 
 // ============================================
