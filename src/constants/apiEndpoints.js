@@ -25,7 +25,7 @@ export const API_ENDPOINTS = {
     SEND_FORGOT_PASSWORD: '/auth/send_forgot_password', // POST - Forgot password
     SEND_PASSWORD_RESET: '/auth/send_password_reset', // POST - Reset password
     RESET_PASSWORD: '/auth/reset_password', // POST - Reset password
-    ME: '/auth/me', // GET - Get current authenticated user
+    ME: '/auth/dashboard/me', // GET - Get current authenticated user
   },
 
   // Admins Resource

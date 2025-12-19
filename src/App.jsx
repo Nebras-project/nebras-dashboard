@@ -3,6 +3,7 @@ import { memo } from 'react';
 import { MainLayout } from '@layout';
 import { routes } from '@config';
 import { LanguageSync, ErrorBoundary, ToastContainer, Loader } from '@components';
+import { AuthInit } from '@features/authentication';
 import { Suspense } from 'react';
 
 const AppRoutes = memo(function AppRoutes() {
@@ -32,6 +33,7 @@ function App() {
   return (
     <ErrorBoundary>
       <BrowserRouter>
+        <AuthInit />
         <LanguageSync />
         <AppContent />
       </BrowserRouter>

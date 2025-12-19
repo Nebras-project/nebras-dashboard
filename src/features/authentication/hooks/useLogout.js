@@ -19,13 +19,13 @@ export const useLogout = (options = {}) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { error, success } = useToast();
-  const { logout: logoutRedux } = useAuth();
+  const { clearUserData } = useAuth();
 
   const mutation = useMutation({
     mutationFn: logout,
     onSuccess: (response) => {
       // Clear Redux auth state
-      logoutRedux();
+      clearUserData();
 
       // Show success message
       success({

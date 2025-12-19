@@ -33,3 +33,16 @@ For module-specific documentation, see README files in their respective director
 ---
 
 **Last Updated:** 2025-01-27
+
+## 🔐 Authentication System
+
+The authentication system has been fully implemented with:
+
+- ✅ React Query hooks for all auth operations
+- ✅ Automatic token refresh on 401 errors
+- ✅ Role normalization to camelCase
+- ✅ Secure token storage (memory only, no localStorage)
+- ✅ HttpOnly cookie support for refresh tokens
+- ✅ Comprehensive error handling
+
+See **[Phase 2: Authentication](./phase-2-authentication.md)** for complete details.

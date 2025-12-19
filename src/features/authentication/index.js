@@ -1,8 +1,12 @@
 // Pages
 export * from './pages';
 
+// Components
+export { default as AuthInit } from './components/AuthInit';
+
 // Hooks
 export { useAuth } from './hooks/useAuth';
+export { useAuthInit } from './hooks/useAuthInit';
 export { useRole } from './hooks/useRole';
 export { useLogin } from './hooks/useLogin';
 export { useLogout } from './hooks/useLogout';

@@ -19,7 +19,11 @@ Error handling in this project follows a **layered approach** where errors are h
 ### What it handles:
 
 - ✅ **Network errors** (no response from server)
-- ✅ **401 Unauthorized** - Redirects to login page
+- ✅ **401 Unauthorized** - Automatic token refresh with fallback to logout
+  - Attempts to refresh access token using HttpOnly cookies
+  - Updates Redux state with new token
+  - Retries original request automatically
+  - If refresh fails → logs out user and redirects to login
 - ✅ **403 Forbidden** - Throws error with message
 - ✅ **404 Not Found** - Throws error with message
 - ✅ **500+ Server Errors** - Throws error with message
@@ -29,16 +33,34 @@ Error handling in this project follows a **layered approach** where errors are h
 
 ```javascript
 // In axios.js response interceptor
-if (status === 401) {
-  window.location.href = NAVIGATION_PATHS.LOGIN;
-  throw new Error(data?.message || 'Unauthorized - Please login again');
+if (status === HTTP_STATUS.UNAUTHORIZED && originalRequest && !originalRequest._retry) {
+  const isAuthRequest = /* check if login/refresh/logout */;
+
+  if (!isAuthRequest) {
+    originalRequest._retry = true;
+
+    try {
+      // Automatically refresh token
+      const newAccessToken = await refreshTokenAndUpdateStore();
+
+      // Retry original request with new token
+      originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+      return apiClient(originalRequest);
+    } catch (refreshError) {
+      // Refresh failed - logout user
+      store.dispatch(logout());
+      window.location.href = NAVIGATION_PATHS.LOGIN;
+      return Promise.reject(refreshError);
+    }
+  }
 }
 ```
 
 ### Result:
 
 - Errors are normalized into JavaScript `Error` objects
-- Specific status codes trigger automatic redirects (401)
+- 401 errors trigger automatic token refresh (seamless user experience)
+- Failed refresh triggers logout and redirect to login
 - All errors propagate to React Query hooks
 
 ---
@@ -202,9 +224,11 @@ API Call (Service Layer)
     ↓
 Axios Interceptor
     ├─ Network Error → Error Object
-    ├─ 401 → Redirect to Login + Error Object
+    ├─ 401 → Try Token Refresh
+    │   ├─ Refresh Success → Retry Original Request → Return Data
+    │   └─ Refresh Failed → Logout + Redirect to Login + Error Object
     ├─ 403/404/500 → Error Object
-    └─ Success → Return Data
+    └─ Success → Return Data (unwrapped)
     ↓
 React Query Hook (useEntity / useEntityMutation)
     ├─ Error → Show Toast Notification
@@ -221,12 +245,12 @@ Component
 
 ## Summary: Who Handles What?
 
-| Layer                 | Responsibility           | Error Handling                                              |
-| --------------------- | ------------------------ | ----------------------------------------------------------- |
-| **Axios Interceptor** | HTTP-level errors        | ✅ Handles status codes, redirects (401), normalizes errors |
-| **React Query Hooks** | Application-level errors | ✅ Shows toast notifications, provides error state          |
-| **Service Layer**     | API calls only           | ❌ No error handling - just calls                           |
-| **Components**        | UI feedback              | ⚪ Optional - can handle errors for custom UI               |
+| Layer                 | Responsibility           | Error Handling                                                            |
+| --------------------- | ------------------------ | ------------------------------------------------------------------------- |
+| **Axios Interceptor** | HTTP-level errors        | ✅ Handles status codes, automatic token refresh (401), normalizes errors |
+| **React Query Hooks** | Application-level errors | ✅ Shows toast notifications, provides error state                        |
+| **Service Layer**     | API calls only           | ❌ No error handling - just calls                                         |
+| **Components**        | UI feedback              | ⚪ Optional - can handle errors for custom UI                             |
 
 ---
 

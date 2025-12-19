@@ -17,7 +17,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    login: (state, action) => {
+    setUserData: (state, action) => {
       const { userId, email, userName, userProfile, role, accessToken, isEmailConfirmed } =
         action.payload;
       state.userId = userId;
@@ -30,7 +30,7 @@ const authSlice = createSlice({
       state.accessToken = accessToken;
       state.isEmailConfirmed = isEmailConfirmed ?? false;
     },
-    logout: (state) => {
+    clearUserData: (state) => {
       state.userId = null;
       state.email = null;
       state.userName = null;
@@ -39,7 +39,7 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.accessToken = null;
       state.isEmailConfirmed = false;
-      // Clear persisted state on logout
+      // Clear persisted state
       clearPersistedState();
     },
     setAccessToken: (state, action) => {
@@ -53,6 +53,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { login, logout, setAccessToken } = authSlice.actions;
+export const { setUserData, clearUserData, setAccessToken } = authSlice.actions;
 
 export default authSlice.reducer;

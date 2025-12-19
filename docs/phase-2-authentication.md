@@ -15,10 +15,14 @@ Implement authentication system with role-based access control (RBAC) for all us
 - [✅] Auth Redux slice
 - [✅] Session management (HttpOnly cookies)
 - [✅] Logout functionality
-- [✅] Auth hooks (useAuth, useLogin, useRole)
+- [✅] Auth hooks (useAuth, useLogin, useLogout, useRole, useRefreshToken, useCurrentUser)
 - [✅] Axios interceptor with error handling
-- [ ] JWT token management (using HttpOnly cookies - backend responsibility)
-- [ ] Password reset (future)
+- [✅] Automatic token refresh on 401 errors
+- [✅] Role normalization to camelCase
+- [✅] Auth API service (authApi)
+- [✅] Password reset hooks (useForgotPassword, usePasswordReset, useResetPassword)
+- [✅] Email verification hook (useVerifyEmail)
+- [ ] `/me` endpoint integration (pending backend)
 
 ---
 
@@ -62,54 +66,66 @@ Implement authentication system with role-based access control (RBAC) for all us
 
 ```javascript
 {
-  user: null,
-  token: null,
+  userId: null,
+  email: null,
+  userName: null,
+  userProfile: null, // User avatar/profile image URL
+  role: null, // Normalized to camelCase (e.g., 'generalAdmin')
   isAuthenticated: false,
-  isLoading: false,
-  error: null,
-  role: null
+  accessToken: null, // Stored in Redux state (memory only, not persisted)
+  isEmailConfirmed: false
 }
 ```
 
 **Actions implemented:**
 
-- ✅ `login` - Hydrate auth state with user profile returned after successful login
-- ✅ `logout` - Reset auth state after server clears session cookies
-- ✅ `setUser` - Update user data in memory
-- ✅ `setToken` - (Legacy) Currently used for mock auth, will be deprecated once HttpOnly cookie flow is complete
-- ✅ `clearError` - Clear error message
-- ✅ `checkAuth` - Hydrate auth state using `/me` response (session established via HttpOnly cookies)
-- ✅ `setLoading` / `setError` - Manage loading & error states
-- ✅ `updateUserProfile` - Update user profile data
+- ✅ `login` - Set all auth state properties from login response
+  - Normalizes role to camelCase automatically
+  - Sets userId, email, userName, userProfile, role, accessToken, isEmailConfirmed
+- ✅ `logout` - Clear all auth state and persisted state
+  - Resets all properties to null/false
+  - Clears persisted state from localStorage
+- ✅ `setAccessToken` - Update access token (used for token refresh)
+  - Updates accessToken in state
+  - Updates isAuthenticated based on userId and accessToken presence
 
 **Notes:**
 
 - Slice is registered in `src/store/index.js`
-- Tokens are **not** stored in Redux or `localStorage`; they live exclusively in backend-issued HttpOnly cookies
-- Current implementation uses mock authentication for development
-- Ready for backend integration when `/me` endpoint is available
+- **Auth state is NOT persisted to localStorage** (removed for security)
+- Tokens stored only in Redux state (memory) - not in localStorage/sessionStorage
+- HttpOnly cookies managed by browser for refresh token
+- Role is automatically normalized to camelCase on login
+- Ready for backend integration
 
 ---
 
 ### 3. Auth Service
 
-**Location:** `src/features/authentication/service/`
+**Location:** `src/features/authentication/services/`
 
-**Status:** ⚠️ Currently using mock authentication
+**Files implemented:**
+
+- `src/features/authentication/services/authApi.js` - All authentication API functions
+- `src/features/authentication/services/index.js` - Barrel export
+
+**API Functions:**
+
+- ✅ `login(credentials)` - Login API call
+- ✅ `logout()` - Logout API call
+- ✅ `refreshAccessToken()` - Refresh access token
+- ✅ `getCurrentUser()` - Get current user data (`/me` endpoint)
+- ✅ `verifyEmail(data)` - Verify email with code
+- ✅ `sendForgotPassword(data)` - Send forgot password email
+- ✅ `sendPasswordReset(data)` - Send password reset email
+- ✅ `resetPassword(data)` - Reset password with token
 
 **Implementation Notes:**
 
-- Authentication is currently mocked in `useLogin` hook
-- Real API integration will be implemented when backend is ready
-- HttpOnly cookie flow is configured in axios (`withCredentials: true`)
-- API client is ready for backend integration
-
-**Planned API Functions (when backend is ready):**
-
-- `login(credentials)` - Login API call
-- `logout()` - Logout API call
-- `getCurrentUser()` - Get current user data (`/me` endpoint)
-- `refreshToken()` - Refresh JWT token (optional)
+- All functions use `apiClient` from `@config/axios`
+- HttpOnly cookie flow configured (`withCredentials: true`)
+- Response data is automatically unwrapped by axios interceptor
+- Ready for backend integration
 
 ---
 
@@ -136,7 +152,14 @@ Implement authentication system with role-based access control (RBAC) for all us
 
 - `src/features/authentication/hooks/useRole.js` - Role-based access control helpers
 - `src/features/authentication/hooks/useAuth.js` - Authentication state management
-- `src/features/authentication/hooks/useLogin.js` - Login form submission logic
+- `src/features/authentication/hooks/useLogin.js` - Login mutation hook
+- `src/features/authentication/hooks/useLogout.js` - Logout mutation hook
+- `src/features/authentication/hooks/useRefreshToken.js` - Token refresh mutation hook
+- `src/features/authentication/hooks/useCurrentUser.js` - Current user query hook
+- `src/features/authentication/hooks/useVerifyEmail.js` - Email verification mutation hook
+- `src/features/authentication/hooks/useForgotPassword.js` - Forgot password mutation hook
+- `src/features/authentication/hooks/usePasswordReset.js` - Password reset mutation hook
+- `src/features/authentication/hooks/useResetPassword.js` - Reset password mutation hook
 
 **useRole Hook API:**
 
@@ -156,26 +179,93 @@ const {
 
 ```javascript
 const {
-  user,
-  token,
-  isAuthenticated,
-  isLoading,
-  error,
+  // State
+  userId,
+  email,
+  userName,
+  userProfile,
   role,
+  isAuthenticated,
+  accessToken,
+  isEmailConfirmed,
+  // Actions
   login,
   logout,
-  setUser,
-  checkAuth,
-  updateUserProfile,
-  // ... other actions
+  setAccessToken,
 } = useAuth();
 ```
 
 **useLogin Hook API:**
 
 ```javascript
-const { handleLogin } = useLogin();
-// handleLogin(formData) - Handles login submission with toast notifications
+const {
+  login, // Function to trigger login
+  loginAsync, // Async version
+  isPending, // Loading state
+  isError, // Error state
+  isSuccess, // Success state
+  error, // Error object
+  data, // Response data
+  reset, // Reset mutation state
+} = useLogin({
+  onSuccess: (response) => {
+    /* custom success handler */
+  },
+  onError: (error) => {
+    /* custom error handler */
+  },
+});
+```
+
+**useLogout Hook API:**
+
+```javascript
+const {
+  logout, // Function to trigger logout
+  logoutAsync, // Async version
+  isPending, // Loading state
+  // ... other React Query mutation properties
+} = useLogout({
+  onSuccess: (response) => {
+    /* custom success handler */
+  },
+  onError: (error) => {
+    /* custom error handler */
+  },
+});
+```
+
+**useRefreshToken Hook API:**
+
+```javascript
+const {
+  refreshToken, // Function to trigger refresh
+  refreshTokenAsync, // Async version
+  isPending, // Loading state
+  // ... other React Query mutation properties
+} = useRefreshToken({
+  onSuccess: (newAccessToken) => {
+    /* custom success handler */
+  },
+  onError: (error) => {
+    /* custom error handler */
+  },
+});
+// Note: Automatically updates Redux state with new token on success
+```
+
+**useCurrentUser Hook API:**
+
+```javascript
+const {
+  user, // Current user data
+  isLoading, // Initial loading state
+  isFetching, // Refetching state
+  isError, // Error state
+  isSuccess, // Success state
+  error, // Error object
+  refetch, // Manual refetch function
+} = useCurrentUser();
 ```
 
 ---
@@ -200,23 +290,44 @@ const { handleLogin } = useLogin();
 **Files implemented:**
 
 - `src/config/axios.js` - Axios configuration with interceptors
+- `src/features/authentication/utils/refreshTokenUtils.js` - Shared refresh token logic
 
-**Features implemented:**
+**Request Interceptor Features:**
 
+- ✅ Adds `Authorization: Bearer <token>` header from Redux state
+- ✅ Adds `Accept-Language` header from Redux state
 - ✅ HttpOnly cookie support (`withCredentials: true`)
-- ✅ Automatic FormData handling
-- ✅ 401 Unauthorized error handling (redirects to login)
-- ✅ 403 Forbidden error handling
-- ✅ 404 Not Found error handling
-- ✅ 500 Server Error handling
-- ✅ Network error handling
-- ✅ Response data unwrapping
+- ✅ Automatic FormData handling (removes Content-Type header)
+
+**Response Interceptor Features:**
+
+- ✅ Response data unwrapping (returns `response.data` directly)
+- ✅ **401 Unauthorized handling with automatic token refresh:**
+  - Detects 401 errors on API requests
+  - Automatically calls refresh token endpoint
+  - Updates Redux state with new access token
+  - Retries original request with new token
+  - Logs out and redirects to login if refresh fails
+- ✅ Prevents infinite loops (skips refresh for login/refresh/logout endpoints)
+- ✅ Uses `HTTP_STATUS.UNAUTHORIZED` constant for maintainability
+
+**Token Refresh Flow:**
+
+1. API request returns 401 Unauthorized
+2. Interceptor detects 401 (if not an auth request)
+3. Calls `refreshTokenAndUpdateStore()` utility
+4. Utility uses separate axios instance (avoids circular dependency)
+5. Refresh endpoint called with HttpOnly cookies
+6. New access token extracted and stored in Redux
+7. Original request retried with new token
+8. If refresh fails → logout and redirect to login
 
 **Notes:**
 
-- Tokens are managed via HttpOnly cookies (backend responsibility)
-- No manual token injection needed - cookies are automatically included
-- 401 errors automatically redirect to `/login`
+- Access tokens stored in Redux state (memory only)
+- Refresh tokens managed via HttpOnly cookies (backend responsibility)
+- Separate axios instance used for refresh to avoid circular dependency
+- Role normalization happens automatically on login
 
 ---
 
@@ -256,46 +367,75 @@ Content Manager (Level 1)
 
 ### Login Flow
 
-**Current Implementation (Mock):**
+**Current Implementation:**
 
 1. User enters credentials
 2. Validate form (client-side)
-3. Mock login creates user data and token
-4. Dispatch `login` with mock payload
-5. Show success toast notification
-6. Set `isAuthenticated` to true and redirect to dashboard
+3. Call login API (`POST /auth/login_manager`) via `useLogin` hook
+4. Backend returns user data and access token
+5. Role normalized to camelCase (e.g., "General Admin" → "generalAdmin")
+6. Dispatch `login` action with user data and access token
+7. Access token stored in Redux state (memory only)
+8. Show success toast notification
+9. Navigate to dashboard
 
-**Future Implementation (Backend):**
+**Response Structure:**
 
-1. User enters credentials
-2. Validate form (client-side)
-3. Call login API (`POST /login`) with `credentials: 'include'`
-4. Backend sets HttpOnly session cookies and returns user profile
-5. Dispatch `login`/`checkAuth` with response payload
-6. Set `isAuthenticated` to true and redirect to dashboard
+```javascript
+{
+  userId: string,
+  email: string,
+  userName: string,
+  userProfile: string, // Avatar URL
+  role: string,        // Will be normalized to camelCase
+  accessToken: string,
+  isEmailConfirmed: boolean
+}
+```
 
 ### Logout Flow
 
 **Current Implementation:**
 
-1. User clicks logout
-2. Dispatch `logout` to clear Redux state
-3. Redirect to login page
+1. User clicks logout (via `useLogout` hook or `LogoutButton` component)
+2. Call logout API (`POST /auth/logout`) to invalidate cookies
+3. Dispatch `logout` action to clear Redux state
+4. Show success toast notification
+5. Navigate to login page
 
-**Future Implementation (Backend):**
+**Notes:**
 
-1. User clicks logout
-2. Call logout API to invalidate cookies
-3. Dispatch `logout` to clear Redux state
-4. Redirect to login page
+- Redux state is completely cleared
+- Persisted state is cleared from localStorage
+- Access token removed from memory
+- HttpOnly cookies cleared by backend
 
 ### Protected Route Flow
 
 1. User navigates to protected route
-2. Ensure bootstrap `/me` call has completed
-3. Check if `isAuthenticated` is true
-4. Validate role-based access
-5. Allow access OR redirect to login/unauthorized
+2. `AuthenticatedRoute` component checks `isAuthenticated` from Redux
+3. If not authenticated → redirect to `/login`
+4. If authenticated → check role-based access
+5. If role not allowed → redirect to `/access-denied`
+6. If role allowed → render protected content
+
+### Token Refresh Flow
+
+1. User makes API request
+2. Request includes `Authorization: Bearer <token>` header
+3. If token expired → backend returns 401
+4. Axios interceptor catches 401 error
+5. Automatically calls refresh token endpoint (using HttpOnly cookies)
+6. New access token received and stored in Redux
+7. Original request retried with new token
+8. User sees no interruption (seamless experience)
+
+**If Refresh Fails:**
+
+1. Refresh token also expired/invalid
+2. Redux state cleared (logout dispatched)
+3. User redirected to login page
+4. Error message displayed (if configured)
 
 ---
 
@@ -354,8 +494,9 @@ const mockUsers = [
 
 - [✅] Login page displays correctly
 - [✅] Form validation works
-- [✅] Login with valid credentials succeeds (mock)
+- [✅] Login with valid credentials succeeds
 - [✅] Login with invalid credentials fails
+- [✅] Role normalization to camelCase works
 - [✅] Protected routes redirect to login when not authenticated
 - [✅] Protected routes allow access when authenticated
 - [✅] Role-based access control works correctly
@@ -363,11 +504,13 @@ const mockUsers = [
 - [✅] Logout redirects to login page
 - [✅] RTL layout works on login page
 - [✅] Bilingual support works
-- [ ] Backend issues HttpOnly cookies on successful login (pending backend)
-- [ ] `/me` bootstrap call hydrates Redux auth state (pending backend)
-- [ ] Logout clears session cookies (pending backend)
+- [✅] Automatic token refresh on 401 errors
+- [✅] Token refresh updates Redux state
+- [✅] Failed refresh logs out user
+- [✅] User avatar displays from userProfile
+- [✅] UserName displays correctly in header
+- [ ] `/me` endpoint integration (pending backend)
 - [ ] Remember me extends cookie expiration (pending backend)
-- [ ] Token expiration is handled (pending backend)
 
 ---
 
@@ -401,11 +544,16 @@ After completing Phase 2, proceed to **[Phase 3: Core Features](phase-3-core-fea
 
 ---
 
-**Last Updated:** 2025-01-XX
+**Last Updated:** 2025-01-27
 
 **Current Status:**
 
 - ✅ Frontend authentication infrastructure is complete
-- ✅ Mock authentication is working for development
-- ⏳ Waiting for backend API integration
-- 🔄 Ready for HttpOnly cookie-based session management
+- ✅ React Query hooks implemented for all auth operations
+- ✅ Automatic token refresh on 401 errors
+- ✅ Role normalization to camelCase
+- ✅ Auth state structure updated (userId, email, userName, userProfile, role, accessToken, isEmailConfirmed)
+- ✅ Auth state removed from localStorage (security improvement)
+- ✅ Circular dependency resolved with separate axios instance
+- ⏳ Waiting for `/me` endpoint integration
+- 🔄 HttpOnly cookie-based session management ready

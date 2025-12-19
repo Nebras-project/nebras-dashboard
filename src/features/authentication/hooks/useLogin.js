@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth, useTranslation, useToast } from '@hooks';
 import { NAVIGATION_PATHS } from '@config';
 import { toCamelCase } from '@utils/caseUtils';
-import { login as loginApi } from '../services/authApi';
+import { login } from '../services/authApi';
 
 /**
  * Custom hook for handling login functionality
@@ -14,12 +14,12 @@ import { login as loginApi } from '../services/authApi';
  */
 export const useLogin = (options = {}) => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { setUserData } = useAuth();
   const { t } = useTranslation();
   const { success, error } = useToast();
 
   const mutation = useMutation({
-    mutationFn: loginApi,
+    mutationFn: login,
     onSuccess: (response) => {
       // Extract user data from response
       const responseData = response?.data || response || {};
@@ -31,7 +31,7 @@ export const useLogin = (options = {}) => {
         // Convert role to camelCase (handles "General Admin" -> "generalAdmin", etc.)
         const normalizedRole = role ? toCamelCase(role) : null;
 
-        login({
+        setUserData({
           userId,
           email,
           userName,

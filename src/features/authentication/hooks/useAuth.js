@@ -3,15 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useCallback, useMemo } from 'react';
 
 // internal imports
-import { login, logout, setAccessToken } from '@store/slices';
+import { setUserData, clearUserData, setAccessToken } from '@store/slices';
 
 export const useAuth = () => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   // Memoize action creators to prevent unnecessary re-renders
-  const loginAction = useCallback((payload) => dispatch(login(payload)), [dispatch]);
-  const logoutAction = useCallback(() => dispatch(logout()), [dispatch]);
+  const setUserDataAction = useCallback((payload) => dispatch(setUserData(payload)), [dispatch]);
+  const clearUserDataAction = useCallback(() => dispatch(clearUserData()), [dispatch]);
   const setAccessTokenAction = useCallback(
     (payload) => dispatch(setAccessToken(payload)),
     [dispatch]
@@ -29,10 +29,10 @@ export const useAuth = () => {
       accessToken: auth.accessToken,
       isEmailConfirmed: auth.isEmailConfirmed,
       // Actions
-      login: loginAction,
-      logout: logoutAction,
+      setUserData: setUserDataAction,
+      clearUserData: clearUserDataAction,
       setAccessToken: setAccessTokenAction,
     }),
-    [auth, loginAction, logoutAction, setAccessTokenAction]
+    [auth, setUserDataAction, clearUserDataAction, setAccessTokenAction]
   );
 };

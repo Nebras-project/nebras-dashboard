@@ -53,25 +53,25 @@ const getDividerStyles = () => ({
 
 function PersonalInfoCard() {
   const { t } = useTranslation();
-  const { user } = useAuth();
+  const { userName, email } = useAuth();
 
   const infoItems = [
     {
       icon: <Icon name="person" size={20} />,
       label: t('common.name'),
-      value: user?.name || '-',
+      value: userName || '-',
       color: baseColors.blue700,
     },
     {
       icon: <Icon name="email" size={20} />,
       label: t('common.email'),
-      value: user?.email || '-',
+      value: email || '-',
       color: baseColors.pink200,
     },
     {
       icon: <Icon name="phone" size={20} />,
       label: t('common.phone'),
-      value: user?.phone || '-',
+      value: '-',
       color: baseColors.green400,
     },
   ];

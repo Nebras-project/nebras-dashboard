@@ -94,9 +94,9 @@ apiClient.interceptors.response.use(
           // Retry the original request
           return apiClient(originalRequest);
         } catch (refreshError) {
-          // Refresh failed, logout user
-          const { logout } = await import('@store/slices');
-          store.dispatch(logout());
+          // Refresh failed, clear user data
+          const { clearUserData } = await import('@store/slices');
+          store.dispatch(clearUserData());
 
           // Redirect to login
           window.location.href = NAVIGATION_PATHS.LOGIN;

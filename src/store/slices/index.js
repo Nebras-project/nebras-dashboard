@@ -16,7 +16,7 @@ export {
 } from './sidebarSlice';
 
 // Auth slice
-export { default as authReducer, login, logout, setAccessToken } from './authSlice';
+export { default as authReducer, setUserData, clearUserData, setAccessToken } from './authSlice';
 
 // Color scheme slice
 export {
