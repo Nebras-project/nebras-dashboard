@@ -56,7 +56,7 @@ const LoginPage = memo(function LoginPage() {
   const theme = useTheme();
   const { isAuthenticated } = useAuth();
   const { t } = useTranslation();
-  const { handleLogin } = useLogin();
+  const { login, isPending } = useLogin();
 
   // Memoized styles
   const rootStyles = useMemo(() => getRootStyles(theme), [theme]);
@@ -68,11 +68,15 @@ const LoginPage = memo(function LoginPage() {
     return <Navigate to={NAVIGATION_PATHS.DASHBOARD} replace />;
   }
 
+  const handleSubmit = (data) => {
+    login(data);
+  };
+
   return (
     <Box sx={rootStyles}>
       {/* Floating Login Form Card */}
       <Box sx={formWrapperStyles}>
-        <Form mode="page" onSubmit={handleLogin}>
+        <Form mode="page" onSubmit={handleSubmit}>
           <Form.Content>
             <LoginHeader />
             <Stack {...gap.sm}>
@@ -88,6 +92,8 @@ const LoginPage = memo(function LoginPage() {
               variant="contained"
               startIcon={<Icon name="login" />}
               sx={submitButtonStyles}
+              disabled={isPending}
+              loading={isPending}
             >
               {t('auth.loginButton')}
             </Form.SubmitButton>

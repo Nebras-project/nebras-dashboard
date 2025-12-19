@@ -32,10 +32,27 @@ const MENU_BUTTON_STYLES = {
 const MENU_ICON_SIZE = 24;
 
 function Header() {
-  const { user } = useAuth();
+  const { userId, email, userName, userProfile, role } = useAuth();
   const { openSidebar, sidebarWidth } = useSidebar();
   const { isRTL } = useLanguage();
   const { isSmallScreen } = useResponsive();
+
+  // Create user object for components that expect it
+  const user = useMemo(
+    () =>
+      userId
+        ? {
+            id: userId,
+            userName: userName,
+            email: email,
+            role: role,
+            profileImage: userProfile,
+            avatar: userProfile,
+            userProfile: userProfile,
+          }
+        : null,
+    [userId, userName, email, role, userProfile]
+  );
 
   // Memoize AppBar styles - recalculates when viewport or sidebar width changes
   const appBarStyles = useMemo(

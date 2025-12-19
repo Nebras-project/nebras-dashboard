@@ -50,9 +50,14 @@ function UserMenuTrigger({ user, onClick, ...props }) {
 
 UserMenuTrigger.propTypes = {
   user: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     name: PropTypes.string,
+    userName: PropTypes.string,
     email: PropTypes.string,
     role: PropTypes.string,
+    userProfile: PropTypes.string,
+    profileImage: PropTypes.string,
+    avatar: PropTypes.string,
   }).isRequired,
   onClick: PropTypes.func,
 };

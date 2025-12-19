@@ -3,6 +3,8 @@
  * Provides role constants and utility functions for RBAC
  */
 
+import { toCamelCase } from './caseUtils';
+
 // Role constants
 export const ROLES = {
   OWNER: 'owner',
@@ -67,6 +69,18 @@ export const ALLOWED_ROLES = {
   COMPETITION: [ROLES.OWNER, ROLES.GENERAL_ADMIN, ROLES.COMPETITION_MANAGER],
   // Question routes (Owner, General Admin & Content Manager)
   QUESTIONS: [ROLES.OWNER, ROLES.GENERAL_ADMIN, ROLES.CONTENT_MANAGER],
+};
+
+/**
+ * Convert role string to camelCase format
+ * Uses the general toCamelCase utility function
+ *
+ * @param {string} role - Role string in any format
+ * @returns {string} Role in camelCase format
+ */
+export const normalizeRoleToCamelCase = (role) => {
+  if (!role || typeof role !== 'string') return role;
+  return toCamelCase(role);
 };
 
 /**

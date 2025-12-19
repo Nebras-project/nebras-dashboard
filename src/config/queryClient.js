@@ -20,6 +20,7 @@ export const QUERY_KEYS = {
   SUBJECTS: 'subjects',
   UNITS: 'units',
   LESSONS: 'lessons',
+  CURRENT_USER: 'currentUser',
 };
 
 /**

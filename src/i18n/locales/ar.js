@@ -125,11 +125,12 @@ const ar = {
     unauthorized: 'عذراً، ليس لديك صلاحية للوصول إلى هذه الصفحة',
     loginSuccess: 'مرحباً بك مجدداً!',
     welcomeMessage: 'مرحباً بك مجدداً، {{name}}!',
-    logoutSuccess: 'تم تسجيل خروجك',
+    logoutSuccess: 'تم تسجيل خروجك بنجاح',
     logoutMessage: 'تم تسجيل خروجك بنجاح',
     validationError: 'يرجى التحقق من المدخلات',
     fillAllFields: 'يرجى ملء جميع الحقول المطلوبة',
     loginError: 'لم نتمكن من تسجيل دخولك',
+    invalidResponse: 'استجابة غير صالحة من الخادم. يرجى المحاولة مرة أخرى.',
   },
 
   // Dashboard

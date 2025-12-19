@@ -69,6 +69,11 @@ function UserMenuContent({ user }) {
   const { t } = useTranslation();
   const { mode } = useMuiTheme();
 
+  // Get user name (handle both old and new structure)
+  const userName = user?.userName || '';
+  const userEmail = user?.email || '';
+  const userRole = user?.role || '';
+
   return (
     <Menu.Content
       transformOrigin={MENU_TRANSFORM_ORIGIN}
@@ -84,19 +89,21 @@ function UserMenuContent({ user }) {
             fontWeight={fontWeights.semiBold}
             sx={NAME_TYPOGRAPHY_STYLES}
           >
-            {user.name}
+            {userName}
           </Typography>
         </Menu.Item>
 
         {/* User Email */}
         <Typography variant="body2" color="text.secondary" sx={EMAIL_TYPOGRAPHY_STYLES}>
-          {user.email}
+          {userEmail}
         </Typography>
 
         {/* Role Badge */}
-        <Typography variant="caption" sx={ROLE_BADGE_STYLES}>
-          {getRoleLabel(user.role, t)}
-        </Typography>
+        {userRole && (
+          <Typography variant="caption" sx={ROLE_BADGE_STYLES}>
+            {getRoleLabel(userRole, t)}
+          </Typography>
+        )}
       </Box>
 
       {/* Divider */}
@@ -113,9 +120,14 @@ function UserMenuContent({ user }) {
 
 UserMenuContent.propTypes = {
   user: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     name: PropTypes.string,
+    userName: PropTypes.string,
     email: PropTypes.string,
     role: PropTypes.string,
+    userProfile: PropTypes.string,
+    profileImage: PropTypes.string,
+    avatar: PropTypes.string,
   }).isRequired,
 };
 

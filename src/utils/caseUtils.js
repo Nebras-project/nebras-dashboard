@@ -9,17 +9,38 @@
  */
 
 /**
- * Convert a single PascalCase string to camelCase.
- * - "UserName" -> "userName"
- * - "LessonCount" -> "lessonCount"
+ * Convert a single string to camelCase.
+ * Handles various formats:
+ * - PascalCase: "UserName" -> "userName"
+ * - Space-separated: "General Admin" -> "generalAdmin"
+ * - Already camelCase: "generalAdmin" -> "generalAdmin" (unchanged)
+ * - Single word: "Owner" -> "owner"
+ *
  * If the value is not a string, it is returned as-is.
  *
- * @param {string} key
- * @returns {string}
+ * @param {string} str - String to convert
+ * @returns {string} camelCase string
  */
-export const toCamelCase = (key) => {
-  if (typeof key !== 'string' || key.length === 0) return key;
-  return key.charAt(0).toLowerCase() + key.slice(1);
+export const toCamelCase = (str) => {
+  if (typeof str !== 'string' || str.length === 0) return str;
+
+  // If already camelCase (no spaces, starts with lowercase), return as-is
+  if (!str.includes(' ') && str.charAt(0) === str.charAt(0).toLowerCase()) {
+    return str;
+  }
+
+  // Convert space-separated or PascalCase to camelCase
+  return str
+    .split(/\s+/) // Split by spaces
+    .map((word, index) => {
+      if (index === 0) {
+        // First word: lowercase
+        return word.toLowerCase();
+      }
+      // Subsequent words: capitalize first letter, lowercase rest
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    })
+    .join('');
 };
 
 /**

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 // internal imports
 import { Button, Icon, ConfirmDialog } from '@components';
-import { useTranslation, useAuth, useLanguage, useToast, useConfirmDialog } from '@hooks';
+import { useTranslation, useLanguage, useConfirmDialog } from '@hooks';
+import { useLogout } from '@features/authentication';
 
 const getIconStyles = (isRTL) => ({
   transform: isRTL ? 'scaleX(-1)' : 'none',
@@ -45,21 +46,24 @@ function LogoutButton({
   ...rest
 }) {
   const { t } = useTranslation();
-  const { logout } = useAuth();
   const { isRTL } = useLanguage();
-  const { success } = useToast();
   const { open, show, close } = useConfirmDialog();
+  const { logout, isPending } = useLogout({
+    onSuccess: () => {
+      // Call custom onLogout callback if provided
+      if (onLogout && typeof onLogout === 'function') {
+        onLogout();
+      }
+    },
+  });
 
   const handleLogoutClick = () => {
     show();
   };
 
   const handleConfirmLogout = () => {
+    close();
     logout();
-    success({ message: t('auth.logoutMessage') });
-    if (onLogout && typeof onLogout === 'function') {
-      onLogout();
-    }
   };
 
   return (
@@ -73,6 +77,7 @@ function LogoutButton({
         endIcon={getLogoutIcon(showIcon, isRTL)}
         sx={getButtonStyles(fullWidth, width, disableHover, sx)}
         aria-label={t('common.logout')}
+        disabled={isPending}
         {...rest}
       >
         {t('common.logout')}
@@ -87,6 +92,7 @@ function LogoutButton({
         confirmText={t('common.logout')}
         cancelText={t('common.cancel')}
         confirmColor="error"
+        loading={isPending}
       />
     </>
   );

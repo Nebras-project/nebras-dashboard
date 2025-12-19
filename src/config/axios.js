@@ -6,6 +6,13 @@
 
 import axios from 'axios';
 import { API_URL, API_TIMEOUT } from './env.js';
+import { API_ENDPOINTS } from '@constants/apiEndpoints.js';
+import { NAVIGATION_PATHS } from '@constants/navigationPaths.js';
+import { HTTP_STATUS } from '@constants/errors.js';
+import { store } from '@store';
+// Use dynamic import to break circular dependency
+// refreshTokenUtils uses a separate axios instance, so no circular dependency
+import { refreshTokenAndUpdateStore } from '@features/authentication/utils/refreshTokenUtils';
 
 /**
  * Create axios instance with default configuration
@@ -22,11 +29,23 @@ const apiClient = axios.create({
 /**
  * Request Interceptor
  * Modify requests before they are sent
- * Note: Authentication is handled via HttpOnly cookies (withCredentials: true)
- * No need to manually add tokens - cookies are automatically included
+ * Adds accessToken and Accept-Language headers
  */
 apiClient.interceptors.request.use(
   (config) => {
+    // Get current state from Redux store
+    const state = store.getState();
+    const accessToken = state.auth?.accessToken;
+    const currentLanguage = state.language?.currentLanguage || 'ar';
+
+    // Add Authorization header if accessToken exists
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+
+    // Add Accept-Language header
+    config.headers['Accept-Language'] = currentLanguage;
+
     // Handle FormData - remove Content-Type header to let browser set it
     if (config.data instanceof FormData) {
       delete config.headers['Content-Type'];
@@ -49,89 +68,52 @@ apiClient.interceptors.response.use(
     // Return data directly (axios wraps it in data property)
     return response.data;
   },
-  async () => {}
+  async (error) => {
+    const originalRequest = error?.config;
+    const status = error?.response?.status;
+
+    // Handle 401 Unauthorized - Try to refresh token
+    if (status === HTTP_STATUS.UNAUTHORIZED && originalRequest && !originalRequest._retry) {
+      // Prevent infinite loop - don't retry if already retried or if it's a login/refresh request
+      const isAuthRequest =
+        originalRequest?.url?.includes(API_ENDPOINTS.AUTH.LOGIN) ||
+        originalRequest?.url?.includes(API_ENDPOINTS.AUTH.REFRESH) ||
+        originalRequest?.url?.includes(API_ENDPOINTS.AUTH.LOGOUT);
+
+      if (!isAuthRequest) {
+        originalRequest._retry = true;
+
+        try {
+          // Use refreshTokenAndUpdateStore (same logic as useRefreshToken hook)
+          // The isAuthRequest check above prevents this refresh call from triggering another retry
+          const newAccessToken = await refreshTokenAndUpdateStore();
+
+          // Update the original request with new token
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+
+          // Retry the original request
+          return apiClient(originalRequest);
+        } catch (refreshError) {
+          // Refresh failed, logout user
+          const { logout } = await import('@store/slices');
+          store.dispatch(logout());
+
+          // Redirect to login
+          window.location.href = NAVIGATION_PATHS.LOGIN;
+          return Promise.reject(
+            refreshError?.response?.data?.message ||
+              refreshError?.message ||
+              'Session expired. Please login again.'
+          );
+        }
+      }
+    }
+
+    // Reject the promise so React Query can handle other errors
+    return Promise.reject(error);
+  }
 );
 
-/**
- * API Endpoints
- * Centralized endpoint definitions following RESTful conventions
- *
- * RESTful API Conventions:
- * - Use plural nouns for resource names (e.g., /admins, /students)
- * - Use HTTP methods correctly:
- *   - GET: Retrieve resources (list or single)
- *   - POST: Create new resources
- *   - PUT: Full resource replacement
- *   - PATCH: Partial resource update
- *   - DELETE: Remove resources
- * - Use nested resources for relationships (e.g., /curriculums/:id/subjects)
- * - Use query parameters for filtering, sorting, and pagination
- * - Use proper HTTP status codes (handled in response interceptor)
- */
-export const API_ENDPOINTS = {
-  // Authentication
-  // Note: Auth endpoints may not strictly follow REST, but are common patterns
-  AUTH: {
-    LOGIN: '/auth/login_manager', // POST - Create session
-    VERIFY_EMAIL: '/auth/verify_email', // POST - Verify email
-    LOGOUT: '/auth/logout', // POST/DELETE - Destroy session
-    REFRESH: '/auth/refresh_access_token', // POST - Refresh session token
-    SEND_FORGOT_PASSWORD: '/auth/send_forgot_password', // POST - Forgot password
-    SEND_PASSWORD_RESET: '/auth/send_password_reset', // POST - Reset password
-    RESET_PASSWORD: '/auth/reset_password', // POST - Reset password
-    ME: '/auth/me', // GET - Get current authenticated user
-  },
-
-  // Admins Resource
-  ADMINS: {
-    BASE: '/admins',
-    BY_ID: (id) => `/admins/${id}`,
-  },
-
-  // Students Resource
-  STUDENTS: {
-    BASE: '/students',
-    BY_ID: (id) => `/students/${id}`,
-  },
-
-  // Competitions Resource
-  COMPETITIONS: {
-    BASE: '/competitions',
-    BY_ID: (id) => `/competitions/${id}`,
-    MEMBERS: (id) => `/competitions/${id}/members`,
-    EXAM: (id) => `/competitions/${id}/exam`,
-    RESULT: (id) => `/competitions/${id}/result`,
-    EXAMS: (competitionId) => `/competitions/${competitionId}/exams`,
-    EXAM_BY_ID: (competitionId, examId) => `/competitions/${competitionId}/exams/${examId}`,
-  },
-
-  // Questions Resource
-  QUESTIONS: {
-    BASE: '/questions',
-    BY_ID: (id) => `/questions/${id}`,
-  },
-
-  // Curriculums Resource
-  CURRICULUMS: {
-    BASE: '/curriculums',
-    BY_ID: (id) => `/curriculums/${id}`,
-
-    // Nested: Subjects within curriculum
-    SUBJECTS: (curriculumId) => `/curriculums/${curriculumId}/subjects`,
-    SUBJECT: (curriculumId, subjectId) => `/curriculums/${curriculumId}/subjects/${subjectId}`,
-
-    // Nested: Units within subject within curriculum
-    UNITS: (curriculumId, subjectId) => `/curriculums/${curriculumId}/subjects/${subjectId}/units`,
-    UNIT: (curriculumId, subjectId, unitId) =>
-      `/curriculums/${curriculumId}/subjects/${subjectId}/units/${unitId}`,
-
-    // Nested: Lessons within unit within subject within curriculum
-    LESSONS: (curriculumId, subjectId, unitId) =>
-      `/curriculums/${curriculumId}/subjects/${subjectId}/units/${unitId}/lessons`,
-    LESSON: (curriculumId, subjectId, unitId, lessonId) =>
-      `/curriculums/${curriculumId}/subjects/${subjectId}/units/${unitId}/lessons/${lessonId}`,
-  },
-};
-
-// Export axios instance
+// Export apiClient as default and API_ENDPOINTS as named export
 export default apiClient;
+export { API_ENDPOINTS };

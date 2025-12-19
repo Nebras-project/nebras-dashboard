@@ -129,6 +129,7 @@ const en = {
     validationError: 'Please check your input',
     fillAllFields: 'Please fill in all required fields',
     loginError: "We couldn't sign you in",
+    invalidResponse: 'Invalid response from server. Please try again.',
   },
 
   // Dashboard

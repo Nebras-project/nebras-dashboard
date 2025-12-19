@@ -1,49 +1,81 @@
 // external imports
-import { useCallback } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 // internal imports
 import { useAuth, useTranslation, useToast } from '@hooks';
 import { NAVIGATION_PATHS } from '@config';
+import { toCamelCase } from '@utils/caseUtils';
+import { login as loginApi } from '../services/authApi';
 
 /**
  * Custom hook for handling login functionality
- * Single Responsibility: Manage login submission logic
+ * Single Responsibility: Manage login submission logic with React Query
  */
-export const useLogin = () => {
+export const useLogin = (options = {}) => {
   const navigate = useNavigate();
   const { login } = useAuth();
   const { t } = useTranslation();
   const { success, error } = useToast();
 
-  const handleLogin = useCallback(
-    async (data) => {
-      try {
-        // Mock login - In real app, this would call an API
-        const userData = {
-          id: 1,
-          name: 'Admin User',
-          email: data.Email,
-          role: 'owner',
-        };
-        // Mock JWT token - In real app, this would come from the API
-        const mockToken = 'mock-jwt-token-' + Date.now();
+  const mutation = useMutation({
+    mutationFn: loginApi,
+    onSuccess: (response) => {
+      // Extract user data from response
+      const responseData = response?.data || response || {};
+      const { userId, email, userName, userProfile, role, accessToken, isEmailConfirmed } =
+        responseData;
 
-        // Login with user and token
-        login({ user: userData, token: mockToken });
+      // Only update auth state if we have required fields
+      if (userId && accessToken) {
+        // Convert role to camelCase (handles "General Admin" -> "generalAdmin", etc.)
+        const normalizedRole = role ? toCamelCase(role) : null;
+
+        login({
+          userId,
+          email,
+          userName,
+          userProfile,
+          role: normalizedRole,
+          accessToken,
+          isEmailConfirmed: isEmailConfirmed ?? false,
+        });
 
         success({
-          content: t('auth.welcomeMessage', { name: userData.name }),
+          content: t('auth.welcomeMessage', { name: userName || email }),
         });
+
         navigate(NAVIGATION_PATHS.DASHBOARD);
-      } catch (err) {
+      } else {
         error({
-          content: err.message || t('auth.invalidCredentials'),
+          content: t('auth.invalidResponse'),
         });
       }
-    },
-    [login, navigate, success, error, t]
-  );
 
-  return { handleLogin };
+      // Call custom onSuccess if provided
+      options.onSuccess?.(response);
+    },
+    onError: (err) => {
+      // Only display error message from API response
+      const errorMessage = err?.response?.data?.message || t('auth.invalidResponse');
+
+      error({
+        content: errorMessage,
+      });
+
+      // Call custom onError if provided
+      options.onError?.(err);
+    },
+  });
+
+  return {
+    login: mutation.mutate,
+    loginAsync: mutation.mutateAsync,
+    isPending: mutation.isPending,
+    isError: mutation.isError,
+    isSuccess: mutation.isSuccess,
+    error: mutation.error,
+    data: mutation.data,
+    reset: mutation.reset,
+  };
 };

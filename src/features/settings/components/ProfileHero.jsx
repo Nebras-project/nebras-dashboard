@@ -41,8 +41,19 @@ const getRoleBadgeStyles = () => ({
 
 function ProfileHero() {
   const { t } = useTranslation();
-  const { user } = useAuth();
+  const { userId, userName, email, userProfile, role } = useAuth();
   const { isSmallScreen } = useResponsive();
+
+  // Create user object for UserAvatar component
+  const user = userId
+    ? {
+        id: userId,
+        userName: userName,
+        email: email,
+        role: role,
+        userProfile: userProfile,
+      }
+    : null;
 
   return (
     <Card contentSx={getContentStyles()} sx={{ backgroundColor: 'background.paper' }}>
@@ -51,10 +62,10 @@ function ProfileHero() {
 
         <Box sx={getUserInfoStyles()}>
           <Typography variant="h5" fontWeight={fontWeights.bold} gutterBottom>
-            {user?.name || 'User'}
+            {userName || email || 'User'}
           </Typography>
           <Typography variant="caption" sx={getRoleBadgeStyles()}>
-            {user?.role ? getRoleLabel(user.role, t) : t('common.notAvailable')}
+            {role ? getRoleLabel(role, t) : t('common.notAvailable')}
           </Typography>
         </Box>
 

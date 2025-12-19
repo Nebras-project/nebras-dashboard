@@ -25,9 +25,13 @@ function UserInfo({ user = null }) {
 
 UserInfo.propTypes = {
   user: PropTypes.shape({
-    name: PropTypes.string,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    userName: PropTypes.string,
     email: PropTypes.string,
     role: PropTypes.string,
+    userProfile: PropTypes.string,
+    profileImage: PropTypes.string,
+    avatar: PropTypes.string,
   }),
 };
 
