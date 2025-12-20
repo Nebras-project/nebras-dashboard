@@ -13,7 +13,7 @@ import { getRoleLabel } from '@utils/roleUtils';
  * @returns {string} Admin name or 'N/A' if not found
  */
 export const getAdminName = (admin) => {
-  return admin?.UserName || admin?.userName || admin?.name || 'N/A';
+  return admin?.userName || 'N/A';
 };
 
 /**
@@ -22,7 +22,7 @@ export const getAdminName = (admin) => {
  * @returns {string} Admin email or 'N/A' if not found
  */
 export const getAdminEmail = (admin) => {
-  return admin?.Email || admin?.email || 'N/A';
+  return  admin?.email || 'N/A';
 };
 
 /**
@@ -31,7 +31,7 @@ export const getAdminEmail = (admin) => {
  * @returns {string} Admin phone or 'N/A' if not found
  */
 export const getAdminPhone = (admin) => {
-  return admin?.Phone || admin?.PhoneNumber || admin?.phone || 'N/A';
+  return admin?.phoneNumber || 'N/A';
 };
 
 /**
@@ -41,7 +41,7 @@ export const getAdminPhone = (admin) => {
  * @returns {string} Translated admin role or 'N/A' if not found
  */
 export const getAdminRole = (admin, t) => {
-  const role = admin?.Role || admin?.role;
+  const role = admin?.role;
   if (!role) return 'N/A';
   return getRoleLabel(role, t) || 'N/A';
 };
@@ -52,7 +52,7 @@ export const getAdminRole = (admin, t) => {
  * @returns {string|null} Admin profile image URL or null if not found
  */
 export const getAdminProfileImage = (admin) => {
-  return admin?.UserProfile || null;
+  return admin?.userProfile || null;
 };
 
 /**

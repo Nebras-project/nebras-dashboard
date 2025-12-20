@@ -26,6 +26,12 @@ export const NAVIGATION_PATHS = {
     BY_ID: (id) => `/admins/${id}`,
   },
 
+  // Managers
+  MANAGERS: {
+    BASE: '/managers',
+    BY_ID: (id) => `/managers/${id}`,
+  },
+
   // Competitions
   COMPETITIONS: {
     BASE: '/competitions',

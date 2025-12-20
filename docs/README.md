@@ -32,7 +32,7 @@ For module-specific documentation, see README files in their respective director
 
 ---
 
-**Last Updated:** 2025-01-27
+**Last Updated:** 2025-12-19
 
 ## 🔐 Authentication System
 
@@ -44,5 +44,7 @@ The authentication system has been fully implemented with:
 - ✅ Secure token storage (memory only, no localStorage)
 - ✅ HttpOnly cookie support for refresh tokens
 - ✅ Comprehensive error handling
+- ✅ Auth initialization on page reload (AuthInit component)
+- ✅ User data persistence across page reloads
 
 See **[Phase 2: Authentication](./phase-2-authentication.md)** for complete details.

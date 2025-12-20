@@ -29,14 +29,6 @@ export const roleTranslationKeys = {
   'Content Manager': 'admins.roles.Content Manager',
 };
 
-// Student class translation keys mapping
-export const classTranslationKeys = {
-  thirdSecondary: 'students.classes.thirdSecondary',
-  ninth: 'students.classes.ninth',
-  // Handle snake_case variant
-  third_secondary: 'students.classes.thirdSecondary',
-};
-
 // Admin role values in PascalCase/display format (as returned by API and used in forms)
 // These values MUST match the exact format that the API expects/returns for admin roles.
 // If the API format changes, update this array to match the new format.
@@ -95,53 +87,7 @@ export const hasRole = (userRole, allowedRoles) => {
   return rolesArray.includes(userRole);
 };
 
-/**
- * Filter role options based on current user role
- * Used for admin creation forms to restrict which roles can be assigned
- *
- * Rules:
- * - Owner: can see all roles
- * - General Admin: can see all roles except Owner and General Admin
- * - Other roles: cannot create admins (should be handled by route protection)
- *
- * @param {boolean} isOwner - Whether the current user is an Owner
- * @param {boolean} isGeneralAdmin - Whether the current user is a General Admin
- * @returns {string[]} Filtered role values
- */
-export const filterRoleOptions = (isOwner, isGeneralAdmin) => {
-  if (isOwner) {
-    // Owner can see all roles
-    return ADMIN_ROLE_VALUES;
-  }
-
-  if (isGeneralAdmin) {
-    // General Admin can see all roles except Owner and General Admin
-    return ADMIN_ROLE_VALUES.filter((role) => role !== 'Owner' && role !== 'General Admin');
-  }
-
-  // Other roles cannot create admins (should be handled by route protection)
-  return [];
-};
-
-/**
- * Build role options (value/label) for selects and table filters
- * using the same filtering rules as filterRoleOptions.
- *
- * @param {Function} t - Translation function (optional)
- * @param {boolean} isOwner
- * @param {boolean} isGeneralAdmin
- * @returns {{ value: string, label: string }[]}
- */
-export const buildRoleOptions = (t, isOwner, isGeneralAdmin) => {
-  const values = filterRoleOptions(isOwner, isGeneralAdmin);
-
-  return values.map((value) => ({
-    value,
-    label: t ? getRoleLabel(value, t) : value,
-  }));
-};
-
-/**
+  /**
  * Get translation key for a role
  * Handles both camelCase (from user object) and PascalCase/display names (from admin API)
  *
@@ -165,32 +111,6 @@ export const getRoleLabel = (role, t) => {
   if (!role || !t) return role || '';
   const translationKey = getRoleTranslationKey(role);
   return t(translationKey) || role;
-};
-
-/**
- * Get translation key for a student class
- * Handles both camelCase and snake_case variants
- *
- * @param {string} classValue - The class value (e.g., 'thirdSecondary', 'third_secondary', 'ninth')
- * @returns {string} Translation key for the class
- */
-export const getClassTranslationKey = (classValue) => {
-  if (!classValue) return classValue;
-  return classTranslationKeys[classValue] || classValue;
-};
-
-/**
- * Get translated student class label
- * Convenience function that combines getClassTranslationKey with translation function
- *
- * @param {string} classValue - The class value
- * @param {Function} t - Translation function
- * @returns {string} Translated class label
- */
-export const getClassLabel = (classValue, t) => {
-  if (!classValue || !t) return classValue || '';
-  const translationKey = getClassTranslationKey(classValue);
-  return t(translationKey) || classValue;
 };
 
 /**

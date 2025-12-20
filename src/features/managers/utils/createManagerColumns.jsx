@@ -1,9 +1,9 @@
-import { buildAdminColumn } from '@components/table';
+import { buildManagerColumn } from '@components/table';
 import { createColumnsBase } from '@components/table/utils/createColumnsBase';
 
-import adminRenderers from './adminRenderers';
+import managerRenderers from './managerRenderers';
 
-const ADMIN_COLUMN_DEFINITIONS = {
+const MANAGER_COLUMN_DEFINITIONS = {
   userProfile: {
     filterable: false,
     sortable: false,
@@ -11,6 +11,10 @@ const ADMIN_COLUMN_DEFINITIONS = {
   },
   userName: {
     filterable: false,
+  },
+  role: {
+    filterable: false,
+    renderer: 'roleChip',
   },
   email: {
     sortable: false,
@@ -22,7 +26,7 @@ const ADMIN_COLUMN_DEFINITIONS = {
   },
 };
 
-export default function createAdminColumns({
+export default function createManagerColumns({
   t,
   includeActions,
   renderActions,
@@ -32,9 +36,9 @@ export default function createAdminColumns({
   overrides = {},
 } = {}) {
   return createColumnsBase({
-    columnDefinitions: ADMIN_COLUMN_DEFINITIONS,
-    renderers: adminRenderers,
-    buildColumnsFn: buildAdminColumn,
+    columnDefinitions: MANAGER_COLUMN_DEFINITIONS,
+    renderers: managerRenderers,
+    buildColumnsFn: buildManagerColumn,
     t,
     includeActions,
     renderActions,

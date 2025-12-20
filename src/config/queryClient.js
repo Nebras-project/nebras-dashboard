@@ -12,6 +12,8 @@ import i18n from '@i18n';
  */
 export const QUERY_KEYS = {
   ADMINS: 'admins',
+  MANAGERS: 'managers',
+  ROLES: 'roles',
   STUDENTS: 'students',
   COMPETITIONS: 'competitions',
   EXAMS: 'exams',

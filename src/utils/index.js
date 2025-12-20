@@ -36,7 +36,6 @@ export {
   ALLOWED_ROLES,
   hasRole,
   checkRowActionsPermissions,
-  filterRoleOptions,
 } from './roleUtils';
 
 // FormData utilities

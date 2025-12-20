@@ -7,9 +7,14 @@ const menuItems = {
     path: '/dashboard',
   },
   admins: {
-    text: 'admins.managers',
-    icon: <Icon name="manageAccounts" />,
+    text: 'navigation.admins',
+    icon: <Icon name="adminPanel" />,
     path: '/admins',
+  },
+  managers: {
+    text: 'navigation.managers',
+    icon: <Icon name="manageAccounts" />,
+    path: '/managers',
   },
   students: {
     text: 'navigation.students',
@@ -41,6 +46,17 @@ const menuItems = {
 const fullAccessItems = [
   menuItems.dashboard,
   menuItems.admins,
+  menuItems.managers,
+  menuItems.students,
+  menuItems.competitions,
+  menuItems.curriculums,
+  menuItems.questions,
+  menuItems.settings,
+];
+
+const generalAdminItems = [
+  menuItems.dashboard,
+  menuItems.managers,
   menuItems.students,
   menuItems.competitions,
   menuItems.curriculums,
@@ -50,7 +66,7 @@ const fullAccessItems = [
 
 export const navigationItems = {
   owner: fullAccessItems,
-  generalAdmin: fullAccessItems,
+  generalAdmin: generalAdminItems,
   curriculumManager: [
     menuItems.dashboard,
     menuItems.curriculums,

@@ -206,7 +206,8 @@ export function buildColumns(keys, options = {}) {
 }
 
 const USER_COLUMN_KEYS = {
-  admin: ['userProfile', 'userName', 'email', 'role', 'phoneNumber'],
+  admin: ['userProfile', 'userName', 'email', 'phoneNumber'],
+  manager: ['userProfile', 'userName', 'email', 'role', 'phoneNumber'],
   student: ['userProfile', 'userName', 'email', 'curriculum', 'phoneNumber'],
 };
 
@@ -230,6 +231,10 @@ export function buildUserColumns(options = {}) {
 
 export function buildAdminColumn(options = {}) {
   return buildUserColumns({ variant: 'admin', ...options });
+}
+
+export function buildManagerColumn(options = {}) {
+  return buildUserColumns({ variant: 'manager', ...options });
 }
 
 export function buildStudentColumns(options = {}) {

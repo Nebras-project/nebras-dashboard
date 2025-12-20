@@ -105,7 +105,6 @@ const UserFields = memo(function UserFields({
           {passwordRequired && (
             <Grid item {...gridItemProps}>
               <Form.ConfirmPasswordInput
-                name="ConfirmPassword"
                 label={t('forms.confirmPassword')}
                 autoComplete="new-password"
                 passwordRequired={passwordRequired}

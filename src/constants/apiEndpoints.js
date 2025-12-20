@@ -34,6 +34,17 @@ export const API_ENDPOINTS = {
     BY_ID: (id) => `/admins/${id}`,
   },
 
+  // Roles Resource
+  ROLES: {
+    BASE: '/roles',
+  },
+
+  // Managers Resource
+  MANAGERS: {
+    BASE: '/managers',
+    BY_ID: (id) => `/managers/${id}`,
+  },
+
   // Students Resource
   STUDENTS: {
     BASE: '/students',

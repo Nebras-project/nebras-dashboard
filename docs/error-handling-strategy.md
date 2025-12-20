@@ -48,7 +48,8 @@ if (status === HTTP_STATUS.UNAUTHORIZED && originalRequest && !originalRequest._
       return apiClient(originalRequest);
     } catch (refreshError) {
       // Refresh failed - logout user
-      store.dispatch(logout());
+      const { clearUserData } = await import('@store/slices');
+      store.dispatch(clearUserData());
       window.location.href = NAVIGATION_PATHS.LOGIN;
       return Promise.reject(refreshError);
     }

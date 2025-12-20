@@ -4,13 +4,14 @@ import { useEntityForm } from '@components/forms/hooks';
 // internal imports
 import { buildBaseUserDefaultValues } from '@components/forms/utils';
 import { QUERY_KEYS } from '@config';
-import { createAdmin, updateAdmin } from '../services/adminsApi';
-import { getAdminName } from '../utils';
+import { createManager, updateManager } from '../services/managersApi';
+import { getManagerName } from '../utils';
+import { useRoles } from '../../admins/hooks/useRoles';
 
 /**
- * useAdminForm Hook
+ * useManagerForm Hook
  *
- * Single Responsibility: Manage admin form state, validation, and submission
+ * Single Responsibility: Manage manager form state, validation, and submission
  *
  * @param {Object} options - Hook options
  * @param {Object} options.defaultValues - Default form values
@@ -19,24 +20,30 @@ import { getAdminName } from '../utils';
  * @param {Function} options.onError - Error callback
  * @returns {Object} Form hook object with methods and state
  */
-export const useAdminForm = ({ defaultValues = {}, isEdit = false, onSuccess, onError } = {}) => {
+export const useManagerForm = ({ defaultValues = {}, isEdit = false, onSuccess, onError } = {}) => {
+  const { roleOptions } = useRoles();
+
   const { formDefaultValues, handleSubmit, isLoading, isError, error } = useEntityForm({
-    queryKey: QUERY_KEYS.ADMINS,
+    queryKey: QUERY_KEYS.MANAGERS,
     defaultValues,
     isEdit,
     onSuccess,
     onError,
-    createFn: createAdmin,
-    updateFn: ({ id, data }) => updateAdmin(id, data),
-    buildDefaultValues: (values) => buildBaseUserDefaultValues(values),
-    entityName: 'admins',
+    createFn: createManager,
+    updateFn: ({ id, data }) => updateManager(id, data),
+    buildDefaultValues: (values) => ({
+      ...buildBaseUserDefaultValues(values),
+      role: values.role || '',
+    }),
+    entityName: 'managers',
     getItemName: (data) => {
-      const name = getAdminName(data);
-      return name !== 'N/A' ? name : 'Admin';
+      const name = getManagerName(data);
+      return name !== 'N/A' ? name : 'Manager';
     },
   });
 
   return {
+    roleOptions,
     formDefaultValues,
     handleSubmit,
     isLoading,

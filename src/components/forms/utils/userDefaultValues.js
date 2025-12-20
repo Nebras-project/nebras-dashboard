@@ -7,10 +7,10 @@
  * @returns {Object} default form values for common user fields
  */
 export const buildBaseUserDefaultValues = (values = {}) => ({
-  UserName: values.UserName || '',
-  Email: values.Email || '',
-  PhoneNumber: values.PhoneNumber || '',
-  Password: '',
-  ConfirmPassword: '',
-  UserProfile: values.UserProfile || null,
+  userName: values.userName || '',
+  email: values.email || '',
+  phoneNumber: values.phoneNumber || '',
+  password: '',
+  confirmPassword: '',
+  userProfile: values.userProfile || null,
 });

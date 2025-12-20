@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 
 // internal imports
 import { Card } from '@components';
-import { padding } from '@constants';
+import { padding, margin } from '@constants';
 import { fontWeights } from '@theme';
 import { useTranslation } from '@hooks';
 
@@ -17,6 +17,7 @@ const getContentStyles = () => ({
 
 const getDescriptionStyles = () => ({
   fontWeight: fontWeights.medium,
+  ...margin.top.sm,
 });
 
 function AccountActionsCard() {
@@ -33,6 +34,10 @@ function AccountActionsCard() {
       sx={{ backgroundColor: 'background.paper' }}
       contentSx={getContentStyles()}
     >
+      <Typography variant="body2" color="text.primary" sx={getDescriptionStyles()}>
+        {t('settings.editProfile')}
+      </Typography>
+
       <Typography variant="body2" color="text.primary" sx={getDescriptionStyles()}>
         {t('settings.logoutDescription')}
       </Typography>

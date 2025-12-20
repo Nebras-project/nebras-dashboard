@@ -6,6 +6,7 @@ export { default as TableProfileAvatar } from './components/TableProfileAvatar';
 export {
   buildColumns,
   buildAdminColumn,
+  buildManagerColumn,
   buildStudentColumns,
   buildQuestionColumns,
   buildCompetitionColumns,

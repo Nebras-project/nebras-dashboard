@@ -9,18 +9,16 @@ import useTranslation from '@i18n/hooks/useTranslation';
 import { useRole } from '@hooks';
 import { NAVIGATION_PATHS } from '@config';
 
-import createAdminColumns from '../utils/createAdminColumns.jsx';
-import { useDeleteAdmin, useAdmin } from '../hooks';
-import { getAdminName } from '../utils';
+import createManagerColumns from '../utils/createManagerColumns.jsx';
+import { useDeleteManager, useManager } from '../hooks';
+import { getManagerName } from '../utils';
 import { getTopTableStyles } from '@constants/layout';
 
-function AdminsTable({ customFilters = {}, onEdit }) {
+function ManagersTable({ customFilters = {}, onEdit }) {
   const { t } = useTranslation();
   const { isOwner, isGeneralAdmin } = useRole();
-  const { deleteAdmin } = useDeleteAdmin();
+  const { deleteManager } = useDeleteManager();
   const navigate = useNavigate();
-
-
 
   const {
     paginationModel,
@@ -30,14 +28,14 @@ function AdminsTable({ customFilters = {}, onEdit }) {
     queryString,
   } = useTable({ customFilters });
 
-  // Fetch admins data using the hook
-  const { admins, isLoading } = useAdmin({
+  // Fetch managers data using the hook
+  const { managers, isLoading } = useManager({
     queryString,
   });
 
   const columns = useMemo(
     () =>
-      createAdminColumns({
+      createManagerColumns({
         t,
         isOwner,
         isGeneralAdmin,
@@ -49,28 +47,28 @@ function AdminsTable({ customFilters = {}, onEdit }) {
             tooltip={t('common.actions')}
             actions={[
               {
-                label: t('admins.viewAdmin'),
+                label: t('managers.viewManager'),
                 icon: <Icon name="visibility" size={18} />,
-                onClick: () => navigate(NAVIGATION_PATHS.ADMINS.BY_ID(row.id)),
+                onClick: () => navigate(NAVIGATION_PATHS.MANAGERS.BY_ID(row.id)),
               },
               {
-                label: t('admins.editAdmin'),
+                label: t('managers.editManager'),
                 icon: <Icon name="edit" size={18} />,
                 onClick: () => onEdit?.(row),
               },
               <DeleteAction
                 key="delete"
                 row={row}
-                deleteFn={deleteAdmin}
-                getItemName={(admin) => getAdminName(admin)}
-                entityName="admins"
-                label={t('admins.deleteAdmin')}
+                deleteFn={deleteManager}
+                getItemName={(manager) => getManagerName(manager)}
+                entityName="managers"
+                label={t('managers.deleteManager')}
               />,
             ]}
           />
         ),
       }),
-    [t, isOwner, isGeneralAdmin, onEdit, navigate, deleteAdmin]
+    [t, isOwner, isGeneralAdmin, onEdit, navigate, deleteManager]
   );
 
   // Handle loading state
@@ -80,11 +78,10 @@ function AdminsTable({ customFilters = {}, onEdit }) {
 
   return (
     <Table
-      rows={admins || []}
+      rows={managers || []}
       columns={columns}
       disableRowSelectionOnClick
-      // checkRowSelection
-      rowCount={admins?.length || 0}
+      rowCount={managers?.length || 0}
       paginationModel={paginationModel}
       onPaginationModelChange={handlePaginationModelChange}
       sortModel={sortModel}
@@ -94,9 +91,9 @@ function AdminsTable({ customFilters = {}, onEdit }) {
   );
 }
 
-AdminsTable.propTypes = {
+ManagersTable.propTypes = {
   customFilters: PropTypes.object,
   onEdit: PropTypes.func,
 };
 
-export default AdminsTable;
+export default ManagersTable;

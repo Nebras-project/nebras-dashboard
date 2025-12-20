@@ -23,6 +23,12 @@ const StudentPage = lazy(() =>
 );
 const AdminsPage = lazy(() => import('@features/admins').then((m) => ({ default: m.AdminsPage })));
 const AdminPage = lazy(() => import('@features/admins').then((m) => ({ default: m.AdminPage })));
+const ManagersPage = lazy(() =>
+  import('@features/managers').then((m) => ({ default: m.ManagersPage }))
+);
+const ManagerPage = lazy(() =>
+  import('@features/managers').then((m) => ({ default: m.ManagerPage }))
+);
 
 // Competition Pages
 const CompetitionsPage = lazy(() =>
@@ -215,7 +221,7 @@ const routes = [
   {
     path: NAVIGATION_PATHS.ADMINS.BASE,
     element: (
-      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.OWNER_AND_ADMIN}>
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.OWNER_ONLY}>
         <AdminsPage />
       </AuthenticatedRoute>
     ),
@@ -223,8 +229,26 @@ const routes = [
   {
     path: NAVIGATION_PATHS.ADMINS.BY_ID(':id'),
     element: (
-      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.OWNER_AND_ADMIN}>
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.OWNER_ONLY}>
         <AdminPage />
+      </AuthenticatedRoute>
+    ),
+  },
+
+  // Protected Routes - Managers (Owner & General Admin only)
+  {
+    path: NAVIGATION_PATHS.MANAGERS.BASE,
+    element: (
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.OWNER_AND_ADMIN}>
+        <ManagersPage />
+      </AuthenticatedRoute>
+    ),
+  },
+  {
+    path: NAVIGATION_PATHS.MANAGERS.BY_ID(':id'),
+    element: (
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.OWNER_AND_ADMIN}>
+        <ManagerPage />
       </AuthenticatedRoute>
     ),
   },

@@ -15,14 +15,15 @@ Implement authentication system with role-based access control (RBAC) for all us
 - [✅] Auth Redux slice
 - [✅] Session management (HttpOnly cookies)
 - [✅] Logout functionality
-- [✅] Auth hooks (useAuth, useLogin, useLogout, useRole, useRefreshToken, useCurrentUser)
+- [✅] Auth hooks (useAuth, useLogin, useLogout, useRole, useRefreshToken, useCurrentUser, useAuthInit)
 - [✅] Axios interceptor with error handling
 - [✅] Automatic token refresh on 401 errors
 - [✅] Role normalization to camelCase
 - [✅] Auth API service (authApi)
 - [✅] Password reset hooks (useForgotPassword, usePasswordReset, useResetPassword)
 - [✅] Email verification hook (useVerifyEmail)
-- [ ] `/me` endpoint integration (pending backend)
+- [✅] Auth initialization on page reload (AuthInit component)
+- [✅] `/me` endpoint integration (pending backend)
 
 ---
 
@@ -62,6 +63,21 @@ Implement authentication system with role-based access control (RBAC) for all us
 
 - `src/store/slices/authSlice.js`
 
+### 2.1. Auth Initialization Component
+
+**Location:** `src/features/authentication/components/`
+
+**Files implemented:**
+
+- `src/features/authentication/components/AuthInit.jsx` - Component that initializes auth state on app load
+
+**Features:**
+
+- Automatically restores user authentication state on page reload
+- Uses `useAuthInit` hook to fetch current user data
+- Integrated at the root level in `App.jsx`
+- Ensures user data persists across page reloads
+
 **State:**
 
 ```javascript
@@ -79,10 +95,10 @@ Implement authentication system with role-based access control (RBAC) for all us
 
 **Actions implemented:**
 
-- ✅ `login` - Set all auth state properties from login response
+- ✅ `setUserData` - Set all auth state properties from login response
   - Normalizes role to camelCase automatically
   - Sets userId, email, userName, userProfile, role, accessToken, isEmailConfirmed
-- ✅ `logout` - Clear all auth state and persisted state
+- ✅ `clearUserData` - Clear all auth state and persisted state
   - Resets all properties to null/false
   - Clears persisted state from localStorage
 - ✅ `setAccessToken` - Update access token (used for token refresh)
@@ -156,6 +172,7 @@ Implement authentication system with role-based access control (RBAC) for all us
 - `src/features/authentication/hooks/useLogout.js` - Logout mutation hook
 - `src/features/authentication/hooks/useRefreshToken.js` - Token refresh mutation hook
 - `src/features/authentication/hooks/useCurrentUser.js` - Current user query hook
+- `src/features/authentication/hooks/useAuthInit.js` - Authentication initialization hook (for page reload)
 - `src/features/authentication/hooks/useVerifyEmail.js` - Email verification mutation hook
 - `src/features/authentication/hooks/useForgotPassword.js` - Forgot password mutation hook
 - `src/features/authentication/hooks/usePasswordReset.js` - Password reset mutation hook
@@ -189,8 +206,8 @@ const {
   accessToken,
   isEmailConfirmed,
   // Actions
-  login,
-  logout,
+  setUserData,
+  clearUserData,
   setAccessToken,
 } = useAuth();
 ```
@@ -267,6 +284,23 @@ const {
   refetch, // Manual refetch function
 } = useCurrentUser();
 ```
+
+**useAuthInit Hook API:**
+
+```javascript
+const {
+  isInitialized, // Whether initialization has completed
+} = useAuthInit({
+  enabled: true, // Whether to enable initialization (default: true)
+});
+```
+
+**Note:** This hook is typically used internally by the `AuthInit` component. It:
+
+- Refreshes the access token first (required for `/me` endpoint)
+- Fetches current user data from `/me` endpoint
+- Restores user data to Redux state on page reload
+- Silently handles errors (no error messages shown during initialization)
 
 ---
 
@@ -374,7 +408,7 @@ Content Manager (Level 1)
 3. Call login API (`POST /auth/login_manager`) via `useLogin` hook
 4. Backend returns user data and access token
 5. Role normalized to camelCase (e.g., "General Admin" → "generalAdmin")
-6. Dispatch `login` action with user data and access token
+6. Dispatch `setUserData` action with user data and access token
 7. Access token stored in Redux state (memory only)
 8. Show success toast notification
 9. Navigate to dashboard
@@ -399,7 +433,7 @@ Content Manager (Level 1)
 
 1. User clicks logout (via `useLogout` hook or `LogoutButton` component)
 2. Call logout API (`POST /auth/logout`) to invalidate cookies
-3. Dispatch `logout` action to clear Redux state
+3. Dispatch `clearUserData` action to clear Redux state
 4. Show success toast notification
 5. Navigate to login page
 
@@ -418,6 +452,19 @@ Content Manager (Level 1)
 4. If authenticated → check role-based access
 5. If role not allowed → redirect to `/access-denied`
 6. If role allowed → render protected content
+
+### Auth Initialization Flow (Page Reload)
+
+1. App loads and `AuthInit` component mounts
+2. `useAuthInit` hook checks if user is already authenticated
+3. If not authenticated:
+   - First, refresh access token using `useRefreshToken` hook (required for `/me` endpoint)
+   - If refresh succeeds, fetch current user data from `/me` endpoint
+   - Extract user data and normalize role to camelCase
+   - Dispatch `setUserData` action to restore Redux state
+   - Update React Query cache with user data
+4. If refresh fails or `/me` fails → silently fail (user remains unauthenticated)
+5. User data is now restored and persists across page reloads
 
 ### Token Refresh Flow
 
@@ -509,8 +556,7 @@ const mockUsers = [
 - [✅] Failed refresh logs out user
 - [✅] User avatar displays from userProfile
 - [✅] UserName displays correctly in header
-- [ ] `/me` endpoint integration (pending backend)
-- [ ] Remember me extends cookie expiration (pending backend)
+- [✅] `/me` endpoint integration (pending backend)
 
 ---
 
@@ -544,7 +590,7 @@ After completing Phase 2, proceed to **[Phase 3: Core Features](phase-3-core-fea
 
 ---
 
-**Last Updated:** 2025-01-27
+**Last Updated:** 2025-01-28
 
 **Current Status:**
 
@@ -555,5 +601,7 @@ After completing Phase 2, proceed to **[Phase 3: Core Features](phase-3-core-fea
 - ✅ Auth state structure updated (userId, email, userName, userProfile, role, accessToken, isEmailConfirmed)
 - ✅ Auth state removed from localStorage (security improvement)
 - ✅ Circular dependency resolved with separate axios instance
-- ⏳ Waiting for `/me` endpoint integration
+- ✅ Auth initialization on page reload implemented (AuthInit component + useAuthInit hook)
+- ✅ Action names updated (setUserData/clearUserData instead of login/logout)
+- ✅ Waiting for `/me` endpoint integration
 - 🔄 HttpOnly cookie-based session management ready

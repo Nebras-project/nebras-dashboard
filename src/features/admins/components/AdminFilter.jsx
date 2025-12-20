@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 
 // internal imports
 import { useTranslation } from '@hooks';
-import { TableFilterSearchBar, FilterSelect, FilterContent, Menu } from '@components';
+import { TableFilterSearchBar } from '@components';
 import { useAdminFilter } from '../hooks';
 import AdminFilterActions from './AdminFilterActions';
 
@@ -18,54 +18,24 @@ function AdminFilter({ onFilterChange, addButton }) {
   const { t } = useTranslation();
 
   // Filter state management - filters are sent to backend
-  const {
-    searchTerm,
-    role,
-    hasActiveFilters,
-    showFilters,
-    filterOptions,
-    setSearchTerm,
-    setRole,
-    handleClearFilters,
-    handleToggleFilters,
-  } = useAdminFilter(onFilterChange);
+  const { searchTerm, hasActiveFilters, setSearchTerm, handleClearFilters } =
+    useAdminFilter(onFilterChange);
 
   return (
     <Box>
-      <Menu id="admin-filter-menu">
-        {/* use the entire search bar as a menu trigger button */}
-        <TableFilterSearchBar
-          value={searchTerm}
-          onChange={setSearchTerm}
-          placeholder={t('admins.filter.searchPlaceholder')}
-          endActions={
-            <AdminFilterActions
-              showFilters={showFilters}
-              onToggleFilters={handleToggleFilters}
-              hasActiveFilters={hasActiveFilters}
-              onClearFilters={handleClearFilters}
-              addButton={addButton}
-              filterButtonWrapper={Menu.Trigger}
-            />
-          }
-          showClearButton={false}
-        />
-        <Menu.Content
-          minWidth={300}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-        >
-          <FilterContent>
-            <FilterSelect
-              label={t('admins.filter.role')}
-              value={role}
-              onChange={setRole}
-              options={filterOptions.roles}
-              allLabel={t('admins.filter.allRoles')}
-            />
-          </FilterContent>
-        </Menu.Content>
-      </Menu>
+      <TableFilterSearchBar
+        value={searchTerm}
+        onChange={setSearchTerm}
+        placeholder={t('admins.filter.searchPlaceholder')}
+        endActions={
+          <AdminFilterActions
+            hasActiveFilters={hasActiveFilters}
+            onClearFilters={handleClearFilters}
+            addButton={addButton}
+          />
+        }
+        showClearButton={false}
+      />
     </Box>
   );
 }

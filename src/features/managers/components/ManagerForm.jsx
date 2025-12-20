@@ -5,15 +5,15 @@ import PropTypes from 'prop-types';
 // internal imports
 import { UserFields, EntityForm } from '@components';
 import { useTranslation } from '@hooks';
-import { useAdminForm } from '../hooks';
+import { useManagerForm } from '../hooks';
 
 /**
- * AdminForm Component
+ * ManagerForm Component
  *
  * Single Responsibility: Thin wrapper around generic EntityForm
- * configured for admin users.
+ * configured for manager users.
  */
-const AdminForm = memo(function AdminForm({
+const ManagerForm = memo(function ManagerForm({
   mode = 'dialog',
   open,
   onClose,
@@ -30,17 +30,23 @@ const AdminForm = memo(function AdminForm({
       onClose={onClose}
       defaultValues={defaultValues}
       isEdit={isEdit}
-      titleAdd={t('admins.addAdmin')}
-      titleEdit={titleEdit || t('admins.editAdmin')}
-      useFormHook={useAdminForm}
-      renderFields={({ isEdit }) => (
-        <UserFields showPassword showRole={false} showProfileImage passwordRequired={!isEdit} />
+      titleAdd={t('managers.addManager')}
+      titleEdit={titleEdit || t('managers.editManager')}
+      useFormHook={useManagerForm}
+      renderFields={({ roleOptions, isEdit }) => (
+        <UserFields
+          showPassword
+          showRole
+          showProfileImage
+          roleOptions={roleOptions}
+          passwordRequired={!isEdit}
+        />
       )}
     />
   );
 });
 
-AdminForm.propTypes = {
+ManagerForm.propTypes = {
   mode: PropTypes.oneOf(['dialog', 'page']),
   open: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
@@ -49,6 +55,6 @@ AdminForm.propTypes = {
   titleEdit: PropTypes.string,
 };
 
-AdminForm.displayName = 'AdminForm';
+ManagerForm.displayName = 'ManagerForm';
 
-export default AdminForm;
+export default ManagerForm;
