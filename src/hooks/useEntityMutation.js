@@ -30,7 +30,6 @@ export const useEntityMutation = ({
   getItemName,
   onSuccess,
   onError,
-  getSuccessData,
 }) => {
   const { t } = useTranslation();
   const { success, error: showError } = useToast();
@@ -46,10 +45,9 @@ export const useEntityMutation = ({
       }
 
       // Get the item/data for toast message
-      const successData = getSuccessData ? getSuccessData(data, variables) : data;
       const itemName = getItemName
-        ? getItemName(successData)
-        : successData?.name || successData?.Name || 'Item';
+        ? getItemName(data, variables)
+        : data?.name || data?.Name || 'Item';
 
       // Show success toast
       success({

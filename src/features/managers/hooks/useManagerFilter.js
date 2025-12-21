@@ -24,15 +24,15 @@ export const useManagerFilter = (onFilterChange, debounceMs = 500) => {
   // Use debounced filter for all filters (search, role)
   const { filters, hasActiveFilters, updateFilter, clearAllFilters } = useDebouncedFilter(
     {
-      managerName: '',
-      role: '',
+      UserName: '',
+      Roles: '',
     },
     onFilterChange, // This will be called with cleaned params after debounce
     debounceMs
   );
 
-  const searchTerm = filters.managerName || '';
-  const role = filters.role || '';
+  const searchTerm = filters.UserName || '';
+  const role = filters.Roles || '';
 
   const filterOptions = useMemo(
     () => ({
@@ -42,8 +42,8 @@ export const useManagerFilter = (onFilterChange, debounceMs = 500) => {
   );
 
   // Convenience setters
-  const setSearchTerm = (value) => updateFilter('managerName', value);
-  const setRole = (value) => updateFilter('role', value);
+  const setSearchTerm = (value) => updateFilter('UserName', value);
+  const setRole = (value) => updateFilter('Roles', value);
 
   const handleClearFilters = () => {
     clearAllFilters();

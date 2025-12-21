@@ -36,9 +36,9 @@ export const useManagerForm = ({ defaultValues = {}, isEdit = false, onSuccess, 
       role: values.role || '',
     }),
     entityName: 'managers',
-    getItemName: (data) => {
-      const name = getManagerName(data);
-      return name !== 'N/A' ? name : 'Manager';
+    getItemName: (data, variables) => {
+      const nameFromVars = getManagerName(variables);
+      return nameFromVars && nameFromVars !== 'N/A' ? nameFromVars : 'المدير';
     },
   });
 

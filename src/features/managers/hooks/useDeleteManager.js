@@ -16,12 +16,12 @@ import { getManagerName } from '../utils';
  */
 export const useDeleteManager = ({ onSuccess, onError } = {}) => {
   const { deleteItem, deleteItemAsync, isLoading, isError, error } = useDelete({
-    deleteFn: (manager) => deleteManagerApi(manager.id),
+    deleteFn: (manager) => deleteManagerApi(manager.userId),
     queryKey: [QUERY_KEYS.MANAGERS],
     entityName: 'managers',
-    getItemName: (manager) => {
-      const name = getManagerName(manager);
-      return name !== 'N/A' ? name : 'Manager';
+    getItemName: (data, variables) => {
+      const nameFromVars = getManagerName(variables);
+      return nameFromVars && nameFromVars !== 'N/A' ? nameFromVars : 'المدير';
     },
     onSuccess,
     onError,

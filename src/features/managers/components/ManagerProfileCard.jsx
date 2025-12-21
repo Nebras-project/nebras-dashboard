@@ -1,12 +1,12 @@
 // external imports
-import { Box, Typography, Chip } from '@mui/material';
+import { Box} from '@mui/material';
 import PropTypes from 'prop-types';
 
 // internal imports
 import { Card, UserAvatar } from '@components';
 import { padding, margin } from '@constants';
-import { getManagerName, getManagerRole, getManagerProfileImage } from '../utils';
-import { useTranslation } from '@i18n/hooks/useTranslation';
+import { getManagerName, getManagerProfileImage } from '../utils';
+
 
 /**
  * ManagerProfileCard Component
@@ -14,9 +14,7 @@ import { useTranslation } from '@i18n/hooks/useTranslation';
  * Single Responsibility: Display manager profile information (avatar, name, role)
  */
 function ManagerProfileCard({ manager }) {
-  const { t } = useTranslation();
   const managerName = getManagerName(manager);
-  const managerRole = getManagerRole(manager, t);
 
   return (
     <Card sx={{ height: '100%' }}>
@@ -35,13 +33,10 @@ function ManagerProfileCard({ manager }) {
             name: managerName,
             profileImage: getManagerProfileImage(manager),
           }}
-          size="xlarge"
+          size={200}
           sx={{ ...margin.bottom.md }}
         />
-        <Typography variant="h5" fontWeight={600} sx={{ ...margin.bottom.xs }}>
-          {managerName}
-        </Typography>
-        <Chip label={managerRole} color="primary" size="small" />
+       
       </Box>
     </Card>
   );

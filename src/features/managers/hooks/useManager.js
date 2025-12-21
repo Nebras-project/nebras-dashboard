@@ -33,7 +33,8 @@ export const useManager = ({ id, queryString, params, enabled = true, onError } 
   // Return with manager-specific property names
   return {
     manager: id ? data : undefined,
-    managers: id ? undefined : data,
+    managers: id ? undefined : data?.data || [],
+    totalCount: data?.totalCount || 0,
     isLoading,
     isError,
     error,

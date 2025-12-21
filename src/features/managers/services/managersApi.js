@@ -14,7 +14,7 @@ import { createFormData } from '@utils';
  * FormData options for manager create/update operations
  */
 const MANAGER_FORM_DATA_OPTIONS = {
-  fileFields: 'userProfile',
+  fileFields: 'profileImage',
   excludeFields: ['confirmPassword'],
 };
 
@@ -53,19 +53,8 @@ export const fetchManagerById = async (id) => {
  * @returns {Promise} API response
  */
 export const createManager = async (managerData) => {
-  console.log('managerData', managerData);
-  // Check if there's a file to upload
-  const hasFile = managerData.userProfile instanceof File;
-
-  if (hasFile) {
-    // Use FormData when there's a file
-    const formData = createFormData(managerData, MANAGER_FORM_DATA_OPTIONS);
-    return await apiClient.post(API_ENDPOINTS.MANAGERS.BASE, formData);
-  } else {
-    // Send as JSON when there's no file (remove confirmPassword)
-    const { confirmPassword, ...dataWithoutConfirmPassword } = managerData;
-    return await apiClient.post(API_ENDPOINTS.MANAGERS.BASE, dataWithoutConfirmPassword);
-  }
+  const { confirmPassword, ...dataWithoutConfirmPassword } = managerData;
+  return await apiClient.post(API_ENDPOINTS.MANAGERS.BASE, dataWithoutConfirmPassword);
 };
 
 /**
@@ -76,16 +65,25 @@ export const createManager = async (managerData) => {
  */
 export const updateManager = async (id, managerData) => {
   // Check if there's a file to upload
-  const hasFile = managerData.userProfile instanceof File;
+  const hasFile = managerData.profileImage instanceof File;
 
   if (hasFile) {
     // Use FormData when there's a file
     const formData = createFormData(managerData, MANAGER_FORM_DATA_OPTIONS);
-    return await apiClient.put(API_ENDPOINTS.MANAGERS.BY_ID(id), formData);
+    return await apiClient.put(API_ENDPOINTS.MANAGERS.BY_ID(id), formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   } else {
     // Send as JSON when there's no file (remove confirmPassword)
     const { confirmPassword, ...dataWithoutConfirmPassword } = managerData;
-    return await apiClient.put(API_ENDPOINTS.MANAGERS.BY_ID(id), dataWithoutConfirmPassword);
+
+    return await apiClient.put(API_ENDPOINTS.MANAGERS.BY_ID(id), dataWithoutConfirmPassword, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   }
 };
 
@@ -102,7 +100,11 @@ export const patchManager = async (id, managerData) => {
   if (hasFile) {
     // Use FormData when there's a file
     const formData = createFormData(managerData, MANAGER_FORM_DATA_OPTIONS);
-    return await apiClient.patch(API_ENDPOINTS.MANAGERS.BY_ID(id), formData);
+    return await apiClient.patch(API_ENDPOINTS.MANAGERS.BY_ID(id), formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   } else {
     // Send as JSON when there's no file (remove confirmPassword)
     const { confirmPassword, ...dataWithoutConfirmPassword } = managerData;

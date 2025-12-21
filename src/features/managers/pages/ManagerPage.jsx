@@ -38,7 +38,7 @@ function ManagerPage() {
     <ManagerFormDialog showAddButton={false}>
       {({ onEdit }) => (
         <>
-          <PageLayout title={t('managers.managerDetails')} showBackButton={true}>
+          <PageLayout title={t('managers.managerDetails')} showBackButton={false}>
             <Grid container spacing={3} alignItems="stretch">
               {/* Profile Card */}
               <Grid item size={{ mobile: 12, desktop: 3 }}>

@@ -13,7 +13,7 @@ import { getRoleLabel } from '@utils/roleUtils';
  * @returns {string} Manager name or 'N/A' if not found
  */
 export const getManagerName = (manager) => {
-  return manager?.UserName || manager?.userName || manager?.name || 'N/A';
+  return  manager?.userName || 'N/A';
 };
 
 /**
@@ -22,7 +22,7 @@ export const getManagerName = (manager) => {
  * @returns {string} Manager email or 'N/A' if not found
  */
 export const getManagerEmail = (manager) => {
-  return manager?.Email || manager?.email || 'N/A';
+  return manager?.email || 'N/A';
 };
 
 /**
@@ -31,7 +31,7 @@ export const getManagerEmail = (manager) => {
  * @returns {string} Manager phone or 'N/A' if not found
  */
 export const getManagerPhone = (manager) => {
-  return manager?.Phone || manager?.PhoneNumber || manager?.phone || 'N/A';
+  return manager?.phoneNumber  || 'N/A';
 };
 
 /**
@@ -41,7 +41,7 @@ export const getManagerPhone = (manager) => {
  * @returns {string} Translated manager role or 'N/A' if not found
  */
 export const getManagerRole = (manager, t) => {
-  const role = manager?.Role || manager?.role;
+  const role =  manager?.role;
   if (!role) return 'N/A';
   return getRoleLabel(role, t) || 'N/A';
 };
@@ -52,7 +52,7 @@ export const getManagerRole = (manager, t) => {
  * @returns {string|null} Manager profile image URL or null if not found
  */
 export const getManagerProfileImage = (manager) => {
-  return manager?.UserProfile || null;
+  return manager?.profileImage || null;
 };
 
 /**
@@ -64,7 +64,7 @@ export const normalizeManager = (manager) => {
   if (!manager) return null;
 
   return {
-    id: manager.id,
+    id: manager.userId,
     name: getManagerName(manager),
     email: getManagerEmail(manager),
     phone: getManagerPhone(manager),

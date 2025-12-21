@@ -23,7 +23,7 @@ export const useLogin = (options = {}) => {
     onSuccess: (response) => {
       // Extract user data from response
       const responseData = response?.data || response || {};
-      const { userId, email, userName, userProfile, role, accessToken, isEmailConfirmed } =
+      const { userId, email, userName, profileImage, phoneNumber, role, accessToken, isEmailConfirmed } =
         responseData;
 
       // Only update auth state if we have required fields
@@ -35,7 +35,8 @@ export const useLogin = (options = {}) => {
           userId,
           email,
           userName,
-          userProfile,
+          profileImage,
+          phoneNumber,
           role: normalizedRole,
           accessToken,
           isEmailConfirmed: isEmailConfirmed ?? false,

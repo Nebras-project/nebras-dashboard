@@ -1,6 +1,6 @@
 function applyPaginationParams(params, paginationModel) {
-  params.set('page', String(paginationModel.page + 1));
-  params.set('limit', String(paginationModel.pageSize));
+  params.set('PageNumber', String(paginationModel.page + 1));
+  params.set('PageSize', String(paginationModel.pageSize));
 }
 
 function applySortParams(params, sortModel) {

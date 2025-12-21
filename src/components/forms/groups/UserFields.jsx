@@ -147,7 +147,7 @@ const UserFields = memo(function UserFields({
       {/* Image - Show only in edit mode */}
       {isEdit && (
         <Grid item size={12}>
-          <Form.ImageInput name="userProfile" label={t('forms.profileImage')} />
+          <Form.ImageInput name="profileImage" label={t('forms.profileImage')} />
         </Grid>
       )}
     </Grid>

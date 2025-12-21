@@ -83,7 +83,7 @@ export const useEntityForm = ({
 
       if (isEdit) {
         updateItem({
-          id: defaultValues.id,
+          id: defaultValues.userId,
           data: submitData,
         });
       } else {

@@ -29,7 +29,7 @@ function ManagersTable({ customFilters = {}, onEdit }) {
   } = useTable({ customFilters });
 
   // Fetch managers data using the hook
-  const { managers, isLoading } = useManager({
+  const { managers, totalCount, isLoading } = useManager({
     queryString,
   });
 
@@ -49,7 +49,7 @@ function ManagersTable({ customFilters = {}, onEdit }) {
               {
                 label: t('managers.viewManager'),
                 icon: <Icon name="visibility" size={18} />,
-                onClick: () => navigate(NAVIGATION_PATHS.MANAGERS.BY_ID(row.id)),
+                onClick: () => navigate(NAVIGATION_PATHS.MANAGERS.BY_ID(row.userId)),
               },
               {
                 label: t('managers.editManager'),
@@ -81,12 +81,13 @@ function ManagersTable({ customFilters = {}, onEdit }) {
       rows={managers || []}
       columns={columns}
       disableRowSelectionOnClick
-      rowCount={managers?.length || 0}
+      rowCount={totalCount || 0}
       paginationModel={paginationModel}
       onPaginationModelChange={handlePaginationModelChange}
       sortModel={sortModel}
       onSortModelChange={handleSortModelChange}
       sx={getTopTableStyles()}
+      getRowId={(row) => row.id || row.email || Math.random()}
     />
   );
 }

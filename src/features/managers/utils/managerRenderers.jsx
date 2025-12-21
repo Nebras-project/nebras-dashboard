@@ -20,11 +20,7 @@ function RoleChip({ value, t }) {
     <Chip
       label={t ? getRoleLabel(value, t) : value}
       size="small"
-      color={
-        ['Curriculum Manager', 'Competition Manager', 'Content Manager'].includes(value)
-          ? 'primary'
-          : 'default'
-      }
+      color='primary'
       variant={isDark ? 'outlined' : 'filled'}
     />
   );

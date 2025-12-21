@@ -17,6 +17,7 @@ const PROTECTED_ROUTES = [
   '/managers',
   '/questions',
   '/settings',
+  '/access-denied',
 ];
 
 /**
@@ -25,18 +26,18 @@ const PROTECTED_ROUTES = [
  * @type {RegExp[]}
  */
 const PROTECTED_ROUTE_PATTERNS = [
-  /^\/admins\/\d+$/, // /admins/:id - Admin details page
-  /^\/managers\/\d+$/, // /managers/:id - Manager details page
-  /^\/students\/\d+$/, // /students/:id - Student details page
-  /^\/competitions\/\d+$/, // /competitions/:id - Competition details page
-  /^\/competitions\/\d+\/members$/, // /competitions/:id/members - Competition members page
-  /^\/competitions\/\d+\/exam$/, // /competitions/:id/exam - Competition exam page
-  /^\/competitions\/\d+\/result$/, // /competitions/:id/result - Competition result page
-  /^\/curriculums\/\d+$/, // /curriculums/:id - Curriculum details page
-  /^\/curriculums\/\d+\/subjects\/\d+$/, // /curriculums/:curriculumId/subjects/:subjectId - Subject details page
-  /^\/curriculums\/\d+\/subjects\/\d+\/units\/\d+$/, // /curriculums/:curriculumId/subjects/:subjectId/units/:unitId - Unit details page
-  /^\/curriculums\/\d+\/subjects\/\d+\/units\/\d+\/lessons\/\d+$/, // /curriculums/:curriculumId/subjects/:subjectId/units/:unitId/lessons/:lessonId - Lesson details page
-  /^\/questions\/\d+$/, // /questions/:id - Question details page
+  /^\/admins\/[^/]+$/, // /admins/:id - Admin details page
+  /^\/managers\/[^/]+$/, // /managers/:id - Manager details page
+  /^\/students\/[^/]+$/, // /students/:id - Student details page
+  /^\/competitions\/[^/]+$/, // /competitions/:id - Competition details page
+  /^\/competitions\/[^/]+\/members$/, // /competitions/:id/members - Competition members page
+  /^\/competitions\/[^/]+\/exam$/, // /competitions/:id/exam - Competition exam page
+  /^\/competitions\/[^/]+\/result$/, // /competitions/:id/result - Competition result page
+  /^\/curriculums\/[^/]+$/, // /curriculums/:id - Curriculum details page
+  /^\/curriculums\/[^/]+\/subjects\/[^/]+$/, // /curriculums/:curriculumId/subjects/:subjectId - Subject details page
+  /^\/curriculums\/[^/]+\/subjects\/[^/]+\/units\/[^/]+$/, // /curriculums/:curriculumId/subjects/:subjectId/units/:unitId - Unit details page
+  /^\/curriculums\/[^/]+\/subjects\/[^/]+\/units\/[^/]+\/lessons\/[^/]+$/, // /curriculums/:curriculumId/subjects/:subjectId/units/:unitId/lessons/:lessonId - Lesson details page
+  /^\/questions\/[^/]+$/, // /questions/:id - Question details page
 ];
 
 /**

@@ -72,6 +72,13 @@ apiClient.interceptors.response.use(
     const originalRequest = error?.config;
     const status = error?.response?.status;
 
+    // Handle 403 Forbidden - redirect to Access Denied page
+    if (status === HTTP_STATUS.FORBIDDEN) {
+      // Optionally we could clear some sensitive state here if needed
+      window.location.href = NAVIGATION_PATHS.ACCESS_DENIED;
+      return Promise.reject(error);
+    }
+
     // Handle 401 Unauthorized - Try to refresh token
     if (status === HTTP_STATUS.UNAUTHORIZED && originalRequest && !originalRequest._retry) {
       // Prevent infinite loop - don't retry if already retried or if it's a login/refresh request
