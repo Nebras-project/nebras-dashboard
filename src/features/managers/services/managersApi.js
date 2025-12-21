@@ -53,8 +53,19 @@ export const fetchManagerById = async (id) => {
  * @returns {Promise} API response
  */
 export const createManager = async (managerData) => {
-  const formData = createFormData(managerData, MANAGER_FORM_DATA_OPTIONS);
-  return await apiClient.post(API_ENDPOINTS.MANAGERS.BASE, formData);
+  console.log('managerData', managerData);
+  // Check if there's a file to upload
+  const hasFile = managerData.userProfile instanceof File;
+
+  if (hasFile) {
+    // Use FormData when there's a file
+    const formData = createFormData(managerData, MANAGER_FORM_DATA_OPTIONS);
+    return await apiClient.post(API_ENDPOINTS.MANAGERS.BASE, formData);
+  } else {
+    // Send as JSON when there's no file (remove confirmPassword)
+    const { confirmPassword, ...dataWithoutConfirmPassword } = managerData;
+    return await apiClient.post(API_ENDPOINTS.MANAGERS.BASE, dataWithoutConfirmPassword);
+  }
 };
 
 /**
@@ -64,8 +75,18 @@ export const createManager = async (managerData) => {
  * @returns {Promise} API response
  */
 export const updateManager = async (id, managerData) => {
-  const formData = createFormData(managerData, MANAGER_FORM_DATA_OPTIONS);
-  return await apiClient.put(API_ENDPOINTS.MANAGERS.BY_ID(id), formData);
+  // Check if there's a file to upload
+  const hasFile = managerData.userProfile instanceof File;
+
+  if (hasFile) {
+    // Use FormData when there's a file
+    const formData = createFormData(managerData, MANAGER_FORM_DATA_OPTIONS);
+    return await apiClient.put(API_ENDPOINTS.MANAGERS.BY_ID(id), formData);
+  } else {
+    // Send as JSON when there's no file (remove confirmPassword)
+    const { confirmPassword, ...dataWithoutConfirmPassword } = managerData;
+    return await apiClient.put(API_ENDPOINTS.MANAGERS.BY_ID(id), dataWithoutConfirmPassword);
+  }
 };
 
 /**
@@ -75,8 +96,18 @@ export const updateManager = async (id, managerData) => {
  * @returns {Promise} API response
  */
 export const patchManager = async (id, managerData) => {
-  const formData = createFormData(managerData, MANAGER_FORM_DATA_OPTIONS);
-  return await apiClient.patch(API_ENDPOINTS.MANAGERS.BY_ID(id), formData);
+  // Check if there's a file to upload
+  const hasFile = managerData.userProfile instanceof File;
+
+  if (hasFile) {
+    // Use FormData when there's a file
+    const formData = createFormData(managerData, MANAGER_FORM_DATA_OPTIONS);
+    return await apiClient.patch(API_ENDPOINTS.MANAGERS.BY_ID(id), formData);
+  } else {
+    // Send as JSON when there's no file (remove confirmPassword)
+    const { confirmPassword, ...dataWithoutConfirmPassword } = managerData;
+    return await apiClient.patch(API_ENDPOINTS.MANAGERS.BY_ID(id), dataWithoutConfirmPassword);
+  }
 };
 
 /**

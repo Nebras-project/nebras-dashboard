@@ -2,7 +2,7 @@
 import { Icon } from '@components';
 
 // internal imports
-import { ProfileTab, PreferencesTab } from './components';
+import { ProfileTab, PreferencesTab } from '../components';
 
 export const getSettingsTabs = (t) => [
   {

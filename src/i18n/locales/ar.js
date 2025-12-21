@@ -604,6 +604,8 @@ const ar = {
     userName: 'اسم المستخدم',
     email: 'البريد الإلكتروني',
     emailConfirmed: 'البريد الإلكتروني مؤكد',
+    verifyEmail: 'تأكيد البريد الإلكتروني',
+    sendVerificationEmail: 'إرسال بريد التحقق',
     phoneNumber: 'رقم الهاتف',
     role: 'الدور',
     class: 'المرحلة الدراسية',

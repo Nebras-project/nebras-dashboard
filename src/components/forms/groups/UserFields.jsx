@@ -1,7 +1,8 @@
 // external imports
 import { memo } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, useTheme } from '@mui/material';
+import { Grid, Stack, useTheme } from '@mui/material';
+import { useWatch } from 'react-hook-form';
 
 // internal imports
 import { Form } from '@components';
@@ -25,10 +26,15 @@ const UserFields = memo(function UserFields({
   curriculumOptions = [],
   passwordRequired = true,
   phoneRequired = true,
+  isEdit = false,
 }) {
   const { t } = useTranslation();
   const theme = useTheme();
   const { mode } = useReduxTheme();
+
+  // Watch verifyEmail to conditionally show sendVerificationEmail
+  const verifyEmail = useWatch({ name: 'verifyEmail' });
+
   // Grid item props for responsive layout
   // mobile (0-767px): full width (12 columns) - single column
   // tablet (768-1023px): full width (12 columns) - single column
@@ -97,7 +103,7 @@ const UserFields = memo(function UserFields({
       {/* Password Fields - Show when showPassword is true (both create and edit modes) */}
       {showPassword && (
         <>
-          <Grid item  size={{mobile: 12, desktop: passwordRequired ? 6 : 12}}>
+          <Grid item size={{ mobile: 12, desktop: passwordRequired ? 6 : 12 }}>
             <Form.PasswordInput required={passwordRequired} />
           </Grid>
 
@@ -114,24 +120,36 @@ const UserFields = memo(function UserFields({
         </>
       )}
 
-      {/* Email Confirmed Checkbox */}
-      <Grid
-        item
-        size={12}
-        sx={{
-          border: `1px solid ${borderColors[mode]}`,
-          ...padding.y.sm,
-          ...padding.x.md,
-          borderRadius: borderRadius.xxs,
-        }}
-      >
-        <Form.CheckboxInput name="isEmailConfirmed" label={t('forms.emailConfirmed')} />
-      </Grid>
+      {/* Email Confirmed Checkbox - Show only in create mode */}
+      {!isEdit && (
+        <Grid
+          item
+          size={12}
+          sx={{
+            border: `1px solid ${borderColors[mode]}`,
+            ...padding.y.sm,
+            ...padding.x.md,
+            borderRadius: borderRadius.xxs,
+          }}
+        >
+          <Stack spacing={1}>
+            <Form.CheckboxInput name="verifyEmail" label={t('forms.verifyEmail')} />
+            {!verifyEmail && (
+              <Form.CheckboxInput
+                name="sendVerificationEmail"
+                label={t('forms.sendVerificationEmail')}
+              />
+            )}
+          </Stack>
+        </Grid>
+      )}
 
-      {/* Image */}
-      <Grid item size={12}>
-        <Form.ImageInput name="userProfile" label={t('forms.profileImage')} />
-      </Grid>
+      {/* Image - Show only in edit mode */}
+      {isEdit && (
+        <Grid item size={12}>
+          <Form.ImageInput name="userProfile" label={t('forms.profileImage')} />
+        </Grid>
+      )}
     </Grid>
   );
 });
@@ -154,6 +172,7 @@ UserFields.propTypes = {
   ),
   passwordRequired: PropTypes.bool,
   phoneRequired: PropTypes.bool,
+  isEdit: PropTypes.bool,
 };
 
 UserFields.displayName = 'UserFields';

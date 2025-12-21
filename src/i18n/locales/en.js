@@ -557,6 +557,8 @@ const en = {
     userName: 'User Name',
     email: 'Email',
     emailConfirmed: 'Email Confirmed',
+    verifyEmail: 'Verify Email',
+    sendVerificationEmail: 'Send Verification Email',
     phoneNumber: 'Phone Number',
     role: 'Role',
     class: 'Class',

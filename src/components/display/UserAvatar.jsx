@@ -90,13 +90,11 @@ function UserAvatar({
           userName: userName,
           email: email,
           role: role,
-          profileImage: userProfile,
-          avatar: userProfile,
           userProfile: userProfile,
         }
       : null);
 
-  const displayName = typeof user === 'string' ? user : user?.name || user?.userName;
+  const displayName = typeof user === 'string' ? user :  user?.userName;
   const ariaLabel = displayName ? `${displayName} avatar` : 'User avatar';
   const userImage = getUserImage(user);
   const hasImage = !!userImage;

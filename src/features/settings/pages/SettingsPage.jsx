@@ -7,7 +7,7 @@ import { PageLayout } from '@components';
 import { useTranslation } from '@hooks';
 import { borderWidth } from '@theme/components';
 import { TabPanel, SettingsTabsHeader } from '../components';
-import { getSettingsTabs } from '../settingsConfig';
+import { getSettingsTabs } from '../utils/settingsConfig';
 
 function SettingsPage() {
   const { t } = useTranslation();

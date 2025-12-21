@@ -247,9 +247,16 @@ export const getConfirmPasswordRules = (
     ? t('validation.required', { field: label || t('forms.confirmPassword') })
     : false,
   validate: (value, formValues) => {
-    if (passwordRequired && value !== formValues[passwordFieldName]) {
+    // If password is not required and confirm password is empty, it's valid
+    if (!passwordRequired && (!value || value.trim() === '')) {
+      return true;
+    }
+
+    // If confirm password has a value, it must match the password field
+    if (value && value !== formValues[passwordFieldName]) {
       return t('validation.passwordsDoNotMatch');
     }
+
     return true;
   },
 });

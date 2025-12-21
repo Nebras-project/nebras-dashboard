@@ -20,7 +20,7 @@ const ConfirmPasswordInput = memo(function ConfirmPasswordInput({
   autoComplete = 'new-password',
   showVisibilityToggle = true,
   passwordRequired = true,
-  passwordFieldName = 'Password',
+  passwordFieldName = 'password',
   ...passwordInputProps
 }) {
   const { t } = useTranslation();

@@ -14,8 +14,8 @@ import { createFormData } from '@utils';
  * FormData options for admin create/update operations
  */
 const ADMIN_FORM_DATA_OPTIONS = {
-  fileFields: 'UserProfile',
-  excludeFields: ['ConfirmPassword'],
+  fileFields: 'userProfile',
+  excludeFields: ['confirmPassword'],
 };
 
 /**

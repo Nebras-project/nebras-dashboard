@@ -34,7 +34,7 @@ const AdminForm = memo(function AdminForm({
       titleEdit={titleEdit || t('admins.editAdmin')}
       useFormHook={useAdminForm}
       renderFields={({ isEdit }) => (
-        <UserFields showPassword showRole={false} showProfileImage passwordRequired={!isEdit} />
+        <UserFields showPassword showRole={false} passwordRequired={!isEdit} isEdit={isEdit} />
       )}
     />
   );

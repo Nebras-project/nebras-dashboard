@@ -6,6 +6,7 @@ const initialState = {
   userId: null,
   email: null,
   userName: null,
+  phoneNumber: null,
   userProfile: null,
   role: null,
   isAuthenticated: false,
@@ -18,11 +19,12 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUserData: (state, action) => {
-      const { userId, email, userName, userProfile, role, accessToken, isEmailConfirmed } =
+      const { userId, email, userName, phoneNumber, userProfile, role, accessToken, isEmailConfirmed } =
         action.payload;
       state.userId = userId;
       state.email = email;
       state.userName = userName;
+      state.phoneNumber = phoneNumber;
       state.userProfile = userProfile;
       // Convert role to camelCase when storing
       state.role = role ? toCamelCase(role) : null;
@@ -34,6 +36,7 @@ const authSlice = createSlice({
       state.userId = null;
       state.email = null;
       state.userName = null;
+      state.phoneNumber = null;
       state.userProfile = null;
       state.role = null;
       state.isAuthenticated = false;

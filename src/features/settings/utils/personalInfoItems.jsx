@@ -8,9 +8,10 @@ import { Icon } from '@components';
  * @param {Function} t - Translation function
  * @param {string} userName - User name
  * @param {string} email - User email
+ * @param {string} [phoneNumber] - User phone number (optional)
  * @returns {Array} Array of info items configuration
  */
-export const getPersonalInfoItems = (t, userName, email) => {
+export const getPersonalInfoItems = (t, userName, email, phoneNumber) => {
   return [
     {
       icon: <Icon name="person" size={20} />,
@@ -27,7 +28,7 @@ export const getPersonalInfoItems = (t, userName, email) => {
     {
       icon: <Icon name="phone" size={20} />,
       label: t('common.phone'),
-      value: '-',
+      value: phoneNumber || '-',
       color: baseColors.green400,
     },
   ];

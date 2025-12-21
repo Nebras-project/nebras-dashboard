@@ -70,13 +70,11 @@ export const navigationItems = {
   curriculumManager: [
     menuItems.dashboard,
     menuItems.curriculums,
-    menuItems.questions,
     menuItems.settings,
   ],
   competitionManager: [
     menuItems.dashboard,
     menuItems.competitions,
-    menuItems.students,
     menuItems.settings,
   ],
   contentManager: [menuItems.dashboard, menuItems.questions, menuItems.settings],

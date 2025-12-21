@@ -50,7 +50,7 @@ export const useEntityForm = ({
     entityName,
     getItemName,
     onSuccess: (data) => onSuccess?.(data, 'create'),
-    onError: (error, data) => onError?.(error, 'create'),
+    onError: (error, _data) => onError?.(error, 'create'),
   });
 
   const { updateItem, isLoading: isUpdating } = useUpdate({
@@ -59,15 +59,26 @@ export const useEntityForm = ({
     entityName,
     getItemName,
     onSuccess: (data) => onSuccess?.(data, 'update'),
-    onError: (error, data) => onError?.(error, 'update'),
+    onError: (error, _data) => onError?.(error, 'update'),
   });
 
   const handleSubmit = useCallback(
     (formData) => {
-      const { ConfirmPassword, ...submitData } = formData;
+      const { confirmPassword, ...submitData } = formData;
 
-      if (isEdit && !submitData.Password) {
-        delete submitData.Password;
+      // Remove spaces from phone number before sending (spaces are only for display)
+      if (submitData.phoneNumber && typeof submitData.phoneNumber === 'string') {
+        submitData.phoneNumber = submitData.phoneNumber.replace(/\s/g, '');
+      }
+
+      // If email is verified, don't send sendVerificationEmail
+      if (submitData.verifyEmail) {
+        delete submitData.sendVerificationEmail;
+      }
+
+      // In edit mode, if password is empty, remove it from submit data
+      if (isEdit && !submitData.password) {
+        delete submitData.password;
       }
 
       if (isEdit) {
@@ -90,4 +101,3 @@ export const useEntityForm = ({
     error: null,
   };
 };
-

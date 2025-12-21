@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 // internal imports
 import { useTranslation, useToast } from '@hooks';
-import { formatErrorMessage } from '@utils';
+import { getErrorMessage } from '@utils';
 
 /**
  * useEntityMutation Hook
@@ -64,20 +64,16 @@ export const useEntityMutation = ({
       }
     },
     onError: (error, variables) => {
-      // Get the item/data for error message
-      const errorData = variables;
-      const itemName = getItemName
-        ? getItemName(errorData)
-        : errorData?.name || errorData?.Name || 'Item';
+      // Get error message directly from API
+      const apiErrorMessage = getErrorMessage(error);
 
-      // Generic error message
-      const genericMessage = t(`${entityName}.${action}ErrorMessage`, {
-        name: itemName,
-        action,
-      });
-
-      // Format message with API error details if available
-      const errorMessage = formatErrorMessage(genericMessage, error);
+      // If API provides an error message, use it; otherwise use generic message
+      const errorMessage =
+        apiErrorMessage ||
+        t(`${entityName}.${action}ErrorMessage`, {
+          name: getItemName ? getItemName(variables) : 'Item',
+          action,
+        });
 
       // Show error toast
       showError({

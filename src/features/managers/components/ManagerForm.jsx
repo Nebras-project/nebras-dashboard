@@ -37,9 +37,9 @@ const ManagerForm = memo(function ManagerForm({
         <UserFields
           showPassword
           showRole
-          showProfileImage
           roleOptions={roleOptions}
           passwordRequired={!isEdit}
+          isEdit={isEdit}
         />
       )}
     />

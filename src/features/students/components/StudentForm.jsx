@@ -40,10 +40,10 @@ const StudentForm = memo(function StudentForm({
         <UserFields
           showPassword
           showCurriculum
-          showProfileImage
           curriculumOptions={curriculumOptions}
           phoneRequired={false}
           passwordRequired={!isEdit}
+          isEdit={isEdit}
         />
       )}
     />
