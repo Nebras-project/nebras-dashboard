@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
 import { ActionsMenu, DeleteAction } from '@components';
-import Table, { useTable } from '@components/table';
+import Table, { useTable, useEffectiveRowCount } from '@components/table';
 import Icon from '@components/display/Icon';
 import useTranslation from '@i18n/hooks/useTranslation';
 import { useRole } from '@hooks';
@@ -32,6 +32,9 @@ function ManagersTable({ customFilters = {}, onEdit }) {
   const { managers, totalCount, isLoading } = useManager({
     queryString,
   });
+
+  // Calculate effective row count for pagination (filtered vs total)
+  const rowCount = useEffectiveRowCount(customFilters, managers?.length || 0, totalCount || 0);
 
   const columns = useMemo(
     () =>
@@ -81,13 +84,14 @@ function ManagersTable({ customFilters = {}, onEdit }) {
       rows={managers || []}
       columns={columns}
       disableRowSelectionOnClick
-      rowCount={totalCount || 0}
+      rowCount={rowCount}
       paginationModel={paginationModel}
       onPaginationModelChange={handlePaginationModelChange}
       sortModel={sortModel}
       onSortModelChange={handleSortModelChange}
       sx={getTopTableStyles()}
       getRowId={(row) => row.id || row.email || Math.random()}
+      loading={isLoading}
     />
   );
 }
