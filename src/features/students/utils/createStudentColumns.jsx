@@ -16,7 +16,7 @@ const STUDENT_COLUMN_DEFINITIONS = {
     filterable: false,
     sortable: false,
   },
-  curriculum: {
+  grade: {
     filterable: false,
     sortable: false,
     field: 'Grade',

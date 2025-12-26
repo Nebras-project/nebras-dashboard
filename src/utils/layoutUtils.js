@@ -12,7 +12,7 @@ const PROTECTED_ROUTES = [
   '/dashboard',
   '/students',
   '/competitions',
-  '/curriculums',
+  '/grades',
   '/admins',
   '/managers',
   '/questions',
@@ -33,10 +33,10 @@ const PROTECTED_ROUTE_PATTERNS = [
   /^\/competitions\/[^/]+\/members$/, // /competitions/:id/members - Competition members page
   /^\/competitions\/[^/]+\/exam$/, // /competitions/:id/exam - Competition exam page
   /^\/competitions\/[^/]+\/result$/, // /competitions/:id/result - Competition result page
-  /^\/curriculums\/[^/]+$/, // /curriculums/:id - Curriculum details page
-  /^\/curriculums\/[^/]+\/subjects\/[^/]+$/, // /curriculums/:curriculumId/subjects/:subjectId - Subject details page
-  /^\/curriculums\/[^/]+\/subjects\/[^/]+\/units\/[^/]+$/, // /curriculums/:curriculumId/subjects/:subjectId/units/:unitId - Unit details page
-  /^\/curriculums\/[^/]+\/subjects\/[^/]+\/units\/[^/]+\/lessons\/[^/]+$/, // /curriculums/:curriculumId/subjects/:subjectId/units/:unitId/lessons/:lessonId - Lesson details page
+  /^\/grades\/[^/]+$/, // /grades/:id - Grade details page
+  /^\/grades\/[^/]+\/subjects\/[^/]+$/, // /grades/:gradeId/subjects/:subjectId - Subject details page
+  /^\/grades\/[^/]+\/subjects\/[^/]+\/units\/[^/]+$/, // /grades/:gradeId/subjects/:subjectId/units/:unitId - Unit details page
+  /^\/grades\/[^/]+\/subjects\/[^/]+\/units\/[^/]+\/lessons\/[^/]+$/, // /grades/:gradeId/subjects/:subjectId/units/:unitId/lessons/:lessonId - Lesson details page
   /^\/questions\/[^/]+$/, // /questions/:id - Question details page
 ];
 

@@ -7,7 +7,7 @@ import { useTranslation, useReduxTheme } from '@hooks';
 import { customBackgrounds } from '@theme/colors';
 import { padding } from '@constants';
 import { borderRadius } from '@theme/components';
-import CurriculumCardStatItem from './CurriculumCardStatItem';
+import GradeCardStatItem from './GradeCardStatItem';
 
 /**
  * Get styles for the statistics container
@@ -26,31 +26,27 @@ const getStatisticsContainerStyles = (mode, isDark) => ({
 });
 
 /**
- * CurriculumCardStatistics Component
+ * GradeCardStatistics Component
  *
- * Single Responsibility: Display curriculum statistics (lessons, units, students)
+ * Single Responsibility: Display grade statistics (lessons, units, students)
  */
-function CurriculumCardStatistics({ lessonsCount, unitsCount, studentsCount }) {
+function GradeCardStatistics({ lessonsCount, unitsCount, studentsCount }) {
   const { t } = useTranslation();
   const { mode, isDark } = useReduxTheme();
 
   return (
     <Box sx={getStatisticsContainerStyles(mode, isDark)}>
-      <CurriculumCardStatItem icon="book" value={lessonsCount} label={t('curriculum.lessons')} />
-      <CurriculumCardStatItem
-        icon="libraryBooks"
-        value={unitsCount}
-        label={t('curriculum.units')}
-      />
-      <CurriculumCardStatItem icon="groups" value={studentsCount} label={t('students.students')} />
+      <GradeCardStatItem icon="book" value={lessonsCount} label={t('grade.lessons')} />
+      <GradeCardStatItem icon="libraryBooks" value={unitsCount} label={t('grade.units')} />
+      <GradeCardStatItem icon="groups" value={studentsCount} label={t('students.students')} />
     </Box>
   );
 }
 
-CurriculumCardStatistics.propTypes = {
+GradeCardStatistics.propTypes = {
   lessonsCount: PropTypes.number,
   unitsCount: PropTypes.number,
   studentsCount: PropTypes.number,
 };
 
-export default CurriculumCardStatistics;
+export default GradeCardStatistics;

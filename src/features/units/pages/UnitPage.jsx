@@ -9,11 +9,11 @@ import { useTranslation } from '@hooks';
 /**
  * UnitPage Component
  *
- * Single Responsibility: Display unit details page within curriculum/subject context
+ * Single Responsibility: Display unit details page within grade/subject context
  */
 function UnitPage() {
   const { t } = useTranslation();
-  const { curriculumId, subjectId, unitId } = useParams();
+  const { gradeId, subjectId, unitId } = useParams();
 
   // TODO: Implement unit data fetching
   const isLoading = false;
@@ -21,7 +21,7 @@ function UnitPage() {
 
   if (isLoading) {
     return (
-      <PageLayout title={t('curriculum.unitDetails')} showBackButton>
+      <PageLayout title={t('grade.viewUnit')} showBackButton>
         <Loader />
       </PageLayout>
     );
@@ -29,10 +29,10 @@ function UnitPage() {
 
   if (!unit) {
     return (
-      <PageLayout title={t('curriculum.unitDetails')} showBackButton>
+      <PageLayout title={t('grade.viewUnit')} showBackButton>
         <Message
-          title={t('curriculum.unitNotFound')}
-          content={t('curriculum.unitNotFoundDescription')}
+          title={t('grade.viewUnit')}
+          content={`Unit not found`}
           icon="error"
           variant="error"
         />
@@ -42,8 +42,8 @@ function UnitPage() {
 
   return (
     <PageLayout
-      title={t('curriculum.viewUnit')}
-      description={`Curriculum: ${curriculumId}, Subject: ${subjectId}, Unit: ${unitId}`}
+      title={t('grade.viewUnit')}
+      description={`Grade: ${gradeId}, Subject: ${subjectId}, Unit: ${unitId}`}
       showBackButton
     >
       <Container maxWidth="lg" sx={{ py: 4 }}>
@@ -52,7 +52,7 @@ function UnitPage() {
             Unit page content coming soon
           </Typography>
           <Typography variant="caption" sx={{ mt: 2, display: 'block' }}>
-            Curriculum ID: {curriculumId}, Subject ID: {subjectId}, Unit ID: {unitId}
+            Grade ID: {gradeId}, Subject ID: {subjectId}, Unit ID: {unitId}
           </Typography>
         </Box>
       </Container>
@@ -61,4 +61,3 @@ function UnitPage() {
 }
 
 export default UnitPage;
-

@@ -11,7 +11,7 @@ import { padding, gap } from '@constants';
 
 // Sidebar Header constants (only used in this component)
 const LOGO_LETTER_SPACING = '0.1rem';
-const COLLAPSE_ICON_SIZE = 20;
+const COLLAPSE_ICON_SIZE = 24;
 const CLOSE_ICON_SIZE = 20;
 
 const getContainerStyles = (collapsed) => ({

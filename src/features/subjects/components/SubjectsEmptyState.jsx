@@ -18,8 +18,8 @@ function SubjectsEmptyState({ onAdd }) {
       <SubjectsHeader onAdd={onAdd} />
       <EmptyState
         icon="libraryBooks"
-        title={t('curriculum.noSubjects')}
-        description={t('curriculum.noSubjectsDescription')}
+        title={t('grade.noSubjects')}
+        description={t('grade.noSubjectsDescription')}
       />
     </>
   );

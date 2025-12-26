@@ -108,9 +108,9 @@ const columnRegistry = {
     minWidth: 180,
     flex: 1,
   },
-  curriculum: {
+  grade: {
     field: 'grade',
-    headerKey: 'table.columnHeaders.questions.curriculum',
+    headerKey: 'table.columnHeaders.questions.grade',
     minWidth: 160,
     flex: 1,
   },
@@ -208,7 +208,7 @@ export function buildColumns(keys, options = {}) {
 const USER_COLUMN_KEYS = {
   admin: ['profileImage', 'userName', 'email', 'phoneNumber'],
   manager: ['profileImage', 'userName', 'email', 'role', 'phoneNumber'],
-  student: ['profileImage', 'userName', 'email', 'curriculum', 'phoneNumber'],
+  student: ['profileImage', 'userName', 'email', 'grade', 'phoneNumber'],
 };
 
 /**

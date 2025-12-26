@@ -6,12 +6,12 @@ import { QUERY_KEYS } from '@config';
 import { deleteUnit as deleteUnitApi } from '../services/unitsApi';
 import { getUnitName } from '../utils';
 
-export const useDeleteUnit = ({ curriculumId, subjectId, onSuccess, onError } = {}) => {
+export const useDeleteUnit = ({ gradeId, subjectId, onSuccess, onError } = {}) => {
   const { currentLanguage } = useLanguage();
 
   const { deleteItem, deleteItemAsync, isLoading, isError, error } = useDelete({
-    deleteFn: (unit) => deleteUnitApi(curriculumId, subjectId, unit.id),
-    queryKey: [QUERY_KEYS.UNITS, curriculumId, subjectId],
+    deleteFn: (unit) => deleteUnitApi(gradeId, subjectId, unit.id),
+    queryKey: [QUERY_KEYS.UNITS, gradeId, subjectId],
     entityName: 'units',
     getItemName: (unit) => {
       const name = getUnitName(unit, currentLanguage);

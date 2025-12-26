@@ -47,23 +47,19 @@ const CompetitionResultPage = lazy(() =>
   import('@features/competitions').then((m) => ({ default: m.CompetitionResultPage }))
 );
 
-// Curriculum Pages
-const CurriculumsPage = lazy(() =>
-  import('@features/curriculums').then((m) => ({ default: m.CurriculumsPage }))
-);
-const CurriculumPage = lazy(() =>
-  import('@features/curriculums').then((m) => ({ default: m.CurriculumPage }))
-);
+// Grade Pages
+const GradesPage = lazy(() => import('@features/grades').then((m) => ({ default: m.GradesPage })));
+const GradePage = lazy(() => import('@features/grades').then((m) => ({ default: m.GradePage })));
 
-// Subject Pages (nested under curriculum)
+// Subject Pages (nested under grade)
 const SubjectPage = lazy(() =>
   import('@features/subjects/pages').then((m) => ({ default: m.SubjectPage }))
 );
 
-// Unit Pages (nested under curriculum/subject)
+// Unit Pages (nested under grade/subject)
 const UnitPage = lazy(() => import('@features/units/pages').then((m) => ({ default: m.UnitPage })));
 
-// Lesson Pages (nested under curriculum/subject/unit)
+// Lesson Pages (nested under grade/subject/unit)
 const LessonPage = lazy(() =>
   import('@features/lessons/pages').then((m) => ({ default: m.LessonPage }))
 );
@@ -167,51 +163,46 @@ const routes = [
     ),
   },
 
-  // Protected Routes - Curriculums (Owner, General Admin & Curriculum Manager)
+  // Protected Routes - Grades (Owner, General Admin & Grade Manager)
   {
-    path: NAVIGATION_PATHS.CURRICULUMS.BASE,
+    path: NAVIGATION_PATHS.GRADES.BASE,
     element: (
-      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
-        <CurriculumsPage />
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.GRADE}>
+        <GradesPage />
       </AuthenticatedRoute>
     ),
   },
   {
-    path: NAVIGATION_PATHS.CURRICULUMS.BY_ID(':curriculumId'),
+    path: NAVIGATION_PATHS.GRADES.BY_ID(':gradeId'),
     element: (
-      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
-        <CurriculumPage />
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.GRADE}>
+        <GradePage />
       </AuthenticatedRoute>
     ),
   },
-  // Nested: Subjects within curriculum
+  // Nested: Subjects within grade
   {
-    path: NAVIGATION_PATHS.CURRICULUMS.SUBJECT(':curriculumId', ':subjectId'),
+    path: NAVIGATION_PATHS.GRADES.SUBJECT(':gradeId', ':subjectId'),
     element: (
-      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.GRADE}>
         <SubjectPage />
       </AuthenticatedRoute>
     ),
   },
-  // Nested: Units within subject within curriculum
+  // Nested: Units within subject within grade
   {
-    path: NAVIGATION_PATHS.CURRICULUMS.UNIT(':curriculumId', ':subjectId', ':unitId'),
+    path: NAVIGATION_PATHS.GRADES.UNIT(':gradeId', ':subjectId', ':unitId'),
     element: (
-      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.GRADE}>
         <UnitPage />
       </AuthenticatedRoute>
     ),
   },
-  // Nested: Lessons within unit within subject within curriculum
+  // Nested: Lessons within unit within subject within grade
   {
-    path: NAVIGATION_PATHS.CURRICULUMS.LESSON(
-      ':curriculumId',
-      ':subjectId',
-      ':unitId',
-      ':lessonId'
-    ),
+    path: NAVIGATION_PATHS.GRADES.LESSON(':gradeId', ':subjectId', ':unitId', ':lessonId'),
     element: (
-      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.CURRICULUM}>
+      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.GRADE}>
         <LessonPage />
       </AuthenticatedRoute>
     ),

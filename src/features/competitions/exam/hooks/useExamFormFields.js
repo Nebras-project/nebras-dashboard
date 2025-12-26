@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom';
 
 // internal imports
 import { useLanguage } from '@hooks';
-import { useCurriculum } from '@features/curriculums/hooks';
-import { getCurriculumName } from '@features/curriculums/utils';
+import { useGrade } from '@features/grades/hooks';
+import { getGradeName } from '@features/grades/utils';
 import { useSubjects } from '@features/subjects/hooks';
 import { getSubjectOptions } from '@features/subjects/utils';
 import { useCompetition } from '../../competition/hooks';
@@ -35,8 +35,8 @@ export const useExamFormFields = () => {
   // Watch current curriculumId in form
   const currentCurriculumId = watch('curriculumId');
 
-  // Fetch single curriculum to get its name for display
-  const { curriculum } = useCurriculum({
+  // Fetch single grade to get its name for display
+  const { grade } = useGrade({
     id: competitionCurriculumId,
     enabled: !!competitionCurriculumId,
   });
@@ -55,7 +55,7 @@ export const useExamFormFields = () => {
   });
 
   // Get curriculum name for display
-  const curriculumName = curriculum ? getCurriculumName(curriculum, currentLanguage) : '';
+  const curriculumName = grade ? getGradeName(grade, currentLanguage) : '';
 
   // Build subject options for select
   const subjectOptions = getSubjectOptions(subjects, currentLanguage);

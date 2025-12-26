@@ -7,16 +7,14 @@ import { Icon } from '@components';
 import { ActionsMenu, DeleteAction } from '@components';
 import { useTranslation, useReduxTheme, useLanguage } from '@hooks';
 import { getActionsButtonStyles } from '@constants/layout';
-import { getCurriculumName } from '../utils';
+import { getGradeName } from '../utils';
 
 /**
  * CardActionsMenu Component
  *
- * Single Responsibility: Display actions menu (three dots) for curriculum card
+ * Single Responsibility: Display actions menu (three dots) for grade card
  * Uses ActionsMenu for consistency with table actions
  */
-
-
 
 const getCardActionsMenuStyles = () => ({
   position: 'absolute',
@@ -30,29 +28,29 @@ const getCardActionsMenuStyles = () => ({
   },
 });
 
-function CardActionsMenu({ curriculum, onView, onEdit, onDelete }) {
+function CardActionsMenu({ grade, onView, onEdit, onDelete }) {
   const { t } = useTranslation();
   const { isLight } = useReduxTheme();
   const { currentLanguage } = useLanguage();
 
   const actions = [
     {
-      label: t('curriculum.viewCurriculum'),
+      label: t('grade.viewGrade'),
       icon: <Icon name="visibility" size={18} />,
       onClick: onView,
     },
     {
-      label: t('curriculum.editCurriculum'),
+      label: t('grade.editGrade'),
       icon: <Icon name="edit" size={18} />,
       onClick: onEdit,
     },
     <DeleteAction
       key="delete"
-      row={curriculum}
+      row={grade}
       deleteFn={onDelete}
-      getItemName={(curriculum) => getCurriculumName(curriculum, currentLanguage)}
-      entityName="curriculum"
-      label={t('curriculum.deleteCurriculum')}
+      getItemName={(grade) => getGradeName(grade, currentLanguage)}
+      entityName="grade"
+      label={t('grade.deleteGrade')}
     />,
   ];
 
@@ -72,7 +70,7 @@ function CardActionsMenu({ curriculum, onView, onEdit, onDelete }) {
 }
 
 CardActionsMenu.propTypes = {
-  curriculum: PropTypes.object.isRequired,
+  grade: PropTypes.object.isRequired,
   onView: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,

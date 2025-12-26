@@ -5,8 +5,8 @@ import { Stack, Grid } from '@mui/material';
 import { Form } from '@components';
 import { margin } from '@constants';
 import { useTranslation, useLanguage } from '@hooks';
-import { useCurriculum } from '@features/curriculums/hooks';
-import { getCurriculumOptions } from '@features/curriculums/utils';
+import { useGrade } from '@features/grades/hooks';
+import { getGradeOptions } from '@features/grades/utils';
 import { getTextRules, getStartDateRules, getEndDateRules } from '@components/forms/constants';
 
 /**
@@ -17,10 +17,10 @@ import { getTextRules, getStartDateRules, getEndDateRules } from '@components/fo
 function CompetitionFormFields() {
   const { t } = useTranslation();
   const { currentLanguage } = useLanguage();
-  const { curriculums = [], isLoading: isLoadingCurriculums } = useCurriculum();
+  const { grades = [], isLoading: isLoadingGrades } = useGrade();
 
-  // Build curriculum options for select
-  const curriculumOptions = getCurriculumOptions(curriculums, currentLanguage);
+  // Build grade options for select
+  const gradeOptions = getGradeOptions(grades, currentLanguage);
 
   const competitionNameLabel = t('competitions.competitionName');
   const startDateLabel = t('competitions.startDate');
@@ -35,13 +35,13 @@ function CompetitionFormFields() {
         rules={getTextRules(t, competitionNameLabel, { minLength: 8 })}
       />
 
-      {/* Curriculum Selection */}
+      {/* Grade Selection */}
       <Form.SelectInput
-        name="curriculumId"
-        label={t('curriculum.curriculum')}
-        options={curriculumOptions}
-        disabled={isLoadingCurriculums}
-        rules={{ required: t('validation.required', { field: t('curriculum.curriculum') }) }}
+        name="gradeId"
+        label={t('grade.grade')}
+        options={gradeOptions}
+        disabled={isLoadingGrades}
+        rules={{ required: t('validation.required', { field: t('grade.grade') }) }}
       />
 
       {/* Dates */}

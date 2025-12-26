@@ -12,21 +12,21 @@ import { QUESTION_FORM_CARD_STYLES } from '../../constants';
  * QuestionSettingsFields Component
  *
  * Single Responsibility: Render shared settings fields for question form
- * Fields: type, category, curriculum, subject, unit, lesson, year, form
+ * Fields: type, category, grade, subject, unit, lesson, year, form
  */
 function QuestionSettingsFields() {
   const { t } = useTranslation();
   const { mode } = useReduxTheme();
   const {
-    curriculumId,
+    gradeId,
     subjectId,
     unitId,
     isMinisterial,
-    curriculumOptions,
+    gradeOptions,
     subjectOptions,
     unitOptions,
     lessonOptions,
-    isLoadingCurriculums,
+    isLoadingGrades,
     isLoadingSubjects,
     isLoadingUnits,
     isLoadingLessons,
@@ -61,16 +61,16 @@ function QuestionSettingsFields() {
           </Grid>
         </Grid>
 
-        {/* Curriculum and Subject */}
+        {/* Grade and Subject */}
         <Grid container spacing={2}>
           <Grid size={{ mobile: 12, tablet: 6 }}>
             <Form.SelectInput
-              name="curriculumId"
-              label={t('questions.curriculum')}
-              options={curriculumOptions}
-              disabled={isLoadingCurriculums}
-              loading={isLoadingCurriculums}
-              rules={{ required: t('validation.required', { field: t('questions.curriculum') }) }}
+              name="gradeId"
+              label={t('grade.grade')}
+              options={gradeOptions}
+              disabled={isLoadingGrades}
+              loading={isLoadingGrades}
+              rules={{ required: t('validation.required', { field: t('grade.grade') }) }}
             />
           </Grid>
           <Grid size={{ mobile: 12, tablet: 6 }}>
@@ -78,7 +78,7 @@ function QuestionSettingsFields() {
               name="subjectId"
               label={t('questions.subject')}
               options={subjectOptions}
-              disabled={isLoadingSubjects || !curriculumId}
+              disabled={isLoadingSubjects || !gradeId}
               loading={isLoadingSubjects}
               rules={{ required: t('validation.required', { field: t('questions.subject') }) }}
             />
@@ -92,7 +92,7 @@ function QuestionSettingsFields() {
               name="unitId"
               label={t('questions.unit')}
               options={unitOptions}
-              disabled={isLoadingUnits || !curriculumId || !subjectId}
+              disabled={isLoadingUnits || !gradeId || !subjectId}
               loading={isLoadingUnits}
               rules={{ required: t('validation.required', { field: t('questions.unit') }) }}
             />
@@ -102,7 +102,7 @@ function QuestionSettingsFields() {
               name="lessonId"
               label={t('questions.lesson')}
               options={lessonOptions}
-              disabled={isLoadingLessons || !curriculumId || !subjectId || !unitId}
+              disabled={isLoadingLessons || !gradeId || !subjectId || !unitId}
               loading={isLoadingLessons}
               rules={{ required: t('validation.required', { field: t('questions.lesson') }) }}
             />

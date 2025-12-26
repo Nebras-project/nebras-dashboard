@@ -14,50 +14,50 @@ import apiClient, { API_ENDPOINTS } from '@config/axios';
  * @param {Object} params - Additional query parameters
  * @returns {Promise} API response
  */
-export const fetchUnits = async (curriculumId, subjectId, params = {}) => {
-  return await apiClient.get(API_ENDPOINTS.CURRICULUMS.UNITS(curriculumId, subjectId), {
+export const fetchUnits = async (gradeId, subjectId, params = {}) => {
+  return await apiClient.get(API_ENDPOINTS.GRADES.UNITS(gradeId, subjectId), {
     params,
   });
 };
 
 /**
- * Fetch a single unit by ID within a subject and curriculum
- * @param {number|string} curriculumId - Curriculum ID
+ * Fetch a single unit by ID within a subject and grade
+ * @param {number|string} gradeId - Grade ID
  * @param {number|string} subjectId - Subject ID
  * @param {number|string} unitId - Unit ID
  * @returns {Promise} API response
  */
-export const fetchUnitById = async (curriculumId, subjectId, unitId) => {
-  return await apiClient.get(API_ENDPOINTS.CURRICULUMS.UNIT(curriculumId, subjectId, unitId));
+export const fetchUnitById = async (gradeId, subjectId, unitId) => {
+  return await apiClient.get(API_ENDPOINTS.GRADES.UNIT(gradeId, subjectId, unitId));
 };
 
 /**
- * Fetch units by subject ID within a curriculum
- * @param {number|string} curriculumId - Curriculum ID
+ * Fetch units by subject ID within a grade
+ * @param {number|string} gradeId - Grade ID
  * @param {number|string} subjectId - Subject ID
  * @returns {Promise} API response
  */
-export const fetchUnitsBySubjectId = async (curriculumId, subjectId) => {
-  return fetchUnits(curriculumId, subjectId);
+export const fetchUnitsBySubjectId = async (gradeId, subjectId) => {
+  return fetchUnits(gradeId, subjectId);
 };
 
 /**
- * Create a new unit within a subject and curriculum
+ * Create a new unit within a subject and grade
  */
-export const createUnit = async (curriculumId, subjectId, data = {}) => {
-  return await apiClient.post(API_ENDPOINTS.CURRICULUMS.UNITS(curriculumId, subjectId), data);
+export const createUnit = async (gradeId, subjectId, data = {}) => {
+  return await apiClient.post(API_ENDPOINTS.GRADES.UNITS(gradeId, subjectId), data);
 };
 
 /**
  * Update an existing unit
  */
-export const updateUnit = async (curriculumId, subjectId, unitId, data = {}) => {
-  return await apiClient.put(API_ENDPOINTS.CURRICULUMS.UNIT(curriculumId, subjectId, unitId), data);
+export const updateUnit = async (gradeId, subjectId, unitId, data = {}) => {
+  return await apiClient.put(API_ENDPOINTS.GRADES.UNIT(gradeId, subjectId, unitId), data);
 };
 
 /**
  * Delete a unit
  */
-export const deleteUnit = async (curriculumId, subjectId, unitId) => {
-  return await apiClient.delete(API_ENDPOINTS.CURRICULUMS.UNIT(curriculumId, subjectId, unitId));
+export const deleteUnit = async (gradeId, subjectId, unitId) => {
+  return await apiClient.delete(API_ENDPOINTS.GRADES.UNIT(gradeId, subjectId, unitId));
 };

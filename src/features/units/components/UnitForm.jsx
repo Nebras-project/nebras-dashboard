@@ -14,13 +14,13 @@ const UnitForm = memo(function UnitForm({
   onClose,
   defaultValues = {},
   isEdit = false,
-  curriculumId,
+  gradeId,
   subjectId,
   onSuccess,
 }) {
   const { t } = useTranslation();
 
-  const useFormHook = (options) => useUnitForm({ ...options, curriculumId, subjectId, onSuccess });
+  const useFormHook = (options) => useUnitForm({ ...options, gradeId, subjectId, onSuccess });
 
   return (
     <EntityForm
@@ -29,8 +29,8 @@ const UnitForm = memo(function UnitForm({
       onClose={onClose}
       defaultValues={defaultValues}
       isEdit={isEdit}
-      titleAdd={t('curriculum.addUnit')}
-      titleEdit={t('curriculum.editUnit')}
+      titleAdd={t('grade.addUnit')}
+      titleEdit={t('grade.editUnit')}
       useFormHook={useFormHook}
       renderFields={() => <UnitFormFields />}
     />
@@ -43,7 +43,7 @@ UnitForm.propTypes = {
   onClose: PropTypes.func.isRequired,
   defaultValues: PropTypes.object,
   isEdit: PropTypes.bool,
-  curriculumId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  gradeId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   subjectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   onSuccess: PropTypes.func,
 };

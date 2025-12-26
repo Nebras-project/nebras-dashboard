@@ -4,8 +4,8 @@ import { useDebouncedFilter } from '@components';
 import { useLanguage } from '@hooks';
 
 // internal imports
-import { useCurriculum } from '@features/curriculums/hooks';
-import { getCurriculumOptions } from '@features/curriculums/utils';
+import { useGrade } from '@features/grades/hooks';
+import { getGradeOptions } from '@features/grades/utils';
 
 /**
  * useStudentFilter Hook
@@ -22,7 +22,7 @@ import { getCurriculumOptions } from '@features/curriculums/utils';
 export const useStudentFilter = (onFilterChange, debounceMs = 500) => {
   const { currentLanguage } = useLanguage();
   const [showFilters, setShowFilters] = useState(false);
-  const { curriculums = [] } = useCurriculum();
+  const { grades = [] } = useGrade();
 
   // Use debounced filter for all filters (search, curriculum)
   const { filters, hasActiveFilters, updateFilter, clearAllFilters } = useDebouncedFilter(
@@ -38,21 +38,21 @@ export const useStudentFilter = (onFilterChange, debounceMs = 500) => {
   const curriculum = filters.curriculum || '';
 
   // Get curriculum options
-  const curriculumOptions = useMemo(
-    () => getCurriculumOptions(curriculums, currentLanguage),
-    [curriculums, currentLanguage]
+  const gradeOptions = useMemo(
+    () => getGradeOptions(grades, currentLanguage),
+    [grades, currentLanguage]
   );
 
   const filterOptions = useMemo(
     () => ({
-      curriculums: curriculumOptions,
+      grades: gradeOptions,
     }),
-    [curriculumOptions]
+    [gradeOptions]
   );
 
   // Convenience setters
   const setSearchTerm = (value) => updateFilter('studentName', value);
-  const setCurriculum = (value) => updateFilter('curriculum', value);
+  const setGrade = (value) => updateFilter('curriculum', value);
 
   const handleClearFilters = () => {
     clearAllFilters();
@@ -73,7 +73,7 @@ export const useStudentFilter = (onFilterChange, debounceMs = 500) => {
     filterOptions,
     // Handlers
     setSearchTerm,
-    setCurriculum,
+    setGrade,
     handleClearFilters,
     handleToggleFilters,
   };

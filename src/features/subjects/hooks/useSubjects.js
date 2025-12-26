@@ -23,7 +23,7 @@ import { fetchSubjectById, fetchSubjects } from '../services/subjectsApi';
  */
 export const useSubjects = ({
   id,
-  curriculumId,
+  gradeId,
   subjectId,
   queryString,
   params,
@@ -33,29 +33,29 @@ export const useSubjects = ({
   // Use subjectId if provided, otherwise fall back to id for backward compatibility
   const effectiveSubjectId = subjectId || id;
 
-  // Build getListFn - curriculumId is now required for nested endpoints
-  const getListFn = curriculumId
-    ? () => fetchSubjects(curriculumId, params)
+  // Build getListFn - gradeId is now required for nested endpoints
+  const getListFn = gradeId
+    ? () => fetchSubjects(gradeId, params)
     : () => {
-        throw new Error('curriculumId is required to fetch subjects');
+        throw new Error('gradeId is required to fetch subjects');
       };
 
-  // Build getSingleFn - both curriculumId and subjectId are required for nested endpoints
+  // Build getSingleFn - both gradeId and subjectId are required for nested endpoints
   const getSingleFn =
-    effectiveSubjectId && curriculumId
-      ? () => fetchSubjectById(curriculumId, effectiveSubjectId)
+    effectiveSubjectId && gradeId
+      ? () => fetchSubjectById(gradeId, effectiveSubjectId)
       : () => {
-          throw new Error('curriculumId and subjectId are required to fetch a subject');
+          throw new Error('gradeId and subjectId are required to fetch a subject');
         };
 
   const { data, isLoading, isError, error, refetch } = useEntity({
     getSingleFn,
     getListFn,
     id: effectiveSubjectId, // Pass effectiveSubjectId to useEntity
-    params: { curriculumId, ...(queryString ? { queryString } : params) },
-    queryKey: [QUERY_KEYS.SUBJECTS, curriculumId],
+    params: { gradeId, ...(queryString ? { queryString } : params) },
+    queryKey: [QUERY_KEYS.SUBJECTS, gradeId],
     entityName: 'subjects',
-    enabled: enabled && !!curriculumId,
+    enabled: enabled && !!gradeId,
     onError,
   });
 

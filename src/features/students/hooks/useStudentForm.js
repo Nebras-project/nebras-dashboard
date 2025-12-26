@@ -6,8 +6,8 @@ import { buildBaseUserDefaultValues } from '@components/forms/utils';
 
 // internal imports
 import { QUERY_KEYS } from '@config';
-import { useCurriculum } from '@features/curriculums/hooks';
-import { getCurriculumOptions } from '@features/curriculums/utils';
+import { useGrade } from '@features/grades/hooks';
+import { getGradeOptions } from '@features/grades/utils';
 import { createStudent, updateStudent } from '../services/studentsApi';
 import { getStudentName } from '../utils';
 
@@ -25,12 +25,12 @@ import { getStudentName } from '../utils';
  */
 export const useStudentForm = ({ defaultValues = {}, isEdit = false, onSuccess, onError } = {}) => {
   const { currentLanguage } = useLanguage();
-  const { curriculums = [] } = useCurriculum();
+  const { grades = [] } = useGrade();
 
-  // Curriculum options for students
-  const curriculumOptions = useMemo(
-    () => getCurriculumOptions(curriculums, currentLanguage),
-    [curriculums, currentLanguage]
+  // Grade options for students
+  const gradeOptions = useMemo(
+    () => getGradeOptions(grades, currentLanguage),
+    [grades, currentLanguage]
   );
 
   const { formDefaultValues, handleSubmit, isLoading, isError, error } = useEntityForm({
@@ -53,7 +53,7 @@ export const useStudentForm = ({ defaultValues = {}, isEdit = false, onSuccess, 
   });
 
   return {
-    curriculumOptions,
+    gradeOptions,
     formDefaultValues,
     handleSubmit,
     isLoading,

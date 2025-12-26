@@ -6,12 +6,12 @@ import PropTypes from 'prop-types';
 import { Card, DetailField } from '@components';
 import Icon from '@components/display/Icon';
 import { useTranslation } from '@i18n/hooks/useTranslation';
-import { getStudentName, getStudentEmail, getStudentPhone, getStudentCurriculum } from '../utils';
+import { getStudentName, getStudentEmail, getStudentPhone, getStudentGrade } from '../utils';
 
 /**
  * StudentDetailsCard Component
  *
- * Single Responsibility: Display student detailed information (name, email, phone, curriculum)
+ * Single Responsibility: Display student detailed information (name, email, phone, grade)
  */
 function StudentDetailsCard({ student, onEdit }) {
   const { t } = useTranslation();
@@ -19,7 +19,7 @@ function StudentDetailsCard({ student, onEdit }) {
   const studentName = getStudentName(student);
   const studentEmail = getStudentEmail(student);
   const studentPhone = getStudentPhone(student);
-  const studentCurriculum = getStudentCurriculum(student);
+  const studentGrade = getStudentGrade(student);
 
   return (
     <Card
@@ -40,7 +40,7 @@ function StudentDetailsCard({ student, onEdit }) {
         <DetailField mobile={6} label={t('students.studentName')} value={studentName} />
         <DetailField mobile={6} label={t('students.studentEmail')} value={studentEmail} />
         <DetailField mobile={6} label={t('students.studentPhone')} value={studentPhone} />
-        <DetailField mobile={6} label={t('students.curriculum')} value={studentCurriculum} />
+        <DetailField mobile={6} label={t('students.grade')} value={studentGrade} />
       </Grid>
     </Card>
   );

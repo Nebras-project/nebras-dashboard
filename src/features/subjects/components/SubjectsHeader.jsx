@@ -25,14 +25,14 @@ function SubjectsHeader({ onAdd }) {
       }}
     >
       <Typography variant="h6" fontWeight={600}>
-        {t('curriculum.subjects')}
+        {t('grade.subjects')}
       </Typography>
 
       {onAdd && (
         <ActionsMenu
           actions={[
             {
-              label: t('curriculum.addSubject'),
+              label: t('grade.addSubject'),
               icon: <Icon name="add" size={18} />,
               onClick: onAdd,
             },

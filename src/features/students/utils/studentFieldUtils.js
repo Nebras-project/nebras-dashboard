@@ -33,11 +33,11 @@ export const getStudentPhone = (student) => {
 };
 
 /**
- * Extracts student curriculum from student object, handling different field name variations
+ * Extracts student grade from student object, handling different field name variations
  * @param {Object} student - Student object
- * @returns {string} Student curriculum or 'N/A' if not found
+ * @returns {string} Student grade or 'N/A' if not found
  */
-export const getStudentCurriculum = (student) => {
+export const getStudentGrade = (student) => {
   return student?.Grade || 'N/A';
 };
 
@@ -63,7 +63,7 @@ export const normalizeStudent = (student) => {
     name: getStudentName(student),
     email: getStudentEmail(student),
     phone: getStudentPhone(student),
-    curriculum: getStudentCurriculum(student),
+    grade: getStudentGrade(student),
     profileImage: getStudentProfileImage(student),
     createdAt: student.createdAt,
     lastLogin: student.lastLogin,

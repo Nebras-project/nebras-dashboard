@@ -21,9 +21,9 @@ import { borderRadius } from '@theme/components';
 const UserFields = memo(function UserFields({
   showPassword = false,
   showRole = false,
-  showCurriculum = false,
+  showGrade = false,
   roleOptions = [],
-  curriculumOptions = [],
+  gradeOptions = [],
   passwordRequired = true,
   phoneRequired = true,
   isEdit = false,
@@ -87,14 +87,14 @@ const UserFields = memo(function UserFields({
 
       {/* Curriculum - Only for students */}
       {/* {showCurriculum && curriculumOptions.length > 0 && ( */}
-      {showCurriculum && (
+      {showGrade && (
         <Grid item {...gridItemProps}>
           <Form.SelectInput
             name="grade"
-            label={t('forms.curriculum')}
-            options={curriculumOptions}
+            label={t('forms.grade')}
+            options={gradeOptions}
             rules={{
-              required: t('validation.required', { field: t('forms.curriculum') }),
+              required: t('validation.required', { field: t('forms.grade') }),
             }}
           />
         </Grid>
@@ -157,14 +157,14 @@ const UserFields = memo(function UserFields({
 UserFields.propTypes = {
   showPassword: PropTypes.bool,
   showRole: PropTypes.bool,
-  showCurriculum: PropTypes.bool,
+  showGrade: PropTypes.bool,
   roleOptions: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
       label: PropTypes.string.isRequired,
     })
   ),
-  curriculumOptions: PropTypes.arrayOf(
+  gradeOptions: PropTypes.arrayOf(
     PropTypes.shape({
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
       label: PropTypes.string.isRequired,

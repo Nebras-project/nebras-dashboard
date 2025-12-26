@@ -4,13 +4,13 @@ import { QUERY_KEYS } from '@config';
 
 // internal imports
 import { useLanguage } from '@hooks';
-import { createCurriculum, updateCurriculum } from '../services/curriculumsApi';
-import { getCurriculumName } from '../utils';
+import { createGrade, updateGrade } from '../services/gradesApi';
+import { getGradeName } from '../utils';
 
 /**
- * useCurriculumForm Hook
+ * useGradeForm Hook
  *
- * Single Responsibility: Manage curriculum form state, validation, and submission
+ * Single Responsibility: Manage grade form state, validation, and submission
  *
  * @param {Object} options - Hook options
  * @param {Object} options.defaultValues - Default form values
@@ -25,26 +25,21 @@ const buildDefaultValues = (values) => ({
   image: values.Image || null,
 });
 
-export const useCurriculumForm = ({
-  defaultValues = {},
-  isEdit = false,
-  onSuccess,
-  onError,
-} = {}) => {
+export const useGradeForm = ({ defaultValues = {}, isEdit = false, onSuccess, onError } = {}) => {
   const { currentLanguage } = useLanguage();
   const { formDefaultValues, handleSubmit, isLoading, isError, error } = useEntityForm({
-    queryKey: QUERY_KEYS.CURRICULUMS,
+    queryKey: QUERY_KEYS.GRADES,
     defaultValues,
     isEdit,
     onSuccess,
     onError,
-    createFn: createCurriculum,
-    updateFn: ({ id, data }) => updateCurriculum(id, data),
+    createFn: createGrade,
+    updateFn: ({ id, data }) => updateGrade(id, data),
     buildDefaultValues,
-    entityName: 'curriculums',
+    entityName: 'grades',
     getItemName: (data) => {
-      const name = getCurriculumName(data, currentLanguage);
-      return name !== 'N/A' ? name : 'Curriculum';
+      const name = getGradeName(data, currentLanguage);
+      return name !== 'N/A' ? name : 'Grade';
     },
   });
 

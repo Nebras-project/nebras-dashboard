@@ -20,13 +20,13 @@ const SubjectForm = memo(function SubjectForm({
   onClose,
   defaultValues = {},
   isEdit = false,
-  curriculumId,
+  gradeId,
   onSuccess,
 }) {
   const { t } = useTranslation();
 
   // Create a wrapper hook that includes curriculumId
-  const useFormHook = (options) => useSubjectForm({ ...options, curriculumId, onSuccess });
+  const useFormHook = (options) => useSubjectForm({ ...options, gradeId, onSuccess });
 
   return (
     <EntityForm
@@ -35,8 +35,8 @@ const SubjectForm = memo(function SubjectForm({
       onClose={onClose}
       defaultValues={defaultValues}
       isEdit={isEdit}
-      titleAdd={t('curriculum.addSubject')}
-      titleEdit={t('curriculum.editSubject')}
+      titleAdd={t('grade.addSubject')}
+      titleEdit={t('grade.editSubject')}
       useFormHook={useFormHook}
       renderFields={() => <SubjectFormFields />}
     />
@@ -49,7 +49,7 @@ SubjectForm.propTypes = {
   onClose: PropTypes.func.isRequired,
   defaultValues: PropTypes.object,
   isEdit: PropTypes.bool,
-  curriculumId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  gradeId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   onSuccess: PropTypes.func,
 };
 

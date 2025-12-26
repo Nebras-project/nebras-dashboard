@@ -47,26 +47,26 @@ export const NAVIGATION_PATHS = {
     BY_ID: (id) => `/questions/${id}`,
   },
 
-  // Curriculums (Root of the hierarchy)
-  // Hierarchy: Curriculum → Subject → Unit → Lesson
-  CURRICULUMS: {
-    BASE: '/curriculums',
-    BY_ID: (curriculumId) => `/curriculums/${curriculumId}`,
+  // Grades (Root of the hierarchy)
+  // Hierarchy: Grade → Subject → Unit → Lesson
+  GRADES: {
+    BASE: '/grades',
+    BY_ID: (gradeId) => `/grades/${gradeId}`,
 
-    // Nested: Subjects within curriculum
-    SUBJECTS: (curriculumId) => `/curriculums/${curriculumId}/subjects`,
-    SUBJECT: (curriculumId, subjectId) => `/curriculums/${curriculumId}/subjects/${subjectId}`,
+    // Nested: Subjects within grade
+    SUBJECTS: (gradeId) => `/grades/${gradeId}/subjects`,
+    SUBJECT: (gradeId, subjectId) => `/grades/${gradeId}/subjects/${subjectId}`,
 
-    // Nested: Units within subject within curriculum
-    UNITS: (curriculumId, subjectId) => `/curriculums/${curriculumId}/subjects/${subjectId}/units`,
-    UNIT: (curriculumId, subjectId, unitId) =>
-      `/curriculums/${curriculumId}/subjects/${subjectId}/units/${unitId}`,
+    // Nested: Units within subject within grade
+    UNITS: (gradeId, subjectId) => `/grades/${gradeId}/subjects/${subjectId}/units`,
+    UNIT: (gradeId, subjectId, unitId) =>
+      `/grades/${gradeId}/subjects/${subjectId}/units/${unitId}`,
 
-    // Nested: Lessons within unit within subject within curriculum
-    LESSONS: (curriculumId, subjectId, unitId) =>
-      `/curriculums/${curriculumId}/subjects/${subjectId}/units/${unitId}/lessons`,
-    LESSON: (curriculumId, subjectId, unitId, lessonId) =>
-      `/curriculums/${curriculumId}/subjects/${subjectId}/units/${unitId}/lessons/${lessonId}`,
+    // Nested: Lessons within unit within subject within grade
+    LESSONS: (gradeId, subjectId, unitId) =>
+      `/grades/${gradeId}/subjects/${subjectId}/units/${unitId}/lessons`,
+    LESSON: (gradeId, subjectId, unitId, lessonId) =>
+      `/grades/${gradeId}/subjects/${subjectId}/units/${unitId}/lessons/${lessonId}`,
   },
 
   // Settings

@@ -17,12 +17,12 @@ import { getSectionPaperStyles } from '@constants/layout';
  *
  * Displays subjects sidebar with name, units count, and lessons count
  */
-function SubjectsSidebar({ curriculumId, selectedSubjectId, onSubjectSelect }) {
+function SubjectsSidebar({ gradeId, selectedSubjectId, onSubjectSelect }) {
   const { mode } = useReduxTheme();
 
   // Delete subject hook
   const { deleteSubject } = useDeleteSubject({
-    curriculumId,
+    gradeId,
     onSuccess: () => {
       // Note: query invalidation is handled automatically by useEntityMutation
       // If deleted subject was selected, clear selection
@@ -38,8 +38,8 @@ function SubjectsSidebar({ curriculumId, selectedSubjectId, onSubjectSelect }) {
     isLoading,
     isError,
   } = useSubjects({
-    curriculumId,
-    enabled: !!curriculumId,
+    gradeId,
+    enabled: !!gradeId,
   });
 
   // Auto-select first subject when subjects are loaded
@@ -53,7 +53,7 @@ function SubjectsSidebar({ curriculumId, selectedSubjectId, onSubjectSelect }) {
   const showEmptyState = isError || hasNoData;
 
   return (
-    <SubjectFormDialog curriculumId={curriculumId} showAddButton={true}>
+    <SubjectFormDialog gradeId={gradeId} showAddButton={true}>
       {({ onAdd, onEdit }) => (
         <Paper
           sx={getSectionPaperStyles(mode, {
@@ -74,7 +74,7 @@ function SubjectsSidebar({ curriculumId, selectedSubjectId, onSubjectSelect }) {
               <SubjectsHeader onAdd={onAdd} />
               <SubjectsList
                 subjects={subjects}
-                curriculumId={curriculumId}
+                gradeId={gradeId}
                 selectedSubjectId={selectedSubjectId}
                 onSubjectSelect={onSubjectSelect}
                 onSubjectEdit={onEdit}
@@ -89,7 +89,7 @@ function SubjectsSidebar({ curriculumId, selectedSubjectId, onSubjectSelect }) {
 }
 
 SubjectsSidebar.propTypes = {
-  curriculumId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  gradeId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   selectedSubjectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onSubjectSelect: PropTypes.func.isRequired,
 };

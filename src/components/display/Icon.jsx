@@ -31,12 +31,10 @@ import {
   MdQuestionAnswer,
   MdGavel,
   MdLightbulb,
-  MdManageAccounts,
   MdSettings,
   MdAccountCircle,
   MdTune,
   MdPeople,
-  MdAdminPanelSettings,
   MdQuiz,
   MdClass,
   MdCheckCircle,
@@ -67,9 +65,9 @@ import {
   MdFunctions,
   MdOutlineDeleteSweep,
   MdOutlineDelete,
-} from 'react-icons/md';  
+} from 'react-icons/md';
 
-import { GoSidebarExpand, GoSidebarCollapse, GoDotFill } from 'react-icons/go';
+import { GoDotFill } from 'react-icons/go';
 
 import { LuEye, LuEyeClosed, LuLayoutList } from 'react-icons/lu';
 import { IoClose, IoLanguage } from 'react-icons/io5';
@@ -82,13 +80,16 @@ import {
   TbArrowBigRightLines,
   TbArrowBigLeftLines,
   TbArrowBigDownLines,
+  TbLayoutSidebarRightCollapse,
+  TbLayoutSidebarRightExpand,
 } from 'react-icons/tb';
 
 import { CgColorBucket } from 'react-icons/cg';
 import { RiEnglishInput } from 'react-icons/ri';
-import { FaEarthAmericas, FaListOl } from 'react-icons/fa6';
+import { FaEarthAmericas, FaListOl, FaUserShield } from 'react-icons/fa6';
 import { BiSolidSelectMultiple, BiAddToQueue } from 'react-icons/bi';
 import { HiMenuAlt2, HiMenuAlt3, HiViewGridAdd, HiOutlineFilter } from 'react-icons/hi';
+import { HiMiniUsers } from 'react-icons/hi2';
 import { HiDocumentPlus } from 'react-icons/hi2';
 import { FaCalendarCheck, FaClipboardList } from 'react-icons/fa';
 import { PiListNumbersFill } from 'react-icons/pi';
@@ -150,10 +151,10 @@ const ICON_MAP = {
   email: MdEmail,
   phone: MdPhone,
   accountCircle: MdAccountCircle,
-  manageAccounts: MdManageAccounts,
+  manageAccounts: HiMiniUsers,
   groups: MdGroups,
   people: MdPeople,
-  adminPanel: MdAdminPanelSettings,
+  adminPanel: FaUserShield,
 
   // Language & Locale
   language: IoLanguage,
@@ -163,8 +164,8 @@ const ICON_MAP = {
   // Menu
   menuLeft: HiMenuAlt2,
   menuRight: HiMenuAlt3,
-  panelLeft: GoSidebarExpand,
-  panelRight: GoSidebarCollapse,
+  panelLeft: TbLayoutSidebarRightExpand,
+  panelRight: TbLayoutSidebarRightCollapse,
 
   // Content & Education
   book: MdMenuBook,

@@ -14,8 +14,8 @@ import { useTranslation } from '@hooks';
 function SubjectFormFields() {
   const { t } = useTranslation();
 
-  const nameArLabel = t('curriculum.subjectName') + ' (عربي)';
-  const nameEnLabel = t('curriculum.subjectName') + ' (English)';
+  const nameArLabel = t('grade.subjectName') + ' (عربي)';
+  const nameEnLabel = t('grade.subjectName') + ' (English)';
 
   return (
     <Stack spacing={3} sx={{ ...margin.top.sm }}>

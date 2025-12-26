@@ -18,7 +18,6 @@ function UnitsHeader({ title, onUnitAdd }) {
 
   return (
     <Box sx={{ mb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      
       <Box>
         {title && (
           <Typography variant="h6" fontWeight={600} sx={{ mb: 0.5 }}>
@@ -26,12 +25,12 @@ function UnitsHeader({ title, onUnitAdd }) {
           </Typography>
         )}
       </Box>
-      
+
       {onUnitAdd && (
         <ActionsMenu
           actions={[
             {
-              label: t('curriculum.addUnit'),
+              label: t('grade.addUnit'),
               icon: <Icon name="add" size={18} />,
               onClick: onUnitAdd,
             },

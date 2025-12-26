@@ -7,15 +7,15 @@ import { margin } from '@constants';
 import { useTranslation } from '@hooks';
 
 /**
- * CurriculumFormFields Component
+ * GradeFormFields Component
  *
- * Single Responsibility: Render form fields for curriculum form
+ * Single Responsibility: Render form fields for grade form
  */
-function CurriculumFormFields() {
+function GradeFormFields() {
   const { t } = useTranslation();
 
-  const nameLabel = t('curriculum.curriculumName');
-  const imageLabel = t('curriculum.curriculumImage');
+  const nameLabel = t('grade.gradeName');
+  const imageLabel = t('grade.gradeImage');
   return (
     <Stack spacing={3} sx={{ ...margin.top.sm }}>
       <Form.TextInput
@@ -29,4 +29,4 @@ function CurriculumFormFields() {
   );
 }
 
-export default CurriculumFormFields;
+export default GradeFormFields;

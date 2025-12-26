@@ -9,9 +9,8 @@ import { useTranslation } from '@hooks';
 function UnitFormFields() {
   const { t } = useTranslation();
 
-  const nameArLabel = `${t('curriculum.unitName')} (عربي)`;
-  const nameEnLabel = `${t('curriculum.unitName')} (English)`;
-  
+  const nameArLabel = `${t('grade.unitName')} (عربي)`;
+  const nameEnLabel = `${t('grade.unitName')} (English)`;
 
   return (
     <Stack spacing={3} sx={{ ...margin.top.sm }}>

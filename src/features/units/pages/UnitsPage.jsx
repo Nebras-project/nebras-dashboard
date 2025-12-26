@@ -5,7 +5,7 @@ import { useTranslation } from '@hooks';
 function UnitsPage() {
   const { t } = useTranslation();
   return (
-    <PageLayout title={t('curriculum.units')} description={t('curriculum.unit')} maxWidth="desktop">
+    <PageLayout title={t('grade.units')} description={t('grade.unit')} maxWidth="desktop">
       <Container maxWidth="lg" sx={{ py: 4 }}>
         <Box sx={{ textAlign: 'center', py: 8, color: 'text.secondary' }}>
           <Typography variant="body2" sx={{ mt: 1 }}>

@@ -9,7 +9,7 @@ import { toCamelCase } from './caseUtils';
 export const ROLES = {
   OWNER: 'owner',
   GENERAL_ADMIN: 'generalAdmin',
-  CURRICULUM_MANAGER: 'curriculumManager',
+  GRADE_MANAGER: 'gradeManager',
   COMPETITION_MANAGER: 'competitionManager',
   CONTENT_MANAGER: 'contentManager',
 };
@@ -18,13 +18,13 @@ export const ROLES = {
 export const roleTranslationKeys = {
   owner: 'users.owner',
   generalAdmin: 'users.generalAdmin',
-  curriculumManager: 'users.curriculumManager',
+  gradeManager: 'users.gradeManager',
   competitionManager: 'users.competitionManager',
   contentManager: 'users.contentManager',
   // Handle PascalCase role values from API (e.g., "Owner", "General Admin")
   Owner: 'users.owner',
   'General Admin': 'admins.roles.General Admin',
-  'Curriculum Manager': 'admins.roles.Curriculum Manager',
+  'Grade Manager': 'admins.roles.Grade Manager',
   'Competition Manager': 'admins.roles.Competition Manager',
   'Content Manager': 'admins.roles.Content Manager',
 };
@@ -36,7 +36,7 @@ export const roleTranslationKeys = {
 export const ADMIN_ROLE_VALUES = [
   'Owner',
   'General Admin',
-  'Curriculum Manager',
+  'Grade Manager',
   'Competition Manager',
   'Content Manager',
 ];
@@ -47,7 +47,7 @@ export const ALLOWED_ROLES = {
   ALL: [
     ROLES.OWNER,
     ROLES.GENERAL_ADMIN,
-    ROLES.CURRICULUM_MANAGER,
+    ROLES.GRADE_MANAGER,
     ROLES.COMPETITION_MANAGER,
     ROLES.CONTENT_MANAGER,
   ],
@@ -55,8 +55,8 @@ export const ALLOWED_ROLES = {
   OWNER_AND_ADMIN: [ROLES.OWNER, ROLES.GENERAL_ADMIN],
   // Owner only
   OWNER_ONLY: [ROLES.OWNER],
-  // Curriculum routes (Owner, General Admin & Curriculum Manager)
-  CURRICULUM: [ROLES.OWNER, ROLES.GENERAL_ADMIN, ROLES.CURRICULUM_MANAGER],
+  // Grade routes (Owner, General Admin & Grade Manager)
+  GRADE: [ROLES.OWNER, ROLES.GENERAL_ADMIN, ROLES.GRADE_MANAGER],
   // Competition routes (Owner, General Admin & Competition Manager)
   COMPETITION: [ROLES.OWNER, ROLES.GENERAL_ADMIN, ROLES.COMPETITION_MANAGER],
   // Question routes (Owner, General Admin & Content Manager)
@@ -87,7 +87,7 @@ export const hasRole = (userRole, allowedRoles) => {
   return rolesArray.includes(userRole);
 };
 
-  /**
+/**
  * Get translation key for a role
  * Handles both camelCase (from user object) and PascalCase/display names (from admin API)
  *

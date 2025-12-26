@@ -5,16 +5,16 @@ import PropTypes from 'prop-types';
 // internal imports
 import { EntityForm } from '@components';
 import { useTranslation } from '@hooks';
-import { useCurriculumForm } from '../hooks';
-import CurriculumFormFields from './CurriculumFormFields';
+import { useGradeForm } from '../hooks';
+import GradeFormFields from './GradeFormFields';
 
 /**
- * CurriculumForm Component
+ * GradeForm Component
  *
  * Single Responsibility: Thin wrapper around generic EntityForm
- * configured for curriculum entities.
+ * configured for grade entities.
  */
-const CurriculumForm = memo(function CurriculumForm({
+const GradeForm = memo(function GradeForm({
   mode = 'dialog',
   open,
   onClose,
@@ -30,15 +30,15 @@ const CurriculumForm = memo(function CurriculumForm({
       onClose={onClose}
       defaultValues={defaultValues}
       isEdit={isEdit}
-      titleAdd={t('curriculum.addCurriculum')}
-      titleEdit={t('curriculum.editCurriculum')}
-      useFormHook={useCurriculumForm}
-      renderFields={() => <CurriculumFormFields />}
+      titleAdd={t('grade.addGrade')}
+      titleEdit={t('grade.editGrade')}
+      useFormHook={useGradeForm}
+      renderFields={() => <GradeFormFields />}
     />
   );
 });
 
-CurriculumForm.propTypes = {
+GradeForm.propTypes = {
   mode: PropTypes.oneOf(['dialog', 'page']),
   open: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
@@ -46,6 +46,6 @@ CurriculumForm.propTypes = {
   isEdit: PropTypes.bool,
 };
 
-CurriculumForm.displayName = 'CurriculumForm';
+GradeForm.displayName = 'GradeForm';
 
-export default CurriculumForm;
+export default GradeForm;

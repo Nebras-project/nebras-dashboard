@@ -12,6 +12,7 @@ import { fetchUnitById, fetchUnits } from '../services/unitsApi';
  *
  * @param {Object} options - Hook options
  * @param {string|number} options.id - Unit ID to fetch (if provided, fetches single unit)
+ * @param {string|number} options.gradeId - Grade ID to filter units (if provided)
  * @param {string|number} options.subjectId - Subject ID to filter units (if provided)
  * @param {string} options.queryString - Query string from useTable hook (only used when id is not provided)
  * @param {Object} options.params - Query parameters for list (deprecated, use queryString instead)
@@ -21,7 +22,7 @@ import { fetchUnitById, fetchUnits } from '../services/unitsApi';
  */
 export const useUnits = ({
   id,
-  curriculumId,
+  gradeId,
   subjectId,
   unitId,
   queryString,
@@ -29,30 +30,30 @@ export const useUnits = ({
   enabled = true,
   onError,
 } = {}) => {
-  // Build getListFn - both curriculumId and subjectId are now required for nested endpoints
+  // Build getListFn - both gradeId and subjectId are now required for nested endpoints
   const getListFn =
-    curriculumId && subjectId
-      ? () => fetchUnits(curriculumId, subjectId, params)
+    gradeId && subjectId
+      ? () => fetchUnits(gradeId, subjectId, params)
       : () => {
-          throw new Error('curriculumId and subjectId are required to fetch units');
+          throw new Error('gradeId and subjectId are required to fetch units');
         };
 
-  // Build getSingleFn - curriculumId, subjectId, and unitId are required for nested endpoints
+  // Build getSingleFn - gradeId, subjectId, and unitId are required for nested endpoints
   const getSingleFn =
-    id && curriculumId && subjectId
-      ? () => fetchUnitById(curriculumId, subjectId, id)
+    id && gradeId && subjectId
+      ? () => fetchUnitById(gradeId, subjectId, id)
       : () => {
-          throw new Error('curriculumId, subjectId, and unitId are required to fetch a unit');
+          throw new Error('gradeId, subjectId, and unitId are required to fetch a unit');
         };
 
   const { data, isLoading, isError, error, refetch } = useEntity({
     getSingleFn,
     getListFn,
     id: id || unitId,
-    params: { curriculumId, subjectId, ...(queryString ? { queryString } : params) },
-    queryKey: [QUERY_KEYS.UNITS, curriculumId, subjectId],
+    params: { gradeId, subjectId, ...(queryString ? { queryString } : params) },
+    queryKey: [QUERY_KEYS.UNITS, gradeId, subjectId],
     entityName: 'units',
-    enabled: enabled && !!curriculumId && !!subjectId,
+    enabled: enabled && !!gradeId && !!subjectId,
     onError,
   });
 

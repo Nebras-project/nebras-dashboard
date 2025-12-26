@@ -18,7 +18,7 @@ export const QUERY_KEYS = {
   COMPETITIONS: 'competitions',
   EXAMS: 'exams',
   QUESTIONS: 'questions',
-  CURRICULUMS: 'curriculums',
+  GRADES: 'grades',
   SUBJECTS: 'subjects',
   UNITS: 'units',
   LESSONS: 'lessons',

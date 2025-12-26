@@ -26,10 +26,10 @@ const menuItems = {
     icon: <Icon name="emojiEvents" />,
     path: '/competitions',
   },
-  curriculums: {
-    text: 'navigation.curriculums',
+  grades: {
+    text: 'navigation.grades',
     icon: <Icon name="school" />,
-    path: '/curriculums',
+    path: '/grades',
   },
   questions: {
     text: 'navigation.questions',
@@ -49,7 +49,7 @@ const fullAccessItems = [
   menuItems.managers,
   menuItems.students,
   menuItems.competitions,
-  menuItems.curriculums,
+  menuItems.grades,
   menuItems.questions,
   menuItems.settings,
 ];
@@ -59,7 +59,7 @@ const generalAdminItems = [
   menuItems.managers,
   menuItems.students,
   menuItems.competitions,
-  menuItems.curriculums,
+  menuItems.grades,
   menuItems.questions,
   menuItems.settings,
 ];
@@ -67,16 +67,8 @@ const generalAdminItems = [
 export const navigationItems = {
   owner: fullAccessItems,
   generalAdmin: generalAdminItems,
-  curriculumManager: [
-    menuItems.dashboard,
-    menuItems.curriculums,
-    menuItems.settings,
-  ],
-  competitionManager: [
-    menuItems.dashboard,
-    menuItems.competitions,
-    menuItems.settings,
-  ],
+  gradeManager: [menuItems.dashboard, menuItems.grades, menuItems.settings],
+  competitionManager: [menuItems.dashboard, menuItems.competitions, menuItems.settings],
   contentManager: [menuItems.dashboard, menuItems.questions, menuItems.settings],
 };
 

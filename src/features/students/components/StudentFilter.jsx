@@ -20,12 +20,12 @@ function StudentFilter({ onFilterChange, addButton }) {
   // Filter state management - filters are sent to backend
   const {
     searchTerm,
-    curriculum,
+    grade,
     hasActiveFilters,
     showFilters,
     filterOptions,
     setSearchTerm,
-    setCurriculum,
+    setGrade,
     handleClearFilters,
     handleToggleFilters,
   } = useStudentFilter(onFilterChange);
@@ -57,11 +57,11 @@ function StudentFilter({ onFilterChange, addButton }) {
         >
           <FilterContent>
             <FilterSelect
-              label={t('students.filter.curriculum')}
-              value={curriculum}
-              onChange={setCurriculum}
-              options={filterOptions.curriculums}
-              allLabel={t('students.filter.allCurricula')}
+              label={t('students.filter.grade')}
+              value={grade}
+              onChange={setGrade}
+              options={filterOptions.grades}
+              allLabel={t('students.filter.allGrades')}
             />
           </FilterContent>
         </Menu.Content>

@@ -16,7 +16,7 @@ import { useUnits } from '../hooks';
  *
  * Displays units accordion for a selected subject
  */
-function UnitsAccordion({ subjectId, curriculumId, title, subtitle }) {
+function UnitsAccordion({ subjectId, gradeId, title, subtitle }) {
   const { t } = useTranslation();
   const { mode } = useReduxTheme();
 
@@ -27,9 +27,9 @@ function UnitsAccordion({ subjectId, curriculumId, title, subtitle }) {
     isError,
     refetch,
   } = useUnits({
-    curriculumId,
+    gradeId,
     subjectId,
-    enabled: !!curriculumId && !!subjectId,
+    enabled: !!gradeId && !!subjectId,
   });
 
   const showSelectSubject = !subjectId;
@@ -38,7 +38,7 @@ function UnitsAccordion({ subjectId, curriculumId, title, subtitle }) {
   const safeUnits = hasUnits ? units : [];
 
   return (
-    <UnitFormDialog curriculumId={curriculumId} subjectId={subjectId} onSuccess={refetch}>
+    <UnitFormDialog gradeId={gradeId} subjectId={subjectId} onSuccess={refetch}>
       {({ onAdd, onEdit, onDelete }) => (
         <Paper sx={getSectionPaperStyles(mode)}>
           {subjectId && (
@@ -52,11 +52,11 @@ function UnitsAccordion({ subjectId, curriculumId, title, subtitle }) {
           {isLoading && <CircularLoader />}
 
           {!isLoading && showSelectSubject && (
-            <EmptyState icon="libraryBooks" title={t('curriculum.selectSubject')} />
+            <EmptyState icon="libraryBooks" title={t('grade.selectSubject')} />
           )}
 
           {!isLoading && showEmptyState && (
-            <EmptyState icon="libraryBooks" title={t('curriculum.noUnits')} />
+            <EmptyState icon="libraryBooks" title={t('grade.noUnits')} />
           )}
 
           {!isLoading && !showSelectSubject && hasUnits && (
@@ -66,7 +66,7 @@ function UnitsAccordion({ subjectId, curriculumId, title, subtitle }) {
                   key={unit.id}
                   unit={unit}
                   defaultExpanded={index === 0}
-                  curriculumId={curriculumId}
+                  gradeId={gradeId}
                   subjectId={subjectId}
                   onUnitEdit={onEdit}
                   onUnitDelete={onDelete}
@@ -82,14 +82,14 @@ function UnitsAccordion({ subjectId, curriculumId, title, subtitle }) {
 
 UnitsAccordion.propTypes = {
   subjectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  curriculumId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  gradeId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   title: PropTypes.string,
   subtitle: PropTypes.string,
 };
 
 UnitsAccordion.defaultProps = {
   subjectId: null,
-  curriculumId: null,
+  gradeId: null,
   title: null,
   subtitle: null,
 };

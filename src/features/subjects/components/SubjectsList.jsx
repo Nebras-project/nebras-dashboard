@@ -18,7 +18,7 @@ import { margin } from '@constants/spacing';
  */
 function SubjectsList({
   subjects,
-  curriculumId,
+  gradeId,
   selectedSubjectId,
   onSubjectSelect,
   onSubjectEdit,
@@ -30,7 +30,7 @@ function SubjectsList({
   const { mode } = useReduxTheme();
 
   const handleSubjectView = (subject) => {
-    navigate(NAVIGATION_PATHS.CURRICULUMS.SUBJECT(curriculumId, subject.id));
+    navigate(NAVIGATION_PATHS.GRADES.SUBJECT(gradeId, subject.id));
   };
 
   return (
@@ -95,7 +95,7 @@ function SubjectsList({
 
 SubjectsList.propTypes = {
   subjects: PropTypes.arrayOf(PropTypes.object).isRequired,
-  curriculumId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  gradeId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   selectedSubjectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onSubjectSelect: PropTypes.func.isRequired,
   onSubjectEdit: PropTypes.func.isRequired,

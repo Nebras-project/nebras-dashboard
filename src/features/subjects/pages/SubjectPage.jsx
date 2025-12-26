@@ -9,11 +9,11 @@ import { useTranslation } from '@hooks';
 /**
  * SubjectPage Component
  *
- * Single Responsibility: Display subject details page within curriculum context
+ * Single Responsibility: Display subject details page within grade context
  */
 function SubjectPage() {
   const { t } = useTranslation();
-  const { curriculumId, subjectId } = useParams();
+  const { gradeId, subjectId } = useParams();
 
   // TODO: Implement subject data fetching
   const isLoading = false;
@@ -21,7 +21,7 @@ function SubjectPage() {
 
   if (isLoading) {
     return (
-      <PageLayout title={t('curriculum.subjectDetails')} showBackButton>
+      <PageLayout title={t('grade.viewSubject')} showBackButton>
         <Loader />
       </PageLayout>
     );
@@ -29,10 +29,10 @@ function SubjectPage() {
 
   if (!subject) {
     return (
-      <PageLayout title={t('curriculum.subjectDetails')} showBackButton>
+      <PageLayout title={t('grade.viewSubject')} showBackButton>
         <Message
-          title={t('curriculum.subjectNotFound')}
-          content={t('curriculum.subjectNotFoundDescription')}
+          title={t('grade.viewSubject')}
+          content={`Subject not found`}
           icon="error"
           variant="error"
         />
@@ -42,8 +42,8 @@ function SubjectPage() {
 
   return (
     <PageLayout
-      title={t('curriculum.viewSubject')}
-      description={`Curriculum: ${curriculumId}, Subject: ${subjectId}`}
+      title={t('grade.viewSubject')}
+      description={`Grade: ${gradeId}, Subject: ${subjectId}`}
       showBackButton
     >
       <Container maxWidth="lg" sx={{ py: 4 }}>
@@ -52,7 +52,7 @@ function SubjectPage() {
             Subject page content coming soon
           </Typography>
           <Typography variant="caption" sx={{ mt: 2, display: 'block' }}>
-            Curriculum ID: {curriculumId}, Subject ID: {subjectId}
+            Grade ID: {gradeId}, Subject ID: {subjectId}
           </Typography>
         </Box>
       </Container>

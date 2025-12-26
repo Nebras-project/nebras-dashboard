@@ -15,11 +15,11 @@ import { getSubjectName } from '../utils';
  * @param {Function} options.onError - Optional callback after failed deletion
  * @returns {Object} Mutation object with deleteSubject function and state
  */
-export const useDeleteSubject = ({ curriculumId, onSuccess, onError } = {}) => {
+export const useDeleteSubject = ({ gradeId, onSuccess, onError } = {}) => {
   const { currentLanguage } = useLanguage();
   const { deleteItem, deleteItemAsync, isLoading, isError, error } = useDelete({
-    deleteFn: (subject) => deleteSubjectApi(curriculumId, subject.id),
-    queryKey: [QUERY_KEYS.SUBJECTS, curriculumId],
+    deleteFn: (subject) => deleteSubjectApi(gradeId, subject.id),
+    queryKey: [QUERY_KEYS.SUBJECTS, gradeId],
     entityName: 'subjects',
     getItemName: (subject) => {
       const name = getSubjectName(subject, currentLanguage);

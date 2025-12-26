@@ -6,17 +6,14 @@ import PropTypes from 'prop-types';
 import UnitForm from './UnitForm';
 import { useDeleteUnit } from '../hooks';
 
-function UnitFormDialog({ curriculumId, subjectId, children, onSuccess }) {
+function UnitFormDialog({ gradeId, subjectId, children, onSuccess }) {
   const [open, setOpen] = useState(false);
   const [editingUnit, setEditingUnit] = useState(null);
 
-  const canManageUnits = useMemo(
-    () => Boolean(curriculumId && subjectId),
-    [curriculumId, subjectId]
-  );
+  const canManageUnits = useMemo(() => Boolean(gradeId && subjectId), [gradeId, subjectId]);
 
   const { deleteUnit } = useDeleteUnit({
-    curriculumId,
+    gradeId,
     subjectId,
     onSuccess,
   });
@@ -74,7 +71,7 @@ function UnitFormDialog({ curriculumId, subjectId, children, onSuccess }) {
           onClose={handleClose}
           defaultValues={editingUnit || {}}
           isEdit={!!editingUnit}
-          curriculumId={curriculumId}
+          gradeId={gradeId}
           subjectId={subjectId}
           onSuccess={handleFormSuccess}
         />
@@ -84,7 +81,7 @@ function UnitFormDialog({ curriculumId, subjectId, children, onSuccess }) {
 }
 
 UnitFormDialog.propTypes = {
-  curriculumId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  gradeId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   subjectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   onSuccess: PropTypes.func,

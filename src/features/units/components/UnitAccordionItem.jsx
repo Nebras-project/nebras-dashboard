@@ -23,7 +23,7 @@ import { useReduxTheme } from '@hooks';
 function UnitAccordionItem({
   unit,
   defaultExpanded,
-  curriculumId,
+  gradeId,
   subjectId,
   onUnitEdit,
   onUnitDelete,
@@ -37,8 +37,8 @@ function UnitAccordionItem({
   const lessonsCount = unit.lessonsCount || 0;
 
   const handleUnitView = () => {
-    if (subjectId && curriculumId) {
-      navigate(NAVIGATION_PATHS.CURRICULUMS.UNIT(curriculumId, subjectId, unit.id));
+    if (subjectId && gradeId) {
+      navigate(NAVIGATION_PATHS.GRADES.UNIT(gradeId, subjectId, unit.id));
     }
   };
 
@@ -84,27 +84,22 @@ function UnitAccordionItem({
         <UnitSummary
           unitName={unitName}
           lessonsCount={lessonsCount}
-          lessonsLabel={t('curriculum.lessons')}
+          lessonsLabel={t('grade.lessons')}
           onView={handleUnitView}
           onEdit={handleUnitEdit}
           onDelete={onUnitDelete ? handleUnitDelete : undefined}
           unit={unit}
           labels={{
-            view: t('curriculum.viewUnit'),
-            edit: t('curriculum.editUnit'),
-            delete: t('curriculum.deleteUnit'),
+            view: t('grade.viewUnit'),
+            edit: t('grade.editUnit'),
+            delete: t('grade.deleteUnit'),
           }}
           getItemName={(item) => getUnitName(item, currentLanguage)}
         />
       </AccordionSummary>
 
       <AccordionDetails>
-        <LessonsSection
-          unit={unit}
-          curriculumId={curriculumId}
-          subjectId={subjectId}
-          enabled={expanded}
-        />
+        <LessonsSection unit={unit} gradeId={gradeId} subjectId={subjectId} enabled={expanded} />
       </AccordionDetails>
     </Accordion>
   );
@@ -119,7 +114,7 @@ UnitAccordionItem.propTypes = {
     lessonsCount: PropTypes.number,
   }).isRequired,
   defaultExpanded: PropTypes.bool,
-  curriculumId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  gradeId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   subjectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onUnitEdit: PropTypes.func,
   onUnitDelete: PropTypes.func,
@@ -127,7 +122,7 @@ UnitAccordionItem.propTypes = {
 
 UnitAccordionItem.defaultProps = {
   defaultExpanded: false,
-  curriculumId: null,
+  gradeId: null,
   subjectId: null,
   onUnitEdit: undefined,
   onUnitDelete: undefined,

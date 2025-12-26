@@ -4,8 +4,8 @@ import { useFormContext } from 'react-hook-form';
 
 // internal imports
 import { useLanguage } from '@hooks';
-import { useCurriculum } from '@features/curriculums/hooks';
-import { getCurriculumOptions } from '@features/curriculums/utils';
+import { useGrade } from '@features/grades/hooks';
+import { getGradeOptions } from '@features/grades/utils';
 import { useSubjects } from '@features/subjects/hooks';
 import { getSubjectOptions } from '@features/subjects/utils';
 import { useUnits } from '@features/units/hooks';
@@ -30,7 +30,7 @@ export const useQuestionSettingsFields = () => {
   const { watch, setValue } = useFormContext();
 
   // Watch form values for cascading selects
-  const curriculumId = watch('curriculumId');
+  const gradeId = watch('gradeId');
   const subjectId = watch('subjectId');
   const unitId = watch('unitId');
   const category = watch('category');
@@ -38,28 +38,28 @@ export const useQuestionSettingsFields = () => {
   // Check if category is ministerial (for conditional field display)
   const isMinisterial = category === 'Ministerial';
 
-  // Fetch curriculums
-  const { curriculums = [], isLoading: isLoadingCurriculums } = useCurriculum();
-  const curriculumOptions = useMemo(
+  // Fetch grades
+  const { grades = [], isLoading: isLoadingGrades } = useGrade();
+  const gradeOptions = useMemo(
     () =>
-      curriculums.length > 0
-        ? getCurriculumOptions(curriculums, currentLanguage)
+      grades.length > 0
+        ? getGradeOptions(grades, currentLanguage)
         : [
             { value: 1, label: 'المنهج الأول' },
             { value: 2, label: 'المنهج الثاني' },
             { value: 3, label: 'المنهج الثالث' },
           ],
-    [curriculums, currentLanguage]
+    [grades, currentLanguage]
   );
 
   // Fetch subjects based on curriculum
   const { subjects = [], isLoading: isLoadingSubjects } = useSubjects({
-    curriculumId: curriculumId ? Number(curriculumId) : undefined,
-    enabled: !!curriculumId,
+    gradeId: gradeId ? Number(gradeId) : undefined,
+    enabled: !!gradeId,
   });
   const subjectOptions = useMemo(() => {
     // Show dummy data if no curriculum selected or no real data available
-    if (!curriculumId || subjects.length === 0) {
+    if (!gradeId || subjects.length === 0) {
       return [
         { value: 1, label: 'الرياضيات' },
         { value: 2, label: 'العلوم' },
@@ -68,17 +68,17 @@ export const useQuestionSettingsFields = () => {
       ];
     }
     return getSubjectOptions(subjects, currentLanguage);
-  }, [subjects, currentLanguage, curriculumId]);
+  }, [subjects, currentLanguage, gradeId]);
 
   // Fetch units based on curriculum and subject
   const { units = [], isLoading: isLoadingUnits } = useUnits({
-    curriculumId: curriculumId ? Number(curriculumId) : undefined,
+    gradeId: gradeId ? Number(gradeId) : undefined,
     subjectId: subjectId ? Number(subjectId) : undefined,
-    enabled: !!curriculumId && !!subjectId,
+    enabled: !!gradeId && !!subjectId,
   });
   const unitOptions = useMemo(() => {
     // Show dummy data if curriculum/subject not selected or no real data available
-    if (!curriculumId || !subjectId || units.length === 0) {
+    if (!gradeId || !subjectId || units.length === 0) {
       return [
         { value: 1, label: 'الوحدة الأولى' },
         { value: 2, label: 'الوحدة الثانية' },
@@ -87,18 +87,18 @@ export const useQuestionSettingsFields = () => {
       ];
     }
     return getUnitOptions(units, currentLanguage);
-  }, [units, currentLanguage, curriculumId, subjectId]);
+  }, [units, currentLanguage, gradeId, subjectId]);
 
   // Fetch lessons based on curriculum, subject, and unit
   const { lessons = [], isLoading: isLoadingLessons } = useLessons({
-    curriculumId: curriculumId ? Number(curriculumId) : undefined,
+    gradeId: gradeId ? Number(gradeId) : undefined,
     subjectId: subjectId ? Number(subjectId) : undefined,
     unitId: unitId ? Number(unitId) : undefined,
-    enabled: !!curriculumId && !!subjectId && !!unitId,
+    enabled: !!gradeId && !!subjectId && !!unitId,
   });
   const lessonOptions = useMemo(() => {
     // Show dummy data if curriculum/subject/unit not selected or no real data available
-    if (!curriculumId || !subjectId || !unitId || lessons.length === 0) {
+    if (!gradeId || !subjectId || !unitId || lessons.length === 0) {
       return [
         { value: 1, label: 'الدرس الأول' },
         { value: 2, label: 'الدرس الثاني' },
@@ -108,7 +108,7 @@ export const useQuestionSettingsFields = () => {
       ];
     }
     return getLessonOptions(lessons, currentLanguage);
-  }, [lessons, currentLanguage, curriculumId, subjectId, unitId]);
+  }, [lessons, currentLanguage, gradeId, subjectId, unitId]);
 
   // Get type and category options
   const typeOptions = useMemo(() => getQuestionTypeOptions(t), [t]);
@@ -116,12 +116,12 @@ export const useQuestionSettingsFields = () => {
 
   // Reset dependent fields when parent field changes
   useEffect(() => {
-    if (!curriculumId) {
+    if (!gradeId) {
       setValue('subjectId', '');
       setValue('unitId', '');
       setValue('lessonId', '');
     }
-  }, [curriculumId, setValue]);
+  }, [gradeId, setValue]);
 
   useEffect(() => {
     if (!subjectId) {
@@ -138,19 +138,19 @@ export const useQuestionSettingsFields = () => {
 
   return {
     // Form values
-    curriculumId,
+    gradeId,
     subjectId,
     unitId,
     isMinisterial,
     // Options
-    curriculumOptions,
+    gradeOptions,
     subjectOptions,
     unitOptions,
     lessonOptions,
     typeOptions,
     categoryOptions,
     // Loading states
-    isLoadingCurriculums,
+    isLoadingGrades,
     isLoadingSubjects,
     isLoadingUnits,
     isLoadingLessons,

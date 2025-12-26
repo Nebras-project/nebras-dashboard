@@ -15,7 +15,7 @@ const buildDefaultValues = (values = {}) => ({
 });
 
 export const useUnitForm = ({
-  curriculumId,
+  gradeId,
   subjectId,
   defaultValues = {},
   isEdit = false,
@@ -25,13 +25,13 @@ export const useUnitForm = ({
   const { currentLanguage } = useLanguage();
 
   const { formDefaultValues, handleSubmit, isLoading, isError, error } = useEntityForm({
-    queryKey: [QUERY_KEYS.UNITS, curriculumId, subjectId],
+    queryKey: [QUERY_KEYS.UNITS, gradeId, subjectId],
     defaultValues,
     isEdit,
     onSuccess,
     onError,
-    createFn: (data) => createUnit(curriculumId, subjectId, data),
-    updateFn: ({ id, data }) => updateUnit(curriculumId, subjectId, id, data),
+    createFn: (data) => createUnit(gradeId, subjectId, data),
+    updateFn: ({ id, data }) => updateUnit(gradeId, subjectId, id, data),
     buildDefaultValues,
     entityName: 'units',
     getItemName: (unit) => {
