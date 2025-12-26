@@ -4,7 +4,7 @@ import { createColumnsBase } from '@components/table/utils/createColumnsBase';
 import managerRenderers from './managerRenderers';
 
 const MANAGER_COLUMN_DEFINITIONS = {
-  userProfile: {
+  profileImage: {
     filterable: false,
     sortable: false,
     renderer: 'profileAvatar',

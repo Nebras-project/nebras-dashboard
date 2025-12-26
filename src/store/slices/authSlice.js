@@ -11,7 +11,7 @@ const initialState = {
   role: null,
   isAuthenticated: false,
   accessToken: null,
-  isEmailConfirmed: false,
+  verifyEmail: false,
 };
 
 const authSlice = createSlice({
@@ -19,7 +19,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUserData: (state, action) => {
-      const { userId, email, userName, phoneNumber, profileImage, role, accessToken, isEmailConfirmed } =
+      const { userId, email, userName, phoneNumber, profileImage, role, accessToken, verifyEmail } =
         action.payload;
       state.userId = userId;
       state.email = email;
@@ -30,7 +30,7 @@ const authSlice = createSlice({
       state.role = role ? toCamelCase(role) : null;
       state.isAuthenticated = !!userId && !!accessToken;
       state.accessToken = accessToken;
-      state.isEmailConfirmed = isEmailConfirmed ?? false;
+      state.verifyEmail = verifyEmail ?? false;
     },
     clearUserData: (state) => {
       state.userId = null;
@@ -41,7 +41,7 @@ const authSlice = createSlice({
       state.role = null;
       state.isAuthenticated = false;
       state.accessToken = null;
-      state.isEmailConfirmed = false;
+      state.verifyEmail = false;
       // Clear persisted state
       clearPersistedState();
     },

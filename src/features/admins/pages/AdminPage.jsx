@@ -38,7 +38,7 @@ function AdminPage() {
     <AdminFormDialog showAddButton={false}>
       {({ onEdit }) => (
         <>
-          <PageLayout title={t('admins.adminDetails')} showBackButton={true}>
+          <PageLayout title={t('admins.adminDetails')} showBackButton={false}>
             <Grid container spacing={3} alignItems="stretch">
               {/* Profile Card */}
               <Grid item size={{ mobile: 12, desktop: 3 }}>

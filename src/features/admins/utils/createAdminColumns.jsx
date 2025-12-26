@@ -4,7 +4,7 @@ import { createColumnsBase } from '@components/table/utils/createColumnsBase';
 import adminRenderers from './adminRenderers';
 
 const ADMIN_COLUMN_DEFINITIONS = {
-  userProfile: {
+  profileImage: {
     filterable: false,
     sortable: false,
     renderer: 'profileAvatar',

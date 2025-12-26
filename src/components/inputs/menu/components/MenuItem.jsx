@@ -13,7 +13,7 @@ const StyledMenuItem = styled(MuiMenuItem)(() => ({
   fontWeight: fontWeights.regular,
 }));
 
-function MenuItem({ children, sx, onClick, ...props }) {
+function MenuItem({ children, sx, onClick, autoClose = true, ...props }) {
   const { handleClose } = useMenuContext();
 
   const handleClick = (event) => {
@@ -21,7 +21,9 @@ function MenuItem({ children, sx, onClick, ...props }) {
       onClick(event);
     }
 
-    handleClose();
+    if (autoClose) {
+      handleClose();
+    }
   };
 
   return (
@@ -35,6 +37,7 @@ MenuItem.propTypes = {
   children: PropTypes.node.isRequired,
   sx: PropTypes.object,
   onClick: PropTypes.func,
+  autoClose: PropTypes.bool,
   component: PropTypes.elementType,
   to: PropTypes.string,
 };

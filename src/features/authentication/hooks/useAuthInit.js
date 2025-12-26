@@ -73,7 +73,7 @@ export const useAuthInit = (options = {}) => {
           phoneNumber,
           role,
           accessToken: responseAccessToken, // In case /me also returns accessToken
-          isEmailConfirmed,
+          verifyEmail,
         } = userData;
 
         // Use accessToken from refresh or from response (response takes precedence)
@@ -91,7 +91,7 @@ export const useAuthInit = (options = {}) => {
             phoneNumber,
             role: normalizedRole,
             accessToken: finalAccessToken,
-            isEmailConfirmed: isEmailConfirmed ?? false,
+            verifyEmail: verifyEmail ?? false,
           });
 
           // Update React Query cache
@@ -106,6 +106,7 @@ export const useAuthInit = (options = {}) => {
         // If refresh succeeded but /me failed, we still have the token in Redux
         // If it's a 401, the axios interceptor will handle it
         // We don't show error messages here to avoid confusing the user
+        // console.log(_error);
         hasInitialized.current = false;
       }
     };

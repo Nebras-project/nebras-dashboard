@@ -23,9 +23,9 @@ const columnRegistry = {
     minWidth: 100,
     flex: 0.7,
   },
-  userProfile: {
-    field: 'userProfile',
-    headerKey: 'table.columnHeaders.common.userProfile',
+  profileImage: {
+    field: 'profileImage',
+    headerKey: 'table.columnHeaders.common.profileImage',
     sortable: false,
     filterable: false,
     width: 48,
@@ -206,9 +206,9 @@ export function buildColumns(keys, options = {}) {
 }
 
 const USER_COLUMN_KEYS = {
-  admin: ['userProfile', 'userName', 'email', 'phoneNumber'],
-  manager: ['userProfile', 'userName', 'email', 'role', 'phoneNumber'],
-  student: ['userProfile', 'userName', 'email', 'curriculum', 'phoneNumber'],
+  admin: ['profileImage', 'userName', 'email', 'phoneNumber'],
+  manager: ['profileImage', 'userName', 'email', 'role', 'phoneNumber'],
+  student: ['profileImage', 'userName', 'email', 'curriculum', 'phoneNumber'],
 };
 
 /**

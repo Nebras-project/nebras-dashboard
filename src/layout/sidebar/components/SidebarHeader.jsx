@@ -32,6 +32,7 @@ const getTypographyStyles = () => ({
 
 const getCollapseButtonStyles = (collapsed) => ({
   ml: collapsed ? 0 : 'auto',
+  cursor: 'ew-resize',
 });
 
 const getCollapseIcon = (isRTL, collapsed) => {

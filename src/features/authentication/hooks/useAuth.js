@@ -28,7 +28,7 @@ export const useAuth = () => {
       role: auth.role,
       isAuthenticated: auth.isAuthenticated,
       accessToken: auth.accessToken,
-      isEmailConfirmed: auth.isEmailConfirmed,
+      verifyEmail: auth.verifyEmail,
       // Actions
       setUserData: setUserDataAction,
       clearUserData: clearUserDataAction,

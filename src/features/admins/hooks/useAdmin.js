@@ -33,7 +33,8 @@ export const useAdmin = ({ id, queryString, params, enabled = true, onError } = 
   // Return with admin-specific property names
   return {
     admin: id ? data : undefined,
-    admins: id ? undefined : data,
+    admins: id ? undefined : data?.data || [],
+    totalCount: data?.totalCount || 0,
     isLoading,
     isError,
     error,

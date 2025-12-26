@@ -20,8 +20,6 @@ function AdminsTable({ customFilters = {}, onEdit }) {
   const { deleteAdmin } = useDeleteAdmin();
   const navigate = useNavigate();
 
-
-
   const {
     paginationModel,
     sortModel,
@@ -31,7 +29,7 @@ function AdminsTable({ customFilters = {}, onEdit }) {
   } = useTable({ customFilters });
 
   // Fetch admins data using the hook
-  const { admins, isLoading } = useAdmin({
+  const { admins, totalCount, isLoading } = useAdmin({
     queryString,
   });
 
@@ -46,12 +44,12 @@ function AdminsTable({ customFilters = {}, onEdit }) {
           <ActionsMenu
             row={row}
             checkPermissions
-            tooltip={t('common.actions')}
+            tooltip={t('admins.actionsTooltip')}
             actions={[
               {
                 label: t('admins.viewAdmin'),
                 icon: <Icon name="visibility" size={18} />,
-                onClick: () => navigate(NAVIGATION_PATHS.ADMINS.BY_ID(row.id)),
+                onClick: () => navigate(NAVIGATION_PATHS.ADMINS.BY_ID(row.userId)),
               },
               {
                 label: t('admins.editAdmin'),
@@ -83,13 +81,14 @@ function AdminsTable({ customFilters = {}, onEdit }) {
       rows={admins || []}
       columns={columns}
       disableRowSelectionOnClick
-      // checkRowSelection
-      rowCount={admins?.length || 0}
+      rowCount={totalCount}
       paginationModel={paginationModel}
       onPaginationModelChange={handlePaginationModelChange}
       sortModel={sortModel}
       onSortModelChange={handleSortModelChange}
       sx={getTopTableStyles()}
+      getRowId={(row) => row.userId || row.email || Math.random()}
+      loading={isLoading}
     />
   );
 }

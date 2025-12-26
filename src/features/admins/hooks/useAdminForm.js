@@ -30,9 +30,9 @@ export const useAdminForm = ({ defaultValues = {}, isEdit = false, onSuccess, on
     updateFn: ({ id, data }) => updateAdmin(id, data),
     buildDefaultValues: (values) => buildBaseUserDefaultValues(values),
     entityName: 'admins',
-    getItemName: (data) => {
-      const name = getAdminName(data);
-      return name !== 'N/A' ? name : 'Admin';
+    getItemName: (data, variables) => {
+      const nameFromVars = getAdminName(variables);
+      return nameFromVars && nameFromVars !== 'N/A' ? nameFromVars : 'الادمن';
     },
   });
 

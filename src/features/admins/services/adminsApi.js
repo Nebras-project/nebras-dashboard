@@ -14,7 +14,7 @@ import { createFormData } from '@utils';
  * FormData options for admin create/update operations
  */
 const ADMIN_FORM_DATA_OPTIONS = {
-  fileFields: 'userProfile',
+  fileFields: 'profileImage',
   excludeFields: ['confirmPassword'],
 };
 
@@ -53,8 +53,8 @@ export const fetchAdminById = async (id) => {
  * @returns {Promise} API response
  */
 export const createAdmin = async (adminData) => {
-  const formData = createFormData(adminData, ADMIN_FORM_DATA_OPTIONS);
-  return await apiClient.post(API_ENDPOINTS.ADMINS.BASE, formData);
+  const { confirmPassword, ...dataWithoutConfirmPassword } = adminData;
+  return await apiClient.post(API_ENDPOINTS.ADMINS.BASE, dataWithoutConfirmPassword);
 };
 
 /**
@@ -64,8 +64,27 @@ export const createAdmin = async (adminData) => {
  * @returns {Promise} API response
  */
 export const updateAdmin = async (id, adminData) => {
-  const formData = createFormData(adminData, ADMIN_FORM_DATA_OPTIONS);
-  return await apiClient.put(API_ENDPOINTS.ADMINS.BY_ID(id), formData);
+  // Check if there's a file to upload
+  const hasFile = adminData.profileImage instanceof File;
+
+  if (hasFile) {
+    // Use FormData when there's a file
+    const formData = createFormData(adminData, ADMIN_FORM_DATA_OPTIONS);
+    return await apiClient.put(API_ENDPOINTS.ADMINS.BY_ID(id), formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  } else {
+    // Send as JSON when there's no file (remove confirmPassword)
+    const { confirmPassword, ...dataWithoutConfirmPassword } = adminData;
+
+    return await apiClient.put(API_ENDPOINTS.ADMINS.BY_ID(id), dataWithoutConfirmPassword, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  }
 };
 
 /**
@@ -75,8 +94,26 @@ export const updateAdmin = async (id, adminData) => {
  * @returns {Promise} API response
  */
 export const patchAdmin = async (id, adminData) => {
-  const formData = createFormData(adminData, ADMIN_FORM_DATA_OPTIONS);
-  return await apiClient.patch(API_ENDPOINTS.ADMINS.BY_ID(id), formData);
+  // Check if there's a file to upload
+  const hasFile = adminData.profileImage instanceof File;
+
+  if (hasFile) {
+    // Use FormData when there's a file
+    const formData = createFormData(adminData, ADMIN_FORM_DATA_OPTIONS);
+    return await apiClient.patch(API_ENDPOINTS.ADMINS.BY_ID(id), formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  } else {
+    // Send as JSON when there's no file (remove confirmPassword)
+    const { confirmPassword, ...dataWithoutConfirmPassword } = adminData;
+    return await apiClient.patch(API_ENDPOINTS.ADMINS.BY_ID(id), dataWithoutConfirmPassword, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  }
 };
 
 /**

@@ -18,7 +18,7 @@ export const API_ENDPOINTS = {
   // Authentication
   // Note: Auth endpoints may not strictly follow REST, but are common patterns
   AUTH: {
-    LOGIN: '/auth/login_manager', // POST - Create session
+    LOGIN: '/auth/login_dashboard', // POST - Create session
     VERIFY_EMAIL: '/auth/verify_email', // POST - Verify email
     LOGOUT: '/auth/logout', // POST/DELETE - Destroy session
     REFRESH: '/auth/refresh_access_token', // POST - Refresh session token

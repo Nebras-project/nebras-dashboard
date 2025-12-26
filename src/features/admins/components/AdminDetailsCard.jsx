@@ -1,12 +1,15 @@
 // external imports
-import { Grid, IconButton } from '@mui/material';
+import { Grid } from '@mui/material';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 // internal imports
-import { Card, DetailField } from '@components';
+import { Card, DetailField, DeleteAction, ActionsMenu } from '@components';
 import Icon from '@components/display/Icon';
 import { useTranslation } from '@i18n/hooks/useTranslation';
+import { NAVIGATION_PATHS } from '@config';
 import { getAdminName, getAdminEmail, getAdminPhone, getAdminRole } from '../utils';
+import { useDeleteAdmin } from '../hooks';
 
 /**
  * AdminDetailsCard Component
@@ -15,25 +18,36 @@ import { getAdminName, getAdminEmail, getAdminPhone, getAdminRole } from '../uti
  */
 function AdminDetailsCard({ admin, onEdit }) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { deleteAdmin } = useDeleteAdmin({
+    onSuccess: () => navigate(NAVIGATION_PATHS.ADMINS.BASE),
+  });
 
   const adminName = getAdminName(admin);
   const adminEmail = getAdminEmail(admin);
   const adminPhone = getAdminPhone(admin);
   const adminRole = getAdminRole(admin, t);
-  // Translate role value (e.g., "Curriculum Manager" -> "مدير المناهج")
+
+  const actions = [
+    {
+      label: t('admins.editAdmin'),
+      icon: <Icon name="edit" size={20} />,
+      onClick: () => onEdit(admin),
+    },
+    <DeleteAction
+      key="delete"
+      row={admin}
+      deleteFn={deleteAdmin}
+      getItemName={(item) => getAdminName(item)}
+      entityName="admins"
+      label={t('admins.deleteAdmin')}
+    />,
+  ];
+
   return (
     <Card
       title={t('admins.personalInformation')}
-      action={
-        <IconButton
-          onClick={() => onEdit(admin)}
-          size="small"
-          sx={{ color: 'primary.main' }}
-          aria-label={t('admins.editAdmin')}
-        >
-          <Icon name="edit" size={20} />
-        </IconButton>
-      }
+      action={<ActionsMenu actions={actions} />}
       sx={{ height: '100%' }}
     >
       <Grid container spacing={2}>
