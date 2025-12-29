@@ -16,16 +16,16 @@ export const useAdminFilter = (onFilterChange, debounceMs = 500) => {
   // Use debounced filter for search only
   const { filters, hasActiveFilters, updateFilter, clearAllFilters } = useDebouncedFilter(
     {
-      adminName: '',
+      UserName: '',
     },
     onFilterChange, // This will be called with cleaned params after debounce
     debounceMs
   );
 
-  const searchTerm = filters.adminName || '';
+  const searchTerm = filters.UserName || '';
 
   // Convenience setters
-  const setSearchTerm = (value) => updateFilter('adminName', value);
+  const setSearchTerm = (value) => updateFilter('UserName', value);
 
   const handleClearFilters = () => {
     clearAllFilters();

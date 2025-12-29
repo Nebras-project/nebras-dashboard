@@ -1,9 +1,9 @@
-import { buildStudentColumns, TableProfileAvatar } from '@components/table';
+import { buildStudentColumns } from '@components/table';
 import { createColumnsBase } from '@components/table/utils/createColumnsBase';
-import { createPhoneRenderer } from '@utils/rtl';
+import RENDERERS from './studentRenderers';
 
 const STUDENT_COLUMN_DEFINITIONS = {
-  userProfile: {
+  profileImage: {
     renderer: 'profileAvatar',
     sortable: false,
     filterable: false,
@@ -19,7 +19,8 @@ const STUDENT_COLUMN_DEFINITIONS = {
   grade: {
     filterable: false,
     sortable: false,
-    field: 'Grade',
+    field: 'gradeName',
+    renderer: 'grade',
   },
   phoneNumber: {
     filterable: false,
@@ -28,13 +29,7 @@ const STUDENT_COLUMN_DEFINITIONS = {
   },
 };
 
-const RENDERERS = {
-  profileAvatar:
-    () =>
-    ({ value, row }) =>
-      <TableProfileAvatar user={{ ...row, avatar: value, profileImage: value }} size={36} />,
-  phone: createPhoneRenderer,
-};
+// renderers are imported from ./studentRenderers
 
 export default function createStudentColumns({
   t,

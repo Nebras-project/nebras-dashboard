@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { UserFields, EntityForm } from '@components';
 import { useTranslation } from '@hooks';
 import { useStudentForm } from '../hooks';
+import { useGrade } from '../../grades/hooks/useGrade';
 
 /**
  * StudentForm Component
@@ -24,6 +25,8 @@ const StudentForm = memo(function StudentForm({
 }) {
   const { t } = useTranslation();
 
+  const { gradeOptions } = useGrade();
+
   return (
     <EntityForm
       mode={mode}
@@ -36,7 +39,7 @@ const StudentForm = memo(function StudentForm({
       titleAdd={t('students.addStudent')}
       titleEdit={t('students.editStudent')}
       useFormHook={useStudentForm}
-      renderFields={({ gradeOptions, isEdit }) => (
+      renderFields={({ isEdit }) => (
         <UserFields
           showPassword
           showGrade

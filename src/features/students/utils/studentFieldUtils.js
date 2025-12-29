@@ -29,7 +29,7 @@ export const getStudentEmail = (student) => {
  * @returns {string} Student phone or 'N/A' if not found
  */
 export const getStudentPhone = (student) => {
-  return student?.Phone || student?.PhoneNumber || student?.phone || 'N/A';
+  return student?.phoneNumber || student?.PhoneNumber || 'N/A';
 };
 
 /**
@@ -38,7 +38,7 @@ export const getStudentPhone = (student) => {
  * @returns {string} Student grade or 'N/A' if not found
  */
 export const getStudentGrade = (student) => {
-  return student?.Grade || 'N/A';
+  return student?.gradeName || 'N/A';
 };
 
 /**
@@ -47,7 +47,7 @@ export const getStudentGrade = (student) => {
  * @returns {string|null} Student profile image URL or null if not found
  */
 export const getStudentProfileImage = (student) => {
-  return student?.UserProfile || null;
+  return student?.profileImage || null;
 };
 
 /**

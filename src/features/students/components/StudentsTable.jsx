@@ -27,10 +27,9 @@ function StudentsTable({ customFilters = {}, onEdit }) {
   } = useTable({ customFilters });
 
   // Fetch students data using the hook
-  const { students, isLoading } = useStudent({
+  const { students, isLoading, totalCount } = useStudent({
     queryString,
   });
-
   const columns = useMemo(
     () =>
       createStudentColumns({
@@ -77,12 +76,13 @@ function StudentsTable({ customFilters = {}, onEdit }) {
       columns={columns}
       disableRowSelectionOnClick
       // checkRowSelection
-      rowCount={students?.length || 0}
+      rowCount={totalCount}
       paginationModel={paginationModel}
       onPaginationModelChange={handlePaginationModelChange}
       sortModel={sortModel}
       onSortModelChange={handleSortModelChange}
       sx={getTopTableStyles()}
+      getRowId={(row) => row.id || row.email || Math.random()}
     />
   );
 }

@@ -7,24 +7,14 @@
 // Import API client and endpoints
 import apiClient, { API_ENDPOINTS } from '@config/axios';
 
-// Import utilities
-import { createFormData } from '@utils';
-
-/**
- * FormData options for grade create/update operations
- */
-const GRADE_FORM_DATA_OPTIONS = {
-  fileFields: 'image',
-  excludeFields: [],
-};
-
 /**
  * Fetch all grades
  * @param {Object} _params - Query parameters (unused but kept for API consistency)
  * @returns {Promise} API response
  */
 export const fetchGrades = async (_params = {}) => {
-  return await apiClient.get(API_ENDPOINTS.GRADES.BASE);
+  const response = await apiClient.get(API_ENDPOINTS.GRADES.BASE);
+  return response.data;
 };
 
 /**
@@ -33,7 +23,8 @@ export const fetchGrades = async (_params = {}) => {
  * @returns {Promise} API response
  */
 export const fetchGradeById = async (id) => {
-  return await apiClient.get(API_ENDPOINTS.GRADES.BY_ID(id));
+  const response = await apiClient.get(API_ENDPOINTS.GRADES.BY_ID(id));
+  return response;
 };
 
 /**
@@ -42,8 +33,8 @@ export const fetchGradeById = async (id) => {
  * @returns {Promise} API response
  */
 export const createGrade = async (gradeData) => {
-  const formData = createFormData(gradeData, GRADE_FORM_DATA_OPTIONS);
-  return await apiClient.post(API_ENDPOINTS.GRADES.BASE, formData);
+  const response = await apiClient.post(API_ENDPOINTS.GRADES.BASE, gradeData);
+  return response.data;
 };
 
 /**
@@ -53,8 +44,8 @@ export const createGrade = async (gradeData) => {
  * @returns {Promise} API response
  */
 export const updateGrade = async (id, gradeData) => {
-  const formData = createFormData(gradeData, GRADE_FORM_DATA_OPTIONS);
-  return await apiClient.put(API_ENDPOINTS.GRADES.BY_ID(id), formData);
+  const response = await apiClient.put(API_ENDPOINTS.GRADES.BY_ID(id), gradeData);
+  return response.data;
 };
 
 /**
@@ -64,8 +55,8 @@ export const updateGrade = async (id, gradeData) => {
  * @returns {Promise} API response
  */
 export const patchGrade = async (id, gradeData) => {
-  const formData = createFormData(gradeData, GRADE_FORM_DATA_OPTIONS);
-  return await apiClient.patch(API_ENDPOINTS.GRADES.BY_ID(id), formData);
+  const response = await apiClient.patch(API_ENDPOINTS.GRADES.BY_ID(id), gradeData);
+  return response.data;
 };
 
 /**
@@ -74,5 +65,6 @@ export const patchGrade = async (id, gradeData) => {
  * @returns {Promise} API response
  */
 export const deleteGrade = async (id) => {
-  return await apiClient.delete(API_ENDPOINTS.GRADES.BY_ID(id));
+  const response = await apiClient.delete(API_ENDPOINTS.GRADES.BY_ID(id));
+  return response.data;
 };

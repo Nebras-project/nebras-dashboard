@@ -4,6 +4,7 @@ import { QUERY_KEYS } from '@config';
 
 // internal imports
 import { fetchGradeById, fetchGrades } from '../services/gradesApi';
+import { getGradeOptions } from '../utils';
 
 /**
  * useGrade Hook
@@ -30,10 +31,15 @@ export const useGrade = ({ id, queryString, params, enabled = true, onError } = 
     onError,
   });
 
+  let gradeOptions = [];
+  if(!id) {
+    gradeOptions = getGradeOptions(data || []);
+  }
   // Return with grade-specific property names
   return {
     grade: id ? data : undefined,
     grades: id ? undefined : data,
+    gradeOptions,
     isLoading,
     isError,
     error,

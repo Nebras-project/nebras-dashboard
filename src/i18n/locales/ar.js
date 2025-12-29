@@ -101,7 +101,7 @@ const ar = {
     competitions: 'المسابقات',
     students: 'الطلاب',
     users: 'المستخدمون',
-    admins: 'مسؤولون إداريون',
+    admins: 'مسؤولون الإداريون',
     managers: 'المدراء',
     reports: 'التقارير',
     notifications: 'الإشعارات',
@@ -200,7 +200,7 @@ const ar = {
     noGrades: 'لا توجد صفوف دراسية',
     noGradesDescription: 'ابدأ بإنشاء صف دراسي جديد لإدارة المواد والوحدات والدروس',
     noSubjects: 'لا توجد مواد',
-    noSubjectsDescription: 'ابدأ بإضافة مادة جديدة لهذه المرحلة الدراسية',
+    noSubjectsDescription: 'ابدأ بإضافة مادة جديدة لهذا الصف الدراسي',
     noUnits: 'لا توجد وحدات',
     noLessons: 'لا توجد دروس',
     pageDescription: 'إدارة الصفوف الدراسية وإنشاء وتنظيم المواد والوحدات والدروس',
@@ -223,6 +223,10 @@ const ar = {
     deleteConfirmMessage: 'هل أنت متأكد من حذف {{name}}؟ لا يمكن التراجع عن هذا الإجراء.',
     deleteErrorTitle: 'فشل الحذف',
     deleteErrorMessage: 'فشل حذف الصف الدراسي {{name}}. يرجى المحاولة مرة أخرى.',
+    createSuccessMessage: 'تم إنشاء الصف الدراسي {{name}} بنجاح.',
+    updateSuccessMessage: 'تم تحديث الصف الدراسي {{name}} بنجاح.',
+    deleteSuccessMessage: 'تم حذف الصف الدراسي {{name}} بنجاح.',
+    actionsTooltip: 'إجراءات الصف الدراسي',
   },
 
   // Subjects (plural - for entity operations)
@@ -503,7 +507,7 @@ const ar = {
     viewManager: 'عرض المدير',
     managerDetails: 'تفاصيل المدير',
     actionsTooltip: 'إجراءات المدير',
-    role: 'الصلاحيات',
+    role: 'الدور',
     assignRole: 'تعيين الدور',
     description: 'إدارة المدراء والتحكم في الصلاحيات والمسؤوليات عبر المنصة.',
     roles: {
@@ -529,9 +533,9 @@ const ar = {
     deleteErrorMessage: 'فشل حذف المدير {{name}}. يرجى المحاولة مرة أخرى.',
     filter: {
       searchPlaceholder: 'البحث عن المدراء بالاسم...',
-      role: 'الصلاحيات',
+      role: 'الدور',
       clearAll: 'مسح جميع الفلاتر',
-      allRoles: 'جميع الصلاحيات',
+      allRoles: 'جميع الأدوار',
     },
   },
 
@@ -552,8 +556,8 @@ const ar = {
     viewAdmin: 'عرض المسؤول الإداري',
     adminDetails: 'تفاصيل المسؤول الإداري',
     actionsTooltip: 'إجراءات المسؤول الإداري',
-    role: 'الصلاحيات',
-    assignRole: 'تعيين الدور',
+    role: 'الدور',
+    assignRole: 'تعيين دور',
     generalAdmins: 'المسؤولون الإداريون العامون',
     managers: 'المسؤولون الإداريون',
     description:
@@ -583,9 +587,9 @@ const ar = {
     deleteErrorMessage: 'فشل حذف المسؤول الإداري {{name}}. يرجى المحاولة مرة أخرى.',
     filter: {
       searchPlaceholder: 'البحث عن المسؤولين الإداريين بالاسم...',
-      role: 'الصلاحيات',
+      role: 'الدور',
       clearAll: 'مسح جميع الفلاتر',
-      allRoles: 'جميع الصلاحيات',
+      allRoles: 'جميع الأدوار',
     },
   },
 
@@ -719,7 +723,7 @@ const ar = {
       common: {
         email: 'البريد الإلكتروني',
         userName: 'اسم المستخدم',
-        permissions: 'الصلاحيات',
+        role: 'الدور',
         userProfile: 'الملف الشخصي',
         profileImage: 'صورة الملف الشخصي',
         phoneNumber: 'رقم الهاتف',

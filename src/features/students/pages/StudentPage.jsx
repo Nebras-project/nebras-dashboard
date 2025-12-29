@@ -38,7 +38,7 @@ function StudentPage() {
     <StudentFormDialog showAddButton={false}>
       {({ onEdit }) => (
         <>
-          <PageLayout title={t('students.studentDetails')} showBackButton={true}>
+          <PageLayout title={t('students.studentDetails')} showBackButton={false}>
             <Grid container spacing={3} alignItems="stretch">
               {/* Profile Card */}
               <Grid item size={{ mobile: 12, desktop: 3 }}>

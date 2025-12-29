@@ -14,8 +14,8 @@ import { createFormData } from '@utils';
  * FormData options for student create/update operations
  */
 const STUDENT_FORM_DATA_OPTIONS = {
-  fileFields: 'UserProfile',
-  excludeFields: ['ConfirmPassword'],
+  fileFields: 'profileImage',
+  excludeFields: ['confirmPassword'],
 };
 
 /**
@@ -28,14 +28,14 @@ const STUDENT_FORM_DATA_OPTIONS = {
  * @returns {Promise} API response
  */
 export const fetchStudents = async (params = {}) => {
-    const { queryString } = params;
+  const { queryString } = params;
 
-    // Use queryString directly from useTable hook
-    const url = queryString
-      ? `${API_ENDPOINTS.STUDENTS.BASE}?${queryString}`
-      : API_ENDPOINTS.STUDENTS.BASE;
+  // Use queryString directly from useTable hook
+  const url = queryString
+    ? `${API_ENDPOINTS.STUDENTS.BASE}?${queryString}`
+    : API_ENDPOINTS.STUDENTS.BASE;
 
-    return await apiClient.get(url);
+  return await apiClient.get(url);
 };
 
 /**
@@ -44,7 +44,7 @@ export const fetchStudents = async (params = {}) => {
  * @returns {Promise} API response
  */
 export const fetchStudentById = async (id) => {
-    return await apiClient.get(API_ENDPOINTS.STUDENTS.BY_ID(id));
+  return await apiClient.get(API_ENDPOINTS.STUDENTS.BY_ID(id));
 };
 
 /**
@@ -53,8 +53,7 @@ export const fetchStudentById = async (id) => {
  * @returns {Promise} API response
  */
 export const createStudent = async (studentData) => {
-  const formData = createFormData(studentData, STUDENT_FORM_DATA_OPTIONS);
-  return await apiClient.post(API_ENDPOINTS.STUDENTS.BASE, formData);
+  return await apiClient.post(API_ENDPOINTS.STUDENTS.BASE, studentData);
 };
 
 /**
@@ -64,8 +63,26 @@ export const createStudent = async (studentData) => {
  * @returns {Promise} API response
  */
 export const updateStudent = async (id, studentData) => {
-  const formData = createFormData(studentData, STUDENT_FORM_DATA_OPTIONS);
-  return await apiClient.put(API_ENDPOINTS.STUDENTS.BY_ID(id), formData);
+  // Check if there's a file to upload
+  const hasFile = studentData.profileImage instanceof File;
+  if (hasFile) {
+    // Use FormData when there's a file
+    const formData = createFormData(studentData, STUDENT_FORM_DATA_OPTIONS);
+    return await apiClient.put(API_ENDPOINTS.STUDENTS.BY_ID(id), formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  } else {
+    // Send as JSON when there's no file (remove confirmPassword)
+    const { confirmPassword, ...dataWithoutConfirmPassword } = studentData;
+
+    return await apiClient.put(API_ENDPOINTS.STUDENTS.BY_ID(id), dataWithoutConfirmPassword, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  }
 };
 
 /**
@@ -75,8 +92,26 @@ export const updateStudent = async (id, studentData) => {
  * @returns {Promise} API response
  */
 export const patchStudent = async (id, studentData) => {
-  const formData = createFormData(studentData, STUDENT_FORM_DATA_OPTIONS);
-  return await apiClient.patch(API_ENDPOINTS.STUDENTS.BY_ID(id), formData);
+  // Check if there's a file to upload
+  const hasFile = studentData.profileImage instanceof File;
+  if (hasFile) {
+    // Use FormData when there's a file
+    const formData = createFormData(studentData, STUDENT_FORM_DATA_OPTIONS);
+    return await apiClient.patch(API_ENDPOINTS.STUDENTS.BY_ID(id), formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  } else {
+    // Send as JSON when there's no file (remove confirmPassword)
+    const { confirmPassword, ...dataWithoutConfirmPassword } = studentData;
+
+    return await apiClient.patch(API_ENDPOINTS.STUDENTS.BY_ID(id), dataWithoutConfirmPassword, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  }
 };
 
 /**

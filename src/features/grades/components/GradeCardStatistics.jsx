@@ -28,23 +28,23 @@ const getStatisticsContainerStyles = (mode, isDark) => ({
 /**
  * GradeCardStatistics Component
  *
- * Single Responsibility: Display grade statistics (lessons, units, students)
+ * Single Responsibility: Display grade statistics (subjects, units, students)
  */
-function GradeCardStatistics({ lessonsCount, unitsCount, studentsCount }) {
+function GradeCardStatistics({ subjectCount, unitsCount, studentsCount }) {
   const { t } = useTranslation();
   const { mode, isDark } = useReduxTheme();
 
   return (
     <Box sx={getStatisticsContainerStyles(mode, isDark)}>
-      <GradeCardStatItem icon="book" value={lessonsCount} label={t('grade.lessons')} />
-      <GradeCardStatItem icon="libraryBooks" value={unitsCount} label={t('grade.units')} />
+      <GradeCardStatItem icon="book" value={subjectCount} label={t('grade.subjects')} />
+      <GradeCardStatItem icon="libraryBooks" value={unitsCount} label={t('grade.units')}  />
       <GradeCardStatItem icon="groups" value={studentsCount} label={t('students.students')} />
     </Box>
   );
 }
 
 GradeCardStatistics.propTypes = {
-  lessonsCount: PropTypes.number,
+  subjectCount: PropTypes.number,
   unitsCount: PropTypes.number,
   studentsCount: PropTypes.number,
 };

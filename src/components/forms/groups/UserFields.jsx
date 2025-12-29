@@ -90,7 +90,7 @@ const UserFields = memo(function UserFields({
       {showGrade && (
         <Grid item {...gridItemProps}>
           <Form.SelectInput
-            name="grade"
+            name="gradeId"
             label={t('forms.grade')}
             options={gradeOptions}
             rules={{

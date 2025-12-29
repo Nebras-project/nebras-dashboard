@@ -2,12 +2,12 @@
 import { EntityErrorState } from '@components';
 
 /**
- * CurriculumErrorState Component
+ * GradeErrorState Component
  *
- * Single Responsibility: Curriculum-specific wrapper for EntityErrorState
+ * Single Responsibility: grade-specific wrapper for EntityErrorState
  */
-function CurriculumErrorState() {
-  return <EntityErrorState entityName="curriculums" />;
+function GradeErrorState() {
+  return <EntityErrorState entityName="grades" />;
 }
 
-export default CurriculumErrorState;
+export default GradeErrorState;

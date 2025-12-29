@@ -57,7 +57,7 @@ function CardActionsMenu({ grade, onView, onEdit, onDelete }) {
   return (
     <Box sx={getCardActionsMenuStyles()} onClick={(e) => e.stopPropagation()}>
       <ActionsMenu
-        tooltip={t('common.actions')}
+        tooltip={t('grades.actionsTooltip')}
         actions={actions}
         iconButtonProps={{
           size: 'small',

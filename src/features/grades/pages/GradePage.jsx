@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 // internal imports
 import { PageLayout, Loader } from '@components';
-import { useTranslation, useLanguage } from '@hooks';
+import { useTranslation } from '@hooks';
 import { useGrade } from '../hooks';
 import { getGradeName } from '../utils';
 import { GradeDetails, GradeErrorState } from '../components';
@@ -14,10 +14,8 @@ import { GradeDetails, GradeErrorState } from '../components';
  * Single Responsibility: Handle grade page routing, loading states, and error states
  */
 function GradePage() {
-  const { gradeId: id } = useParams();
+  const { gradeId } = useParams();
   const { t } = useTranslation();
-  const { currentLanguage } = useLanguage();
-  const gradeId = parseInt(id, 10);
   const { grade, isLoading, isError } = useGrade({ id: gradeId });
 
   if (isLoading) {
@@ -36,10 +34,10 @@ function GradePage() {
     );
   }
 
-  const gradeName = getGradeName(grade, currentLanguage);
+  const gradeName = getGradeName(grade);
 
   return (
-    <PageLayout title={t('grade.viewGrade')} description={gradeName} showBackButton>
+    <PageLayout title={t('grade.viewGrade')} description={gradeName} >
       <GradeDetails gradeId={gradeId} />
     </PageLayout>
   );

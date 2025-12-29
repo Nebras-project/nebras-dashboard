@@ -33,7 +33,8 @@ export const useStudent = ({ id, queryString, params, enabled = true, onError } 
   // Return with student-specific property names
     return {
     student: id ? data : undefined,
-    students: id ? undefined : data,
+    students: id ? undefined : data.data,
+    totalCount: id ? undefined : data.totalCount,
     isLoading,
     isError,
     error,

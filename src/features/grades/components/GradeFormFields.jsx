@@ -15,16 +15,13 @@ function GradeFormFields() {
   const { t } = useTranslation();
 
   const nameLabel = t('grade.gradeName');
-  const imageLabel = t('grade.gradeImage');
   return (
     <Stack spacing={3} sx={{ ...margin.top.sm }}>
       <Form.TextInput
-        name="Name"
+        name="name"
         label={nameLabel}
         rules={{ required: t('validation.required', { field: nameLabel }) }}
       />
-      {/* Image upload will be added later */}
-      <Form.ImageInput name="Image" label={imageLabel} />
     </Stack>
   );
 }

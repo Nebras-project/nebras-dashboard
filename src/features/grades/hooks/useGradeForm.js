@@ -3,7 +3,6 @@ import { useEntityForm } from '@components/forms/hooks';
 import { QUERY_KEYS } from '@config';
 
 // internal imports
-import { useLanguage } from '@hooks';
 import { createGrade, updateGrade } from '../services/gradesApi';
 import { getGradeName } from '../utils';
 
@@ -21,12 +20,10 @@ import { getGradeName } from '../utils';
  */
 
 const buildDefaultValues = (values) => ({
-  name: values.Name || '',
-  image: values.Image || null,
+  name: values.name || '',
 });
 
 export const useGradeForm = ({ defaultValues = {}, isEdit = false, onSuccess, onError } = {}) => {
-  const { currentLanguage } = useLanguage();
   const { formDefaultValues, handleSubmit, isLoading, isError, error } = useEntityForm({
     queryKey: QUERY_KEYS.GRADES,
     defaultValues,
@@ -37,8 +34,8 @@ export const useGradeForm = ({ defaultValues = {}, isEdit = false, onSuccess, on
     updateFn: ({ id, data }) => updateGrade(id, data),
     buildDefaultValues,
     entityName: 'grades',
-    getItemName: (data) => {
-      const name = getGradeName(data, currentLanguage);
+    getItemName: (data, variables) => {
+      const name = getGradeName(variables);
       return name !== 'N/A' ? name : 'Grade';
     },
   });

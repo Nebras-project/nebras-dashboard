@@ -1,11 +1,9 @@
 // external imports
 import { useState, useMemo } from 'react';
 import { useDebouncedFilter } from '@components';
-import { useLanguage } from '@hooks';
 
 // internal imports
 import { useGrade } from '@features/grades/hooks';
-import { getGradeOptions } from '@features/grades/utils';
 
 /**
  * useStudentFilter Hook
@@ -20,39 +18,32 @@ import { getGradeOptions } from '@features/grades/utils';
  * @returns {Object} Filter state and handlers
  */
 export const useStudentFilter = (onFilterChange, debounceMs = 500) => {
-  const { currentLanguage } = useLanguage();
   const [showFilters, setShowFilters] = useState(false);
-  const { grades = [] } = useGrade();
+  const { gradeOptions } = useGrade();
 
   // Use debounced filter for all filters (search, curriculum)
   const { filters, hasActiveFilters, updateFilter, clearAllFilters } = useDebouncedFilter(
     {
-      studentName: '',
-      curriculum: '',
+      UserName: '',
+      GradeId: '',
     },
     onFilterChange, // This will be called with cleaned params after debounce
     debounceMs
   );
 
-  const searchTerm = filters.studentName || '';
-  const curriculum = filters.curriculum || '';
-
-  // Get curriculum options
-  const gradeOptions = useMemo(
-    () => getGradeOptions(grades, currentLanguage),
-    [grades, currentLanguage]
-  );
+  const searchTerm = filters.UserName || '';
+  const gradeId = filters.GradeId || '';
 
   const filterOptions = useMemo(
     () => ({
-      grades: gradeOptions,
+      gradesId: gradeOptions,
     }),
     [gradeOptions]
   );
 
   // Convenience setters
-  const setSearchTerm = (value) => updateFilter('studentName', value);
-  const setGrade = (value) => updateFilter('curriculum', value);
+  const setSearchTerm = (value) => updateFilter('UserName', value);
+  const setGradeId = (value) => updateFilter('GradeId', value);
 
   const handleClearFilters = () => {
     clearAllFilters();
@@ -65,7 +56,7 @@ export const useStudentFilter = (onFilterChange, debounceMs = 500) => {
   return {
     // Filter values (for controlled inputs)
     searchTerm,
-    curriculum,
+    gradeId,
     // State
     hasActiveFilters,
     showFilters,
@@ -73,7 +64,7 @@ export const useStudentFilter = (onFilterChange, debounceMs = 500) => {
     filterOptions,
     // Handlers
     setSearchTerm,
-    setGrade,
+    setGradeId,
     handleClearFilters,
     handleToggleFilters,
   };

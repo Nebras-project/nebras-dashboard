@@ -43,12 +43,12 @@ export const useStudentForm = ({ defaultValues = {}, isEdit = false, onSuccess, 
     updateFn: ({ id, data }) => updateStudent(id, data),
     buildDefaultValues: (values) => ({
       ...buildBaseUserDefaultValues(values),
-      Grade: values.Grade || '',
+      gradeId: values.gradeId || '',
     }),
     entityName: 'students',
-    getItemName: (data) => {
-      const name = getStudentName(data);
-      return name !== 'N/A' ? name : 'Student';
+    getItemName: (data, variables) => {
+      const name = getStudentName(variables);
+      return name !== 'N/A' ? name : 'الطالب';
     },
   });
 

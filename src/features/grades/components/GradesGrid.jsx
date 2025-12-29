@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { Loader, EmptyState } from '@components';
 import { useTranslation } from '@hooks';
 import GradeCard from './GradeCard';
+import { margin } from '@constants';
 
 /**
  * GradesGrid Component
@@ -32,7 +33,7 @@ function GradesGrid({ grades, isLoading, onEdit }) {
   }
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={3} sx={{ ...margin.top.xl }}>
       {grades.map((grade) => (
         <Grid size={{ mobile: 12, tablet: 6, desktop: 4, widescreen: 3 }} key={grade.id}>
           <GradeCard grade={grade} onEdit={onEdit} />

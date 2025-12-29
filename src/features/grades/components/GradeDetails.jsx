@@ -9,11 +9,11 @@ import { UnitsAccordion } from '@features/units/components';
 import { useTranslation } from '@hooks';
 
 /**
- * CurriculumDetails Component
+ * GradeDetails Component
  *
- * Single Responsibility: Orchestrate and layout curriculum details with subjects sidebar and units accordion
+ * Single Responsibility: Orchestrate and layout grade details with subjects sidebar and units accordion
  */
-function CurriculumDetails({ curriculumId }) {
+function GradeDetails({   gradeId }) {
   const { t } = useTranslation();
 
   // State for selected subject
@@ -24,7 +24,7 @@ function CurriculumDetails({ curriculumId }) {
       {/* Subjects Sidebar - Left */}
       <Grid item size={{ mobile: 12, desktop: 3 }}>
         <SubjectsSidebar
-          curriculumId={curriculumId}
+          gradeId={gradeId}
           selectedSubjectId={selectedSubjectId}
           onSubjectSelect={setSelectedSubjectId}
         />
@@ -34,16 +34,16 @@ function CurriculumDetails({ curriculumId }) {
       <Grid item size={{ mobile: 12, desktop: 9 }}>
         <UnitsAccordion
           subjectId={selectedSubjectId}
-          curriculumId={curriculumId}
-          title={t('curriculum.units')}
+          gradeId={gradeId}
+          title={t('grade.units')}
         />
       </Grid>
     </Grid>
   );
 }
 
-CurriculumDetails.propTypes = {
-  curriculumId: PropTypes.number.isRequired,
+GradeDetails.propTypes = {
+  gradeId: PropTypes.number.isRequired,
 };
 
-export default CurriculumDetails;
+export default GradeDetails;

@@ -222,6 +222,10 @@ const en = {
     deleteConfirmMessage: 'Are you sure you want to delete {{name}}? This action cannot be undone.',
     deleteErrorTitle: 'Delete Failed',
     deleteErrorMessage: 'Failed to delete grade {{name}}. Please try again.',
+    createSuccessMessage: 'Grade {{name}} created successfully.',
+    updateSuccessMessage: 'Grade {{name}} updated successfully.',
+    deleteSuccessMessage: 'Grade {{name}} deleted successfully.',
+    actionsTooltip: 'Grade Actions',
   },
 
   // Subjects (plural - for entity operations)
@@ -307,7 +311,7 @@ const en = {
     questionsWithImages: 'Questions with Images',
     lesson: 'Lesson',
     category: 'Category',
-    curriculum: 'Curriculum',
+    grade: 'Grade',
     subject: 'Subject',
     unit: 'Unit',
     year: 'Year',
@@ -336,7 +340,7 @@ const en = {
       subject: 'Subject',
       unit: 'Unit',
       lesson: 'Lesson',
-      curriculum: 'Curriculum',
+      grade: 'Grade',
       addedBy: 'Added By',
       clearAll: 'Clear all filters',
       allTypes: 'All Types',
@@ -344,7 +348,7 @@ const en = {
       allSubjects: 'All Subjects',
       allUnits: 'All Units',
       allLessons: 'All Lessons',
-      allCurricula: 'All Curriculums',
+      allGrades: 'All Grades',
       allAddedBy: 'All Added By',
     },
     // Error messages
@@ -399,10 +403,10 @@ const en = {
     filter: {
       searchPlaceholder: 'Search competitions by name...',
       status: 'Competition Status',
-      curriculum: 'Curriculum',
+      grade: 'Grade',
       clearAll: 'Clear all filters',
       allStatuses: 'All Statuses',
-      allCurricula: 'All Curriculums',
+      allGrades: 'All Grades',
     },
     // Error messages
     createErrorMessage: 'Failed to create competition. Please try again.',
@@ -480,7 +484,6 @@ const en = {
     deleteSuccessMessage: 'Student {{name}} has been deleted successfully',
     deleteErrorTitle: 'Delete Failed',
     deleteErrorMessage: 'Failed to delete student {{name}}. Please try again.',
-    curriculum: 'Curriculum',
     filter: {
       searchPlaceholder: 'Search students by name...',
       grade: 'Grade',
@@ -511,7 +514,7 @@ const en = {
     description:
       'Manage managers and control permissions and responsibilities across the platform.',
     roles: {
-      'Curriculum Manager': 'Curriculum Manager',
+      'Grade Manager': 'Grade Manager',
       'Competition Manager': 'Competition Manager',
       'Content Manager': 'Content Manager',
     },
@@ -565,7 +568,7 @@ const en = {
     roles: {
       Owner: 'Owner',
       'General Admin': 'General Admin',
-      'Curriculum Manager': 'Curriculum Manager',
+      'Grade Manager': 'Grade Manager',
       'Competition Manager': 'Competition Manager',
       'Content Manager': 'Content Manager',
     },
@@ -614,7 +617,7 @@ const en = {
     phoneNumber: 'Phone Number',
     role: 'Role',
     class: 'Class',
-    curriculum: 'Curriculum',
+    grade: 'Grade',
     password: 'Password',
     confirmPassword: 'Confirm Password',
     profileImage: 'Profile Image',
@@ -745,7 +748,7 @@ const en = {
         category: 'Category',
         subject: 'Subject',
         unit: 'Unit',
-        curriculum: 'Curriculum',
+        grade: 'Grade',
         lesson: 'Lesson',
         formNumber: 'Form Number',
         year: 'Year',
@@ -758,7 +761,7 @@ const en = {
         gradeName: 'Grade Name',
         level: 'Level',
         score: 'Score',
-        curriculum: 'Curriculum',
+        grade: 'Grade',
       },
     },
     noRecords: 'No records',

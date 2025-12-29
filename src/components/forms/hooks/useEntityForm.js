@@ -81,9 +81,11 @@ export const useEntityForm = ({
         delete submitData.password;
       }
 
+      console.log('Submitting data:', submitData);
+
       if (isEdit) {
         updateItem({
-          id: defaultValues.userId,
+          id: defaultValues.userId || defaultValues.id,
           data: submitData,
         });
       } else {

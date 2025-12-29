@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 // internal imports
 import { getGradeName } from '../utils';
 import { useDeleteGrade } from '../hooks';
-import { useReduxTheme, useLanguage } from '@hooks';
+import { useReduxTheme } from '@hooks';
 import { NAVIGATION_PATHS } from '@config';
 import CardActionsMenu from './CardActionsMenu';
 import GradeCardImage from './GradeCardImage';
@@ -24,9 +24,9 @@ function GradeCard({ grade, onEdit }) {
   const navigate = useNavigate();
   const { deleteGrade } = useDeleteGrade();
   const { mode } = useReduxTheme();
-  const { currentLanguage } = useLanguage();
 
-  const gradeName = getGradeName(grade, currentLanguage);
+
+  const gradeName = getGradeName(grade);
 
   const handleView = () => {
     navigate(NAVIGATION_PATHS.GRADES.BY_ID(grade.id));
@@ -67,9 +67,8 @@ function GradeCard({ grade, onEdit }) {
 
         {/* Statistics */}
         <GradeCardStatistics
-          lessonsCount={grade.lessonsCount}
-          unitsCount={grade.unitsCount}
-          studentsCount={grade.studentsCount}
+          subjectCount={grade.subjectCount}
+          studentsCount={grade.studentCount}
         />
       </CardContent>
     </Card>
