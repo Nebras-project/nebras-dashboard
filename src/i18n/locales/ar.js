@@ -488,6 +488,7 @@ const ar = {
       clearAll: 'مسح جميع الفلاتر',
       allGrades: 'جميع  الصفوف الدراسية',
     },
+    actionsTooltip: 'إجراءات الطلاب',
   },
 
   // Managers

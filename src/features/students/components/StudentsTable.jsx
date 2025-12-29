@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import { useRowClick } from '@hooks';
 
 import { ActionsMenu, DeleteAction } from '@components';
 import Table, { useTable } from '@components/table';
@@ -37,7 +38,7 @@ function StudentsTable({ customFilters = {}, onEdit }) {
         includeActions: true,
         renderActions: ({ row }) => (
           <ActionsMenu
-            tooltip={t('common.actions')}
+            tooltip={t('students.actionsTooltip')}
             row={row}
             actions={[
               {
@@ -65,6 +66,10 @@ function StudentsTable({ customFilters = {}, onEdit }) {
     [t, onEdit, navigate, deleteStudent]
   );
 
+  const handleRowClick = useRowClick({
+    navigateTo: (row, { navigate: nav } = {}) => nav(NAVIGATION_PATHS.STUDENTS.BY_ID(row.id)),
+  });
+
   // Handle loading state
   if (isLoading) {
     return <Table rows={[]} columns={columns} loading />;
@@ -75,6 +80,7 @@ function StudentsTable({ customFilters = {}, onEdit }) {
       rows={students || []}
       columns={columns}
       disableRowSelectionOnClick
+      onRowClick={handleRowClick}
       // checkRowSelection
       rowCount={totalCount}
       paginationModel={paginationModel}
@@ -90,6 +96,7 @@ function StudentsTable({ customFilters = {}, onEdit }) {
 StudentsTable.propTypes = {
   customFilters: PropTypes.object,
   onEdit: PropTypes.func,
+  onRowClick: PropTypes.func,
 };
 
 export default StudentsTable;

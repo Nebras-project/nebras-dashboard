@@ -10,6 +10,7 @@ export default function useTableLayout({
   slotProps,
   slots,
   pageSizeOptions,
+  onRowClick,
   localeText,
   initialState,
   sx,
@@ -54,6 +55,13 @@ export default function useTableLayout({
 
     if (!sx) {
       return baseSx;
+    }
+
+    if(onRowClick) {
+
+      baseSx['& .MuiDataGrid-row'] = {
+        cursor: 'pointer',
+      };
     }
 
     if (Array.isArray(sx)) {

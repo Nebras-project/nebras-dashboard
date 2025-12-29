@@ -13,6 +13,7 @@ import createAdminColumns from '../utils/createAdminColumns.jsx';
 import { useDeleteAdmin, useAdmin } from '../hooks';
 import { getAdminName } from '../utils';
 import { getTopTableStyles } from '@constants/layout';
+import { useRowClick } from '@hooks';
 
 function AdminsTable({ customFilters = {}, onEdit }) {
   const { t } = useTranslation();
@@ -71,6 +72,10 @@ function AdminsTable({ customFilters = {}, onEdit }) {
     [t, isOwner, isGeneralAdmin, onEdit, navigate, deleteAdmin]
   );
 
+    const handleRowClick = useRowClick({
+      navigateTo: (row, { navigate: nav } = {}) => nav(NAVIGATION_PATHS.ADMINS.BY_ID(row.userId)),
+    });
+
   // Handle loading state
   if (isLoading) {
     return <Table rows={[]} columns={columns} loading />;
@@ -82,6 +87,7 @@ function AdminsTable({ customFilters = {}, onEdit }) {
       columns={columns}
       disableRowSelectionOnClick
       rowCount={totalCount}
+      onRowClick={handleRowClick}
       paginationModel={paginationModel}
       onPaginationModelChange={handlePaginationModelChange}
       sortModel={sortModel}

@@ -24,6 +24,7 @@ export { useEntity } from './useEntity';
 export { useDelete } from './useDelete';
 export { useCreate } from './useCreate';
 export { useUpdate } from './useUpdate';
+export { useRowClick } from '../components/table/hooks/useRowClick';
 
 // i18n hooks
 export { default as useTranslation } from '@i18n/hooks/useTranslation';

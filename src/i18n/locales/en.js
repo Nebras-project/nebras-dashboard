@@ -490,6 +490,7 @@ const en = {
       clearAll: 'Clear all filters',
       allGrades: 'All Grades',
     },
+    actionsTooltip: 'Student Actions',
   },
 
   // Managers

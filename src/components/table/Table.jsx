@@ -12,6 +12,7 @@ function Table({
   rowCount: rowCountProp,
   loading = false,
   density = 'standard',
+  onRowClick,
   pageSizeOptions,
   disableRowSelectionOnClick = true,
   slots,
@@ -40,6 +41,7 @@ function Table({
     effectiveRowCount,
   } = useTableLayout({
     rows,
+    onRowClick,
     rowCount: rowCountProp,
     slotProps,
     slots,
@@ -57,6 +59,7 @@ function Table({
       rowCount={effectiveRowCount}
       loading={loading}
       density={density}
+      onRowClick={onRowClick}
       checkRowSelection
       disableRowSelectionOnClick={disableRowSelectionOnClick}
       pageSizeOptions={pageSizeOptions}
@@ -114,6 +117,7 @@ Table.propTypes = {
   initialState: PropTypes.object,
   localeText: PropTypes.object,
   checkRowSelection: PropTypes.bool,
+  onRowClick: PropTypes.func,
 };
 
 export default Table;

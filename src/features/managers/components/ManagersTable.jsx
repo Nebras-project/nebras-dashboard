@@ -13,6 +13,7 @@ import createManagerColumns from '../utils/createManagerColumns.jsx';
 import { useDeleteManager, useManager } from '../hooks';
 import { getManagerName } from '../utils';
 import { getTopTableStyles } from '@constants/layout';
+import { useRowClick } from '@hooks';
 
 function ManagersTable({ customFilters = {}, onEdit }) {
   const { t } = useTranslation();
@@ -71,6 +72,11 @@ function ManagersTable({ customFilters = {}, onEdit }) {
     [t, isOwner, isGeneralAdmin, onEdit, navigate, deleteManager]
   );
 
+    const handleRowClick = useRowClick({
+      navigateTo: (row, { navigate: nav } = {}) => nav(NAVIGATION_PATHS.MANAGERS.BY_ID(row.userId)),
+    });
+
+
   // Handle loading state
   if (isLoading) {
     return <Table rows={[]} columns={columns} loading />;
@@ -82,6 +88,7 @@ function ManagersTable({ customFilters = {}, onEdit }) {
       columns={columns}
       disableRowSelectionOnClick
       rowCount={totalCount}
+      onRowClick={handleRowClick}
       paginationModel={paginationModel}
       onPaginationModelChange={handlePaginationModelChange}
       sortModel={sortModel}
