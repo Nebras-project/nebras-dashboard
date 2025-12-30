@@ -726,6 +726,7 @@ const en = {
     columnHeaders: {
       common: {
         email: 'Email',
+        emailConfirmed: 'Email Confirmed',
         userName: 'User Name',
         permissions: 'Permissions',
         userProfile: 'User Profile',

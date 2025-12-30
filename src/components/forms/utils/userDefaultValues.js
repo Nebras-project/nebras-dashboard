@@ -12,7 +12,7 @@ export const buildBaseUserDefaultValues = (values = {}) => ({
   phoneNumber: values.phoneNumber || '',
   password: '',
   confirmPassword: '',
-  userProfile: values.userProfile || null,
-  verifyEmail: values.verifyEmail ?? false,
+  profileImage: values.profileImage || null,
+  verifyEmail: values.emailConfirmed ?? false,
   sendVerificationEmail: false, // Always default to false, user must explicitly check it
 });

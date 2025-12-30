@@ -7,6 +7,7 @@ import { TableProfileAvatar } from '@components/table';
 import { createPhoneRenderer } from '@utils/rtl';
 import { getRoleLabel } from '@utils/roleUtils';
 import { useReduxTheme } from '@hooks';
+import EmailConfirmedCell from '../../../components/table/components/EmailConfirmedCell';
 
 /**
  * RoleChip Component
@@ -20,7 +21,7 @@ function RoleChip({ value, t }) {
     <Chip
       label={t ? getRoleLabel(value, t) : value}
       size="small"
-      color='primary'
+      color="primary"
       variant={isDark ? 'outlined' : 'filled'}
     />
   );
@@ -47,6 +48,10 @@ const RENDERERS = {
     (t) =>
     ({ value }) =>
       <RoleChip value={value} t={t} />,
+  emailConfirmed:
+    () =>
+    ({ value }) =>
+      <EmailConfirmedCell value={value} />,
 };
 
 export default RENDERERS;

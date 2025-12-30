@@ -212,9 +212,9 @@ export const colors = {
     contrastText: baseColors.white,
   },
   success: {
-    main: baseColors.successGreen600,
-    light: baseColors.successGreen400,
-    dark: baseColors.successGreen900,
+    main: baseColors.green600,
+    light: baseColors.green400,
+    dark: baseColors.green900,
     contrastText: baseColors.white,
   },
   error: {

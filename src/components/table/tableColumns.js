@@ -11,6 +11,14 @@ const columnRegistry = {
     minWidth: 200,
     flex: 1,
   },
+  emailConfirmed: {
+    field: 'emailConfirmed',
+    headerKey: 'table.columnHeaders.common.emailConfirmed',
+    minWidth: 140,
+    flex: 1,
+    align: 'center',
+    headerAlign: 'center',
+  },
   userName: {
     field: 'userName',
     headerKey: 'table.columnHeaders.common.userName',
@@ -206,8 +214,8 @@ export function buildColumns(keys, options = {}) {
 }
 
 const USER_COLUMN_KEYS = {
-  admin: ['profileImage', 'userName', 'email', 'phoneNumber'],
-  manager: ['profileImage', 'userName', 'email', 'role', 'phoneNumber'],
+  admin: ['profileImage', 'userName', 'email', 'emailConfirmed', 'phoneNumber'],
+  manager: ['profileImage', 'userName', 'email', 'role', 'emailConfirmed', 'phoneNumber'],
   student: ['profileImage', 'userName', 'email', 'grade', 'phoneNumber'],
 };
 

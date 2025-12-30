@@ -16,6 +16,11 @@ const MANAGER_COLUMN_DEFINITIONS = {
     filterable: false,
     renderer: 'roleChip',
   },
+  emailConfirmed: {
+    filterable: false,
+    sortable: false,
+    renderer: 'emailConfirmed',
+  },
   email: {
     sortable: false,
     filterable: false,

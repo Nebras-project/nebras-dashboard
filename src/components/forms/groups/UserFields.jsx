@@ -121,28 +121,27 @@ const UserFields = memo(function UserFields({
       )}
 
       {/* Email Confirmed Checkbox - Show only in create mode */}
-      {!isEdit && (
-        <Grid
-          item
-          size={12}
-          sx={{
-            border: `1px solid ${borderColors[mode]}`,
-            ...padding.y.sm,
-            ...padding.x.md,
-            borderRadius: borderRadius.xxs,
-          }}
-        >
-          <Stack spacing={1}>
-            <Form.CheckboxInput name="verifyEmail" label={t('forms.verifyEmail')} />
-            {!verifyEmail && (
-              <Form.CheckboxInput
-                name="sendVerificationEmail"
-                label={t('forms.sendVerificationEmail')}
-              />
-            )}
-          </Stack>
-        </Grid>
-      )}
+
+      <Grid
+        item
+        size={12}
+        sx={{
+          border: `1px solid ${borderColors[mode]}`,
+          ...padding.y.sm,
+          ...padding.x.md,
+          borderRadius: borderRadius.xxs,
+        }}
+      >
+        <Stack spacing={1}>
+          <Form.CheckboxInput name="verifyEmail" label={t('forms.verifyEmail')} />
+          {!verifyEmail && (
+            <Form.CheckboxInput
+              name="sendVerificationEmail"
+              label={t('forms.sendVerificationEmail')}
+            />
+          )}
+        </Stack>
+      </Grid>
 
       {/* Image - Show only in edit mode */}
       {isEdit && (

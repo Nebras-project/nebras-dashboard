@@ -16,6 +16,11 @@ const ADMIN_COLUMN_DEFINITIONS = {
     sortable: false,
     filterable: false,
   },
+  emailConfirmed: {
+    filterable: false,
+    sortable: false,
+    renderer: 'emailConfirmed',
+  },
   phoneNumber: {
     filterable: false,
     renderer: 'phone',

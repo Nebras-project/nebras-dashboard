@@ -84,9 +84,9 @@ import {
   TbLayoutSidebarRightExpand,
 } from 'react-icons/tb';
 
-import { CgColorBucket } from 'react-icons/cg';
+import { CgColorBucket, CgCloseR } from 'react-icons/cg';
 import { RiEnglishInput } from 'react-icons/ri';
-import { FaEarthAmericas, FaListOl, FaUserShield } from 'react-icons/fa6';
+import { FaEarthAmericas, FaListOl, FaUserShield, FaRegSquareCheck } from 'react-icons/fa6';
 import { BiSolidSelectMultiple, BiAddToQueue } from 'react-icons/bi';
 import { HiMenuAlt2, HiMenuAlt3, HiViewGridAdd, HiOutlineFilter } from 'react-icons/hi';
 import { HiMiniUsers } from 'react-icons/hi2';
@@ -138,7 +138,11 @@ const ICON_MAP = {
   dot: GoDotFill,
   arrowLeftLines: TbArrowBigLeftLines,
   arrowRightLines: TbArrowBigRightLines,
+  checkWithBorder: FaRegSquareCheck,
+  closeWithBorder: CgCloseR,
   arrowDownLines: TbArrowBigDownLines,
+
+  
   // Theme
   contrast: MdContrast,
   lightMode: MdLightMode,

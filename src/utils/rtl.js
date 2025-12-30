@@ -51,6 +51,7 @@ export const isRtlEnvironment = (t) => {
 export const createPhoneRenderer =
   (t) =>
   ({ value }) => {
+    if (!value) return '-';
     const isRtl = isRtlEnvironment(t);
 
     const style = isRtl

@@ -723,6 +723,7 @@ const ar = {
     columnHeaders: {
       common: {
         email: 'البريد الإلكتروني',
+        emailConfirmed: 'البريد الإلكتروني مؤكد',
         userName: 'اسم المستخدم',
         role: 'الدور',
         userProfile: 'الملف الشخصي',
