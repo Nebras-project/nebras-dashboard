@@ -19,6 +19,7 @@ export { useSidebarNavigation } from './useSidebarNavigation';
 export { useDateTime } from './useDateTime';
 export { useConfirmDialog } from './useConfirmDialog';
 export { default as useClickableArea } from './useClickableArea';
+export { default as useBackspaceNavigation } from './useBackspaceNavigation';
 export { useEntityMutation } from './useEntityMutation';
 export { useEntity } from './useEntity';
 export { useDelete } from './useDelete';
