@@ -4,13 +4,8 @@
  * @param {string} currentLanguage - Current language ('ar' or 'en')
  * @returns {string} Lesson name
  */
-export const getLessonName = (lesson, currentLanguage) => {
-  if (!lesson) return 'N/A';
-
-  if (currentLanguage === 'ar') {
-    return lesson.nameAr || lesson.nameEn || lesson.name || 'N/A';
-  }
-  return lesson.nameEn || lesson.nameAr || lesson.name || 'N/A';
+export const getLessonName = (lesson) => {
+  return lesson.name;
 };
 
 /**

@@ -16,6 +16,11 @@ const STUDENT_COLUMN_DEFINITIONS = {
     filterable: false,
     sortable: false,
   },
+  emailConfirmed: {
+    filterable: false,
+    sortable: false,
+    renderer: 'emailConfirmed',
+  },
   grade: {
     filterable: false,
     sortable: false,

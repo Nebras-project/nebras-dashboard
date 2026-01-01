@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import UnitForm from './UnitForm';
 import { useDeleteUnit } from '../hooks';
 
-function UnitFormDialog({ gradeId, subjectId, children, onSuccess }) {
+function UnitFormDialog({ gradeId, subjectId = null, children = null, onSuccess = null }) {
   const [open, setOpen] = useState(false);
   const [editingUnit, setEditingUnit] = useState(null);
 
@@ -85,12 +85,6 @@ UnitFormDialog.propTypes = {
   subjectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   onSuccess: PropTypes.func,
-};
-
-UnitFormDialog.defaultProps = {
-  subjectId: null,
-  children: null,
-  onSuccess: null,
 };
 
 export default UnitFormDialog;

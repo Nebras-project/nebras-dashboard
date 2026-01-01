@@ -31,15 +31,7 @@ export const fetchUnitById = async (gradeId, subjectId, unitId) => {
   return await apiClient.get(API_ENDPOINTS.GRADES.UNIT(gradeId, subjectId, unitId));
 };
 
-/**
- * Fetch units by subject ID within a grade
- * @param {number|string} gradeId - Grade ID
- * @param {number|string} subjectId - Subject ID
- * @returns {Promise} API response
- */
-export const fetchUnitsBySubjectId = async (gradeId, subjectId) => {
-  return fetchUnits(gradeId, subjectId);
-};
+
 
 /**
  * Create a new unit within a subject and grade

@@ -17,6 +17,7 @@ import { useCreate, useUpdate } from '@hooks';
  *
  * @param {Object} options
  * @param {string} options.queryKey - React Query key to invalidate (e.g. 'admins')
+ * @param {string|Array} options.additionalQueryKeys - Additional React Query key(s) to invalidate
  * @param {Object} options.defaultValues - Raw default values from the caller (record to edit)
  * @param {boolean} options.isEdit - Whether this is edit mode
  * @param {Function} options.onSuccess - Called with (data, action)
@@ -29,6 +30,7 @@ import { useCreate, useUpdate } from '@hooks';
  */
 export const useEntityForm = ({
   queryKey,
+  additionalQueryKeys,
   defaultValues = {},
   isEdit = false,
   onSuccess,
@@ -47,6 +49,7 @@ export const useEntityForm = ({
   const { createItem, isLoading: isCreating } = useCreate({
     createFn,
     queryKey,
+    additionalQueryKeys,
     entityName,
     getItemName,
     onSuccess: (data) => onSuccess?.(data, 'create'),
@@ -56,6 +59,7 @@ export const useEntityForm = ({
   const { updateItem, isLoading: isUpdating } = useUpdate({
     updateFn,
     queryKey,
+    additionalQueryKeys,
     entityName,
     getItemName,
     onSuccess: (data) => onSuccess?.(data, 'update'),

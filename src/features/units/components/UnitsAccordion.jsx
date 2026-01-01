@@ -16,7 +16,7 @@ import { useUnits } from '../hooks';
  *
  * Displays units accordion for a selected subject
  */
-function UnitsAccordion({ subjectId, gradeId, title, subtitle }) {
+function UnitsAccordion({ subjectId = null, gradeId = null, title = null, subtitle = null }) {
   const { t } = useTranslation();
   const { mode } = useReduxTheme();
 
@@ -31,7 +31,7 @@ function UnitsAccordion({ subjectId, gradeId, title, subtitle }) {
     subjectId,
     enabled: !!gradeId && !!subjectId,
   });
-
+ 
   const showSelectSubject = !subjectId;
   const hasUnits = Array.isArray(units) && units.length > 0;
   const showEmptyState = !showSelectSubject && (!hasUnits || isError);
@@ -85,13 +85,6 @@ UnitsAccordion.propTypes = {
   gradeId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   title: PropTypes.string,
   subtitle: PropTypes.string,
-};
-
-UnitsAccordion.defaultProps = {
-  subjectId: null,
-  gradeId: null,
-  title: null,
-  subtitle: null,
 };
 
 export default UnitsAccordion;

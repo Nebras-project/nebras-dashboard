@@ -62,7 +62,7 @@ export const useSubjects = ({
   // Return with subject-specific property names
   return {
     subject: effectiveSubjectId ? data : undefined,
-    subjects: effectiveSubjectId ? undefined : data,
+    subjects: effectiveSubjectId ? undefined : data.data,
     isLoading,
     isError,
     error,

@@ -10,7 +10,7 @@ import SubjectForm from './SubjectForm';
  *
  * Single Responsibility: Manage subject form dialog state and render SubjectForm
  */
-function SubjectFormDialog({ gradeId, showAddButton, children, onSuccess }) {
+function SubjectFormDialog({ gradeId, showAddButton = false, children = null, onSuccess = null }) {
   const [open, setOpen] = useState(false);
   const [editingSubject, setEditingSubject] = useState(null);
 
@@ -75,12 +75,6 @@ SubjectFormDialog.propTypes = {
   showAddButton: PropTypes.bool,
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   onSuccess: PropTypes.func,
-};
-
-SubjectFormDialog.defaultProps = {
-  showAddButton: false,
-  children: null,
-  onSuccess: null,
 };
 
 SubjectFormDialog.displayName = 'SubjectFormDialog';

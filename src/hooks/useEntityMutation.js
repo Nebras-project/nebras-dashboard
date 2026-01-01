@@ -14,6 +14,7 @@ import { getErrorMessage } from '@utils';
  * @param {Object} options - Hook options
  * @param {Function} options.mutationFn - Function to call for mutation (should return Promise)
  * @param {string|Array} options.queryKey - React Query key(s) to invalidate after mutation
+ * @param {string|Array} options.additionalQueryKeys - Additional React Query key(s) to invalidate after mutation
  * @param {string} options.entityName - Entity name for translations (e.g., 'admins', 'students')
  * @param {string} options.action - Action type: 'create', 'update', or 'delete'
  * @param {Function} options.getItemName - Function to extract item name/identifier from item/data object
@@ -25,6 +26,7 @@ import { getErrorMessage } from '@utils';
 export const useEntityMutation = ({
   mutationFn,
   queryKey,
+  additionalQueryKeys,
   entityName,
   action,
   getItemName,
@@ -42,6 +44,16 @@ export const useEntityMutation = ({
       if (queryKey) {
         const keys = Array.isArray(queryKey) ? queryKey : [queryKey];
         queryClient.invalidateQueries({ queryKey: keys });
+      }
+
+      // Invalidate additional query keys
+      if (additionalQueryKeys) {
+        const additionalKeys = Array.isArray(additionalQueryKeys)
+          ? additionalQueryKeys
+          : [additionalQueryKeys];
+        additionalKeys.forEach((key) => {
+          queryClient.invalidateQueries({ queryKey: Array.isArray(key) ? key : [key] });
+        });
       }
 
       // Get the item/data for toast message

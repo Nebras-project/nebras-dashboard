@@ -1,5 +1,5 @@
 // external imports
-import { useDelete, useLanguage } from '@hooks';
+import { useDelete } from '@hooks';
 import { QUERY_KEYS } from '@config';
 import { deleteSubject as deleteSubjectApi } from '../services/subjectsApi';
 import { getSubjectName } from '../utils';
@@ -16,13 +16,13 @@ import { getSubjectName } from '../utils';
  * @returns {Object} Mutation object with deleteSubject function and state
  */
 export const useDeleteSubject = ({ gradeId, onSuccess, onError } = {}) => {
-  const { currentLanguage } = useLanguage();
   const { deleteItem, deleteItemAsync, isLoading, isError, error } = useDelete({
     deleteFn: (subject) => deleteSubjectApi(gradeId, subject.id),
+    additionalQueryKeys: [QUERY_KEYS.GRADES],
     queryKey: [QUERY_KEYS.SUBJECTS, gradeId],
     entityName: 'subjects',
-    getItemName: (subject) => {
-      const name = getSubjectName(subject, currentLanguage);
+    getItemName: (subject, vars) => {
+      const name = getSubjectName(vars);
       return name !== 'N/A' ? name : 'Subject';
     },
     onSuccess,

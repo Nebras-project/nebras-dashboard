@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 // internal imports
 import { Icon } from '@components';
+import { useReduxTheme } from '@hooks';
 import { borderColors } from '@theme/colors';
 import { borderRadius } from '@theme/components';
 import { margin, padding } from '@constants/spacing';
@@ -15,13 +16,14 @@ import LessonActions from './LessonActions';
  * Single Responsibility: Display a single lesson item in the list
  */
 function LessonListItem({ lessonName, actions, mode }) {
+  const { isDark } = useReduxTheme();
   return (
     <ListItem
       disablePadding
       sx={{
         ...margin.bottom.xs,
         borderRadius: borderRadius.xxs,
-        bgcolor: 'background.paper',
+        bgcolor: isDark ? 'background.paper' : 'background.default',
         border: `1px solid ${borderColors[mode]}`,
         ...padding.x.sm,
         ...padding.y.xs,

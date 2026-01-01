@@ -30,6 +30,8 @@ export const useUnits = ({
   enabled = true,
   onError,
 } = {}) => {
+
+  const effectiveUnitId = unitId || id;
   // Build getListFn - both gradeId and subjectId are now required for nested endpoints
   const getListFn =
     gradeId && subjectId
@@ -40,8 +42,8 @@ export const useUnits = ({
 
   // Build getSingleFn - gradeId, subjectId, and unitId are required for nested endpoints
   const getSingleFn =
-    id && gradeId && subjectId
-      ? () => fetchUnitById(gradeId, subjectId, id)
+    effectiveUnitId && gradeId && subjectId
+      ? () => fetchUnitById(gradeId, subjectId, effectiveUnitId)
       : () => {
           throw new Error('gradeId, subjectId, and unitId are required to fetch a unit');
         };
@@ -49,18 +51,18 @@ export const useUnits = ({
   const { data, isLoading, isError, error, refetch } = useEntity({
     getSingleFn,
     getListFn,
-    id: id || unitId,
+    id: effectiveUnitId,
     params: { gradeId, subjectId, ...(queryString ? { queryString } : params) },
     queryKey: [QUERY_KEYS.UNITS, gradeId, subjectId],
     entityName: 'units',
-    enabled: enabled && !!gradeId && !!subjectId,
+    enabled: enabled && !!gradeId && !!subjectId ,
     onError,
   });
 
   // Return with unit-specific property names
   return {
-    unit: id ? data : undefined,
-    units: id ? undefined : data,
+    unit: effectiveUnitId ? data : undefined,
+    units: effectiveUnitId ? undefined : data.data,
     isLoading,
     isError,
     error,

@@ -14,20 +14,14 @@ import { useTranslation } from '@hooks';
 function SubjectFormFields() {
   const { t } = useTranslation();
 
-  const nameArLabel = t('grade.subjectName') + ' (عربي)';
-  const nameEnLabel = t('grade.subjectName') + ' (English)';
+  const nameLabel = t('grade.subjectName');
 
   return (
     <Stack spacing={3} sx={{ ...margin.top.sm }}>
       <Form.TextInput
-        name="nameAr"
-        label={nameArLabel}
-        rules={{ required: t('validation.required', { field: nameArLabel }) }}
-      />
-      <Form.TextInput
-        name="nameEn"
-        label={nameEnLabel}
-        rules={{ required: t('validation.required', { field: nameEnLabel }) }}
+        name="name"
+        label={nameLabel}
+        rules={{ required: t('validation.required', { field: nameLabel }) }}
       />
     </Stack>
   );

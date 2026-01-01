@@ -3,7 +3,6 @@ import { useEntityForm } from '@components/forms/hooks';
 import { QUERY_KEYS } from '@config';
 
 // internal imports
-import { useLanguage } from '@hooks';
 import { createSubject, updateSubject } from '../services/subjectsApi';
 import { getSubjectName } from '../utils';
 
@@ -22,9 +21,7 @@ import { getSubjectName } from '../utils';
  */
 
 const buildDefaultValues = (values) => ({
-  name: values.name || values.nameAr || '',
-  nameAr: values.nameAr || values.name || '',
-  nameEn: values.nameEn || values.name || '',
+  name: values.name,
 });
 
 export const useSubjectForm = ({
@@ -34,9 +31,9 @@ export const useSubjectForm = ({
   onSuccess,
   onError,
 } = {}) => {
-  const { currentLanguage } = useLanguage();
   const { formDefaultValues, handleSubmit, isLoading, isError, error } = useEntityForm({
     queryKey: [QUERY_KEYS.SUBJECTS, gradeId],
+    additionalQueryKeys: [QUERY_KEYS.GRADES],
     defaultValues,
     isEdit,
     onSuccess,
@@ -45,9 +42,9 @@ export const useSubjectForm = ({
     updateFn: ({ id, data }) => updateSubject(gradeId, id, data),
     buildDefaultValues,
     entityName: 'subjects',
-    getItemName: (data) => {
-      const name = getSubjectName(data, currentLanguage);
-      return name !== 'N/A' ? name : 'Subject';
+    getItemName: (data, vars) => {
+      const name = getSubjectName(vars);
+      return name !== 'N/A' ? name : 'مادة';
     },
   });
 

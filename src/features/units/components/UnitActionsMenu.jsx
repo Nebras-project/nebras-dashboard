@@ -5,13 +5,8 @@ import PropTypes from 'prop-types';
 // internal imports
 import { ActionsMenu, DeleteAction, Icon } from '@components';
 
-function UnitActionsMenu({ onView, onEdit, onDelete, unit, labels, getItemName }) {
+function UnitActionsMenu({ onEdit, onDelete = undefined, unit, labels, getItemName }) {
   const actions = [
-    {
-      label: labels.view,
-      icon: <Icon name="visibility" size={18} />,
-      onClick: onView,
-    },
     {
       label: labels.edit,
       icon: <Icon name="edit" size={18} />,
@@ -40,6 +35,7 @@ function UnitActionsMenu({ onView, onEdit, onDelete, unit, labels, getItemName }
         transition: 'opacity 0.2s ease',
       }}
       onClick={(e) => e.stopPropagation()}
+      onMouseDown={(e) => e.stopPropagation()}
     >
       <ActionsMenu
         actions={actions}
@@ -53,20 +49,14 @@ function UnitActionsMenu({ onView, onEdit, onDelete, unit, labels, getItemName }
 }
 
 UnitActionsMenu.propTypes = {
-  onView: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func,
   unit: PropTypes.object.isRequired,
   labels: PropTypes.shape({
-    view: PropTypes.string.isRequired,
     edit: PropTypes.string.isRequired,
     delete: PropTypes.string.isRequired,
   }).isRequired,
   getItemName: PropTypes.func.isRequired,
-};
-
-UnitActionsMenu.defaultProps = {
-  onDelete: undefined,
 };
 
 export default UnitActionsMenu;

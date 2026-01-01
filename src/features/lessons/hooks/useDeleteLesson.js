@@ -1,21 +1,21 @@
 // external imports
-import { useDelete, useLanguage } from '@hooks';
+import { useDelete } from '@hooks';
 import { QUERY_KEYS } from '@config';
 
 // internal imports
 import { deleteLesson as deleteLessonApi } from '../services/lessonsApi';
 import { getLessonName } from '../utils';
 
-export const useDeleteLesson = ({ curriculumId, subjectId, unitId, onSuccess, onError } = {}) => {
-  const { currentLanguage } = useLanguage();
+export const useDeleteLesson = ({ gradeId, subjectId, unitId, onSuccess, onError } = {}) => {
 
   const { deleteItem, deleteItemAsync, isLoading, isError, error } = useDelete({
-    deleteFn: (lesson) => deleteLessonApi(curriculumId, subjectId, unitId, lesson.id),
-    queryKey: [QUERY_KEYS.LESSONS, curriculumId, subjectId, unitId],
+    deleteFn: (lesson) => deleteLessonApi(gradeId, subjectId, unitId, lesson.id),
+    queryKey: [QUERY_KEYS.LESSONS, gradeId, subjectId, unitId],
+    additionalQueryKeys: [QUERY_KEYS.UNITS],
     entityName: 'lessons',
-    getItemName: (lesson) => {
-      const name = getLessonName(lesson, currentLanguage);
-      return name !== 'N/A' ? name : 'Lesson';
+    getItemName: (lesson, vars) => {
+      const name = getLessonName(vars);
+      return name !== 'N/A' ? name : 'الدرس';
     },
     onSuccess,
     onError,

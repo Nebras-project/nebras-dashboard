@@ -235,6 +235,11 @@ const en = {
     deleteConfirmMessage: 'Are you sure you want to delete {{name}}? This action cannot be undone.',
     deleteErrorTitle: 'Delete Failed',
     deleteErrorMessage: 'Failed to delete subject {{name}}. Please try again.',
+    createErrorMessage: 'Failed to create subject. Please try again.',
+    updateErrorMessage: 'Failed to update subject. Please try again.',
+    createSuccessMessage: 'Subject {{name}} created successfully.',
+    updateSuccessMessage: 'Subject {{name}} updated successfully.',
+    deleteSuccessMessage: 'Subject {{name}} deleted successfully.',
   },
 
   // Units (plural - for entity operations)
@@ -244,6 +249,11 @@ const en = {
     deleteConfirmMessage: 'Are you sure you want to delete {{name}}? This action cannot be undone.',
     deleteErrorTitle: 'Delete Failed',
     deleteErrorMessage: 'Failed to delete unit {{name}}. Please try again.',
+    createErrorMessage: 'Failed to create unit. Please try again.',
+    updateErrorMessage: 'Failed to update unit. Please try again.',
+    createSuccessMessage: 'Unit {{name}} created successfully.',
+    updateSuccessMessage: 'Unit {{name}} updated successfully.',
+    deleteSuccessMessage: 'Unit {{name}} deleted successfully.',
   },
 
   // Lessons (plural - for entity operations)
@@ -253,6 +263,11 @@ const en = {
     deleteConfirmMessage: 'Are you sure you want to delete {{name}}? This action cannot be undone.',
     deleteErrorTitle: 'Delete Failed',
     deleteErrorMessage: 'Failed to delete lesson {{name}}. Please try again.',
+    createErrorMessage: 'Failed to create lesson. Please try again.',
+    updateErrorMessage: 'Failed to update lesson. Please try again.',
+    createSuccessMessage: 'Lesson {{name}} created successfully.',
+    updateSuccessMessage: 'Lesson {{name}} updated successfully.',
+    deleteSuccessMessage: 'Lesson {{name}} deleted successfully.',
   },
 
   // Questions

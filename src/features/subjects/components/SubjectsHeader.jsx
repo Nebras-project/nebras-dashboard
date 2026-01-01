@@ -11,7 +11,7 @@ import { getActionsButtonStyles } from '@constants/layout';
  *
  * Single Responsibility: Display header with title and add button for subjects
  */
-function SubjectsHeader({ onAdd }) {
+function SubjectsHeader({ onAdd = null }) {
   const { t } = useTranslation();
   const { isLight } = useReduxTheme();
 
@@ -50,10 +50,6 @@ function SubjectsHeader({ onAdd }) {
 
 SubjectsHeader.propTypes = {
   onAdd: PropTypes.func,
-};
-
-SubjectsHeader.defaultProps = {
-  onAdd: null,
 };
 
 export default SubjectsHeader;

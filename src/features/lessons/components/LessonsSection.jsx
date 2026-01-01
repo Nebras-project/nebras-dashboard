@@ -16,7 +16,7 @@ import LessonFormDialog from './LessonFormDialog';
  *
  * Single Responsibility: Fetch lessons data and manage state, pass to LessonsList
  */
-function LessonsSection({ unit, curriculumId, subjectId, enabled = true }) {
+function LessonsSection({ unit, gradeId = null, subjectId = null, enabled = true }) {
   const { currentLanguage } = useLanguage();
 
   const unitId = unit?.id;
@@ -26,10 +26,10 @@ function LessonsSection({ unit, curriculumId, subjectId, enabled = true }) {
     isLoading,
     refetch,
   } = useLessons({
-    curriculumId,
+    gradeId,
     subjectId,
     unitId,
-    enabled: enabled && !!curriculumId && !!subjectId && !!unitId,
+    enabled: enabled && !!gradeId && !!subjectId && !!unitId,
   });
 
   const safeLessons = Array.isArray(lessons) ? lessons : [];
@@ -41,12 +41,7 @@ function LessonsSection({ unit, curriculumId, subjectId, enabled = true }) {
   }
 
   return (
-    <LessonFormDialog
-      curriculumId={curriculumId}
-      subjectId={subjectId}
-      unitId={unitId}
-      onSuccess={refetch}
-    >
+    <LessonFormDialog gradeId={gradeId} subjectId={subjectId} unitId={unitId} onSuccess={refetch}>
       {({ onAdd, onEdit, onDelete }) => (
         <>
           {/* Loading state */}
@@ -61,7 +56,7 @@ function LessonsSection({ unit, curriculumId, subjectId, enabled = true }) {
               <LessonsHeader onAdd={onAdd} />
               <LessonsList
                 lessons={safeLessons}
-                curriculumId={curriculumId}
+                gradeId={gradeId}
                 subjectId={subjectId}
                 unitId={unitId}
                 getLessonName={(lesson) => getLessonName(lesson, currentLanguage)}
@@ -78,15 +73,9 @@ function LessonsSection({ unit, curriculumId, subjectId, enabled = true }) {
 
 LessonsSection.propTypes = {
   unit: PropTypes.object.isRequired,
-  curriculumId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  gradeId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   subjectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   enabled: PropTypes.bool,
-};
-
-LessonsSection.defaultProps = {
-  curriculumId: null,
-  subjectId: null,
-  enabled: true,
 };
 
 export default LessonsSection;

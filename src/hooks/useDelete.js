@@ -15,10 +15,19 @@ import { useEntityMutation } from './useEntityMutation';
  * @param {Function} options.onError - Optional callback after failed deletion (error, item)
  * @returns {Object} Mutation object with deleteItem function and state
  */
-export const useDelete = ({ deleteFn, queryKey, entityName, getItemName, onSuccess, onError }) => {
+export const useDelete = ({
+  deleteFn,
+  queryKey,
+  additionalQueryKeys,
+  entityName,
+  getItemName,
+  onSuccess,
+  onError,
+}) => {
   const { mutate, mutateAsync, isLoading, isError, error } = useEntityMutation({
     mutationFn: deleteFn,
     queryKey,
+    additionalQueryKeys,
     entityName,
     action: 'delete',
     getItemName,

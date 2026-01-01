@@ -10,8 +10,8 @@ import apiClient, { API_ENDPOINTS } from '@config/axios';
 /**
  * Fetch all lessons for a unit within a subject and curriculum
  */
-export const fetchLessons = async (curriculumId, subjectId, unitId, params = {}) => {
-  return await apiClient.get(API_ENDPOINTS.CURRICULUMS.LESSONS(curriculumId, subjectId, unitId), {
+export const fetchLessons = async (gradeId, subjectId, unitId, params = {}) => {
+  return await apiClient.get(API_ENDPOINTS.GRADES.LESSONS(gradeId, subjectId, unitId), {
     params,
   });
 };
@@ -19,18 +19,18 @@ export const fetchLessons = async (curriculumId, subjectId, unitId, params = {})
 /**
  * Fetch a single lesson by ID
  */
-export const fetchLessonById = async (curriculumId, subjectId, unitId, lessonId) => {
+export const fetchLessonById = async (gradeId, subjectId, unitId, lessonId) => {
   return await apiClient.get(
-    API_ENDPOINTS.CURRICULUMS.LESSON(curriculumId, subjectId, unitId, lessonId)
+    API_ENDPOINTS.GRADES.LESSON(gradeId, subjectId, unitId, lessonId)
   );
 };
 
 /**
  * Create a new lesson within a unit, subject and curriculum
  */
-export const createLesson = async (curriculumId, subjectId, unitId, data = {}) => {
+export const createLesson = async (gradeId, subjectId, unitId, data = {}) => {
   return await apiClient.post(
-    API_ENDPOINTS.CURRICULUMS.LESSONS(curriculumId, subjectId, unitId),
+    API_ENDPOINTS.GRADES.LESSONS(gradeId, subjectId, unitId),
     data
   );
 };
@@ -38,9 +38,9 @@ export const createLesson = async (curriculumId, subjectId, unitId, data = {}) =
 /**
  * Update an existing lesson
  */
-export const updateLesson = async (curriculumId, subjectId, unitId, lessonId, data = {}) => {
+export const updateLesson = async (gradeId, subjectId, unitId, lessonId, data = {}) => {
   return await apiClient.put(
-    API_ENDPOINTS.CURRICULUMS.LESSON(curriculumId, subjectId, unitId, lessonId),
+    API_ENDPOINTS.GRADES.LESSON(gradeId, subjectId, unitId, lessonId),
     data
   );
 };
@@ -48,8 +48,8 @@ export const updateLesson = async (curriculumId, subjectId, unitId, lessonId, da
 /**
  * Delete a lesson
  */
-export const deleteLesson = async (curriculumId, subjectId, unitId, lessonId) => {
+export const deleteLesson = async (gradeId, subjectId, unitId, lessonId) => {
   return await apiClient.delete(
-    API_ENDPOINTS.CURRICULUMS.LESSON(curriculumId, subjectId, unitId, lessonId)
+    API_ENDPOINTS.GRADES.LESSON(gradeId, subjectId, unitId, lessonId)
   );
 };

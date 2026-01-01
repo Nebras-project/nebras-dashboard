@@ -6,17 +6,17 @@ import PropTypes from 'prop-types';
 import LessonForm from './LessonForm';
 import { useDeleteLesson } from '../hooks';
 
-function LessonFormDialog({ curriculumId, subjectId, unitId, children, onSuccess }) {
+function LessonFormDialog({ gradeId, subjectId, unitId, children = null, onSuccess = null }) {
   const [open, setOpen] = useState(false);
   const [editingLesson, setEditingLesson] = useState(null);
 
   const canManageLessons = useMemo(
-    () => Boolean(curriculumId && subjectId && unitId),
-    [curriculumId, subjectId, unitId]
+    () => Boolean(gradeId && subjectId && unitId),
+    [gradeId, subjectId, unitId]
   );
 
   const { deleteLesson } = useDeleteLesson({
-    curriculumId,
+    gradeId,
     subjectId,
     unitId,
     onSuccess,
@@ -75,7 +75,7 @@ function LessonFormDialog({ curriculumId, subjectId, unitId, children, onSuccess
           onClose={handleClose}
           defaultValues={editingLesson || {}}
           isEdit={!!editingLesson}
-          curriculumId={curriculumId}
+          gradeId={gradeId}
           subjectId={subjectId}
           unitId={unitId}
           onSuccess={handleFormSuccess}
@@ -86,16 +86,11 @@ function LessonFormDialog({ curriculumId, subjectId, unitId, children, onSuccess
 }
 
 LessonFormDialog.propTypes = {
-  curriculumId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  gradeId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   subjectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   unitId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   onSuccess: PropTypes.func,
-};
-
-LessonFormDialog.defaultProps = {
-  children: null,
-  onSuccess: null,
 };
 
 export default LessonFormDialog;

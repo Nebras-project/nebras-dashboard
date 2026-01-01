@@ -3,15 +3,11 @@ import { useEntityForm } from '@components/forms/hooks';
 import { QUERY_KEYS } from '@config';
 
 // internal imports
-import { useLanguage } from '@hooks';
 import { createUnit, updateUnit } from '../services/unitsApi';
 import { getUnitName } from '../utils';
 
 const buildDefaultValues = (values = {}) => ({
-  nameAr: values.nameAr || values.name || '',
-  nameEn: values.nameEn || values.name || '',
-  order: values.order || 1,
-  isActive: values.isActive ?? true,
+  name: values.name,
 });
 
 export const useUnitForm = ({
@@ -22,10 +18,9 @@ export const useUnitForm = ({
   onSuccess,
   onError,
 } = {}) => {
-  const { currentLanguage } = useLanguage();
-
   const { formDefaultValues, handleSubmit, isLoading, isError, error } = useEntityForm({
     queryKey: [QUERY_KEYS.UNITS, gradeId, subjectId],
+    additionalQueryKeys: [QUERY_KEYS.SUBJECTS],
     defaultValues,
     isEdit,
     onSuccess,
@@ -34,9 +29,9 @@ export const useUnitForm = ({
     updateFn: ({ id, data }) => updateUnit(gradeId, subjectId, id, data),
     buildDefaultValues,
     entityName: 'units',
-    getItemName: (unit) => {
-      const name = getUnitName(unit, currentLanguage);
-      return name !== 'N/A' ? name : 'Unit';
+    getItemName: (unit, vars) => {
+      const name = getUnitName(vars);
+      return name !== 'N/A' ? name : 'وحدة';
     },
   });
 

@@ -51,19 +51,6 @@ const CompetitionResultPage = lazy(() =>
 const GradesPage = lazy(() => import('@features/grades').then((m) => ({ default: m.GradesPage })));
 const GradePage = lazy(() => import('@features/grades').then((m) => ({ default: m.GradePage })));
 
-// Subject Pages (nested under grade)
-const SubjectPage = lazy(() =>
-  import('@features/subjects/pages').then((m) => ({ default: m.SubjectPage }))
-);
-
-// Unit Pages (nested under grade/subject)
-const UnitPage = lazy(() => import('@features/units/pages').then((m) => ({ default: m.UnitPage })));
-
-// Lesson Pages (nested under grade/subject/unit)
-const LessonPage = lazy(() =>
-  import('@features/lessons/pages').then((m) => ({ default: m.LessonPage }))
-);
-
 // Question Pages
 const QuestionsPage = lazy(() =>
   import('@features/questions').then((m) => ({ default: m.QuestionsPage }))
@@ -177,33 +164,6 @@ const routes = [
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.GRADE}>
         <GradePage />
-      </AuthenticatedRoute>
-    ),
-  },
-  // Nested: Subjects within grade
-  {
-    path: NAVIGATION_PATHS.GRADES.SUBJECT(':gradeId', ':subjectId'),
-    element: (
-      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.GRADE}>
-        <SubjectPage />
-      </AuthenticatedRoute>
-    ),
-  },
-  // Nested: Units within subject within grade
-  {
-    path: NAVIGATION_PATHS.GRADES.UNIT(':gradeId', ':subjectId', ':unitId'),
-    element: (
-      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.GRADE}>
-        <UnitPage />
-      </AuthenticatedRoute>
-    ),
-  },
-  // Nested: Lessons within unit within subject within grade
-  {
-    path: NAVIGATION_PATHS.GRADES.LESSON(':gradeId', ':subjectId', ':unitId', ':lessonId'),
-    element: (
-      <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.GRADE}>
-        <LessonPage />
       </AuthenticatedRoute>
     ),
   },

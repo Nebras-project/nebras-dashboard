@@ -13,7 +13,7 @@ import { useTranslation } from '@hooks';
  *
  * Single Responsibility: Orchestrate and layout grade details with subjects sidebar and units accordion
  */
-function GradeDetails({   gradeId }) {
+function GradeDetails({ gradeId }) {
   const { t } = useTranslation();
 
   // State for selected subject
@@ -22,7 +22,7 @@ function GradeDetails({   gradeId }) {
   return (
     <Grid container spacing={3}>
       {/* Subjects Sidebar - Left */}
-      <Grid item size={{ mobile: 12, desktop: 3 }}>
+      <Grid size={{ mobile: 12, desktop: 3 }}>
         <SubjectsSidebar
           gradeId={gradeId}
           selectedSubjectId={selectedSubjectId}
@@ -31,19 +31,15 @@ function GradeDetails({   gradeId }) {
       </Grid>
 
       {/* Units Accordion - Right */}
-      <Grid item size={{ mobile: 12, desktop: 9 }}>
-        <UnitsAccordion
-          subjectId={selectedSubjectId}
-          gradeId={gradeId}
-          title={t('grade.units')}
-        />
+      <Grid size={{ mobile: 12, desktop: 9 }}>
+        <UnitsAccordion subjectId={selectedSubjectId} gradeId={gradeId} title={t('grade.units')} />
       </Grid>
     </Grid>
   );
 }
 
 GradeDetails.propTypes = {
-  gradeId: PropTypes.number.isRequired,
+  gradeId: PropTypes.string.isRequired,
 };
 
 export default GradeDetails;

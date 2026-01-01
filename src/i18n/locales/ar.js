@@ -23,7 +23,7 @@ const ar = {
     close: 'إغلاق',
     submit: 'إرسال',
     reset: 'إعادة تعيين',
-    clear: 'مسح',
+    clear: 'إزالة',
     view: 'عرض',
     actions: 'الإجراءات',
     noAccess: 'لا يوجد وصول',
@@ -236,6 +236,11 @@ const ar = {
     deleteConfirmMessage: 'هل أنت متأكد من حذف {{name}}؟ لا يمكن التراجع عن هذا الإجراء.',
     deleteErrorTitle: 'فشل الحذف',
     deleteErrorMessage: 'فشل حذف المادة {{name}}. يرجى المحاولة مرة أخرى.',
+    createErrorMessage: 'فشل في إنشاء المادة. يرجى المحاولة مرة أخرى.',
+    updateErrorMessage: 'فشل في تحديث المادة. يرجى المحاولة مرة أخرى.',
+    createSuccessMessage: 'تم إنشاء المادة {{name}} بنجاح.',
+    updateSuccessMessage: 'تم تحديث المادة {{name}} بنجاح.',
+    deleteSuccessMessage: 'تم حذف المادة {{name}} بنجاح.',
   },
 
   // Units (plural - for entity operations)
@@ -245,6 +250,11 @@ const ar = {
     deleteConfirmMessage: 'هل أنت متأكد من حذف {{name}}؟ لا يمكن التراجع عن هذا الإجراء.',
     deleteErrorTitle: 'فشل الحذف',
     deleteErrorMessage: 'فشل حذف الوحدة {{name}}. يرجى المحاولة مرة أخرى.',
+    createErrorMessage: 'فشل في إنشاء الوحدة. يرجى المحاولة مرة أخرى.',
+    updateErrorMessage: 'فشل في تحديث الوحدة. يرجى المحاولة مرة أخرى.',
+    createSuccessMessage: 'تم إنشاء الوحدة {{name}} بنجاح.',
+    updateSuccessMessage: 'تم تحديث الوحدة {{name}} بنجاح.',
+    deleteSuccessMessage: 'تم حذف الوحدة {{name}} بنجاح.',
   },
 
   // Lessons (plural - for entity operations)
@@ -254,6 +264,11 @@ const ar = {
     deleteConfirmMessage: 'هل أنت متأكد من حذف {{name}}؟ لا يمكن التراجع عن هذا الإجراء.',
     deleteErrorTitle: 'فشل الحذف',
     deleteErrorMessage: 'فشل حذف الدرس {{name}}. يرجى المحاولة مرة أخرى.',
+    createErrorMessage: 'فشل في إنشاء الدرس. يرجى المحاولة مرة أخرى.',
+    updateErrorMessage: 'فشل في تحديث الدرس. يرجى المحاولة مرة أخرى.',
+    createSuccessMessage: 'تم إنشاء الدرس {{name}} بنجاح.',
+    updateSuccessMessage: 'تم تحديث الدرس {{name}} بنجاح.',
+    deleteSuccessMessage: 'تم حذف الدرس {{name}} بنجاح.',
   },
 
   // Questions
@@ -341,7 +356,7 @@ const ar = {
       lesson: 'الدرس',
       grade: 'الصف الدراسي',
       addedBy: 'أضيف بواسطة',
-      clearAll: 'مسح جميع الفلاتر',
+      clearAll: 'إزالة جميع الفلاتر',
       allTypes: 'جميع الأنواع',
       allCategories: 'جميع الفئات',
       allSubjects: 'جميع المواد',
@@ -485,7 +500,7 @@ const ar = {
     filter: {
       searchPlaceholder: 'البحث عن الطلاب بالاسم...',
       grade: 'الصف الدراسي',
-      clearAll: 'مسح جميع الفلاتر',
+      clearAll: 'إزالة جميع الفلاتر',
       allGrades: 'جميع  الصفوف الدراسية',
     },
     actionsTooltip: 'إجراءات الطلاب',

@@ -9,20 +9,14 @@ import { useTranslation } from '@hooks';
 function UnitFormFields() {
   const { t } = useTranslation();
 
-  const nameArLabel = `${t('grade.unitName')} (عربي)`;
-  const nameEnLabel = `${t('grade.unitName')} (English)`;
+  const nameLabel = `${t('grade.unitName')}`;
 
   return (
     <Stack spacing={3} sx={{ ...margin.top.sm }}>
       <Form.TextInput
-        name="nameAr"
-        label={nameArLabel}
-        rules={{ required: t('validation.required', { field: nameArLabel }) }}
-      />
-      <Form.TextInput
-        name="nameEn"
-        label={nameEnLabel}
-        rules={{ required: t('validation.required', { field: nameEnLabel }) }}
+        name="name"
+        label={nameLabel}
+        rules={{ required: t('validation.required', { field: nameLabel }) }}
       />
     </Stack>
   );

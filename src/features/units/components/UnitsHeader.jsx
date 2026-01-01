@@ -12,7 +12,7 @@ import { getActionsButtonStyles } from '@constants/layout';
  *
  * Single Responsibility: Display units section header with title, subtitle, and add action
  */
-function UnitsHeader({ title, onUnitAdd }) {
+function UnitsHeader({ title = null, onUnitAdd = null }) {
   const { t } = useTranslation();
   const { isLight } = useReduxTheme();
 
@@ -50,12 +50,6 @@ UnitsHeader.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   onUnitAdd: PropTypes.func,
-};
-
-UnitsHeader.defaultProps = {
-  title: null,
-  subtitle: null,
-  onUnitAdd: null,
 };
 
 export default UnitsHeader;

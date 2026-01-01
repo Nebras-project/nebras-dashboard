@@ -55,18 +55,13 @@ export const NAVIGATION_PATHS = {
 
     // Nested: Subjects within grade
     SUBJECTS: (gradeId) => `/grades/${gradeId}/subjects`,
-    SUBJECT: (gradeId, subjectId) => `/grades/${gradeId}/subjects/${subjectId}`,
 
     // Nested: Units within subject within grade
     UNITS: (gradeId, subjectId) => `/grades/${gradeId}/subjects/${subjectId}/units`,
-    UNIT: (gradeId, subjectId, unitId) =>
-      `/grades/${gradeId}/subjects/${subjectId}/units/${unitId}`,
 
     // Nested: Lessons within unit within subject within grade
     LESSONS: (gradeId, subjectId, unitId) =>
       `/grades/${gradeId}/subjects/${subjectId}/units/${unitId}/lessons`,
-    LESSON: (gradeId, subjectId, unitId, lessonId) =>
-      `/grades/${gradeId}/subjects/${subjectId}/units/${unitId}/lessons/${lessonId}`,
   },
 
   // Settings

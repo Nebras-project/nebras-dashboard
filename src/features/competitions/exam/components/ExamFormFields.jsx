@@ -15,7 +15,7 @@ import { getNumberRules, getTimeRules } from '@components/forms/constants';
  */
 function ExamFormFields() {
   const { t } = useTranslation();
-  
+
   const { curriculumName, subjectOptions, isLoadingSubjects, competitionCurriculumId } =
     useExamFormFields();
 

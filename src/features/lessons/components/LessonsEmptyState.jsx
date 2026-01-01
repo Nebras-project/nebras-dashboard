@@ -11,7 +11,7 @@ import LessonsHeader from './LessonsHeader';
  *
  * Single Responsibility: Display empty state for lessons with header and add button
  */
-function LessonsEmptyState({ onAdd }) {
+function LessonsEmptyState({ onAdd = null }) {
   const { t } = useTranslation();
 
   return (
@@ -19,7 +19,7 @@ function LessonsEmptyState({ onAdd }) {
       <LessonsHeader onAdd={onAdd} />
       <EmptyState
         icon="book"
-        title={t('curriculum.noLessons')}
+        title={t('grade.noLessons')}
         sx={{ ...margin.top.sm, ...padding.y.md }}
       />
     </>
@@ -28,10 +28,6 @@ function LessonsEmptyState({ onAdd }) {
 
 LessonsEmptyState.propTypes = {
   onAdd: PropTypes.func,
-};
-
-LessonsEmptyState.defaultProps = {
-  onAdd: null,
 };
 
 export default LessonsEmptyState;

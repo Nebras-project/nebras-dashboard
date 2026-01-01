@@ -13,10 +13,18 @@ import createStudentColumns from '../utils/createStudentColumns.jsx';
 import { useStudent, useDeleteStudent } from '../hooks';
 import { getStudentName } from '../utils';
 import { getTopTableStyles } from '@constants/layout';
+import { useQueryClient } from '@tanstack/react-query';
+import { QUERY_KEYS } from '@config';
 
 function StudentsTable({ customFilters = {}, onEdit }) {
   const { t } = useTranslation();
-  const { deleteStudent } = useDeleteStudent();
+  const queryClient = useQueryClient();
+
+  const { deleteStudent } = useDeleteStudent({
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GRADES] });
+    },
+  });
   const navigate = useNavigate();
 
   const {

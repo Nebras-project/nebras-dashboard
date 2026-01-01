@@ -3,7 +3,6 @@
  */
 
 // internal imports
-import { resolveLanguage } from '@utils';
 
 /**
  * Get subject name based on current language (supports bilingual)
@@ -19,23 +18,14 @@ import { resolveLanguage } from '@utils';
  * @param {string} currentLanguage - Current language ('ar' | 'en')
  * @returns {Array} Array of options with value and label
  */
-export const getSubjectOptions = (subjects = [], currentLanguage = 'ar') => {
+export const getSubjectOptions = (subjects = []) => {
   return subjects.map((subject) => ({
     value: subject.id,
-    label: getSubjectName(subject, currentLanguage),
+    label: subject.name,
   }));
 };
 
-export const getSubjectName = (subject, currentLanguage = 'ar') => {
-  if (!subject) return 'N/A';
-
-  // Resolve language (handles legacy 'system' values)
-  const resolvedLang = resolveLanguage(currentLanguage);
-
-  // Get name based on resolved language
-  if (resolvedLang === 'ar') {
-    return subject.nameAr || subject.nameEn || subject.name || 'N/A';
-  } else {
-    return subject.nameEn || subject.nameAr || subject.name || 'N/A';
-  }
+export const getSubjectName = (subject) => {
+    return subject.name
+  
 };

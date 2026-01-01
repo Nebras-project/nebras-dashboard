@@ -13,7 +13,7 @@ import { fetchLessonById, fetchLessons } from '../services/lessonsApi';
 export const useLessons = ({
   id,
   lessonId,
-  curriculumId,
+  gradeId,
   subjectId,
   unitId,
   queryString,
@@ -24,33 +24,32 @@ export const useLessons = ({
   const effectiveLessonId = lessonId || id;
 
   const getListFn =
-    curriculumId && subjectId && unitId
-      ? () => fetchLessons(curriculumId, subjectId, unitId, params)
+    gradeId && subjectId && unitId
+      ? () => fetchLessons(gradeId, subjectId, unitId, params)
       : () => {
-          throw new Error('curriculumId, subjectId, and unitId are required to fetch lessons');
+          throw new Error('gradeId, subjectId, and unitId are required to fetch lessons');
         };
 
   const getSingleFn =
-    effectiveLessonId && curriculumId && subjectId && unitId
-      ? () => fetchLessonById(curriculumId, subjectId, unitId, effectiveLessonId)
+    effectiveLessonId && gradeId && subjectId && unitId
+      ? () => fetchLessonById(gradeId, subjectId, unitId, effectiveLessonId)
       : () => {
-          throw new Error('curriculumId, subjectId, unitId, and lessonId are required');
+          throw new Error('gradeId, subjectId, unitId, and lessonId are required');
         };
 
   const { data, isLoading, isError, error, refetch } = useEntity({
     getSingleFn,
     getListFn,
     id: effectiveLessonId,
-    params: { curriculumId, subjectId, unitId, ...(queryString ? { queryString } : params) },
-    queryKey: [QUERY_KEYS.LESSONS, curriculumId, subjectId, unitId],
+    params: { gradeId, subjectId, unitId, ...(queryString ? { queryString } : params) },
+    queryKey: [QUERY_KEYS.LESSONS, gradeId, subjectId, unitId],
     entityName: 'lessons',
-    enabled: enabled && !!curriculumId && !!subjectId && !!unitId,
+    enabled: enabled && !!gradeId && !!subjectId && !!unitId,
     onError,
   });
-
     return {
     lesson: effectiveLessonId ? data : undefined,
-    lessons: effectiveLessonId ? undefined : data,
+    lessons: effectiveLessonId ? undefined : data.data,
     isLoading,
     isError,
     error,

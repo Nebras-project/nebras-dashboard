@@ -66,10 +66,7 @@ function GradeCard({ grade, onEdit }) {
         <GradeCardName name={gradeName} />
 
         {/* Statistics */}
-        <GradeCardStatistics
-          subjectCount={grade.subjectCount}
-          studentsCount={grade.studentCount}
-        />
+        <GradeCardStatistics subjectCount={grade.subjectCount} studentsCount={grade.studentCount} />
       </CardContent>
     </Card>
   );

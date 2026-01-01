@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { memo } from 'react';
-import { useBackspaceNavigation } from '@hooks';
+// import { useBackspaceNavigation } from '@hooks';
 import { MainLayout } from '@layout';
 import { routes } from '@config';
 import { LanguageSync, ErrorBoundary, ToastContainer, Loader } from '@components';
@@ -20,7 +20,7 @@ const AppRoutes = memo(function AppRoutes() {
 });
 
 const AppContent = memo(function AppContent() {
-  useBackspaceNavigation();
+  // useBackspaceNavigation();
   return (
     <>
       <MainLayout>

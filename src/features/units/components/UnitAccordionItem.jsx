@@ -1,13 +1,11 @@
 // external imports
 import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 // internal imports
 import { Icon } from '@components';
 import { useTranslation, useLanguage } from '@hooks';
-import { NAVIGATION_PATHS } from '@config';
 import { getUnitName } from '../utils';
 import LessonsSection from '@features/lessons/components/LessonsSection';
 import UnitSummary from './UnitSummary';
@@ -22,25 +20,18 @@ import { useReduxTheme } from '@hooks';
  */
 function UnitAccordionItem({
   unit,
-  defaultExpanded,
-  gradeId,
-  subjectId,
-  onUnitEdit,
-  onUnitDelete,
+  defaultExpanded = false,
+  gradeId = null,
+  subjectId = null,
+  onUnitEdit = undefined,
+  onUnitDelete = undefined,
 }) {
   const { t } = useTranslation();
   const { currentLanguage } = useLanguage();
-  const navigate = useNavigate();
   const { mode } = useReduxTheme();
   const [expanded, setExpanded] = useState(defaultExpanded || false);
-  const unitName = getUnitName(unit, currentLanguage);
+  const unitName = getUnitName(unit);
   const lessonsCount = unit.lessonsCount || 0;
-
-  const handleUnitView = () => {
-    if (subjectId && gradeId) {
-      navigate(NAVIGATION_PATHS.GRADES.UNIT(gradeId, subjectId, unit.id));
-    }
-  };
 
   const handleUnitEdit = () => {
     if (onUnitEdit) {
@@ -85,12 +76,10 @@ function UnitAccordionItem({
           unitName={unitName}
           lessonsCount={lessonsCount}
           lessonsLabel={t('grade.lessons')}
-          onView={handleUnitView}
           onEdit={handleUnitEdit}
           onDelete={onUnitDelete ? handleUnitDelete : undefined}
           unit={unit}
           labels={{
-            view: t('grade.viewUnit'),
             edit: t('grade.editUnit'),
             delete: t('grade.deleteUnit'),
           }}
@@ -118,14 +107,6 @@ UnitAccordionItem.propTypes = {
   subjectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onUnitEdit: PropTypes.func,
   onUnitDelete: PropTypes.func,
-};
-
-UnitAccordionItem.defaultProps = {
-  defaultExpanded: false,
-  gradeId: null,
-  subjectId: null,
-  onUnitEdit: undefined,
-  onUnitDelete: undefined,
 };
 
 export default UnitAccordionItem;

@@ -27,14 +27,6 @@ export const fetchSubjectById = async (gradeId, subjectId) => {
   return await apiClient.get(API_ENDPOINTS.GRADES.SUBJECT(gradeId, subjectId));
 };
 
-/**
- * Fetch subjects by grade ID (alias for fetchSubjects)
- * @param {number|string} gradeId - Grade ID
- * @returns {Promise} API response
- */
-export const fetchSubjectsByGradeId = async (gradeId) => {
-  return fetchSubjects(gradeId);
-};
 
 /**
  * Create a new subject within a grade

@@ -17,7 +17,7 @@ import { getSectionPaperStyles } from '@constants/layout';
  *
  * Displays subjects sidebar with name, units count, and lessons count
  */
-function SubjectsSidebar({ gradeId, selectedSubjectId, onSubjectSelect }) {
+function SubjectsSidebar({ gradeId, selectedSubjectId = null, onSubjectSelect }) {
   const { mode } = useReduxTheme();
 
   // Delete subject hook
@@ -92,10 +92,6 @@ SubjectsSidebar.propTypes = {
   gradeId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   selectedSubjectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onSubjectSelect: PropTypes.func.isRequired,
-};
-
-SubjectsSidebar.defaultProps = {
-  selectedSubjectId: null,
 };
 
 export default SubjectsSidebar;

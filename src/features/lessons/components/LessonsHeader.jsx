@@ -12,7 +12,7 @@ import { getActionsButtonStyles } from '@constants/layout';
  *
  * Single Responsibility: Display header with title and add button for lessons
  */
-function LessonsHeader({ onAdd }) {
+function LessonsHeader({ onAdd = null }) {
   const { t } = useTranslation();
   const { isLight } = useReduxTheme();
 
@@ -26,14 +26,14 @@ function LessonsHeader({ onAdd }) {
       }}
     >
       <Typography variant="subtitle2" fontWeight={600} color="text.secondary">
-        {t('curriculum.lessons')}
+        {t('grade.lessons')}
       </Typography>
 
       {onAdd && (
         <ActionsMenu
           actions={[
             {
-              label: t('curriculum.addLesson'),
+              label: t('grade.addLesson'),
               icon: <Icon name="add" size={18} />,
               onClick: onAdd,
             },
@@ -51,10 +51,6 @@ function LessonsHeader({ onAdd }) {
 
 LessonsHeader.propTypes = {
   onAdd: PropTypes.func,
-};
-
-LessonsHeader.defaultProps = {
-  onAdd: null,
 };
 
 export default LessonsHeader;
