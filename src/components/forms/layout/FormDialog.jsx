@@ -5,7 +5,7 @@ import { Dialog, useTheme } from '@mui/material';
 
 // internal imports
 import { FORM_DEFAULTS } from '../constants';
-import { useFormSetup } from '../hooks';
+import { useFormSetup, useAutoFocusFirstField } from '../hooks';
 import FormProvider from '../components/FormProvider';
 /**
  * FormDialog Component
@@ -44,6 +44,9 @@ const FormDialog = memo(function FormDialog({
     showCloseButton,
     onClose,
   });
+
+  // Auto-focus first field when dialog opens
+  useAutoFocusFirstField(open, formId);
 
   // Reset form when dialog opens (important for edit mode)
   useEffect(() => {

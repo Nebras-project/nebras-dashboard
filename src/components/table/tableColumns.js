@@ -120,7 +120,7 @@ const columnRegistry = {
     field: 'grade',
     headerKey: 'table.columnHeaders.questions.grade',
     minWidth: 160,
-    flex: 1,
+    flex: .5,
   },
 
   yearForm: {
@@ -216,7 +216,7 @@ export function buildColumns(keys, options = {}) {
 const USER_COLUMN_KEYS = {
   admin: ['profileImage', 'userName', 'email', 'emailConfirmed', 'phoneNumber'],
   manager: ['profileImage', 'userName', 'email', 'role', 'emailConfirmed', 'phoneNumber'],
-  student: ['profileImage', 'userName', 'email', 'emailConfirmed', 'grade', 'phoneNumber'],
+  student: ['profileImage', 'userName', 'email', 'grade', 'emailConfirmed', 'phoneNumber'],
 };
 
 /**

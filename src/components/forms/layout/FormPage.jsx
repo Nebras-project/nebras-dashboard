@@ -7,7 +7,7 @@ import { Paper } from '@mui/material';
 import { PageLayout } from '@components';
 import { padding } from '@constants';
 import { FORM_DEFAULTS } from '../constants';
-import { useFormSetup } from '../hooks';
+import { useFormSetup, useAutoFocusFirstField } from '../hooks';
 import FormProvider from '../components/FormProvider';
 import { borderRadius } from '@theme/components';
 
@@ -42,6 +42,9 @@ const FormPage = memo(function FormPage({
     showCloseButton,
     onClose,
   });
+
+  // Auto-focus first field when page mounts
+  useAutoFocusFirstField(true, formId);
 
   return (
     <FormProvider methods={methods} contextValue={contextValue}>
