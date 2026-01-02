@@ -1,6 +1,7 @@
 // external imports
-import { Box, Typography, IconButton, Tooltip } from '@mui/material';
+import { Box, Typography, IconButton, Tooltip, Stack } from '@mui/material';
 import { useMemo, memo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // internal imports
 import { useTranslation, useLanguage, useSidebar, useResponsive } from '@hooks';
@@ -8,6 +9,7 @@ import { margin } from '@constants';
 import { Logo, Icon, CloseButton } from '@components';
 import { fontWeights } from '@theme';
 import { padding, gap } from '@constants';
+import { NAVIGATION_PATHS } from '@constants/navigationPaths';
 
 // Sidebar Header constants (only used in this component)
 const LOGO_LETTER_SPACING = '0.1rem';
@@ -35,6 +37,10 @@ const getCollapseButtonStyles = (collapsed) => ({
   cursor: 'ew-resize',
 });
 
+const getLogoStyles = () => ({
+  cursor: 'pointer',
+});
+
 const getCollapseIcon = (isRTL, collapsed) => {
   if (isRTL) {
     return collapsed ? (
@@ -55,17 +61,30 @@ const SidebarHeader = memo(function SidebarHeader() {
   const { isRTL } = useLanguage();
   const { collapsed, toggleCollapsed, closeSidebar } = useSidebar();
   const { isSmallScreen } = useResponsive();
+  const navigate = useNavigate();
 
   const collapseIcon = useMemo(() => getCollapseIcon(isRTL, collapsed), [isRTL, collapsed]);
 
+  const handleLogoClick = () => {
+    navigate(NAVIGATION_PATHS.DASHBOARD);
+  };
+
   return (
     <Box sx={getContainerStyles(collapsed)}>
-      <Logo />
-      {!collapsed && (
-        <Typography variant="h6" sx={getTypographyStyles()}>
-          {t('common.brandName')}
-        </Typography>
-      )}
+      <Stack
+        direction="row"
+        alignItems="center"
+        spacing={1}
+        onClick={handleLogoClick}
+        sx={getLogoStyles()}
+      >
+        <Logo />
+        {!collapsed && (
+          <Typography variant="h6" sx={getTypographyStyles()}>
+            {t('common.brandName')}
+          </Typography>
+        )}
+      </Stack>
 
       {isSmallScreen ? (
         <CloseButton
