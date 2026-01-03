@@ -693,6 +693,11 @@ const ar = {
     hidePassword: 'إخفاء كلمة المرور',
   },
 
+  // Form
+  form: {
+    noOptionsAvailable: 'لا توجد خيارات متاحة',
+  },
+
   // Messages
   messages: {
     success: {

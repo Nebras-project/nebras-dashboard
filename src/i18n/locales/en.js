@@ -696,6 +696,11 @@ const en = {
     hidePassword: 'Hide password',
   },
 
+  // Form
+  form: {
+    noOptionsAvailable: 'No options available',
+  },
+
   // Messages
   messages: {
     success: {

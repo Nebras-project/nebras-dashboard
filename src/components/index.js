@@ -13,6 +13,7 @@ export {
   Toast,
   ToastContainer,
   EmptyState,
+  NoOptionsMessage,
   EntityErrorState,
 } from './feedback';
 

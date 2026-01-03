@@ -8,6 +8,7 @@ import { useFormContext, Controller } from 'react-hook-form';
 import { useFormFieldError } from '../hooks';
 import { parseOption } from '../utils';
 import { FORM_DEFAULTS, FORM_MARGINS } from '../constants';
+import { NoOptionsMessage } from '@components/feedback';
 
 /**
  * SelectInput Component
@@ -63,15 +64,19 @@ const SelectInput = memo(function SelectInput({
             },
           }}
         >
-          {options.map((option) => {
-            const { value, label: optionLabel } = parseOption(option);
+          {options.length === 0 ? (
+            <NoOptionsMessage />
+          ) : (
+            options.map((option) => {
+              const { value, label: optionLabel } = parseOption(option);
 
-            return (
-              <MenuItem key={value} value={value}>
-                {optionLabel}
-              </MenuItem>
-            );
-          })}
+              return (
+                <MenuItem key={value} value={value}>
+                  {optionLabel}
+                </MenuItem>
+              );
+            })
+          )}
         </TextField>
       )}
     />

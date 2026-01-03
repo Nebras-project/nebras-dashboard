@@ -82,6 +82,7 @@ import {
   TbArrowBigDownLines,
   TbLayoutSidebarRightCollapse,
   TbLayoutSidebarRightExpand,
+  TbMoodEmpty,
 } from 'react-icons/tb';
 
 import { CgColorBucket, CgCloseR } from 'react-icons/cg';
@@ -142,7 +143,6 @@ const ICON_MAP = {
   closeWithBorder: CgCloseR,
   arrowDownLines: TbArrowBigDownLines,
 
-  
   // Theme
   contrast: MdContrast,
   lightMode: MdLightMode,
@@ -203,6 +203,7 @@ const ICON_MAP = {
 
   // Emotions
   sad: MdSentimentDissatisfied,
+  moodEmpty: TbMoodEmpty,
 
   // Security
   lock: MdLock,

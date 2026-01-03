@@ -27,6 +27,7 @@ export const useQuestionSettingsFields = () => {
   const gradeId = watch('gradeId');
   const subjectId = watch('subjectId');
   const unitId = watch('unitId');
+  const lessonId = watch('lessonId');
   const category = watch('category');
 
   // Check if category is ministerial (for conditional field display)
@@ -88,6 +89,7 @@ export const useQuestionSettingsFields = () => {
     gradeId,
     subjectId,
     unitId,
+    lessonId,
     isMinisterial,
     // Options
     gradeOptions,

@@ -15,6 +15,7 @@ export { default as ToastContainer } from './ToastContainer';
 
 // Empty state components
 export { default as EmptyState } from './EmptyState';
+export { default as NoOptionsMessage } from './NoOptionsMessage';
 
 // Error state components
 export { default as EntityErrorState } from './EntityErrorState';
