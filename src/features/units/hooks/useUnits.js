@@ -4,6 +4,7 @@ import { QUERY_KEYS } from '@config';
 
 // internal imports
 import { fetchUnitById, fetchUnits } from '../services/unitsApi';
+import { getUnitOptions } from '../utils';
 
 /**
  * useUnits Hook
@@ -59,10 +60,16 @@ export const useUnits = ({
     onError,
   });
 
+
+  let unitOptions = [];
+  if (!effectiveUnitId) {
+    unitOptions = getUnitOptions(data.data);
+  }
   // Return with unit-specific property names
   return {
     unit: effectiveUnitId ? data : undefined,
     units: effectiveUnitId ? undefined : data.data,
+    unitOptions,
     isLoading,
     isError,
     error,

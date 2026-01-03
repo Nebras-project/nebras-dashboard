@@ -4,6 +4,7 @@ import { QUERY_KEYS } from '@config';
 
 // internal imports
 import { fetchLessonById, fetchLessons } from '../services/lessonsApi';
+import { getLessonOptions } from '../utils';
 
 /**
  * useLessons Hook
@@ -47,9 +48,15 @@ export const useLessons = ({
     enabled: enabled && !!gradeId && !!subjectId && !!unitId,
     onError,
   });
+
+  let lessonOptions = [];
+  if (!effectiveLessonId) {
+    lessonOptions = getLessonOptions(data.data);
+  }
     return {
     lesson: effectiveLessonId ? data : undefined,
     lessons: effectiveLessonId ? undefined : data.data,
+    lessonOptions,
     isLoading,
     isError,
     error,

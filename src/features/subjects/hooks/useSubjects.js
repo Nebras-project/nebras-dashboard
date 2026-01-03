@@ -4,6 +4,7 @@ import { QUERY_KEYS } from '@config';
 
 // internal imports
 import { fetchSubjectById, fetchSubjects } from '../services/subjectsApi';
+import { getSubjectOptions } from '../utils';
 
 /**
  * useSubjects Hook
@@ -59,10 +60,15 @@ export const useSubjects = ({
     onError,
   });
 
+  let subjectOptions = [];
+  if (!effectiveSubjectId) {
+    subjectOptions = getSubjectOptions(data.data);
+  }
   // Return with subject-specific property names
   return {
     subject: effectiveSubjectId ? data : undefined,
     subjects: effectiveSubjectId ? undefined : data.data,
+    subjectOptions,
     isLoading,
     isError,
     error,

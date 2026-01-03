@@ -5,11 +5,10 @@
 /**
  * Get unit name based on current language (supports bilingual)
  * @param {Object} unit - Unit object
- * @param {string} currentLanguage - Current language ('ar' | 'en'), defaults to 'ar'
  * @returns {string} Unit name in the current language
  */
 export const getUnitName = (unit) => {
-  return unit.name
+  return unit.name;
 };
 
 /**
@@ -17,12 +16,11 @@ export const getUnitName = (unit) => {
  * Transforms an array of units into options format { value, label }
  *
  * @param {Array} units - Array of unit objects
- * @param {string} currentLanguage - Current language ('ar' | 'en'), defaults to 'ar'
  * @returns {Array} Array of options with value and label
  */
 export const getUnitOptions = (units = []) => {
-  return units.map((unit) => ({
+  return units?.map((unit) => ({
     value: unit.id,
-    label: unit.name
+    label: getUnitName(unit),
   }));
 };

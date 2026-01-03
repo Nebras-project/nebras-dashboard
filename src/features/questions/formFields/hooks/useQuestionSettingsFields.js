@@ -3,15 +3,10 @@ import { useEffect, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 // internal imports
-import { useLanguage } from '@hooks';
 import { useGrade } from '@features/grades/hooks';
-import { getGradeOptions } from '@features/grades/utils';
 import { useSubjects } from '@features/subjects/hooks';
-import { getSubjectOptions } from '@features/subjects/utils';
 import { useUnits } from '@features/units/hooks';
-import { getUnitOptions } from '@features/units/utils';
 import { useLessons } from '@features/lessons/hooks';
-import { getLessonOptions } from '@features/lessons/utils';
 import { getQuestionTypeOptions, getQuestionCategoryOptions } from '../../constants';
 import { useTranslation } from '@hooks';
 
@@ -26,7 +21,6 @@ import { useTranslation } from '@hooks';
  */
 export const useQuestionSettingsFields = () => {
   const { t } = useTranslation();
-  const { currentLanguage } = useLanguage();
   const { watch, setValue } = useFormContext();
 
   // Watch form values for cascading selects
@@ -36,79 +30,32 @@ export const useQuestionSettingsFields = () => {
   const category = watch('category');
 
   // Check if category is ministerial (for conditional field display)
-  const isMinisterial = category === 'Ministerial';
+  const isMinisterial = category === 'ministerial';
 
   // Fetch grades
-  const { grades = [], isLoading: isLoadingGrades } = useGrade();
-  const gradeOptions = useMemo(
-    () =>
-      grades.length > 0
-        ? getGradeOptions(grades, currentLanguage)
-        : [
-            { value: 1, label: 'المنهج الأول' },
-            { value: 2, label: 'المنهج الثاني' },
-            { value: 3, label: 'المنهج الثالث' },
-          ],
-    [grades, currentLanguage]
-  );
+  const { gradeOptions = [], isLoading: isLoadingGrades } = useGrade();
 
   // Fetch subjects based on curriculum
-  const { subjects = [], isLoading: isLoadingSubjects } = useSubjects({
-    gradeId: gradeId ? Number(gradeId) : undefined,
+  const { subjectOptions = [], isLoading: isLoadingSubjects } = useSubjects({
+    gradeId: gradeId,
     enabled: !!gradeId,
   });
-  const subjectOptions = useMemo(() => {
-    // Show dummy data if no curriculum selected or no real data available
-    if (!gradeId || subjects.length === 0) {
-      return [
-        { value: 1, label: 'الرياضيات' },
-        { value: 2, label: 'العلوم' },
-        { value: 3, label: 'اللغة العربية' },
-        { value: 4, label: 'اللغة الإنجليزية' },
-      ];
-    }
-    return getSubjectOptions(subjects, currentLanguage);
-  }, [subjects, currentLanguage, gradeId]);
 
   // Fetch units based on curriculum and subject
-  const { units = [], isLoading: isLoadingUnits } = useUnits({
-    gradeId: gradeId ? Number(gradeId) : undefined,
-    subjectId: subjectId ? Number(subjectId) : undefined,
+  const { unitOptions, isLoading: isLoadingUnits } = useUnits({
+    gradeId: gradeId,
+    subjectId: subjectId,
     enabled: !!gradeId && !!subjectId,
   });
-  const unitOptions = useMemo(() => {
-    // Show dummy data if curriculum/subject not selected or no real data available
-    if (!gradeId || !subjectId || units.length === 0) {
-      return [
-        { value: 1, label: 'الوحدة الأولى' },
-        { value: 2, label: 'الوحدة الثانية' },
-        { value: 3, label: 'الوحدة الثالثة' },
-        { value: 4, label: 'الوحدة الرابعة' },
-      ];
-    }
-    return getUnitOptions(units, currentLanguage);
-  }, [units, currentLanguage, gradeId, subjectId]);
 
   // Fetch lessons based on curriculum, subject, and unit
-  const { lessons = [], isLoading: isLoadingLessons } = useLessons({
-    gradeId: gradeId ? Number(gradeId) : undefined,
-    subjectId: subjectId ? Number(subjectId) : undefined,
-    unitId: unitId ? Number(unitId) : undefined,
+  const { lessonOptions, isLoading: isLoadingLessons } = useLessons({
+    gradeId: gradeId,
+    subjectId: subjectId,
+    unitId: unitId,
     enabled: !!gradeId && !!subjectId && !!unitId,
   });
-  const lessonOptions = useMemo(() => {
-    // Show dummy data if curriculum/subject/unit not selected or no real data available
-    if (!gradeId || !subjectId || !unitId || lessons.length === 0) {
-      return [
-        { value: 1, label: 'الدرس الأول' },
-        { value: 2, label: 'الدرس الثاني' },
-        { value: 3, label: 'الدرس الثالث' },
-        { value: 4, label: 'الدرس الرابع' },
-        { value: 5, label: 'الدرس الخامس' },
-      ];
-    }
-    return getLessonOptions(lessons, currentLanguage);
-  }, [lessons, currentLanguage, gradeId, subjectId, unitId]);
+
 
   // Get type and category options
   const typeOptions = useMemo(() => getQuestionTypeOptions(t), [t]);

@@ -9,12 +9,11 @@ export const getGradeName = (grade) => {
 /**
  * Build grade options for select input
  * @param {Array} grades - Array of grade objects
- * @param {string} currentLanguage - Current language ('ar' | 'en'), defaults to 'ar'
  * @returns {Array} Array of options with value and label
  */
 export const getGradeOptions = (grades = []) => {
-  return grades.map((grade) => ({
+  return grades?.map((grade) => ({
     value: grade.id,
-    label: grade.name,
+    label: getGradeName(grade),
   }));
 };
