@@ -1,5 +1,5 @@
 // external imports
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 // internal imports
@@ -27,8 +27,12 @@ export const useQuestionSettingsFields = () => {
   const gradeId = watch('gradeId');
   const subjectId = watch('subjectId');
   const unitId = watch('unitId');
-  const lessonId = watch('lessonId');
   const category = watch('category');
+
+  // Track previous values to detect changes
+  const prevGradeIdRef = useRef(gradeId);
+  const prevSubjectIdRef = useRef(subjectId);
+  const prevUnitIdRef = useRef(unitId);
 
   // Check if category is ministerial (for conditional field display)
   const isMinisterial = category === 'ministerial';
@@ -36,52 +40,57 @@ export const useQuestionSettingsFields = () => {
   // Fetch grades
   const { gradeOptions = [], isLoading: isLoadingGrades } = useGrade();
 
-  // Fetch subjects based on curriculum
+  // Fetch subjects based on selected grade
   const { subjectOptions = [], isLoading: isLoadingSubjects } = useSubjects({
-    gradeId: gradeId,
+    gradeId,
     enabled: !!gradeId,
   });
 
-  // Fetch units based on curriculum and subject
-  const { unitOptions, isLoading: isLoadingUnits } = useUnits({
-    gradeId: gradeId,
-    subjectId: subjectId,
+  // Fetch units based on selected grade and subject
+  const { unitOptions = [], isLoading: isLoadingUnits } = useUnits({
+    gradeId,
+    subjectId,
     enabled: !!gradeId && !!subjectId,
   });
 
-  // Fetch lessons based on curriculum, subject, and unit
-  const { lessonOptions, isLoading: isLoadingLessons } = useLessons({
-    gradeId: gradeId,
-    subjectId: subjectId,
-    unitId: unitId,
+  // Fetch lessons based on selected grade, subject, and unit
+  const { lessonOptions = [], isLoading: isLoadingLessons } = useLessons({
+    gradeId,
+    subjectId,
+    unitId,
     enabled: !!gradeId && !!subjectId && !!unitId,
   });
-
 
   // Get type and category options
   const typeOptions = useMemo(() => getQuestionTypeOptions(t), [t]);
   const categoryOptions = useMemo(() => getQuestionCategoryOptions(t), [t]);
 
   // Reset dependent fields when parent field changes
+  // When grade changes, reset all dependent fields
   useEffect(() => {
-    if (!gradeId) {
+    if (prevGradeIdRef.current !== gradeId && prevGradeIdRef.current !== undefined) {
       setValue('subjectId', '');
       setValue('unitId', '');
       setValue('lessonId', '');
     }
+    prevGradeIdRef.current = gradeId;
   }, [gradeId, setValue]);
 
+  // When subject changes, reset unit and lesson
   useEffect(() => {
-    if (!subjectId) {
+    if (prevSubjectIdRef.current !== subjectId && prevSubjectIdRef.current !== undefined) {
       setValue('unitId', '');
       setValue('lessonId', '');
     }
+    prevSubjectIdRef.current = subjectId;
   }, [subjectId, setValue]);
 
+  // When unit changes, reset lesson
   useEffect(() => {
-    if (!unitId) {
+    if (prevUnitIdRef.current !== unitId && prevUnitIdRef.current !== undefined) {
       setValue('lessonId', '');
     }
+    prevUnitIdRef.current = unitId;
   }, [unitId, setValue]);
 
   return {
@@ -89,16 +98,17 @@ export const useQuestionSettingsFields = () => {
     gradeId,
     subjectId,
     unitId,
-    lessonId,
     isMinisterial,
-    // Options
+
+    // Options for select inputs
     gradeOptions,
     subjectOptions,
     unitOptions,
     lessonOptions,
     typeOptions,
     categoryOptions,
-    // Loading states
+
+    // Loading states for each select
     isLoadingGrades,
     isLoadingSubjects,
     isLoadingUnits,
