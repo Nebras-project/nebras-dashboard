@@ -14,6 +14,7 @@ import { borderRadius } from '@theme/components';
 const getPaperStyles = (paddingValue, borderRadiusValue) => ({
   ...paddingValue.all.lg,
   borderRadius: borderRadiusValue.xs,
+  boxShadow: 'none'
 });
 
 /**

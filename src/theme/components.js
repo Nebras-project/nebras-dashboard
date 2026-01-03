@@ -80,9 +80,10 @@ export const getComponentOverrides = (mode) => ({
     styleOverrides: {
       root: {
         borderRadius: borderRadius.md,
+
       },
       elevation1: {
-        boxShadow: shadows[mode].sm,
+        // boxShadow: shadows[mode].sm,
       },
     },
   },
@@ -216,12 +217,14 @@ export const getComponentOverrides = (mode) => ({
     styleOverrides: {
       paper: ({ theme }) => ({
         borderRadius: borderRadius.md,
+        boxShadow: 'none',
 
         '& .MuiDialogTitle-root': {
           backgroundColor: theme.palette.background.default,
         },
         '& .MuiDialogContent-root': {
           backgroundColor: theme.palette.background.default,
+          
         },
         '& .MuiDialogActions-root': {
           backgroundColor: theme.palette.background.default,

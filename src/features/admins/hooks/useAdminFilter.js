@@ -17,6 +17,7 @@ export const useAdminFilter = (onFilterChange, debounceMs = 500) => {
   const { filters, hasActiveFilters, updateFilter, clearAllFilters } = useDebouncedFilter(
     {
       UserName: '',
+      
     },
     onFilterChange, // This will be called with cleaned params after debounce
     debounceMs

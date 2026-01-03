@@ -67,6 +67,7 @@ const getPaperStyles = (minWidth) => ({
   minWidth,
   backgroundImage: 'none ',
   ...padding.all.sm,
+  boxShadow: 'none'
 });
 
 // Sub-components
