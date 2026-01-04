@@ -23,3 +23,15 @@ export const getFormName = (form) => {
 
   return 'N/A';
 };
+
+export const getYearOptions = (forms) => {
+  if (!forms || !Array.isArray(forms)) {
+    return [];
+  }
+  const yearOptions = [...new Set(forms.map((form) => form.year))].map((year) => ({
+    label: year,
+    value: year,
+  }));
+
+  return yearOptions;
+};

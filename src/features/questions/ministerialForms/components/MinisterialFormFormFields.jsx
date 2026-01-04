@@ -1,5 +1,5 @@
 // external imports
-import { Stack } from '@mui/material';
+import { Grid } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 
 // internal imports
@@ -28,33 +28,41 @@ function MinisterialFormFormFields() {
   const gradeId = watch('gradeId');
 
   return (
-    <Stack spacing={3} sx={{ ...margin.top.sm }}>
-      <Form.SelectInput
-        name="gradeId"
-        label={t('grade.grade')}
-        options={gradeOptions}
-        disabled={isLoadingGrades}
-        rules={{ required: t('validation.required', { field: t('grade.grade') }) }}
-      />
-      <Form.SelectInput
-        name="subjectId"
-        label={t('grade.subject')}
-        options={subjectOptions}
-        disabled={isLoadingSubjects || !gradeId}
-        rules={{ required: t('validation.required', { field: t('grade.subject') }) }}
-      />
+    <Grid container spacing={2} sx={{ ...margin.top.sm }}>
+      <Grid size={{ mobile: 12, tablet: 6 }}>
+        <Form.SelectInput
+          name="gradeId"
+          label={t('grade.grade')}
+          options={gradeOptions}
+          disabled={isLoadingGrades}
+          rules={{ required: t('validation.required', { field: t('grade.grade') }) }}
+        />
+      </Grid>
+      <Grid size={{ mobile: 12, tablet: 6 }}>
+        <Form.SelectInput
+          name="subjectId"
+          label={t('grade.subject')}
+          options={subjectOptions}
+          disabled={isLoadingSubjects || !gradeId}
+          rules={{ required: t('validation.required', { field: t('grade.subject') }) }}
+        />
+      </Grid>
 
-      <Form.NumberInput
-        name="formNumber"
-        label={formNumberLabel}
-        rules={{ required: t('validation.required', { field: formNumberLabel }) }}
-      />
-      <Form.YearInput
-        name="year"
-        label={yearLabel}
-        rules={{ required: t('validation.required', { field: yearLabel }) }}
-      />
-    </Stack>
+      <Grid size={{ mobile: 12, tablet: 6 }}>
+        <Form.NumberInput
+          name="formNumber"
+          label={formNumberLabel}
+          rules={{ required: t('validation.required', { field: formNumberLabel }) }}
+        />
+      </Grid>
+      <Grid size={{ mobile: 12, tablet: 6 }}>
+        <Form.YearInput
+          name="year"
+          label={yearLabel}
+          rules={{ required: t('validation.required', { field: yearLabel }) }}
+        />
+      </Grid>
+    </Grid>
   );
 }
 

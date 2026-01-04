@@ -1,7 +1,10 @@
+// external imports
+import { useState, useMemo } from 'react';
 
 // internal imports
 import { AddIconButton } from '@components';
 import { useTranslation } from '@hooks';
+import { filterParamsToQueryString } from '@utils';
 import MinisterialFormsGrid from './MinisterialFormsGrid';
 import MinisterialFormFormDialog from './MinisterialFormFormDialog';
 import MinisterialFormFilter from './MinisterialFormFilter';
@@ -11,16 +14,20 @@ import { useMinisterialForm } from '../hooks';
  * FormsTab Component
  *
  * Single Responsibility: Display ministerial forms tab with grid and form dialog
- * Uses dummy data for now
  */
 function FormsTab() {
   const { t } = useTranslation();
+  const [filterParams, setFilterParams] = useState({});
 
-const { ministerialForms, isLoading } = useMinisterialForm();
+  // Convert filter params object to query string
+  const queryString = useMemo(() => filterParamsToQueryString(filterParams), [filterParams]);
+
+  const { ministerialForms, isLoading } = useMinisterialForm({
+    queryString
+  });
 
   const handleFilterChange = (newFilterParams) => {
-    // TODO: When connected to real API, use filterParams to filter forms
-    console.log('Filter params:', newFilterParams);
+    setFilterParams(newFilterParams || {});
   };
 
   return (

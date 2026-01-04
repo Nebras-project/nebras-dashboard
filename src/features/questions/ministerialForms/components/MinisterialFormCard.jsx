@@ -6,10 +6,9 @@ import PropTypes from 'prop-types';
 import { useDeleteMinisterialForm } from '../hooks';
 import { useReduxTheme } from '@hooks';
 import CardActionsMenu from './CardActionsMenu';
-import MinisterialFormCardTitle from './MinisterialFormCardTitle';
+import MinisterialFormCardContent from './MinisterialFormCardContent';
 import { padding } from '@constants';
 import { getCardStyles } from '@constants/layout';
-import { Icon } from '@components';
 
 /**
  * MinisterialFormCard Component
@@ -43,8 +42,12 @@ function MinisterialFormCard({ form, onEdit }) {
           textAlign: 'center',
         }}
       >
-        <Icon name="fileList" size={60} />
-        <MinisterialFormCardTitle formNumber={form.formNumber} year={form.year} />
+        <MinisterialFormCardContent
+          formNumber={form.formNumber}
+          year={form.year}
+          gradeName={form.gradeName || 'تاسع'}
+          subjectName={form.subjectName}
+        />
       </CardContent>
     </Card>
   );

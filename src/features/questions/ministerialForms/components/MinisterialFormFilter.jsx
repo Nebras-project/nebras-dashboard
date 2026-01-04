@@ -19,8 +19,19 @@ function MinisterialFormFilter({ onFilterChange, addButton }) {
   const { t } = useTranslation();
 
   // Filter state management - filters are sent to backend
-  const { year, hasActiveFilters, showFilters, setYear, handleClearFilters, handleToggleFilters } =
-    useMinisterialFormFilter(onFilterChange);
+  const {
+    year,
+    gradeId,
+    subjectId,
+    hasActiveFilters,
+    showFilters,
+    filterOptions,
+    setYear,
+    setGradeId,
+    setSubjectId,
+    handleClearFilters,
+    handleToggleFilters,
+  } = useMinisterialFormFilter(onFilterChange);
 
   return (
     <Box
@@ -42,10 +53,27 @@ function MinisterialFormFilter({ onFilterChange, addButton }) {
         >
           <Stack direction="column" spacing={2} sx={{ ...padding.all.md }}>
             <FilterSelect
+              label={t('grade.grade')}
+              value={gradeId}
+              onChange={setGradeId}
+              options={filterOptions.grades}
+              allLabel={t('students.filter.allGrades')}
+            />
+
+            <FilterSelect
+              label={t('grade.subject')}
+              value={subjectId}
+              onChange={setSubjectId}
+              options={filterOptions.subjects}
+              allLabel={t('questions.filter.allSubjects')}
+              disabled={!gradeId}
+            />
+
+            <FilterSelect
               label={t('ministerialForms.filter.year')}
               value={year}
               onChange={setYear}
-              options={[]}
+              options={filterOptions.years}
               allLabel={t('ministerialForms.filter.allYears')}
             />
           </Stack>

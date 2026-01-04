@@ -31,15 +31,13 @@ export { getErrorMessage, formatErrorMessage } from './errorUtils';
 export { toCamelCase, keysToCamelCase, normalizeApiResponse } from './caseUtils';
 
 // Role utilities
-export {
-  ROLES,
-  ALLOWED_ROLES,
-  hasRole,
-  checkRowActionsPermissions,
-} from './roleUtils';
+export { ROLES, ALLOWED_ROLES, hasRole, checkRowActionsPermissions } from './roleUtils';
 
 // FormData utilities
 export { createFormData } from './formDataUtils';
+
+// Query utilities
+export { filterParamsToQueryString } from './queryUtils';
 
 // React Query keys
 // NOTE: Query keys are defined next to the queryClient under src/config/queryKeys.js

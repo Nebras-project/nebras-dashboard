@@ -1,12 +1,17 @@
 // external imports
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useDebouncedFilter } from '@components';
+
+// internal imports
+import { useGrade } from '@features/grades/hooks';
+import { useSubjects } from '@features/subjects/hooks';
+import { useMinisterialForm } from './useMinisterialForm';
 
 /**
  * useMinisterialFormFilter Hook
  *
  * Single Responsibility: MinisterialForm-specific filter state management
- * Uses useDebouncedFilter to handle year filter with debouncing
+ * Uses useDebouncedFilter to handle year, gradeId, and subjectId filters with debouncing
  * Provides filter params for backend API filtering as query string
  * Manages filter UI state (showFilters)
  *
@@ -17,19 +22,51 @@ import { useDebouncedFilter } from '@components';
 export const useMinisterialFormFilter = (onFilterChange, debounceMs = 500) => {
   const [showFilters, setShowFilters] = useState(false);
 
-  // Use debounced filter for year only
+  // Use debounced filter for year, gradeId, and subjectId
   const { filters, hasActiveFilters, updateFilter, clearAllFilters } = useDebouncedFilter(
     {
       Year: '',
+      GradeId: '',
+      SubjectId: '',
     },
     onFilterChange, // This will be called with cleaned params after debounce
     debounceMs
   );
 
   const year = filters.Year || '';
+  const gradeId = filters.GradeId || '';
+  const subjectId = filters.SubjectId || '';
 
-  // Convenience setter
+  // Fetch grades for filter options
+  const { gradeOptions = [] } = useGrade();
+
+  // Fetch subjects based on selected grade (if grade is selected)
+  const { subjectOptions = [] } = useSubjects({
+    gradeId,
+    enabled: !!gradeId,
+  });
+
+  const { yearOptions = [] } = useMinisterialForm();
+  
+  const filterOptions = useMemo(
+    () => ({
+      grades: gradeOptions,
+      subjects: subjectOptions,
+      years: yearOptions,
+    }),
+    [gradeOptions, subjectOptions, yearOptions]
+  );
+
+  // Convenience setters
   const setYear = (value) => updateFilter('Year', value);
+  const setGradeId = (value) => {
+    updateFilter('GradeId', value);
+    // Clear subjectId when grade changes
+    if (value) {
+      updateFilter('SubjectId', '');
+    }
+  };
+  const setSubjectId = (value) => updateFilter('SubjectId', value);
 
   const handleClearFilters = () => {
     clearAllFilters();
@@ -42,11 +79,17 @@ export const useMinisterialFormFilter = (onFilterChange, debounceMs = 500) => {
   return {
     // Filter values (for controlled inputs)
     year,
+    gradeId,
+    subjectId,
     // State
     hasActiveFilters,
     showFilters,
+    // Filter options
+    filterOptions,
     // Handlers
     setYear,
+    setGradeId,
+    setSubjectId,
     handleClearFilters,
     handleToggleFilters,
   };

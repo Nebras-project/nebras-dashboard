@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 function MinisterialFormCardTitle({ formNumber, year }) {
   return (
     <Box>
-      <Typography variant="h6" fontWeight={600} color="text.secondary">
+      <Typography variant="h6" fontWeight={600} color="primary">
         {formNumber} - {year}
       </Typography>
     </Box>
