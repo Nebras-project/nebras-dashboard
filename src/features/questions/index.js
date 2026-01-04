@@ -1,3 +1,3 @@
 // Pages
-export { default as QuestionsPage } from './pages/QuestionsPage';
-export { default as QuestionPage } from './pages/QuestionPage';
+export { default as QuestionsPage } from './question/pages/QuestionsPage';
+export { default as QuestionPage } from './question/pages/QuestionPage';

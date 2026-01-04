@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Typography, Chip, useTheme, Stack } from '@mui/material';
 import { useTranslation, useLanguage } from '@hooks';
-import { getCorrectAnswerLabel } from '../../utils';
+import { getCorrectAnswerLabel } from '../utils';
 import { Icon } from '@components';
 /**
  * TrueFalseAnswer Component

@@ -86,7 +86,7 @@ import {
 } from 'react-icons/tb';
 
 import { CgColorBucket, CgCloseR } from 'react-icons/cg';
-import { RiEnglishInput } from 'react-icons/ri';
+import { RiEnglishInput, RiFileList3Fill } from 'react-icons/ri';
 import { FaEarthAmericas, FaListOl, FaUserShield, FaRegSquareCheck } from 'react-icons/fa6';
 import { BiSolidSelectMultiple, BiAddToQueue } from 'react-icons/bi';
 import { HiMenuAlt2, HiMenuAlt3, HiViewGridAdd, HiOutlineFilter } from 'react-icons/hi';
@@ -235,6 +235,7 @@ const ICON_MAP = {
   listOl: FaListOl,
   layoutList: LuLayoutList,
   thListOutline: TiThListOutline,
+  fileList: RiFileList3Fill,
 };
 
 const Icon = memo(function Icon({

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { EntityForm } from '@components';
 import { useTranslation } from '@hooks';
 import { useQuestionForm } from '../hooks';
-import { QuestionFormFields } from '../../formFields/components';
+import { QuestionFormFields } from '../../QuestionFormFields/components';
 
 /**
  * QuestionForm Component

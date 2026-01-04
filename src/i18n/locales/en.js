@@ -375,6 +375,56 @@ const en = {
     deleteSuccessMessage: 'Question deleted successfully.',
   },
 
+  // Ministerial Forms (النماذج الوزارية)
+  ministerialForms: {
+    form: 'Form',
+    forms: 'Ministerial Forms',
+    formNumber: 'Form Number',
+    year: 'Year',
+    addForm: 'Add New Form',
+    editForm: 'Edit Form',
+    deleteForm: 'Delete Form',
+    viewForm: 'View Form',
+    formDetails: 'Form Details',
+    viewFormDetails: 'View form details',
+    totalForms: 'Total Forms',
+    noForms: 'No Forms',
+    noFormsDescription: 'No ministerial forms available. Add a new form to get started.',
+    actionsTooltip: 'Form Actions',
+    description:
+      'Manage ministerial exam forms. Create, edit, and organize standardized test forms by number and year.',
+
+    // Filter
+    filter: {
+      searchPlaceholder: 'Search forms...',
+      formNumber: 'Form Number',
+      year: 'Year',
+      clearAll: 'Clear all filters',
+      allYears: 'All Years',
+    },
+  },
+
+  // Ministerial Form (singular - for messages)
+  ministerialForm: {
+    // Create messages
+    createSuccessTitle: 'Form Created',
+    createSuccessMessage: 'Form {{name}} created successfully.',
+    createErrorTitle: 'Creation Failed',
+    createErrorMessage: 'Failed to create form. Please try again.',
+    // Update messages
+    updateSuccessTitle: 'Form Updated',
+    updateSuccessMessage: 'Form {{name}} updated successfully.',
+    updateErrorTitle: 'Update Failed',
+    updateErrorMessage: 'Failed to update form. Please try again.',
+    // Delete messages
+    deleteConfirmTitle: 'Delete Form',
+    deleteConfirmMessage: 'Are you sure you want to delete {{name}}? This action cannot be undone.',
+    deleteSuccessTitle: 'Form Deleted',
+    deleteSuccessMessage: 'Form {{name}} deleted successfully.',
+    deleteErrorTitle: 'Deletion Failed',
+    deleteErrorMessage: 'Failed to delete form {{name}}. Please try again.',
+  },
+
   // Competitions
   competitions: {
     competition: 'Competition',

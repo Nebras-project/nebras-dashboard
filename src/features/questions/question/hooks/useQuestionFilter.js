@@ -4,7 +4,7 @@ import { useDebouncedFilter } from '@components';
 import { useTranslation } from '@hooks';
 
 // internal imports
-import { getQuestionTypeOptions, getQuestionCategoryOptions } from '../../constants';
+import { getQuestionTypeOptions, getQuestionCategoryOptions } from '../constants';
 
 /**
  * useQuestionFilter Hook

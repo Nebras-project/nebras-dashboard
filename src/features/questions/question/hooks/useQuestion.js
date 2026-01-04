@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@config';
 
 // internal imports
-import { fetchQuestionById, fetchQuestions } from '../../services/questionsApi';
+import { fetchQuestionById, fetchQuestions } from '../services/questionsApi';
 
 /**
  * useQuestion Hook

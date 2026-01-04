@@ -1,7 +1,7 @@
 // external imports
 import { useDelete } from '@hooks';
 import { QUERY_KEYS } from '@config';
-import { deleteQuestion as deleteQuestionApi } from '../../services/questionsApi';
+import { deleteQuestion as deleteQuestionApi } from '../services/questionsApi';
 import { useTranslation } from '@hooks';
 
 /**

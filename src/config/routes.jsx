@@ -58,6 +58,7 @@ const QuestionsPage = lazy(() =>
 const QuestionPage = lazy(() =>
   import('@features/questions').then((m) => ({ default: m.QuestionPage }))
 );
+
 // Settings Pages
 const SettingsPage = lazy(() =>
   import('@features/settings').then((m) => ({ default: m.SettingsPage }))
@@ -205,6 +206,7 @@ const routes = [
   },
 
   // Protected Routes - Questions (Owner, General Admin & Content Manager)
+  // Note: Ministerial Forms are displayed as a tab within QuestionsPage
   {
     path: NAVIGATION_PATHS.QUESTIONS.BASE,
     element: (

@@ -10,9 +10,9 @@ import {
 } from '@mui/material';
 import { useTranslation } from '@hooks';
 import { FormProvider } from '@components/forms/components';
-import { QuestionFormFields } from '../../formFields/components';
+import { QuestionFormFields } from '../../QuestionFormFields/components';
 import QuestionsBatchAddToolbar from './QuestionsBatchAddToolbar';
-import { QUESTION_DIALOG_WIDTH } from '../../constants';
+import { QUESTION_DIALOG_WIDTH } from '../../question/constants';
 import { padding } from '@constants';
 import { CloseButton } from '@components';
 

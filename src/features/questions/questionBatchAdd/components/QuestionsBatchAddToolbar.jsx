@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Stack, Box, Paper, Typography } from '@mui/material';
 import { useTranslation, useReduxTheme } from '@hooks';
 import { IconButtonWithTooltip } from '@components';
-import { QUESTION_FORM_CARD_STYLES } from '../../constants';
+import { QUESTION_FORM_CARD_STYLES } from '../../question/constants';
 import { useResponsive } from '@hooks';
 
 /**

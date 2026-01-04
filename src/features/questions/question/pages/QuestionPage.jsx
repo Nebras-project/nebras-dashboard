@@ -6,8 +6,9 @@ import { Container } from '@mui/material';
 import { PageLayout, Loader, EntityErrorState } from '@components';
 import { useTranslation } from '@hooks';
 import { NAVIGATION_PATHS } from '@config';
-import { useQuestion, useDeleteQuestion } from '../question/hooks';
-import { QuestionCard, QuestionFormDialog } from '../question';
+import { useQuestion, useDeleteQuestion } from '../hooks';
+import QuestionCard from '../components/QuestionCard';
+import QuestionFormDialog from '../components/QuestionFormDialog';
 import dummyQuestions from '../utils/dummyQuestionsData';
 
 /**
@@ -35,7 +36,7 @@ function QuestionPage() {
 
   if (isLoading) {
     return (
-      <PageLayout title={t('questions.questionDetails')} showBackButton>
+      <PageLayout title={t('questions.questionDetails')}>
         <Loader />
       </PageLayout>
     );
@@ -55,7 +56,6 @@ function QuestionPage() {
         <PageLayout
           title={t('questions.questionDetails')}
           description={question.question || t('questions.questionNumber', { number: question.id })}
-          showBackButton
         >
           <Container>
             <QuestionCard

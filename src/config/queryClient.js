@@ -23,6 +23,7 @@ export const QUERY_KEYS = {
   UNITS: 'units',
   LESSONS: 'lessons',
   CURRENT_USER: 'currentUser',
+  MINISTERIAL_FORMS: 'ministerialForms',
 };
 
 /**

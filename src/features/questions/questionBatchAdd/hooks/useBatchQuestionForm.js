@@ -1,6 +1,6 @@
 import { useCallback, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { applySharedSettings, loadQuestionIntoForm, extractSharedSettings } from '../../utils';
+import { applySharedSettings, loadQuestionIntoForm, extractSharedSettings } from '../../question/utils';
 
 /**
  * useBatchQuestionForm Hook

@@ -68,6 +68,12 @@ export const API_ENDPOINTS = {
     BY_ID: (id) => `/questions/${id}`,
   },
 
+  // Forms Resource (النماذج الوزارية - Ministerial Forms)
+  FORMS: {
+    BASE: 'questions/forms',
+    BY_ID: (id) => `questions/forms/${id}`,
+  },
+
   // Grades Resource
   GRADES: {
     BASE: '/grades',

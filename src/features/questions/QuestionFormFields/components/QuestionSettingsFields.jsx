@@ -6,7 +6,7 @@ import { useTranslation, useReduxTheme } from '@hooks';
 import { Form } from '@components';
 import { useQuestionSettingsFields } from '../hooks/useQuestionSettingsFields';
 import { getNumberRules, getYearRules } from '@components/forms/constants';
-import { QUESTION_FORM_CARD_STYLES } from '../../constants';
+import { QUESTION_FORM_CARD_STYLES } from '../../question/constants';
 
 /**
  * QuestionSettingsFields Component

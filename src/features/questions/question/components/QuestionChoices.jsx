@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Grid } from '@mui/material';
 import QuestionChoiceItem from './QuestionChoiceItem';
-import { CHOICE_KEYS } from '../../constants';
+import { CHOICE_KEYS } from '../constants';
 
 /**
  * QuestionChoices Component

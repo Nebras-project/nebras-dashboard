@@ -4,8 +4,8 @@ import { QUERY_KEYS } from '@config';
 import { FORM_DEFAULTS } from '@components/forms/constants';
 
 // internal imports
-import { filterQuestionData, getChoiceValue } from '../../utils';
-import { createQuestions, updateQuestion } from '../../services/questionsApi';
+import { filterQuestionData, getChoiceValue } from '../utils';
+import { createQuestions, updateQuestion } from '../services/questionsApi';
 
 /**
  * useQuestionForm Hook

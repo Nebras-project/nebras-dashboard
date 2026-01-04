@@ -2,7 +2,7 @@
 import { Box } from '@mui/material';
 
 // internal imports
-import ChoicesDropdown from '../../question/components/ChoicesDropdown';
+import ChoicesDropdown from '../../components/ChoicesDropdown';
 
 /**
  * Custom renderer for Choices column that displays choices in a dropdown

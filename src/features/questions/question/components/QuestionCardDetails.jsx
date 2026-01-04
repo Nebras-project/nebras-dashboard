@@ -4,8 +4,8 @@ import { useTranslation } from '@hooks';
 import QuestionCardDetailItem from './QuestionCardDetailItem';
 import QuestionChoices from './QuestionChoices';
 import TrueFalseAnswer from './TrueFalseAnswer';
-import { SETTINGS_FIELDS, MINISTERIAL_FIELDS } from '../../constants';
-import { QuestionImage } from '../../utils/renderers/QuestionImage';
+import { SETTINGS_FIELDS, MINISTERIAL_FIELDS } from '../constants';
+import { QuestionImage } from '../utils/renderers/QuestionImage';
 import { Icon } from '@components';
 import { useTheme } from '@mui/material';
 /**

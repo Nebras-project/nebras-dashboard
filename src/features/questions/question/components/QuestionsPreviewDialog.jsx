@@ -13,7 +13,7 @@ import {
 import { useTranslation } from '@hooks';
 import { Icon } from '@components';
 import QuestionCard from './QuestionCard';
-import { QUESTION_DIALOG_WIDTH } from '../../constants';
+import { QUESTION_DIALOG_WIDTH } from '../constants';
 import { EmptyState } from '@components';
 import { margin, padding } from '@constants';
 

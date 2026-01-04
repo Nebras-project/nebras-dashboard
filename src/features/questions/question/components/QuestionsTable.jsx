@@ -8,10 +8,11 @@ import Icon from '@components/display/Icon';
 import useTranslation from '@i18n/hooks/useTranslation';
 import { NAVIGATION_PATHS } from '@config';
 
-import { createQuestionColumns } from '../../utils';
+import { createQuestionColumns } from '../utils';
 import { useQuestion, useDeleteQuestion } from '../hooks';
-import dummyQuestions from '../../utils/dummyQuestionsData';
+import dummyQuestions from '../utils/dummyQuestionsData';
 import { getTopTableStyles } from '@constants/layout';
+import { useRowClick } from '@hooks';
 
 function QuestionsTable({ customFilters = {}, onEdit }) {
   const { t } = useTranslation();
@@ -79,10 +80,15 @@ function QuestionsTable({ customFilters = {}, onEdit }) {
     [t, type, category, onEdit, deleteQuestion, navigate]
   );
 
+  const handleRowClick = useRowClick({
+    navigateTo: (row, { navigate: nav } = {}) => nav(NAVIGATION_PATHS.QUESTIONS.BY_ID(row.id)),
+  });
+
   return (
     <Table
       rows={displayQuestions}
       columns={columns}
+      onRowClick={handleRowClick}
       paginationModel={paginationModel}
       onPaginationModelChange={handlePaginationModelChange}
       sortModel={sortModel}

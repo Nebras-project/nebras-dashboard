@@ -5,9 +5,9 @@ import { useTranslation, useReduxTheme } from '@hooks';
 // internal imports
 import { Form } from '@components';
 import { margin } from '@constants';
-import { QUESTION_FORM_CARD_STYLES } from '../../constants';
+import { QUESTION_FORM_CARD_STYLES } from '../../question/constants';
 import { getTextRules, getRadioRules } from '@components/forms/constants';
-import { getTrueFalseOptions } from '../../constants';
+import { getTrueFalseOptions } from '../../question/constants';
 import { useQuestionSettingsFields } from '../hooks/useQuestionSettingsFields';
 /**
  * QuestionTrueFalse Component (T/F)

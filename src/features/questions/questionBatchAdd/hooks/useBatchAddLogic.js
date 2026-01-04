@@ -2,8 +2,8 @@ import { useState, useCallback, useMemo, useId } from 'react';
 import { useConfirmDialog, useTranslation } from '@hooks';
 import { useSavedQuestions } from './useSavedQuestions';
 import { useBatchQuestionForm } from './useBatchQuestionForm';
-import { hasFormData } from '../../utils';
-import { createQuestions } from '../../services/questionsApi';
+import { hasFormData } from '../../question/utils';
+import { createQuestions } from '../../question/services/questionsApi';
 
 /**
  * useBatchAddLogic Hook

@@ -5,10 +5,10 @@ import { RadioTextInputGroup } from '@components/forms/inputs';
 
 // internal imports
 import { Form } from '@components';
-import { QUESTION_FORM_CARD_STYLES } from '../../constants';
+import { QUESTION_FORM_CARD_STYLES } from '../../question/constants';
 import { margin } from '@constants';
 import { getTextRules, getRadioRules } from '@components/forms/constants';
-import { getQuestionChoices } from '../../constants';
+import { getQuestionChoices } from '../../question/constants';
 import { useQuestionSettingsFields } from '../hooks/useQuestionSettingsFields';
 
 /**

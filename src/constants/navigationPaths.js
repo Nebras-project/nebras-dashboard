@@ -41,7 +41,7 @@ export const NAVIGATION_PATHS = {
     RESULT: (id) => `/competitions/${id}/result`,
   },
 
-  // Questions
+  // Questions (includes Ministerial Forms as a tab)
   QUESTIONS: {
     BASE: '/questions',
     BY_ID: (id) => `/questions/${id}`,

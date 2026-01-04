@@ -7,7 +7,7 @@ import { useGrade } from '@features/grades/hooks';
 import { useSubjects } from '@features/subjects/hooks';
 import { useUnits } from '@features/units/hooks';
 import { useLessons } from '@features/lessons/hooks';
-import { getQuestionTypeOptions, getQuestionCategoryOptions } from '../../constants';
+import { getQuestionTypeOptions, getQuestionCategoryOptions } from '../../question/constants';
 import { useTranslation } from '@hooks';
 
 /**

@@ -374,6 +374,55 @@ const ar = {
     deleteSuccessMessage: 'تم حذف السؤال بنجاح.',
   },
 
+  // Ministerial Forms (النماذج الوزارية)
+  ministerialForms: {
+    form: 'النموذج',
+    forms: 'النماذج الوزارية',
+    formNumber: 'رقم النموذج',
+    year: 'السنة',
+    addForm: 'إضافة نموذج جديد',
+    editForm: 'تعديل النموذج',
+    deleteForm: 'حذف النموذج',
+    viewForm: 'عرض النموذج',
+    formDetails: 'تفاصيل النموذج',
+    viewFormDetails: 'عرض تفاصيل النموذج',
+    totalForms: 'إجمالي النماذج',
+    noForms: 'لا توجد نماذج',
+    noFormsDescription: 'لا توجد نماذج وزارية متاحة حالياً. قم بإضافة نموذج جديد للبدء.',
+    actionsTooltip: 'إجراءات النموذج',
+    description: 'إدارة النماذج الوزارية للامتحانات. إنشاء وتعديل وتنظيم النماذج حسب الرقم والسنة.',
+
+    // Filter
+    filter: {
+      searchPlaceholder: 'البحث عن النماذج...',
+      formNumber: 'رقم النموذج',
+      year: 'السنة',
+      clearAll: 'إزالة جميع الفلاتر',
+      allYears: 'جميع السنوات',
+    },
+  },
+
+  // Ministerial Form (singular - for messages)
+  ministerialForm: {
+    // Create messages
+    createSuccessTitle: 'تم إنشاء النموذج',
+    createSuccessMessage: 'تم إنشاء النموذج {{name}} بنجاح.',
+    createErrorTitle: 'فشل الإنشاء',
+    createErrorMessage: 'فشل في إنشاء النموذج. يرجى المحاولة مرة أخرى.',
+    // Update messages
+    updateSuccessTitle: 'تم تحديث النموذج',
+    updateSuccessMessage: 'تم تحديث النموذج {{name}} بنجاح.',
+    updateErrorTitle: 'فشل التحديث',
+    updateErrorMessage: 'فشل في تحديث النموذج. يرجى المحاولة مرة أخرى.',
+    // Delete messages
+    deleteConfirmTitle: 'حذف النموذج',
+    deleteConfirmMessage: 'هل أنت متأكد من حذف {{name}}؟ لا يمكن التراجع عن هذا الإجراء.',
+    deleteSuccessTitle: 'تم حذف النموذج',
+    deleteSuccessMessage: 'تم حذف النموذج {{name}} بنجاح.',
+    deleteErrorTitle: 'فشل الحذف',
+    deleteErrorMessage: 'فشل حذف النموذج {{name}}. يرجى المحاولة مرة أخرى.',
+  },
+
   // Competitions
   competitions: {
     competition: 'المسابقة',
@@ -418,7 +467,7 @@ const ar = {
       searchPlaceholder: 'البحث في المسابقات بالاسم...',
       status: 'حالة المسابقة',
       grade: 'الصف الدراسي',
-      clearAll: 'مسح جميع الفلاتر',
+      clearAll: 'إزالة جميع الفلاتر',
       allStatuses: 'جميع الحالات',
       allGrades: 'جميع الصفوف الدراسية',
     },

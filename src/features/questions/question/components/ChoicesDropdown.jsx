@@ -6,7 +6,7 @@ import { Box, Typography, Chip } from '@mui/material';
 import { Menu, Icon } from '@components';
 import { useTranslation } from '@hooks';
 import { toCamelCase } from '@utils';
-import { CHOICE_KEYS } from '../../constants';
+import { CHOICE_KEYS } from '../constants';
 
 const buildChoices = (question, t) => {
   if (!question.choices || !Array.isArray(question.choices)) {
