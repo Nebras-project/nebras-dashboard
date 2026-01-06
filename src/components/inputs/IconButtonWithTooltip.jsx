@@ -6,6 +6,7 @@ import { IconButton, Tooltip, Typography } from '@mui/material';
 // internal imports
 import { Icon } from '@components';
 import { useResponsive } from '@hooks';
+import { margin } from '@constants';
 
 /**
  * IconButtonWithTooltip Component
@@ -17,7 +18,7 @@ const IconButtonWithTooltip = memo(function IconButtonWithTooltip({
   iconName,
   tooltip,
   onClick,
-  color ,
+  color,
   size = 20,
   disabled = false,
   placement = 'top',
@@ -37,7 +38,6 @@ const IconButtonWithTooltip = memo(function IconButtonWithTooltip({
       sx={{
         display: 'flex',
         alignItems: 'center',
-        gap: 0.5,
         '&:hover': {
           backgroundColor: 'transparent',
         },
@@ -53,7 +53,7 @@ const IconButtonWithTooltip = memo(function IconButtonWithTooltip({
     >
       <Icon name={iconName} size={size} color={color} />
       {isDesktop && (
-        <Typography variant="body2" sx={{ color: color ? color : 'primary.main' }}>
+        <Typography variant="body2" sx={{ color: color ? color : 'primary.main', ...margin.left.xs }}>
           {text}
         </Typography>
       )}

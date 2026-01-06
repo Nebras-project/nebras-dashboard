@@ -15,7 +15,7 @@ import { getManagerName } from '../utils';
 import { getTopTableStyles } from '@constants/layout';
 import { useRowClick } from '@hooks';
 
-function ManagersTable({ customFilters = {}, onEdit }) {
+function ManagersTable({ customFilters = {}, onEdit, tableRef }) {
   const { t } = useTranslation();
   const { isOwner, isGeneralAdmin } = useRole();
   const { deleteManager } = useDeleteManager();
@@ -72,10 +72,9 @@ function ManagersTable({ customFilters = {}, onEdit }) {
     [t, isOwner, isGeneralAdmin, onEdit, navigate, deleteManager]
   );
 
-    const handleRowClick = useRowClick({
-      navigateTo: (row, { navigate: nav } = {}) => nav(NAVIGATION_PATHS.MANAGERS.BY_ID(row.userId)),
-    });
-
+  const handleRowClick = useRowClick({
+    navigateTo: (row, { navigate: nav } = {}) => nav(NAVIGATION_PATHS.MANAGERS.BY_ID(row.userId)),
+  });
 
   // Handle loading state
   if (isLoading) {
@@ -84,6 +83,7 @@ function ManagersTable({ customFilters = {}, onEdit }) {
 
   return (
     <Table
+      ref={tableRef}
       rows={managers || []}
       columns={columns}
       disableRowSelectionOnClick
@@ -103,6 +103,7 @@ function ManagersTable({ customFilters = {}, onEdit }) {
 ManagersTable.propTypes = {
   customFilters: PropTypes.object,
   onEdit: PropTypes.func,
+  tableRef: PropTypes.object,
 };
 
 export default ManagersTable;

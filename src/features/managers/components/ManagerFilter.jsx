@@ -14,7 +14,7 @@ import ManagerFilterActions from './ManagerFilterActions';
  * Single Responsibility: UI composition for manager filtering using reusable components
  * Filters are sent to backend via filterParams
  */
-function ManagerFilter({ onFilterChange, addButton }) {
+function ManagerFilter({ onFilterChange, actions }) {
   const { t } = useTranslation();
 
   // Filter state management - filters are sent to backend
@@ -44,7 +44,7 @@ function ManagerFilter({ onFilterChange, addButton }) {
               onToggleFilters={handleToggleFilters}
               hasActiveFilters={hasActiveFilters}
               onClearFilters={handleClearFilters}
-              addButton={addButton}
+              actions={actions}
               filterButtonWrapper={Menu.Trigger}
             />
           }
@@ -72,7 +72,7 @@ function ManagerFilter({ onFilterChange, addButton }) {
 
 ManagerFilter.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
-  addButton: PropTypes.node, // Optional: Add button to render in the same row
+  actions: PropTypes.node, // Optional: Action buttons to render in the same row
 };
 
 export default ManagerFilter;

@@ -65,6 +65,7 @@ import {
   MdFunctions,
   MdOutlineDeleteSweep,
   MdOutlineDelete,
+  MdOutlineFileDownload,
 } from 'react-icons/md';
 
 import { GoDotFill } from 'react-icons/go';
@@ -83,6 +84,7 @@ import {
   TbLayoutSidebarRightCollapse,
   TbLayoutSidebarRightExpand,
   TbMoodEmpty,
+  TbBookUpload,
 } from 'react-icons/tb';
 
 import { CgColorBucket, CgCloseR } from 'react-icons/cg';
@@ -136,6 +138,8 @@ const ICON_MAP = {
   filterList: MdFilterList,
   filterOutline: HiOutlineFilter,
   clear: MdOutlineDeleteSweep,
+  download: MdOutlineFileDownload,
+  export: TbBookUpload,
   dot: GoDotFill,
   arrowLeftLines: TbArrowBigLeftLines,
   arrowRightLines: TbArrowBigRightLines,

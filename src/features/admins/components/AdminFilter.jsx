@@ -14,7 +14,7 @@ import AdminFilterActions from './AdminFilterActions';
  * Single Responsibility: UI composition for admin filtering using reusable components
  * Filters are sent to backend via filterParams
  */
-function AdminFilter({ onFilterChange, addButton }) {
+function AdminFilter({ onFilterChange, actions }) {
   const { t } = useTranslation();
 
   // Filter state management - filters are sent to backend
@@ -31,7 +31,7 @@ function AdminFilter({ onFilterChange, addButton }) {
           <AdminFilterActions
             hasActiveFilters={hasActiveFilters}
             onClearFilters={handleClearFilters}
-            addButton={addButton}
+            actions={actions}
           />
         }
         showClearButton={false}
@@ -42,7 +42,7 @@ function AdminFilter({ onFilterChange, addButton }) {
 
 AdminFilter.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
-  addButton: PropTypes.node, // Optional: Add button to render in the same row
+  actions: PropTypes.node, // Optional: Action buttons to render in the same row
 };
 
 export default AdminFilter;

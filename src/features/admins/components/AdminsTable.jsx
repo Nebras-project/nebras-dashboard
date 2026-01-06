@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ import { getAdminName } from '../utils';
 import { getTopTableStyles } from '@constants/layout';
 import { useRowClick } from '@hooks';
 
-function AdminsTable({ customFilters = {}, onEdit }) {
+function AdminsTable({ customFilters = {}, onEdit, tableRef }) {
   const { t } = useTranslation();
   const { isOwner, isGeneralAdmin } = useRole();
   const { deleteAdmin } = useDeleteAdmin();
@@ -72,9 +72,9 @@ function AdminsTable({ customFilters = {}, onEdit }) {
     [t, isOwner, isGeneralAdmin, onEdit, navigate, deleteAdmin]
   );
 
-    const handleRowClick = useRowClick({
-      navigateTo: (row, { navigate: nav } = {}) => nav(NAVIGATION_PATHS.ADMINS.BY_ID(row.userId)),
-    });
+  const handleRowClick = useRowClick({
+    navigateTo: (row, { navigate: nav } = {}) => nav(NAVIGATION_PATHS.ADMINS.BY_ID(row.userId)),
+  });
 
   // Handle loading state
   if (isLoading) {
@@ -83,6 +83,7 @@ function AdminsTable({ customFilters = {}, onEdit }) {
 
   return (
     <Table
+      ref={tableRef}
       rows={admins || []}
       columns={columns}
       disableRowSelectionOnClick
@@ -102,6 +103,7 @@ function AdminsTable({ customFilters = {}, onEdit }) {
 AdminsTable.propTypes = {
   customFilters: PropTypes.object,
   onEdit: PropTypes.func,
+  tableRef: PropTypes.object,
 };
 
 export default AdminsTable;

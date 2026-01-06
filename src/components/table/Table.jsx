@@ -1,4 +1,5 @@
 // external imports
+import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { DataGrid } from '@mui/x-data-grid';
 
@@ -6,32 +7,36 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useTranslation } from '@hooks';
 import useTableLayout from './hooks/useTableLayout';
 
-function Table({
-  rows = [],
-  columns = [],
-  rowCount: rowCountProp,
-  loading = false,
-  density = 'standard',
-  onRowClick,
-  pageSizeOptions,
-  disableRowSelectionOnClick = true,
-  slots,
-  slotProps,
-  // checkRowSelection = true,
-  sx,
-  paginationMode = 'server',
-  paginationModel: paginationModelProp,
-  onPaginationModelChange,
-  sortingMode = 'server',
-  sortModel: sortModelProp,
-  onSortModelChange,
-  ariaLabel,
-  ariaDescribedBy,
-  initialState: initialStateProp,
-  localeText: localeTextProp,
-  ...props
-}) {
+const Table = forwardRef(function Table(
+  {
+    rows = [],
+    columns = [],
+    rowCount: rowCountProp,
+    loading = false,
+    density = 'standard',
+    onRowClick,
+    pageSizeOptions,
+    disableRowSelectionOnClick = true,
+    slots,
+    slotProps,
+    // checkRowSelection = true,
+    sx,
+    paginationMode = 'server',
+    paginationModel: paginationModelProp,
+    onPaginationModelChange,
+    sortingMode = 'server',
+    sortModel: sortModelProp,
+    onSortModelChange,
+    ariaLabel,
+    ariaDescribedBy,
+    initialState: initialStateProp,
+    localeText: localeTextProp,
+    ...props
+  },
+  ref
+) {
   const { t } = useTranslation();
+
   const {
     resolvedInitialState,
     resolvedSlotProps,
@@ -39,6 +44,7 @@ function Table({
     resolvedLocaleText,
     resolvedSx,
     effectiveRowCount,
+    apiRef,
   } = useTableLayout({
     rows,
     onRowClick,
@@ -50,10 +56,12 @@ function Table({
     localeText: localeTextProp,
     sx,
     initialState: initialStateProp,
+    ref,
   });
 
   return (
     <DataGrid
+      apiRef={apiRef}
       rows={rows}
       columns={columns}
       rowCount={effectiveRowCount}
@@ -80,7 +88,7 @@ function Table({
       {...props}
     />
   );
-}
+});
 
 Table.propTypes = {
   rows: PropTypes.arrayOf(PropTypes.object),

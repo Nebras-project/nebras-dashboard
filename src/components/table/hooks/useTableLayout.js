@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useRef, useImperativeHandle } from 'react';
 
 import { DEFAULT_PAGE_SIZE, DEFAULT_PAGE_SIZE_OPTIONS } from '@config';
 
@@ -15,6 +15,7 @@ export default function useTableLayout({
   initialState,
   sx,
   t,
+  ref,
 }) {
   const resolvedPageSizeOptions = pageSizeOptions ?? DEFAULT_PAGE_SIZE_OPTIONS;
 
@@ -39,7 +40,12 @@ export default function useTableLayout({
   );
 
   const resolvedSlotProps = useMemo(
-    () => buildSlotProps({ slotProps, t, pageSizeOptions: resolvedPageSizeOptions }),
+    () =>
+      buildSlotProps({
+        slotProps,
+        t,
+        pageSizeOptions: resolvedPageSizeOptions,
+      }),
     [resolvedPageSizeOptions, slotProps, t]
   );
 
@@ -57,8 +63,7 @@ export default function useTableLayout({
       return baseSx;
     }
 
-    if(onRowClick) {
-
+    if (onRowClick) {
       baseSx['& .MuiDataGrid-row'] = {
         cursor: 'pointer',
       };
@@ -69,10 +74,23 @@ export default function useTableLayout({
     }
 
     return [baseSx, sx];
-  }, [sx]);
+  }, [sx, onRowClick]);
 
   const totalRows = rows?.length ?? 0;
   const effectiveRowCount = rowCount ?? totalRows;
+
+  // Create apiRef for DataGrid
+  const apiRef = useRef(null);
+
+  // Set up imperative handle for export functionality
+  useImperativeHandle(ref, () => ({
+    exportDataAsCsv: (options) => {
+      if (apiRef.current) {
+        apiRef.current.exportDataAsCsv(options);
+      }
+    },
+    getApiRef: () => apiRef.current,
+  }));
 
   return {
     resolvedInitialState,
@@ -81,5 +99,6 @@ export default function useTableLayout({
     resolvedLocaleText,
     resolvedSx,
     effectiveRowCount,
+    apiRef,
   };
 }

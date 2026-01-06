@@ -14,7 +14,7 @@ import StudentFilterActions from './StudentFilterActions';
  * Single Responsibility: UI composition for student filtering using reusable components
  * Filters are sent to backend via filterParams
  */
-function StudentFilter({ onFilterChange, addButton }) {
+function StudentFilter({ onFilterChange, actions }) {
   const { t } = useTranslation();
 
   // Filter state management - filters are sent to backend
@@ -44,7 +44,7 @@ function StudentFilter({ onFilterChange, addButton }) {
               onToggleFilters={handleToggleFilters}
               hasActiveFilters={hasActiveFilters}
               onClearFilters={handleClearFilters}
-              addButton={addButton}
+              actions={actions}
               filterButtonWrapper={Menu.Trigger}
             />
           }
@@ -72,7 +72,7 @@ function StudentFilter({ onFilterChange, addButton }) {
 
 StudentFilter.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
-  addButton: PropTypes.node, // Optional: Add button to render in the same row
+  actions: PropTypes.node, // Optional: Action buttons to render in the same row
 };
 
 export default StudentFilter;

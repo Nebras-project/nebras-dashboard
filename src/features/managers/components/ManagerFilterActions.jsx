@@ -17,7 +17,7 @@ const ManagerFilterActions = memo(function ManagerFilterActions({
   onToggleFilters,
   hasActiveFilters,
   onClearFilters,
-  addButton,
+  actions,
   filterButtonWrapper,
 }) {
   const { t } = useTranslation();
@@ -37,7 +37,7 @@ const ManagerFilterActions = memo(function ManagerFilterActions({
         clearAllLabel={t('managers.filter.clearAll')}
         filterButtonWrapper={filterButtonWrapper}
       />
-      {addButton && <>{addButton}</>}
+      {actions && <>{actions}</>}
     </Box>
   );
 });
@@ -47,7 +47,7 @@ ManagerFilterActions.propTypes = {
   onToggleFilters: PropTypes.func.isRequired,
   hasActiveFilters: PropTypes.bool.isRequired,
   onClearFilters: PropTypes.func.isRequired,
-  addButton: PropTypes.node, // Optional: Add button to render in the same row
+  actions: PropTypes.node, // Optional: Action buttons to render in the same row
   filterButtonWrapper: PropTypes.elementType, // Optional: Component to wrap the filter button
 };
 

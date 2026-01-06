@@ -45,7 +45,7 @@ function MinisterialFormCard({ form, onEdit }) {
         <MinisterialFormCardContent
           formNumber={form.formNumber}
           year={form.year}
-          gradeName={form.gradeName || 'تاسع'}
+          gradeName={form.gradeName}
           subjectName={form.subjectName}
         />
       </CardContent>

@@ -14,7 +14,7 @@ import QuestionFilterActions from './QuestionFilterActions';
  * Single Responsibility: UI composition for question filtering using reusable components
  * Filters are sent to backend via filterParams
  */
-function QuestionFilter({ onFilterChange, questions = [], addButton }) {
+function QuestionFilter({ onFilterChange, questions = [], actions }) {
   const { t } = useTranslation();
 
   // Filter state management - filters are sent to backend
@@ -56,7 +56,7 @@ function QuestionFilter({ onFilterChange, questions = [], addButton }) {
               onToggleFilters={handleToggleFilters}
               hasActiveFilters={hasActiveFilters}
               onClearFilters={handleClearFilters}
-              addButton={addButton}
+              actions={actions}
               filterButtonWrapper={Menu.Trigger}
             />
           }
@@ -132,7 +132,7 @@ function QuestionFilter({ onFilterChange, questions = [], addButton }) {
 QuestionFilter.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
   questions: PropTypes.array, // Optional: for extracting filter options
-  addButton: PropTypes.node, // Optional: Add button to render in the same row
+  actions: PropTypes.node, // Optional: Action buttons to render in the same row
 };
 
 export default QuestionFilter;

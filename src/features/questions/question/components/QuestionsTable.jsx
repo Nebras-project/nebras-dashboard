@@ -14,7 +14,7 @@ import dummyQuestions from '../utils/dummyQuestionsData';
 import { getTopTableStyles } from '@constants/layout';
 import { useRowClick } from '@hooks';
 
-function QuestionsTable({ customFilters = {}, onEdit }) {
+function QuestionsTable({ customFilters = {}, onEdit, tableRef }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -86,6 +86,7 @@ function QuestionsTable({ customFilters = {}, onEdit }) {
 
   return (
     <Table
+      ref={tableRef}
       rows={displayQuestions}
       columns={columns}
       onRowClick={handleRowClick}
@@ -103,6 +104,7 @@ function QuestionsTable({ customFilters = {}, onEdit }) {
 QuestionsTable.propTypes = {
   customFilters: PropTypes.object, // Filter params from QuestionFilter
   onEdit: PropTypes.func, // Callback function to handle edit action
+  tableRef: PropTypes.object,
 };
 
 export default QuestionsTable;

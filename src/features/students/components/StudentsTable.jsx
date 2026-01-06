@@ -16,7 +16,7 @@ import { getTopTableStyles } from '@constants/layout';
 import { useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@config';
 
-function StudentsTable({ customFilters = {}, onEdit }) {
+function StudentsTable({ customFilters = {}, onEdit, tableRef }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
@@ -85,6 +85,7 @@ function StudentsTable({ customFilters = {}, onEdit }) {
 
   return (
     <Table
+      ref={tableRef}
       rows={students || []}
       columns={columns}
       disableRowSelectionOnClick
@@ -105,6 +106,7 @@ StudentsTable.propTypes = {
   customFilters: PropTypes.object,
   onEdit: PropTypes.func,
   onRowClick: PropTypes.func,
+  tableRef: PropTypes.object,
 };
 
 export default StudentsTable;

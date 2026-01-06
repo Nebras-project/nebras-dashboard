@@ -15,7 +15,7 @@ import { useTranslation } from '@hooks';
 const AdminFilterActions = memo(function AdminFilterActions({
   hasActiveFilters,
   onClearFilters,
-  addButton,
+  actions,
 }) {
   const { t } = useTranslation();
 
@@ -36,7 +36,7 @@ const AdminFilterActions = memo(function AdminFilterActions({
           color="error"
         />
       )}
-      {addButton && <>{addButton}</>}
+      {actions && <>{actions}</>}
     </Box>
   );
 });
@@ -44,7 +44,7 @@ const AdminFilterActions = memo(function AdminFilterActions({
 AdminFilterActions.propTypes = {
   hasActiveFilters: PropTypes.bool.isRequired,
   onClearFilters: PropTypes.func.isRequired,
-  addButton: PropTypes.node, // Optional: Add button to render in the same row
+  actions: PropTypes.node, // Optional: Action buttons to render in the same row
 };
 
 AdminFilterActions.displayName = 'AdminFilterActions';
