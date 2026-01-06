@@ -7,6 +7,8 @@ import { Form } from '@components';
 import { margin } from '@constants';
 import { useTranslation } from '@hooks';
 import { useMinisterialFormFormFields } from '../hooks/useMinisterialFormFormFields';
+import { getNumberRules, getYearRules } from '@components/forms/constants';
+
 
 /**
  * MinisterialFormFormFields Component
@@ -35,6 +37,7 @@ function MinisterialFormFormFields() {
           label={t('grade.grade')}
           options={gradeOptions}
           disabled={isLoadingGrades}
+          loading={isLoadingGrades}
           rules={{ required: t('validation.required', { field: t('grade.grade') }) }}
         />
       </Grid>
@@ -44,6 +47,7 @@ function MinisterialFormFormFields() {
           label={t('grade.subject')}
           options={subjectOptions}
           disabled={isLoadingSubjects || !gradeId}
+          loading={isLoadingSubjects}
           rules={{ required: t('validation.required', { field: t('grade.subject') }) }}
         />
       </Grid>
@@ -52,14 +56,18 @@ function MinisterialFormFormFields() {
         <Form.NumberInput
           name="formNumber"
           label={formNumberLabel}
-          rules={{ required: t('validation.required', { field: formNumberLabel }) }}
+          rules={getNumberRules(t, formNumberLabel, {
+            min: 1,
+            max: 99,
+          })}
+         
         />
       </Grid>
       <Grid size={{ mobile: 12, tablet: 6 }}>
         <Form.YearInput
           name="year"
           label={yearLabel}
-          rules={{ required: t('validation.required', { field: yearLabel }) }}
+          rules={getYearRules(t, t('questions.year'), true)}
         />
       </Grid>
     </Grid>

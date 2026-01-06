@@ -391,6 +391,8 @@ const ar = {
     noFormsDescription: 'لا توجد نماذج وزارية متاحة حالياً. قم بإضافة نموذج جديد للبدء.',
     actionsTooltip: 'إجراءات النموذج',
     description: 'إدارة النماذج الوزارية للامتحانات. إنشاء وتعديل وتنظيم النماذج حسب الرقم والسنة.',
+    deleteConfirmTitle: 'حذف النموذج',
+    deleteConfirmMessage: 'هل أنت متأكد من حذف {{name}}؟ لا يمكن التراجع عن هذا الإجراء.',
 
     // Filter
     filter: {

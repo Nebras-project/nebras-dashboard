@@ -38,16 +38,16 @@ export const useMinisterialFormFilter = (onFilterChange, debounceMs = 500) => {
   const subjectId = filters.SubjectId || '';
 
   // Fetch grades for filter options
-  const { gradeOptions = [] } = useGrade();
+  const { gradeOptions = [], isLoading: isLoadingGrades } = useGrade();
 
   // Fetch subjects based on selected grade (if grade is selected)
-  const { subjectOptions = [] } = useSubjects({
+  const { subjectOptions = [], isLoading: isLoadingSubjects } = useSubjects({
     gradeId,
     enabled: !!gradeId,
   });
 
-  const { yearOptions = [] } = useMinisterialForm();
-  
+  const { yearOptions = [], isLoading: isLoadingYears } = useMinisterialForm();
+
   const filterOptions = useMemo(
     () => ({
       grades: gradeOptions,
@@ -86,6 +86,10 @@ export const useMinisterialFormFilter = (onFilterChange, debounceMs = 500) => {
     showFilters,
     // Filter options
     filterOptions,
+    // Loading states
+    isLoadingGrades,
+    isLoadingSubjects,
+    isLoadingYears,
     // Handlers
     setYear,
     setGradeId,

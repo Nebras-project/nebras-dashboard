@@ -393,6 +393,8 @@ const en = {
     actionsTooltip: 'Form Actions',
     description:
       'Manage ministerial exam forms. Create, edit, and organize standardized test forms by number and year.',
+    deleteConfirmTitle: 'Delete Form',
+    deleteConfirmMessage: 'Are you sure you want to delete {{name}}? This action cannot be undone.',
 
     // Filter
     filter: {

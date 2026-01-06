@@ -1,30 +1,23 @@
 // external imports
-import { useState, useMemo } from 'react';
+import { useState, useRef } from 'react';
 
 // internal imports
 import { AddIconButton } from '@components';
 import { useTranslation } from '@hooks';
-import { filterParamsToQueryString } from '@utils';
-import MinisterialFormsGrid from './MinisterialFormsGrid';
+import ExportButton from '@components/table/components/ExportButton';
+import MinisterialFormsTable from './MinisterialFormsTable';
 import MinisterialFormFormDialog from './MinisterialFormFormDialog';
 import MinisterialFormFilter from './MinisterialFormFilter';
-import { useMinisterialForm } from '../hooks';
 
 /**
  * FormsTab Component
  *
- * Single Responsibility: Display ministerial forms tab with grid and form dialog
+ * Single Responsibility: Display ministerial forms tab with table and form dialog
  */
 function FormsTab() {
   const { t } = useTranslation();
   const [filterParams, setFilterParams] = useState({});
-
-  // Convert filter params object to query string
-  const queryString = useMemo(() => filterParamsToQueryString(filterParams), [filterParams]);
-
-  const { ministerialForms, isLoading } = useMinisterialForm({
-    queryString
-  });
+  const tableRef = useRef(null);
 
   const handleFilterChange = (newFilterParams) => {
     setFilterParams(newFilterParams || {});
@@ -36,11 +29,17 @@ function FormsTab() {
         <>
           <MinisterialFormFilter
             onFilterChange={handleFilterChange}
-            addButton={
-              <AddIconButton onClick={() => onEdit(null)} tooltip={t('ministerialForms.addForm')} />
+            actions={
+              <>
+                <ExportButton tableRef={tableRef} filename="ministerial-forms" disabled={false} />
+                <AddIconButton
+                  onClick={() => onEdit(null)}
+                  tooltip={t('ministerialForms.addForm')}
+                />
+              </>
             }
           />
-          <MinisterialFormsGrid forms={ministerialForms} isLoading={isLoading} onEdit={onEdit} />
+          <MinisterialFormsTable customFilters={filterParams} onEdit={onEdit} tableRef={tableRef} />
         </>
       )}
     </MinisterialFormFormDialog>

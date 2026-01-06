@@ -120,9 +120,32 @@ const columnRegistry = {
     field: 'grade',
     headerKey: 'table.columnHeaders.questions.grade',
     minWidth: 160,
-    flex: .5,
+    flex: 0.5,
   },
-
+  formNumber: {
+    field: 'formNumber',
+    headerKey: 'ministerialForms.formNumber',
+    minWidth: 120,
+    flex: 1,
+  },
+  year: {
+    field: 'year',
+    headerKey: 'ministerialForms.year',
+    minWidth: 100,
+    flex: 1,
+  },
+  gradeName: {
+    field: 'gradeName',
+    headerKey: 'grade.grade',
+    minWidth: 150,
+    flex: 1.2,
+  },
+  subjectName: {
+    field: 'subjectName',
+    headerKey: 'grade.subject',
+    minWidth: 150,
+    flex: 1.2,
+  },
   yearForm: {
     field: 'yearForm',
     headerKey: 'table.columnHeaders.questions.yearForm',
@@ -308,6 +331,14 @@ export function buildQuestionColumns(options = {}) {
     ...options,
     hiddenFields: mergedHiddenFields,
     overrides,
+    includeActions,
+  });
+}
+
+export function buildMinisterialFormColumns(options = {}) {
+  const { includeActions = true } = options;
+  return buildColumns(['formNumber', 'year', 'gradeName', 'subjectName'], {
+    ...options,
     includeActions,
   });
 }

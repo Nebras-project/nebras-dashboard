@@ -1,4 +1,5 @@
 // external imports
+import { useRef, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 // internal imports
@@ -12,10 +13,11 @@ import { useSubjects } from '@features/subjects/hooks';
  * Handles fetching grades and subjects, and providing options
  */
 export const useMinisterialFormFormFields = () => {
-  const { watch } = useFormContext();
+  const { watch, setValue } = useFormContext();
 
   // Watch gradeId to fetch subjects
   const gradeId = watch('gradeId');
+  const prevGradeIdRef = useRef(gradeId);
 
   // Fetch grades
   const { gradeOptions = [], isLoading: isLoadingGrades } = useGrade();
@@ -25,6 +27,15 @@ export const useMinisterialFormFormFields = () => {
     gradeId,
     enabled: !!gradeId,
   });
+
+  // Reset subjectId immediately when gradeId changes (using ref to track previous value)
+  useEffect(() => {
+    // Only reset if gradeId actually changed (not on initial mount)
+    if (prevGradeIdRef.current !== undefined && prevGradeIdRef.current !== gradeId) {
+      setValue('subjectId', '', { shouldValidate: false, shouldDirty: false });
+    }
+    prevGradeIdRef.current = gradeId;
+  }, [gradeId, setValue]);
 
   return {
     gradeOptions,

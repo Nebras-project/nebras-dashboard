@@ -15,7 +15,7 @@ import { margin, padding } from '@constants';
  * Single Responsibility: UI composition for ministerial form filtering using reusable components
  * Filters are sent to backend via filterParams
  */
-function MinisterialFormFilter({ onFilterChange, addButton }) {
+function MinisterialFormFilter({ onFilterChange, actions }) {
   const { t } = useTranslation();
 
   // Filter state management - filters are sent to backend
@@ -26,6 +26,9 @@ function MinisterialFormFilter({ onFilterChange, addButton }) {
     hasActiveFilters,
     showFilters,
     filterOptions,
+    isLoadingGrades,
+    isLoadingSubjects,
+    isLoadingYears,
     setYear,
     setGradeId,
     setSubjectId,
@@ -43,7 +46,7 @@ function MinisterialFormFilter({ onFilterChange, addButton }) {
           onToggleFilters={handleToggleFilters}
           hasActiveFilters={hasActiveFilters}
           onClearFilters={handleClearFilters}
-          addButton={addButton}
+          actions={actions}
           filterButtonWrapper={Menu.Trigger}
         />
         <Menu.Content
@@ -58,6 +61,7 @@ function MinisterialFormFilter({ onFilterChange, addButton }) {
               onChange={setGradeId}
               options={filterOptions.grades}
               allLabel={t('students.filter.allGrades')}
+              loading={isLoadingGrades}
             />
 
             <FilterSelect
@@ -67,6 +71,7 @@ function MinisterialFormFilter({ onFilterChange, addButton }) {
               options={filterOptions.subjects}
               allLabel={t('questions.filter.allSubjects')}
               disabled={!gradeId}
+              loading={isLoadingSubjects}
             />
 
             <FilterSelect
@@ -75,6 +80,7 @@ function MinisterialFormFilter({ onFilterChange, addButton }) {
               onChange={setYear}
               options={filterOptions.years}
               allLabel={t('ministerialForms.filter.allYears')}
+              loading={isLoadingYears}
             />
           </Stack>
         </Menu.Content>
@@ -85,7 +91,8 @@ function MinisterialFormFilter({ onFilterChange, addButton }) {
 
 MinisterialFormFilter.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
-  addButton: PropTypes.node,
+  actions: PropTypes.node,
+  addButton: PropTypes.node, // Deprecated, use actions instead
 };
 
 export default MinisterialFormFilter;

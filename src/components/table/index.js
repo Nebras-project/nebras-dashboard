@@ -11,5 +11,6 @@ export {
   buildStudentColumns,
   buildQuestionColumns,
   buildCompetitionColumns,
+  buildMinisterialFormColumns,
   QUESTION_TYPES_WITHOUT_YEAR,
 } from './tableColumns';

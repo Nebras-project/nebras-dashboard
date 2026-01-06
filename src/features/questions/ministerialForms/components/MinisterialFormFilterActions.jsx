@@ -20,7 +20,7 @@ const MinisterialFormFilterActions = memo(function MinisterialFormFilterActions(
   onToggleFilters,
   hasActiveFilters,
   onClearFilters,
-  addButton,
+  actions,
   filterButtonWrapper,
 }) {
   const { t } = useTranslation();
@@ -42,7 +42,7 @@ const MinisterialFormFilterActions = memo(function MinisterialFormFilterActions(
         clearAllLabel={t('ministerialForms.filter.clearAll')}
         filterButtonWrapper={filterButtonWrapper}
       />
-      {addButton && <>{addButton}</>}
+      {actions && <>{actions}</>}
     </Box>
   );
 });
@@ -52,7 +52,7 @@ MinisterialFormFilterActions.propTypes = {
   onToggleFilters: PropTypes.func.isRequired,
   hasActiveFilters: PropTypes.bool.isRequired,
   onClearFilters: PropTypes.func.isRequired,
-  addButton: PropTypes.node,
+  actions: PropTypes.node,
   filterButtonWrapper: PropTypes.elementType,
 };
 
