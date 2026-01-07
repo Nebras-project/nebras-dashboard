@@ -49,45 +49,33 @@ export const fetchQuestionById = async (id) => {
 };
 
 /**
- * Create questions in a batch
- * All question creation operations use batch - even single questions are sent as arrays
- * Handles file uploads via FormData when images are present
- * @param {Array<Object>} questionsData - Array of question data objects (can be single item)
+ * Create a single question
+ * Handles file uploads via FormData when image is present
+ * @param {Object} questionData - Question data object
  * @returns {Promise} API response
  */
-export const createQuestions = async (questionsData) => {
-  // Ensure questionsData is always an array
-  const questionsArray = Array.isArray(questionsData) ? questionsData : [questionsData];
+export const createQuestions = async (questionData) => {
+  // Filter question data before processing
+  const filteredQuestion = filterQuestionData(questionData);
 
-  // Filter each question's data before processing
-  const filteredQuestions = questionsArray.map((question) => filterQuestionData(question));
+  // Check if there's a file to upload
+  const hasFile = filteredQuestion.questionImage instanceof File;
 
-  // Check if any question has File objects for questionImage
-  const hasFiles = filteredQuestions.some((question) => question.questionImage instanceof File);
-
-  if (hasFiles) {
-    // Use FormData for batch with files
-    const formData = new FormData();
-
-    filteredQuestions.forEach((question, index) => {
-      // Use createFormData utility for each question to handle file logic
-      const questionFormData = createFormData(question, QUESTION_FORM_DATA_OPTIONS);
-
-      // Extract entries and append with indexed prefix for batch format
-      questionFormData.forEach((value, key) => {
-        formData.append(`questions[${index}][${key}]`, value);
-      });
-
-      // Handle questionImage that is a string URL (not a File) - createFormData skips it
-      if (question.questionImage && !(question.questionImage instanceof File)) {
-        formData.append(`questions[${index}][questionImage]`, String(question.questionImage));
-      }
+  if (hasFile) {
+    // Use FormData when there's a file
+    const formData = createFormData(filteredQuestion, QUESTION_FORM_DATA_OPTIONS);
+    return await apiClient.post(API_ENDPOINTS.QUESTIONS.BASE, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     });
-
-    return await apiClient.post(API_ENDPOINTS.QUESTIONS.BASE, formData);
   } else {
-    // No files, send as JSON array (data already filtered)
-    return await apiClient.post(API_ENDPOINTS.QUESTIONS.BASE, filteredQuestions);
+    // Send as JSON when there's no file
+    return await apiClient.post(API_ENDPOINTS.QUESTIONS.BASE, filteredQuestion, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   }
 };
 
@@ -98,8 +86,28 @@ export const createQuestions = async (questionsData) => {
  * @returns {Promise} API response
  */
 export const updateQuestion = async (id, questionData) => {
-  const formData = createFormData(questionData, QUESTION_FORM_DATA_OPTIONS);
-  return await apiClient.put(API_ENDPOINTS.QUESTIONS.BY_ID(id), formData);
+  // Filter question data before processing
+  const filteredQuestion = filterQuestionData(questionData);
+
+  // Check if there's a file to upload
+  const hasFile = filteredQuestion.questionImage instanceof File;
+
+  if (hasFile) {
+    // Use FormData when there's a file
+    const formData = createFormData(filteredQuestion, QUESTION_FORM_DATA_OPTIONS);
+    return await apiClient.put(API_ENDPOINTS.QUESTIONS.BY_ID(id), formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  } else {
+    // Send as JSON when there's no file
+    return await apiClient.put(API_ENDPOINTS.QUESTIONS.BY_ID(id), filteredQuestion, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  }
 };
 
 /**
@@ -109,8 +117,28 @@ export const updateQuestion = async (id, questionData) => {
  * @returns {Promise} API response
  */
 export const patchQuestion = async (id, questionData) => {
-  const formData = createFormData(questionData, QUESTION_FORM_DATA_OPTIONS);
-  return await apiClient.patch(API_ENDPOINTS.QUESTIONS.BY_ID(id), formData);
+  // Filter question data before processing
+  const filteredQuestion = filterQuestionData(questionData);
+
+  // Check if there's a file to upload
+  const hasFile = filteredQuestion.questionImage instanceof File;
+
+  if (hasFile) {
+    // Use FormData when there's a file
+    const formData = createFormData(filteredQuestion, QUESTION_FORM_DATA_OPTIONS);
+    return await apiClient.patch(API_ENDPOINTS.QUESTIONS.BY_ID(id), formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  } else {
+    // Send as JSON when there's no file
+    return await apiClient.patch(API_ENDPOINTS.QUESTIONS.BY_ID(id), filteredQuestion, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  }
 };
 
 /**

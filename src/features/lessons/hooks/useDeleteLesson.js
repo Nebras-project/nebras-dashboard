@@ -7,11 +7,10 @@ import { deleteLesson as deleteLessonApi } from '../services/lessonsApi';
 import { getLessonName } from '../utils';
 
 export const useDeleteLesson = ({ gradeId, subjectId, unitId, onSuccess, onError } = {}) => {
-
   const { deleteItem, deleteItemAsync, isLoading, isError, error } = useDelete({
     deleteFn: (lesson) => deleteLessonApi(gradeId, subjectId, unitId, lesson.id),
     queryKey: [QUERY_KEYS.LESSONS, gradeId, subjectId, unitId],
-    additionalQueryKeys: [QUERY_KEYS.UNITS],
+    additionalQueryKeys: [QUERY_KEYS.UNITS, QUERY_KEYS.MINISTERIAL_FORMS],
     entityName: 'lessons',
     getItemName: (lesson, vars) => {
       const name = getLessonName(vars);

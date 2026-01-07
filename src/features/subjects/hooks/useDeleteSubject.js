@@ -18,7 +18,7 @@ import { getSubjectName } from '../utils';
 export const useDeleteSubject = ({ gradeId, onSuccess, onError } = {}) => {
   const { deleteItem, deleteItemAsync, isLoading, isError, error } = useDelete({
     deleteFn: (subject) => deleteSubjectApi(gradeId, subject.id),
-    additionalQueryKeys: [QUERY_KEYS.GRADES],
+    additionalQueryKeys: [QUERY_KEYS.GRADES, QUERY_KEYS.MINISTERIAL_FORMS],
     queryKey: [QUERY_KEYS.SUBJECTS, gradeId],
     entityName: 'subjects',
     getItemName: (subject, vars) => {

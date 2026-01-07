@@ -21,7 +21,7 @@ export const useLessonForm = ({
 } = {}) => {
   const { formDefaultValues, handleSubmit, isLoading, isError, error } = useEntityForm({
     queryKey: [QUERY_KEYS.LESSONS, gradeId, subjectId, unitId],
-    additionalQueryKeys: [QUERY_KEYS.UNITS],
+    additionalQueryKeys: [QUERY_KEYS.UNITS, QUERY_KEYS.MINISTERIAL_FORMS],
     defaultValues,
     isEdit,
     onSuccess,

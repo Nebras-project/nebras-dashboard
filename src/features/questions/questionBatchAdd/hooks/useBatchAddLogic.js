@@ -147,10 +147,14 @@ export const useBatchAddLogic = ({ open, onClose, onSuccess }) => {
       const allQuestions = prepareQuestionsForSave(formRefToUse);
       if (allQuestions.length === 0) return;
 
-      // Call batch create API (all questions are created via batch)
+      // Create questions one at a time
       // Error handling is done by the API interceptor (toast notifications)
-      const result = await createQuestions(allQuestions);
-      onSuccess?.(result);
+      const results = [];
+      for (const question of allQuestions) {
+        const result = await createQuestions(question);
+        results.push(result);
+      }
+      onSuccess?.(results);
       handleClose();
     },
     [getFormData, prepareQuestionsForSave, onSuccess, formRef, handleClose]

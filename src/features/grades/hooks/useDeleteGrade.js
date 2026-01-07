@@ -18,6 +18,7 @@ export const useDeleteGrade = ({ onSuccess, onError } = {}) => {
   const { deleteItem, deleteItemAsync, isLoading, isError, error } = useDelete({
     deleteFn: (grade) => deleteGradeApi(grade.id),
     queryKey: [QUERY_KEYS.GRADES],
+    additionalQueryKeys: [QUERY_KEYS.MINISTERIAL_FORMS],
     entityName: 'grades',
     getItemName: (grade, variables) => {
       const name = getGradeName(variables);

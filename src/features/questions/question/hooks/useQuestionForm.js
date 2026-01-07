@@ -29,8 +29,7 @@ const buildDefaultValues = (values) => {
     subjectId: values.subjectId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
     unitId: values.unitId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
     lessonId: values.lessonId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
-    year: values.year || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
-    formNumber: values.formNumber || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
+    formId: values.formId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
 
     // Question Content Fields (displayed based on type)
     question: values.question || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
@@ -45,11 +44,10 @@ const buildDefaultValues = (values) => {
   };
 };
 
-// Wrapper function to filter question data and send as batch (even for single question)
+// Wrapper function to filter question data and send as single question
 const createQuestionWithFilter = async (data) => {
   const filteredData = filterQuestionData(data);
-  // All question creation uses batch - send single question as array
-  return await createQuestions([filteredData]);
+  return await createQuestions(filteredData);
 };
 
 const updateQuestionWithFilter = async (id, data) => {

@@ -33,7 +33,7 @@ export const useSubjectForm = ({
 } = {}) => {
   const { formDefaultValues, handleSubmit, isLoading, isError, error } = useEntityForm({
     queryKey: [QUERY_KEYS.SUBJECTS, gradeId],
-    additionalQueryKeys: [QUERY_KEYS.GRADES],
+    additionalQueryKeys: [QUERY_KEYS.GRADES, QUERY_KEYS.MINISTERIAL_FORMS],
     defaultValues,
     isEdit,
     onSuccess,
