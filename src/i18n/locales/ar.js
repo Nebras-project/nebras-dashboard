@@ -329,6 +329,7 @@ const ar = {
     subject: 'المادة',
     unit: 'الوحدة',
     year: 'السنة',
+    form: 'النموذج',
     formNumber: 'رقم النموذج',
     true: 'صح',
     false: 'خطأ',

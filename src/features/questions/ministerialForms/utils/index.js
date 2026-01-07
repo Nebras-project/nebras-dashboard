@@ -15,11 +15,11 @@ export const getFormName = (form) => {
   const { formNumber, year } = form;
 
   if (formNumber && year) {
-    return `نموذج ${formNumber} - ${year}`;
+    return `${formNumber} - ${year}`;
   }
 
   if (formNumber) {
-    return `نموذج ${formNumber}`;
+    return `${formNumber}`;
   }
 
   return 'N/A';
@@ -35,4 +35,15 @@ export const getYearOptions = (forms) => {
   }));
 
   return yearOptions;
+};
+
+export const getFormOptions = (forms) => {
+  if (!forms || !Array.isArray(forms)) {
+    return [];
+  }
+  const formOptions = forms.map((form) => ({
+    value: form.id,
+    label: getFormName(form),
+  }));
+  return formOptions;
 };

@@ -5,7 +5,6 @@ import { useTranslation, useReduxTheme } from '@hooks';
 // internal imports
 import { Form } from '@components';
 import { useQuestionSettingsFields } from '../hooks/useQuestionSettingsFields';
-import { getNumberRules, getYearRules } from '@components/forms/constants';
 import { QUESTION_FORM_CARD_STYLES } from '../../question/constants';
 
 /**
@@ -32,6 +31,8 @@ function QuestionSettingsFields() {
     isLoadingLessons,
     typeOptions,
     categoryOptions,
+    formOptions,
+    isLoadingForms,
   } = useQuestionSettingsFields();
 
   return (
@@ -112,22 +113,14 @@ function QuestionSettingsFields() {
         {/* Year and Form - Only show for ministerial category */}
         {isMinisterial && (
           <Grid container spacing={2}>
-            <Grid size={{ mobile: 12, tablet: 6 }}>
-              <Form.YearInput
-                name="year"
-                label={t('questions.year')}
-                rules={getYearRules(t, t('questions.year'), true)}
-              />
-            </Grid>
-            <Grid size={{ mobile: 12, tablet: 6 }}>
-              <Form.NumberInput
-                name="formNumber"
-                label={t('questions.formNumber')}
-                maxLength={2}
-                rules={getNumberRules(t, t('questions.formNumber'), {
-                  min: 1,
-                  max: 99,
-                })}
+            <Grid size={12}>
+              <Form.SelectInput
+                name="formId"
+                label={t('questions.form')}
+                options={formOptions}
+                disabled={isLoadingForms}
+                loading={isLoadingForms}
+                rules={{ required: t('validation.required', { field: t('questions.form') }) }}
               />
             </Grid>
           </Grid>

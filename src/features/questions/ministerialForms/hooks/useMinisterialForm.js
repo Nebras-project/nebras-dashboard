@@ -4,7 +4,7 @@ import { QUERY_KEYS } from '@config';
 
 // internal imports
 import { fetchFormById, fetchForms } from '../services/formsApi';
-import { getYearOptions } from '../utils';
+import { getFormOptions, getYearOptions } from '../utils';
 
 /**
  * useMinisterialForm Hook
@@ -32,8 +32,10 @@ export const useMinisterialForm = ({ id, queryString, params, enabled = true, on
   });
 
   let yearOptions = [];
+  let formOptions = [];
   if (!id) {
     yearOptions = getYearOptions(data?.data || []);
+    formOptions = getFormOptions(data?.data || []);
   }
   // Return with ministerialForm-specific property names
   return {
@@ -41,6 +43,7 @@ export const useMinisterialForm = ({ id, queryString, params, enabled = true, on
     ministerialForms: id ? undefined : data?.data || [],
     totalCount: data?.totalCount || 0,
     yearOptions,
+    formOptions,
     isLoading,
     isError,
     error,

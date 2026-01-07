@@ -9,6 +9,7 @@ import { useUnits } from '@features/units/hooks';
 import { useLessons } from '@features/lessons/hooks';
 import { getQuestionTypeOptions, getQuestionCategoryOptions } from '../../question/constants';
 import { useTranslation } from '@hooks';
+import { useMinisterialForm } from '@features/questions/ministerialForms/hooks';
 
 /**
  * useQuestionSettingsFields Hook
@@ -21,8 +22,9 @@ import { useTranslation } from '@hooks';
  */
 export const useQuestionSettingsFields = () => {
   const { t } = useTranslation();
-  const { watch, setValue } = useFormContext();
-
+  const { watch, setValue } = useFormContext(); 
+  const { formOptions = [], isLoading: isLoadingForms } = useMinisterialForm();
+  
   // Watch form values for cascading selects
   const gradeId = watch('gradeId');
   const subjectId = watch('subjectId');
@@ -107,11 +109,12 @@ export const useQuestionSettingsFields = () => {
     lessonOptions,
     typeOptions,
     categoryOptions,
-
+    formOptions,
     // Loading states for each select
     isLoadingGrades,
     isLoadingSubjects,
     isLoadingUnits,
     isLoadingLessons,
+    isLoadingForms,
   };
 };

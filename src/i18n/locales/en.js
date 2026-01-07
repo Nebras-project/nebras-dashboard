@@ -330,6 +330,7 @@ const en = {
     subject: 'Subject',
     unit: 'Unit',
     year: 'Year',
+    form: 'Form',
     formNumber: 'Form Number',
     true: 'True',
     false: 'False',

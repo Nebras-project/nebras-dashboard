@@ -28,6 +28,8 @@ function MinisterialFormsTable({ customFilters = {}, onEdit, tableRef: tableRefP
     queryString,
   });
 
+  console.log(ministerialForms);
+
   const columns = useMemo(
     () =>
       createMinisterialFormColumns({
@@ -66,7 +68,7 @@ function MinisterialFormsTable({ customFilters = {}, onEdit, tableRef: tableRefP
   return (
     <Table
       ref={finalTableRef}
-      rows={ministerialForms || []}
+      rows={ministerialForms}
       columns={columns}
       disableRowSelectionOnClick
       rowCount={totalCount}
