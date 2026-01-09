@@ -92,7 +92,7 @@ const ar = {
 
   // Navigation
   navigation: {
-    dashboard: 'لوحة التحكم',
+    dashboard: 'نظرة عامة',
     grades: 'الصفوف الدراسية',
     subjects: 'المواد',
     units: 'الوحدات',

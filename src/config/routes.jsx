@@ -12,8 +12,8 @@ const LoginPage = lazy(() =>
 );
 
 // Main Pages
-const DashboardPage = lazy(() =>
-  import('@features/dashboard').then((m) => ({ default: m.DashboardPage }))
+const OverviewPage = lazy(() =>
+  import('@features/overview').then((m) => ({ default: m.OverviewPage }))
 );
 const StudentsPage = lazy(() =>
   import('@features/students').then((m) => ({ default: m.StudentsPage }))
@@ -69,7 +69,7 @@ const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
 const UnauthorizedPage = lazy(() => import('../pages/UnauthorizedPage'));
 
 const routes = [
-  // Root - Redirect to dashboard
+  // Root - Redirect to overview
   {
     path: '/',
     element: <Navigate to={NAVIGATION_PATHS.DASHBOARD} replace />,
@@ -81,12 +81,12 @@ const routes = [
     element: <LoginPage />,
   },
 
-  // Protected Routes - Dashboard (All authenticated users)
+  // Protected Routes - Overview (All authenticated users)
   {
     path: NAVIGATION_PATHS.DASHBOARD,
     element: (
       <AuthenticatedRoute allowedRoles={ALLOWED_ROLES.ALL}>
-        <DashboardPage />
+        <OverviewPage />
       </AuthenticatedRoute>
     ),
   },

@@ -17,12 +17,13 @@ import { getSectionPaperStyles } from '@constants/layout';
  *
  * Displays subjects sidebar with name, units count, and lessons count
  */
-function SubjectsSidebar({ gradeId, selectedSubjectId = null, onSubjectSelect }) {
+function SubjectsSidebar({ gradeId, selectedSubjectId, onSubjectSelect }) {
   const { mode } = useReduxTheme();
 
   // Delete subject hook
   const { deleteSubject } = useDeleteSubject({
     gradeId,
+    selectedSubjectId,
     onSuccess: () => {
       // Note: query invalidation is handled automatically by useEntityMutation
       // If deleted subject was selected, clear selection

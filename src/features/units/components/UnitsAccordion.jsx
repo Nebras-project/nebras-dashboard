@@ -20,6 +20,7 @@ function UnitsAccordion({ subjectId = null, gradeId = null, title = null, subtit
   const { t } = useTranslation();
   const { mode } = useReduxTheme();
 
+
   // Fetch units from API
   const {
     units = [],

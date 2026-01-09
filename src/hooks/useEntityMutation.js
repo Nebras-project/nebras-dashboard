@@ -30,7 +30,7 @@ export const useEntityMutation = ({
   entityName,
   action,
   getItemName,
-  onSuccess,
+  onSuccess: onSuccessCallback,
   onError,
 }) => {
   const { t } = useTranslation();
@@ -68,9 +68,10 @@ export const useEntityMutation = ({
 
       // Call onSuccess callback
       if (action === 'delete') {
-        onSuccess?.(variables, data); // For delete: (item, response)
+        onSuccessCallback?.(data, variables); // For delete: (item, response)
+
       } else {
-        onSuccess?.(data); // For create/update: (data)
+        onSuccessCallback?.(data); // For create/update: (data)
       }
     },
     onError: (error, variables) => {

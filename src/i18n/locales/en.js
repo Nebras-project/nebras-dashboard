@@ -92,7 +92,7 @@ const en = {
 
   // Navigation
   navigation: {
-    dashboard: 'Dashboard',
+    dashboard: 'Overview',
     grades: 'Grades',
     subjects: 'Subjects',
     units: 'Units',
