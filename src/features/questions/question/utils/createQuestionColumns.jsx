@@ -1,15 +1,10 @@
 import { buildQuestionColumns } from '@components/table';
 import { createColumnsBase } from '@components/table/utils/createColumnsBase';
-import {
-  yearFormRenderer,
-  choicesRenderer,
-  typeRenderer,
-  categoryRenderer,
-  imageRenderer,
-} from './renderers';
+import { yearFormRenderer, choicesRenderer, typeRenderer, classRenderer } from './renderers';
 
 const QUESTION_COLUMN_DEFINITIONS = {
   question: {
+    field: 'text',
     filterable: false,
     sortable: false,
   },
@@ -17,36 +12,31 @@ const QUESTION_COLUMN_DEFINITIONS = {
     filterable: false,
     sortable: false,
   },
-  correctAnswer: {
-    filterable: false,
-    sortable: false,
-  },
-  img: {
-    field: 'questionImage',
-    sortable: false,
-    filterable: false,
-  },
   type: {
     filterable: false,
     sortable: true,
   },
-  category: {
+  class: {
     filterable: false,
     sortable: true,
   },
   subject: {
+    field: 'subjectName',
     filterable: false,
     sortable: false,
   },
   unit: {
+    field: 'unitName',
     filterable: false,
     sortable: false,
   },
-  curriculum: {
+  grade: {
+    field: 'gradeName',
     filterable: false,
     sortable: false,
   },
   lesson: {
+    field: 'lessonName',
     filterable: false,
     sortable: false,
   },
@@ -67,17 +57,15 @@ export default function createQuestionColumns({
   rows,
   questionType,
   hiddenFields = [],
-  visibleFields,
-  type,
-  category,
+  visibleFields = [],
+  class: classValue,
   overrides = {},
 } = {}) {
-  // Calculate column visibility based on type and category filters
+  // Calculate column visibility based on type and class filters
   // Hide yearForm column for enrichment questions
-  const yearFormHidden = category === 'Enrichment';
+  const yearFormHidden = classValue === 'Enrichment';
 
-  // Hide img and choices columns for trueFalse questions
-  const isTrueFalse = type === 'trueFalse';
+  // Keep choices visible for True/False questions
 
   const combinedOverrides = {
     ...overrides,
@@ -86,23 +74,18 @@ export default function createQuestionColumns({
       renderCell: overrides.yearForm?.renderCell || yearFormRenderer,
       hide: yearFormHidden,
     },
-    img: {
-      ...overrides.img,
-      renderCell: overrides.img?.renderCell || imageRenderer,
-      // hide: isTrueFalse,
-    },
     choices: {
       ...overrides.choices,
       renderCell: overrides.choices?.renderCell || choicesRenderer,
-      hide: isTrueFalse,
+
     },
     type: {
       ...overrides.type,
       renderCell: overrides.type?.renderCell || typeRenderer(t),
     },
-    category: {
-      ...overrides.category,
-      renderCell: overrides.category?.renderCell || categoryRenderer(t),
+    class: {
+      ...overrides.class,
+      renderCell: overrides.class?.renderCell || classRenderer(t),
     },
     addedBy: {
       ...overrides.addedBy,

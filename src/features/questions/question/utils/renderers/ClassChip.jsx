@@ -6,18 +6,18 @@ import { Chip } from '@mui/material';
 import { useReduxTheme } from '@hooks';
 
 /**
- * CategoryChip Component
+ * ClassChip Component
  *
- * Renders a chip for question categories with variant based on theme mode
+ * Renders a chip for question classes with variant based on theme mode
  * Different colors for Ministerial and Enrichment
  */
-export function CategoryChip({ label, value }) {
+export function ClassChip({ label, value }) {
   const { isDark } = useReduxTheme();
 
-  // Assign different colors based on category value
+  // Assign different colors based on class value
   const getColor = () => {
-    if (value === 'ministerial') return 'teal';
-    if (value === 'enrichment') return 'cyan';
+    if (value === 'Ministerial') return 'teal';
+    if (value === 'Enrichment') return 'cyan';
     return 'primary'; // fallback
   };
 
@@ -26,7 +26,7 @@ export function CategoryChip({ label, value }) {
   );
 }
 
-CategoryChip.propTypes = {
+ClassChip.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.string,
 };

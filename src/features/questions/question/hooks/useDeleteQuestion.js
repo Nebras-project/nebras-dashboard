@@ -20,9 +20,9 @@ export const useDeleteQuestion = ({ onSuccess, onError } = {}) => {
     deleteFn: (question) => deleteQuestionApi(question.id),
     queryKey: [QUERY_KEYS.QUESTIONS],
     entityName: 'questions',
-    getItemName: (question) => {
-      const questionText = question.question || '';
-      return questionText || t('questions.questionNumber', { number: question.id });
+    getItemName: (question, variables) => {
+      const questionText = variables.text || '';
+      return questionText || t('questions.questionNumber', { number: variables.id });
     },
     onSuccess,
     onError,

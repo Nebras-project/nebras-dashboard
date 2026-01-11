@@ -21,8 +21,8 @@ function QuestionFormFields() {
     <Stack spacing={3} sx={{ ...margin.top.md }}>
       <QuestionSettingsFields />
 
-      {type === 'multipleChoice' && <QuestionMultipleChoice />}
-      {type === 'trueFalse' && <QuestionTrueFalse />}
+      {type === 'MultipleChoice' && <QuestionMultipleChoice />}
+      {type === 'TrueFalse' && <QuestionTrueFalse />}
     </Stack>
   );
 }

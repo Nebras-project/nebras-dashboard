@@ -12,6 +12,7 @@ import { TypeChip } from './TypeChip';
 export const typeRenderer = (t) => {
   const renderType = ({ row }) => {
     if (!row.type) return '-';
+  
     const translationKey = `questions.types.${toCamelCase(row.type)}`;
     const label = t(translationKey) || row.type;
 

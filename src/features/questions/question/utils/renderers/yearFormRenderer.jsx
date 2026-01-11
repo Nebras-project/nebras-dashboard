@@ -6,11 +6,12 @@
  * @returns {string} Formatted year/form string or '-'
  */
 export const yearFormRenderer = ({ row }) => {
-  const year = row.year ?? null;
+  const formYear = row.formYear ?? null;
   const formNumber = row.formNumber ?? null;
 
   // Handle null/undefined/empty string cases
-  const yearValue = year !== null && year !== undefined && year !== '' ? String(year) : null;
+  const yearValue =
+    formYear !== null && formYear !== undefined && formYear !== '' ? String(formYear) : null;
   const formValue =
     formNumber !== null && formNumber !== undefined && formNumber !== ''
       ? String(formNumber)

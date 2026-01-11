@@ -22,7 +22,6 @@ function QuestionsTab() {
         <>
           <QuestionFilter
             onFilterChange={handleFilterChange}
-            questions={[]} // TODO: Pass actual questions data
             actions={
               <>
                 <ExportButton

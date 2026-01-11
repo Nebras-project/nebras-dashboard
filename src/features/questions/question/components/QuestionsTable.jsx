@@ -10,7 +10,6 @@ import { NAVIGATION_PATHS } from '@config';
 
 import { createQuestionColumns } from '../utils';
 import { useQuestion, useDeleteQuestion } from '../hooks';
-import dummyQuestions from '../utils/dummyQuestionsData';
 import { getTopTableStyles } from '@constants/layout';
 import { useRowClick } from '@hooks';
 
@@ -27,28 +26,22 @@ function QuestionsTable({ customFilters = {}, onEdit, tableRef }) {
   } = useTable({ customFilters });
 
   // Fetch questions using the query string
-  const { questions, isLoading } = useQuestion({
+  const { questions, totalCount, isLoading } = useQuestion({
     queryString,
   });
 
   // Delete question hook
   const { deleteQuestion } = useDeleteQuestion();
 
-  // Use dummy data as fallback for development/preview
-  // TODO: Remove this when real API is connected
-  const displayQuestions = questions || dummyQuestions;
-
-  // Extract type and category from filters
-  const type = customFilters.type || '';
-  const category = customFilters.category || '';
+  // Extract  class from filters
+  const classValue = customFilters.Class || '';
 
   const columns = useMemo(
     () =>
       createQuestionColumns({
         t,
         includeActions: true,
-        type,
-        category,
+        class: classValue,
         renderActions: ({ row }) => (
           <ActionsMenu
             tooltip={t('common.actions')}
@@ -68,7 +61,7 @@ function QuestionsTable({ customFilters = {}, onEdit, tableRef }) {
                 row={row}
                 deleteFn={deleteQuestion}
                 getItemName={(question) =>
-                  question.question || t('questions.questionNumber', { number: question.id })
+                  question.text || t('questions.questionNumber', { number: question.id })
                 }
                 entityName="questions"
                 label={t('questions.deleteQuestion')}
@@ -77,7 +70,7 @@ function QuestionsTable({ customFilters = {}, onEdit, tableRef }) {
           />
         ),
       }),
-    [t, type, category, onEdit, deleteQuestion, navigate]
+    [t, classValue, onEdit, deleteQuestion, navigate]
   );
 
   const handleRowClick = useRowClick({
@@ -87,8 +80,9 @@ function QuestionsTable({ customFilters = {}, onEdit, tableRef }) {
   return (
     <Table
       ref={tableRef}
-      rows={displayQuestions}
+      rows={questions || []}
       columns={columns}
+      rowCount={totalCount || 0}
       onRowClick={handleRowClick}
       paginationModel={paginationModel}
       onPaginationModelChange={handlePaginationModelChange}

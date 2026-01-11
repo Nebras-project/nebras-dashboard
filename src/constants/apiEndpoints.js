@@ -66,6 +66,7 @@ export const API_ENDPOINTS = {
   QUESTIONS: {
     BASE: '/questions',
     BY_ID: (id) => `/questions/${id}`,
+    UPLOAD_IMAGE: '/questions/image/upload',
   },
 
   // Forms Resource (النماذج الوزارية - Ministerial Forms)

@@ -28,8 +28,6 @@ function MinisterialFormsTable({ customFilters = {}, onEdit, tableRef: tableRefP
     queryString,
   });
 
-  console.log(ministerialForms);
-
   const columns = useMemo(
     () =>
       createMinisterialFormColumns({

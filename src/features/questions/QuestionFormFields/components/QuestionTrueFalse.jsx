@@ -9,6 +9,7 @@ import { QUESTION_FORM_CARD_STYLES } from '../../question/constants';
 import { getTextRules, getRadioRules } from '@components/forms/constants';
 import { getTrueFalseOptions } from '../../question/constants';
 import { useQuestionSettingsFields } from '../hooks/useQuestionSettingsFields';
+import QuestionImageInput from './QuestionImageInput';
 /**
  * QuestionTrueFalse Component (T/F)
  *
@@ -31,7 +32,7 @@ function QuestionTrueFalse() {
       <Stack spacing={2}>
         {/* Question Text */}
         <Form.MathSymbolsInput
-          name="question"
+          name="text"
           label={t('questions.questionText')}
           rules={getTextRules(t, t('questions.questionText'), { required: true, minLength: 15 })}
           multiline
@@ -40,8 +41,8 @@ function QuestionTrueFalse() {
           subjectOptions={subjectOptions}
         />
 
-        <Form.ImageInput
-          name="questionImage"
+        <QuestionImageInput
+          name="imageUrl"
           label={t('questions.questionImage')}
           rules={{ required: false }}
         />

@@ -37,7 +37,7 @@ const FilterActions = memo(function FilterActions({
   const WrappedFilterButton = Wrapper ? <Wrapper>{filterButton}</Wrapper> : filterButton;
 
   return (
-    <Stack direction="row"  alignItems="center">
+    <Stack direction="row" alignItems="center">
       {WrappedFilterButton}
       {showClearButton && hasActiveFilters && (
         <IconButtonWithTooltip

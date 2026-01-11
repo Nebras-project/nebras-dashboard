@@ -5,29 +5,26 @@ import { Box, Typography, Chip } from '@mui/material';
 // internal imports
 import { Menu, Icon } from '@components';
 import { useTranslation } from '@hooks';
-import { toCamelCase } from '@utils';
-import { CHOICE_KEYS } from '../constants';
 
-const buildChoices = (question, t) => {
+const buildChoices = (question) => {
   if (!question.choices || !Array.isArray(question.choices)) {
     return [];
   }
 
   return question.choices
-    .map((value, index) => {
-      const key = CHOICE_KEYS[index];
-      return {
-        key,
-        label: t(`questions.${toCamelCase(key)}`),
-        value,
-      };
-    })
-    .filter((choice) => choice.value);
+    .map((item, index) => ({
+      key: item.label ?? index,
+      label: item.label,
+      text: item.text,
+      isCorrect: !!item.isCorrect,
+    }))
+    .filter((choice) => choice.text);
 };
 
 const getDropdownLabel = (choices) => {
-  if (choices.length === 0) return '-';
-  return choices[0].value;
+  if (!choices || choices.length === 0) return '-';
+  const correct = choices.find((c) => c.isCorrect);
+  return correct?.text ?? choices[0]?.text ?? '-';
 };
 
 /**
@@ -38,9 +35,8 @@ const getDropdownLabel = (choices) => {
 function ChoicesDropdown({ row }) {
   const { t } = useTranslation();
 
-  const choices = buildChoices(row, t);
+  const choices = buildChoices(row);
   const labelText = getDropdownLabel(choices);
-  const isCorrect = (choiceKey) => row.correctAnswer === choiceKey;
 
   if (choices.length === 0) {
     return <Typography variant="body2">-</Typography>;
@@ -61,7 +57,7 @@ function ChoicesDropdown({ row }) {
           minWidth={300}
         >
           {choices.map((choice) => {
-            const correct = isCorrect(choice.key);
+            const correct = choice.isCorrect;
             return (
               <Menu.Item key={choice.key}>
                 <Box
@@ -82,7 +78,7 @@ function ChoicesDropdown({ row }) {
                     variant="body2"
                     sx={{ flex: 1, display: 'flex', alignItems: 'center' }}
                   >
-                    {choice.value}
+                    {choice.text}
                   </Typography>
                   {correct && <Icon name="checkCircle" color="success" size={20} />}
                 </Box>
@@ -98,8 +94,13 @@ function ChoicesDropdown({ row }) {
 ChoicesDropdown.propTypes = {
   row: PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    choices: PropTypes.arrayOf(PropTypes.string),
-    correctAnswer: PropTypes.string,
+    choices: PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string,
+        text: PropTypes.string,
+        isCorrect: PropTypes.bool,
+      })
+    ),
   }).isRequired,
 };
 

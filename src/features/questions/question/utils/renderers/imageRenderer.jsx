@@ -14,7 +14,7 @@ import { QuestionImage } from './QuestionImage';
  * @returns {JSX.Element|string} Image component wrapped in centered Box or '-' if no image
  */
 export const imageRenderer = ({ row }) => {
-  const image = row.questionImage;
+  const image = row.imageUrl;
 
   if (!image) {
     return '-';

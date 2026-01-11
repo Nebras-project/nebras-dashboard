@@ -92,9 +92,9 @@ const columnRegistry = {
     minWidth: 160,
     flex: 1,
   },
-  category: {
-    field: 'category',
-    headerKey: 'table.columnHeaders.questions.category',
+  class: {
+    field: 'class',
+    headerKey: 'table.columnHeaders.questions.class',
     minWidth: 160,
     flex: 1,
   },
@@ -303,13 +303,11 @@ export function buildQuestionColumns(options = {}) {
   } = options;
 
   let keys = [
-    'img',
     'question',
     'choices',
-    'correctAnswer',
     'type',
-    'category',
-    'curriculum',
+    'class',
+    'grade',
     'subject',
     'unit',
     'lesson',

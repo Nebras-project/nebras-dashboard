@@ -11,7 +11,7 @@ import { QUESTION_FORM_CARD_STYLES } from '../../question/constants';
  * QuestionSettingsFields Component
  *
  * Single Responsibility: Render shared settings fields for question form
- * Fields: type, category, grade, subject, unit, lesson, year, form
+ * Fields: type, class, grade, subject, unit, lesson, year, form
  */
 function QuestionSettingsFields() {
   const { t } = useTranslation();
@@ -30,7 +30,7 @@ function QuestionSettingsFields() {
     isLoadingUnits,
     isLoadingLessons,
     typeOptions,
-    categoryOptions,
+    classOptions,
     formOptions,
     isLoadingForms,
   } = useQuestionSettingsFields();
@@ -42,7 +42,7 @@ function QuestionSettingsFields() {
       </Typography>
 
       <Stack spacing={1}>
-        {/* Type and Category */}
+        {/* Type and Class */}
         <Grid container spacing={2}>
           <Grid size={{ mobile: 12, tablet: 6 }}>
             <Form.SelectInput
@@ -54,10 +54,10 @@ function QuestionSettingsFields() {
           </Grid>
           <Grid size={{ mobile: 12, tablet: 6 }}>
             <Form.SelectInput
-              name="category"
-              label={t('questions.category')}
-              options={categoryOptions}
-              rules={{ required: t('validation.required', { field: t('questions.category') }) }}
+              name="class"
+              label={t('questions.class')}
+              options={classOptions}
+              rules={{ required: t('validation.required', { field: t('questions.class') }) }}
             />
           </Grid>
         </Grid>
@@ -110,7 +110,7 @@ function QuestionSettingsFields() {
           </Grid>
         </Grid>
 
-        {/* Year and Form - Only show for ministerial category */}
+        {/* Year and Form - Only show for ministerial class */}
         {isMinisterial && (
           <Grid container spacing={2}>
             <Grid size={12}>

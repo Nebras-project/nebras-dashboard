@@ -102,7 +102,7 @@ QuestionsPreviewDialog.propTypes = {
       id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
       question: PropTypes.string,
       type: PropTypes.string,
-      category: PropTypes.string,
+      class: PropTypes.string,
       correctAnswer: PropTypes.string,
       choiceA: PropTypes.string,
       choiceB: PropTypes.string,

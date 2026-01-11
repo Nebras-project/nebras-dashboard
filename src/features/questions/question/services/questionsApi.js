@@ -8,15 +8,25 @@
 import apiClient, { API_ENDPOINTS } from '@config/axios';
 
 // Import utilities
-import { createFormData } from '@utils';
 import { filterQuestionData } from '../utils';
 
 /**
- * FormData options for question create/update operations
+ * Upload question image to separate endpoint
+ * @param {File} imageFile - Image file to upload
+ * @returns {Promise} API response with image ID
  */
-const QUESTION_FORM_DATA_OPTIONS = {
-  fileFields: 'questionImage',
-  excludeFields: [],
+export const uploadQuestionImage = async (imageFile) => {
+  const formData = new FormData();
+  formData.append('image', imageFile);
+
+  const response = await apiClient.post(API_ENDPOINTS.QUESTIONS.UPLOAD_IMAGE, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  // Extract image ID from response (adjust based on your API response structure)
+  return response.id || response.data?.id || response.imageId || response.data?.imageId;
 };
 
 /**
@@ -50,33 +60,13 @@ export const fetchQuestionById = async (id) => {
 
 /**
  * Create a single question
- * Handles file uploads via FormData when image is present
+ * Images are uploaded separately via uploadQuestionImage endpoint
  * @param {Object} questionData - Question data object
  * @returns {Promise} API response
  */
 export const createQuestions = async (questionData) => {
-  // Filter question data before processing
-  const filteredQuestion = filterQuestionData(questionData);
-
-  // Check if there's a file to upload
-  const hasFile = filteredQuestion.questionImage instanceof File;
-
-  if (hasFile) {
-    // Use FormData when there's a file
-    const formData = createFormData(filteredQuestion, QUESTION_FORM_DATA_OPTIONS);
-    return await apiClient.post(API_ENDPOINTS.QUESTIONS.BASE, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-  } else {
-    // Send as JSON when there's no file
-    return await apiClient.post(API_ENDPOINTS.QUESTIONS.BASE, filteredQuestion, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-  }
+  // Send as JSON (images are uploaded separately via uploadQuestionImage)
+  return await apiClient.post(API_ENDPOINTS.QUESTIONS.BASE, questionData);
 };
 
 /**
@@ -86,28 +76,8 @@ export const createQuestions = async (questionData) => {
  * @returns {Promise} API response
  */
 export const updateQuestion = async (id, questionData) => {
-  // Filter question data before processing
-  const filteredQuestion = filterQuestionData(questionData);
-
-  // Check if there's a file to upload
-  const hasFile = filteredQuestion.questionImage instanceof File;
-
-  if (hasFile) {
-    // Use FormData when there's a file
-    const formData = createFormData(filteredQuestion, QUESTION_FORM_DATA_OPTIONS);
-    return await apiClient.put(API_ENDPOINTS.QUESTIONS.BY_ID(id), formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-  } else {
-    // Send as JSON when there's no file
-    return await apiClient.put(API_ENDPOINTS.QUESTIONS.BY_ID(id), filteredQuestion, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-  }
+  // Send as JSON (images are uploaded separately via uploadQuestionImage)
+  return await apiClient.put(API_ENDPOINTS.QUESTIONS.BY_ID(id), questionData);
 };
 
 /**
@@ -120,25 +90,8 @@ export const patchQuestion = async (id, questionData) => {
   // Filter question data before processing
   const filteredQuestion = filterQuestionData(questionData);
 
-  // Check if there's a file to upload
-  const hasFile = filteredQuestion.questionImage instanceof File;
-
-  if (hasFile) {
-    // Use FormData when there's a file
-    const formData = createFormData(filteredQuestion, QUESTION_FORM_DATA_OPTIONS);
-    return await apiClient.patch(API_ENDPOINTS.QUESTIONS.BY_ID(id), formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-  } else {
-    // Send as JSON when there's no file
-    return await apiClient.patch(API_ENDPOINTS.QUESTIONS.BY_ID(id), filteredQuestion, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-  }
+  // Send as JSON (images are uploaded separately via uploadQuestionImage)
+  return await apiClient.patch(API_ENDPOINTS.QUESTIONS.BY_ID(id), filteredQuestion);
 };
 
 /**

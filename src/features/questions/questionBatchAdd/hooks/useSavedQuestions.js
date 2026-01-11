@@ -40,8 +40,8 @@ export const useSavedQuestions = () => {
    */
   const prepareQuestionsForSave = useCallback(
     (formRef = null) => {
-      // Start with saved questions (remove id field)
-      const allQuestions = savedQuestions.map(({ id, ...data }) => data);
+      // Start with saved questions (remove id field and filter data)
+      const allQuestions = savedQuestions.map(({ id, ...data }) => filterQuestionData(data));
 
       // If formRef is provided, include current form data
       if (formRef?.current) {

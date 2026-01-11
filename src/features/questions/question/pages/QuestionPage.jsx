@@ -9,7 +9,6 @@ import { NAVIGATION_PATHS } from '@config';
 import { useQuestion, useDeleteQuestion } from '../hooks';
 import QuestionCard from '../components/QuestionCard';
 import QuestionFormDialog from '../components/QuestionFormDialog';
-import dummyQuestions from '../utils/dummyQuestionsData';
 
 /**
  * QuestionPage Component
@@ -20,8 +19,7 @@ function QuestionPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { id } = useParams();
-  const questionId = parseInt(id, 10);
-  const { question: fetchedQuestion, isLoading, isError } = useQuestion({ questionId });
+  const { question: fetchedQuestion, isLoading, isError } = useQuestion({ questionId: id });
   const { deleteQuestion } = useDeleteQuestion({
     onSuccess: () => {
       // Navigate back to questions list after successful deletion
@@ -29,10 +27,7 @@ function QuestionPage() {
     },
   });
 
-  // Use dummy data as fallback for development/preview
-  // TODO: Remove this when real API is connected
-  const question =
-    fetchedQuestion || dummyQuestions.find((q) => q.id === questionId) || dummyQuestions[0];
+  const question = fetchedQuestion;
 
   if (isLoading) {
     return (
@@ -55,7 +50,7 @@ function QuestionPage() {
       {({ onEdit }) => (
         <PageLayout
           title={t('questions.questionDetails')}
-          description={question.question || t('questions.questionNumber', { number: question.id })}
+          description={question.text || t('questions.questionNumber', { number: question.id })}
         >
           <Container>
             <QuestionCard

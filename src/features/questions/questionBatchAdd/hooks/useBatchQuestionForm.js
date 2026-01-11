@@ -1,6 +1,11 @@
 import { useCallback, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { applySharedSettings, loadQuestionIntoForm, extractSharedSettings } from '../../question/utils';
+import {
+  applySharedSettings,
+  loadQuestionIntoForm,
+  extractSharedSettings,
+  filterQuestionData,
+} from '../../question/utils';
 
 /**
  * useBatchQuestionForm Hook
@@ -41,7 +46,8 @@ export const useBatchQuestionForm = ({ open, setSharedSettings, sharedSettings }
       form.reset();
       applySharedSettings(form, newSharedSettings);
 
-      return { ...formData, id: newId };
+      const { choices } = filterQuestionData(formData);
+      return { ...formData, choices, id: newId };
     },
     [setSharedSettings]
   );
@@ -55,11 +61,12 @@ export const useBatchQuestionForm = ({ open, setSharedSettings, sharedSettings }
       if (!isValid) return null;
 
       const formData = form.getValues();
+      const { choices } = filterQuestionData(formData);
 
       form.reset();
       applySharedSettings(form, sharedSettings);
 
-      return { ...formData, id: questionId };
+      return { ...formData, choices, id: questionId };
     },
     [sharedSettings]
   );

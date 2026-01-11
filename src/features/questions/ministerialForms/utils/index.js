@@ -11,7 +11,6 @@
 export const getFormName = (form) => {
   if (!form) return 'N/A';
 
-  console.log(form);
   const { formNumber, year } = form;
 
   if (formNumber && year) {

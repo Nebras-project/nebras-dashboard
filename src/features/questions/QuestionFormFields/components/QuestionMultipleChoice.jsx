@@ -10,6 +10,7 @@ import { margin } from '@constants';
 import { getTextRules, getRadioRules } from '@components/forms/constants';
 import { getQuestionChoices } from '../../question/constants';
 import { useQuestionSettingsFields } from '../hooks/useQuestionSettingsFields';
+import QuestionImageInput from './QuestionImageInput';
 
 /**
  * QuestionMultipleChoice Component (MQC)
@@ -32,7 +33,7 @@ function QuestionMultipleChoice() {
       <Stack spacing={2}>
         {/* Question Text */}
         <Form.MathSymbolsInput
-          name="question"
+          name="text"
           label={t('questions.questionText')}
           rules={getTextRules(t, t('questions.questionText'), { required: true, minLength: 15 })}
           multiline
@@ -42,8 +43,8 @@ function QuestionMultipleChoice() {
         />
 
         {/* Question Image */}
-        <Form.ImageInput
-          name="questionImage"
+        <QuestionImageInput
+          name="imageUrl"
           label={t('questions.questionImage')}
           rules={{ required: false }}
         />

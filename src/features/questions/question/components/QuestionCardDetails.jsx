@@ -3,7 +3,6 @@ import { Stack, Typography } from '@mui/material';
 import { useTranslation } from '@hooks';
 import QuestionCardDetailItem from './QuestionCardDetailItem';
 import QuestionChoices from './QuestionChoices';
-import TrueFalseAnswer from './TrueFalseAnswer';
 import { SETTINGS_FIELDS, MINISTERIAL_FIELDS } from '../constants';
 import { QuestionImage } from '../utils/renderers/QuestionImage';
 import { Icon } from '@components';
@@ -24,7 +23,7 @@ function QuestionCardDetails({ question }) {
   };
 
   const type = question.type;
-  const category = question.category;
+  const classValue = question.class;
 
   return (
     <Stack direction="column" spacing={2}>
@@ -32,15 +31,15 @@ function QuestionCardDetails({ question }) {
       <QuestionCardDetailItem
         iconName="questionAnswer"
         label={t('questions.questionText')}
-        value={question.question || t('questions.emptyQuestion')}
-        show={!!question.question}
+        value={question.text || t('questions.emptyQuestion')}
+        show={!!question.text}
       />
 
       {/* Multiple Choice: Choices - Display in 2 rows, 2 choices per row */}
-      {type === 'multipleChoice' && <QuestionChoices question={question} />}
+      {type === 'MultipleChoice' && <QuestionChoices question={question} />}
 
-      {/* True/False: Correct Answer */}
-      {type === 'trueFalse' && <TrueFalseAnswer question={question} />}
+      {/* True/False: Show available choices as well */}
+      {type === 'TrueFalse' && <QuestionChoices question={question} />}
 
       {/* Question Image */}
 
@@ -48,9 +47,9 @@ function QuestionCardDetails({ question }) {
       {SETTINGS_FIELDS.map((field) => renderSetting(field))}
 
       {/* Ministerial Fields */}
-      {category === 'Ministerial' && MINISTERIAL_FIELDS.map((field) => renderSetting(field))}
+      {classValue === 'Ministerial' && MINISTERIAL_FIELDS.map((field) => renderSetting(field))}
 
-      {question.questionImage && (
+      {question.imageUrl && (
         <Stack spacing={3} alignItems="center" justifyContent="center">
           <Stack direction="row" spacing={1} alignItems="center">
             <Typography variant="body1" component="span" fontWeight={700}>
@@ -59,7 +58,7 @@ function QuestionCardDetails({ question }) {
             <Icon name="arrowDownLines" color={theme.palette.primary.main} />
           </Stack>
 
-          <QuestionImage image={question.questionImage} />
+          <QuestionImage image={question.imageUrl} />
         </Stack>
       )}
     </Stack>

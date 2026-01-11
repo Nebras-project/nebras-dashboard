@@ -8,5 +8,5 @@ export {
   choicesRenderer,
   imageRenderer,
   typeRenderer,
-  categoryRenderer,
+  classRenderer,
 } from './renderers';

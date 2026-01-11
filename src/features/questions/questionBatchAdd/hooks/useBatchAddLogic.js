@@ -1,5 +1,8 @@
 import { useState, useCallback, useMemo, useId } from 'react';
-import { useConfirmDialog, useTranslation } from '@hooks';
+import { useQueryClient } from '@tanstack/react-query';
+import { useConfirmDialog, useTranslation, useToast } from '@hooks';
+import { QUERY_KEYS } from '@config';
+import { getErrorMessage } from '@utils';
 import { useSavedQuestions } from './useSavedQuestions';
 import { useBatchQuestionForm } from './useBatchQuestionForm';
 import { hasFormData } from '../../question/utils';
@@ -12,7 +15,8 @@ import { createQuestions } from '../../question/services/questionsApi';
  */
 export const useBatchAddLogic = ({ open, onClose, onSuccess }) => {
   const { t } = useTranslation();
-  const { t: tForm } = useTranslation();
+  const { success, error: showError } = useToast();
+  const queryClient = useQueryClient();
   const formId = useId();
   const [previewOpen, setPreviewOpen] = useState(false);
   const { open: confirmOpen, show: showConfirm, close: closeConfirm } = useConfirmDialog();
@@ -148,16 +152,67 @@ export const useBatchAddLogic = ({ open, onClose, onSuccess }) => {
       if (allQuestions.length === 0) return;
 
       // Create questions one at a time
-      // Error handling is done by the API interceptor (toast notifications)
       const results = [];
+      const errors = [];
+
       for (const question of allQuestions) {
-        const result = await createQuestions(question);
-        results.push(result);
+        try {
+          console.log('Creating question:', question);
+          const result = await createQuestions(question);
+          results.push(result);
+        } catch (error) {
+          errors.push(error);
+          // Continue with other questions even if one fails
+        }
       }
-      onSuccess?.(results);
-      handleClose();
+
+      // Invalidate queries to refetch the list
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.QUESTIONS] });
+
+      // Show success or error message
+      if (errors.length === 0) {
+        // All questions created successfully
+        success({
+          message: t('questions.batchCreateSuccessMessage', { count: results.length }),
+        });
+        onSuccess?.(results);
+        handleClose();
+      } else if (results.length > 0) {
+        // Some succeeded, some failed
+        const errorMessage = errors[0]
+          ? getErrorMessage(errors[0])
+          : t('questions.batchCreatePartialErrorMessage');
+        showError({
+          message: t('questions.batchCreatePartialSuccessMessage', {
+            successCount: results.length,
+            totalCount: allQuestions.length,
+            error: errorMessage,
+          }),
+        });
+        onSuccess?.(results);
+        handleClose();
+      } else {
+        // All failed
+        const errorMessage = errors[0]
+          ? getErrorMessage(errors[0])
+          : t('questions.batchCreateErrorMessage');
+        showError({
+          message: errorMessage,
+        });
+        // Don't close dialog on complete failure so user can try again
+      }
     },
-    [getFormData, prepareQuestionsForSave, onSuccess, formRef, handleClose]
+    [
+      getFormData,
+      prepareQuestionsForSave,
+      onSuccess,
+      formRef,
+      handleClose,
+      queryClient,
+      success,
+      showError,
+      t,
+    ]
   );
 
   // Calculate total questions count
@@ -179,9 +234,8 @@ export const useBatchAddLogic = ({ open, onClose, onSuccess }) => {
       formId,
       showCloseButton: true,
       onClose: handleClose,
-      t: tForm,
     }),
-    [formId, t, tForm, handleClose]
+    [formId, t, handleClose]
   );
 
   return {

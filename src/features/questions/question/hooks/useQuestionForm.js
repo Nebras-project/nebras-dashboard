@@ -4,7 +4,7 @@ import { QUERY_KEYS } from '@config';
 import { FORM_DEFAULTS } from '@components/forms/constants';
 
 // internal imports
-import { filterQuestionData, getChoiceValue } from '../utils';
+import { filterQuestionData, getChoiceValue, deriveCorrectAnswer } from '../utils';
 import { createQuestions, updateQuestion } from '../services/questionsApi';
 
 /**
@@ -24,17 +24,18 @@ const buildDefaultValues = (values) => {
   return {
     // Question Settings Fields (always displayed)
     type: values.type || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
-    category: values.category || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
-    curriculumId: values.curriculumId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
+    class: values.class || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
+    gradeId: values.gradeId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
     subjectId: values.subjectId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
     unitId: values.unitId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
     lessonId: values.lessonId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
     formId: values.formId || FORM_DEFAULTS.SELECT_DEFAULT_VALUE,
 
     // Question Content Fields (displayed based on type)
-    question: values.question || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
-    questionImage: values.questionImage || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
-    correctAnswer: values.correctAnswer || FORM_DEFAULTS.RADIO_DEFAULT_VALUE,
+    text: values.text || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
+    imageUrl: values.imageUrl || FORM_DEFAULTS.TEXT_INPUT_DEFAULT_VALUE,
+    imageId: values.imageId || null,
+    correctAnswer: deriveCorrectAnswer(values) || FORM_DEFAULTS.RADIO_DEFAULT_VALUE,
 
     // Multiple Choice Fields (displayed when type === 'MultipleChoice')
     choiceA: getChoiceValue(values, 'choiceA'),
@@ -71,8 +72,8 @@ export const useQuestionForm = ({
     updateFn: ({ id, data }) => updateQuestionWithFilter(id, data),
     buildDefaultValues,
     entityName: 'questions',
-    getItemName: (data) => {
-      const question = data.question || '';
+    getItemName: (data, variables) => {
+      const question = variables.text || data.text || '';
       return question || 'Question';
     },
   });

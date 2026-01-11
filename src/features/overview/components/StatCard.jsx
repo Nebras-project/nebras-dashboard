@@ -1,58 +1,70 @@
-import { Card, CardContent, Stack, Box, Typography } from '@mui/material';
-import { memo } from 'react';
-import { Icon } from '@components';
+// external imports
+import { Card, CardContent, Box, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
+import { alpha } from '@mui/material/styles';
 
-const StatCard = memo(function StatCard({ title, value, icon, color = 'primary', trend }) {
+// internal imports
+import { Icon } from '@components';
+import { borderRadius } from '@theme/components';
+import { fontWeights } from '@theme/typography';
+import { padding } from '@constants';
+function StatCard({ icon, count, text, color = 'primary', sx = {} }) {
   return (
     <Card
+      variant="elevation"
       sx={{
         height: '100%',
-        transition: 'transform 0.2s',
-        '&:hover': { transform: 'translateY(-4px)' },
+        minWidth: 200,
+        position: 'relative',
+        ...sx,
       }}
     >
-      <CardContent>
-        <Stack spacing={2}>
-          {/* Icon Box */}
-          <Box
-            sx={{
-              width: 56,
-              height: 56,
-              borderRadius: 2,
-              bgcolor: `${color}.main`,
-              color: 'white',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 12,
+          right: 12,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: 40,
+          height: 40,
+          borderRadius: borderRadius.md,
+          bgcolor: (theme) => alpha(theme.palette[color].main, 0.12),
+          color: `${color}.main`,
+        }}
+      >
+        <Icon name={icon} size={20} />
+      </Box>
+      <CardContent sx={{ ...padding.all.lg }}>
+        <Box>
+          <Typography
+            variant="h3"
+            fontWeight={fontWeights.bold}
+            color="text.primary"
+            sx={{ lineHeight: 1.1, mb: 0.5 }}
           >
-            <Icon name={icon} size={28} />
-          </Box>
-
-          {/* Value & Title */}
-          <Box>
-            <Stack direction="row" alignItems="baseline" spacing={1}>
-              <Typography variant="h4" fontWeight="bold">
-                {value}
-              </Typography>
-              {trend && (
-                <Typography
-                  variant="caption"
-                  color={trend > 0 ? 'success.main' : 'error.main'}
-                  fontWeight="medium"
-                >
-                  {trend > 0 ? `+${trend}` : trend}%
-                </Typography>
-              )}
-            </Stack>
-            <Typography variant="body2" color="text.secondary">
-              {title}
-            </Typography>
-          </Box>
-        </Stack>
+            {count ?? 0}
+          </Typography>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ fontWeight: fontWeights.medium }}
+          >
+            {text}
+          </Typography>
+        </Box>
       </CardContent>
     </Card>
   );
-});
+}
+
+StatCard.propTypes = {
+  icon: PropTypes.string.isRequired,
+  count: PropTypes.number.isRequired,
+  text: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  sx: PropTypes.object.isRequired,
+};
 
 export default StatCard;

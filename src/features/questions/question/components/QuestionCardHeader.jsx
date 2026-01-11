@@ -6,7 +6,7 @@ import QuestionCardActions from './QuestionCardActions';
 /**
  * QuestionCardHeader Component
  *
- * Single Responsibility: Render question card header with number, type, category, and actions
+ * Single Responsibility: Render question card header with number, type, class, and actions
  */
 function QuestionCardHeader({ question, questionNumber, onEdit, onDelete }) {
   const { t } = useTranslation();
@@ -26,15 +26,15 @@ function QuestionCardHeader({ question, questionNumber, onEdit, onDelete }) {
         </Typography>
         {question.type && (
           <Chip
-            label={t(`questions.types.${question.type}`)}
+            label={t(`questions.types.${question.type.toLowerCase()}`)}
             size="small"
             color="info"
             variant="filled"
           />
         )}
-        {question.category && (
+        {question.class && (
           <Chip
-            label={t(`questions.categories.${question.category}`)}
+            label={t(`questions.classes.${question.class.toLowerCase()}`)}
             size="small"
             color="warning"
             variant="filled"

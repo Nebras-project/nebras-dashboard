@@ -19,8 +19,11 @@ import { fetchQuestionById, fetchQuestions } from '../services/questionsApi';
  * @returns {Object} Query object with question(s) data and state
  */
 export const useQuestion = ({ questionId, queryString, params, enabled = true, onError } = {}) => {
-  // Build query key
-  const queryKey = questionId ? [QUERY_KEYS.QUESTIONS, questionId] : [QUERY_KEYS.QUESTIONS];
+  // Build query key - include query args so filters trigger refetch
+  const paramsKey = params ? JSON.stringify(params) : null;
+  const queryKey = questionId
+    ? [QUERY_KEYS.QUESTIONS, questionId]
+    : [QUERY_KEYS.QUESTIONS, queryString || '', paramsKey];
 
   // Fetch single question or list of questions
   const { data, isLoading, isError, error, refetch } = useQuery({
@@ -39,7 +42,8 @@ export const useQuestion = ({ questionId, queryString, params, enabled = true, o
   // Return with question-specific property names
   return {
     question: questionId ? data : undefined,
-    questions: questionId ? undefined : data,
+    questions: questionId ? undefined : data?.data || [],
+    totalCount: questionId ? undefined : data?.totalCount || 0,
     isLoading,
     isError,
     error,

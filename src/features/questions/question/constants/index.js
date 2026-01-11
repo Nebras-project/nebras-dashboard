@@ -25,19 +25,19 @@ export const QUESTION_FORM_CARD_STYLES = (mode) => ({
  * @returns {Array} Array of type options with value and label
  */
 export const getQuestionTypeOptions = (t) => [
-  { value: 'multipleChoice', label: t('questions.types.multipleChoice') },
-  { value: 'trueFalse', label: t('questions.types.trueFalse') },
+  { value: 'MultipleChoice', label: t('questions.types.multiplechoice') },
+  { value: 'TrueFalse', label: t('questions.types.truefalse') },
 ];
 
 /**
- * Get predefined category options for question filters
+ * Get predefined class options for question filters
  *
  * @param {Function} t - Translation function
- * @returns {Array} Array of category options with value and label
+ * @returns {Array} Array of class options with value and label
  */
-export const getQuestionCategoryOptions = (t) => [
-  { value: 'ministerial', label: t('questions.categories.ministerial') },
-  { value: 'enrichment', label: t('questions.categories.enrichment') },
+export const getQuestionClassOptions = (t) => [
+  { value: 'Ministerial', label: t('questions.classes.ministerial') },
+  { value: 'Enrichment', label: t('questions.classes.enrichment') },
 ];
 
 /**
@@ -88,16 +88,16 @@ export const CHOICE_KEYS = ['choiceA', 'choiceB', 'choiceC', 'choiceD'];
 
 export const SETTINGS_FIELDS = [
   {
-    key: 'curriculumId',
+    key: 'gradeName',
     icon: 'school',
-    label: 'questions.curriculum',
+    label: 'questions.grade',
   },
-  { key: 'subjectId', icon: 'book', label: 'questions.subject' },
-  { key: 'unitId', icon: 'libraryBooks', label: 'questions.unit' },
-  { key: 'lessonId', icon: 'autoStories', label: 'questions.lesson' },
+  { key: 'subjectName', icon: 'book', label: 'questions.subject' },
+  { key: 'unitName', icon: 'libraryBooks', label: 'questions.unit' },
+  { key: 'lessonName', icon: 'autoStories', label: 'questions.lesson' },
 ];
 
 export const MINISTERIAL_FIELDS = [
-  { key: 'year', icon: 'calendarToday', label: 'questions.year' },
+  { key: 'formYear', icon: 'numbers', label: 'questions.formYear' },
   { key: 'formNumber', icon: 'numbers', label: 'questions.formNumber' },
 ];

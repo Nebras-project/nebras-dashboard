@@ -14,33 +14,40 @@ import QuestionFilterActions from './QuestionFilterActions';
  * Single Responsibility: UI composition for question filtering using reusable components
  * Filters are sent to backend via filterParams
  */
-function QuestionFilter({ onFilterChange, questions = [], actions }) {
+function QuestionFilter({ onFilterChange, actions }) {
   const { t } = useTranslation();
 
   // Filter state management - filters are sent to backend
   const {
     searchTerm,
     type,
-    category,
-    lesson,
-    curriculum,
-    subject,
-    unit,
+    classValue,
+    lessonId,
+    gradeId,
+    subjectId,
+    unitId,
+    formId,
     addedBy,
     hasActiveFilters,
     showFilters,
     filterOptions,
     setSearchTerm,
     setType,
-    setCategory,
-    setLesson,
-    setCurriculum,
-    setSubject,
-    setUnit,
+    setClass,
+    setLessonId,
+    setGradeId,
+    setSubjectId,
+    setUnitId,
+    setFormId,
     setAddedBy,
+    isLoadingGrades,
+    isLoadingSubjects,
+    isLoadingUnits,
+    isLoadingLessons,
+    isLoadingForms,
     handleClearFilters,
     handleToggleFilters,
-  } = useQuestionFilter(onFilterChange, questions);
+  } = useQuestionFilter(onFilterChange);
 
   return (
     <Box>
@@ -77,41 +84,54 @@ function QuestionFilter({ onFilterChange, questions = [], actions }) {
             />
 
             <FilterSelect
-              label={t('questions.filter.category')}
-              value={category}
-              onChange={setCategory}
-              options={filterOptions.categories}
-              allLabel={t('questions.filter.allCategories')}
+              label={t('questions.filter.class')}
+              value={classValue}
+              onChange={setClass}
+              options={filterOptions.classes}
+              allLabel={t('questions.filter.allClasses')}
             />
 
             <FilterSelect
-              label={t('questions.filter.curriculum')}
-              value={curriculum}
-              onChange={setCurriculum}
-              options={filterOptions.curriculums}
-              allLabel={t('questions.filter.allCurricula')}
+              label={t('questions.form')}
+              value={formId}
+              onChange={setFormId}
+              options={filterOptions.forms}
+              disabled={classValue !== 'Ministerial' || isLoadingForms}
+              allLabel={t('questions.filter.allForms')}
+            />
+
+            <FilterSelect
+              label={t('questions.filter.grade')}
+              value={gradeId}
+              onChange={setGradeId}
+              options={filterOptions.grades}
+              disabled={isLoadingGrades}
+              allLabel={t('questions.filter.allGrades')}
             />
             <FilterSelect
               label={t('questions.filter.subject')}
-              value={subject}
-              onChange={setSubject}
+              value={subjectId}
+              onChange={setSubjectId}
               options={filterOptions.subjects}
+              disabled={!gradeId || isLoadingSubjects}
               allLabel={t('questions.filter.allSubjects')}
             />
 
             <FilterSelect
               label={t('questions.filter.unit')}
-              value={unit}
-              onChange={setUnit}
+              value={unitId}
+              onChange={setUnitId}
               options={filterOptions.units}
+              disabled={!gradeId || !subjectId || isLoadingUnits}
               allLabel={t('questions.filter.allUnits')}
             />
 
             <FilterSelect
               label={t('questions.filter.lesson')}
-              value={lesson}
-              onChange={setLesson}
+              value={lessonId}
+              onChange={setLessonId}
               options={filterOptions.lessons}
+              disabled={!gradeId || !subjectId || !unitId || isLoadingLessons}
               allLabel={t('questions.filter.allLessons')}
             />
 

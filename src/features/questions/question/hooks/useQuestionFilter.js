@@ -4,7 +4,12 @@ import { useDebouncedFilter } from '@components';
 import { useTranslation } from '@hooks';
 
 // internal imports
-import { getQuestionTypeOptions, getQuestionCategoryOptions } from '../constants';
+import { getQuestionTypeOptions, getQuestionClassOptions } from '../constants';
+import { useGrade } from '../../../grades/hooks';
+import { useSubjects } from '../../../subjects/hooks';
+import { useUnits } from '../../../units/hooks';
+import { useLessons } from '../../../lessons/hooks';
+import { useMinisterialForm } from '../../ministerialForms/hooks/useMinisterialForm';
 
 /**
  * useQuestionFilter Hook
@@ -19,95 +24,107 @@ import { getQuestionTypeOptions, getQuestionCategoryOptions } from '../constants
  * @param {number} debounceMs - Debounce delay in milliseconds (default: 500)
  * @returns {Object} Filter state and handlers
  */
-export const useQuestionFilter = (onFilterChange, questions = [], debounceMs = 500) => {
+export const useQuestionFilter = (onFilterChange, debounceMs = 500) => {
   const { t } = useTranslation();
   const [showFilters, setShowFilters] = useState(false);
 
-  // Use debounced filter for all filters (search, type, category, lesson, curriculum, subject, unit, addedBy)
+  // Use debounced filter for all filters (search, type, class, lesson, curriculum, subject, unit, addedBy)
   const { filters, hasActiveFilters, updateFilter, clearAllFilters } = useDebouncedFilter(
     {
-      questionName: '',
-      type: '',
-      category: '',
-      lesson: '',
-      curriculum: '',
-      subject: '',
-      unit: '',
-      addedBy: '',
+      Text: '',
+      Type: '',
+      Class: '',
+      LessonId: '',
+      GradeId: '',
+      SubjectId: '',
+      UnitId: '',
+      FormId: '',
+      AddedBy: '',
     },
     onFilterChange, // This will be called with cleaned params after debounce
     debounceMs
   );
 
-  const searchTerm = filters.questionName || '';
-  const type = filters.type || '';
-  const category = filters.category || '';
-  const lesson = filters.lesson || '';
-  const curriculum = filters.curriculum || '';
-  const subject = filters.subject || '';
-  const unit = filters.unit || '';
-  const addedBy = filters.addedBy || '';
+  const searchTerm = filters.Text || '';
+  const type = filters.Type || '';
+  const classValue = filters.Class || '';
+  const lessonId = filters.LessonId || '';
+  const gradeId = filters.GradeId || '';
+  const subjectId = filters.SubjectId || '';
+  const unitId = filters.UnitId || '';
+  const formId = filters.FormId || '';
+  const addedBy = filters.AddedBy || '';
 
-  // Predefined options for type and category filters
+  const { gradeOptions: grades = [], isLoading: isLoadingGrades } = useGrade();
+  const { subjectOptions: subjects = [], isLoading: isLoadingSubjects } = useSubjects({
+    gradeId,
+    enabled: !!gradeId,
+  });
+  const { unitOptions: units = [], isLoading: isLoadingUnits } = useUnits({
+    gradeId,
+    subjectId,
+    enabled: !!gradeId && !!subjectId,
+  });
+  const { lessonOptions: lessons = [], isLoading: isLoadingLessons } = useLessons({
+    gradeId,
+    subjectId,
+    unitId,
+    enabled: !!gradeId && !!subjectId && !!unitId,
+  });
+  const { formOptions: forms = [], isLoading: isLoadingForms } = useMinisterialForm();
+
+  // Predefined options for type and class filters
   const typeOptions = useMemo(() => getQuestionTypeOptions(t), [t]);
-  const categoryOptions = useMemo(() => getQuestionCategoryOptions(t), [t]);
+  const classOptions = useMemo(() => getQuestionClassOptions(t), [t]);
 
   // Get unique values for filter options from questions data
   // Note: In a real app, these might come from a separate API endpoint
   const filterOptions = useMemo(() => {
-    if (!questions || questions.length === 0) {
-      return {
-        types: typeOptions,
-        categories: categoryOptions,
-        lessons: [],
-        curriculums: [],
-        subjects: [],
-        units: [],
-        addedBys: [],
-      };
-    }
-
-    const lessons = [
-      ...new Set(questions.map((q) => q.lesson || q.Lesson || q.lessonName || q.LessonName)),
-    ].filter(Boolean);
-    const curriculums = [...new Set(questions.map((q) => q.curriculum || q.Curriculum))].filter(
-      Boolean
-    );
-    const subjects = [
-      ...new Set(questions.map((q) => q.subject || q.Subject || q.subjectName || q.SubjectName)),
-    ].filter(Boolean);
-    const units = [
-      ...new Set(questions.map((q) => q.unit || q.Unit || q.unitName || q.UnitName)),
-    ].filter(Boolean);
-    const addedBys = [
-      ...new Set(
-        questions.map(
-          (q) =>
-            q.addedBy || q.AddedBy || q.addedByName || q.AddedByName || q.createdBy || q.CreatedBy
-        )
-      ),
-    ].filter(Boolean);
-
     return {
       types: typeOptions,
-      categories: categoryOptions,
+      classes: classOptions,
       lessons,
-      curriculums,
+      grades,
       subjects,
       units,
-      addedBys,
+      addedBys: [],
+      forms,
     };
-  }, [questions, typeOptions, categoryOptions]);
+  }, [typeOptions, classOptions, lessons, grades, subjects, units, forms]);
 
   // Convenience setters
-  const setSearchTerm = (value) => updateFilter('questionName', value);
-  const setType = (value) => updateFilter('type', value);
-  const setCategory = (value) => updateFilter('category', value);
-  const setLesson = (value) => updateFilter('lesson', value);
-  const setCurriculum = (value) => updateFilter('curriculum', value);
-  const setSubject = (value) => updateFilter('subject', value);
-  const setUnit = (value) => updateFilter('unit', value);
-  const setAddedBy = (value) => updateFilter('addedBy', value);
+  const setSearchTerm = (value) => updateFilter('Text', value);
+  const setType = (value) => updateFilter('Type', value);
+  const setClass = (value) => {
+    updateFilter('Class', value);
+    if (value !== 'Ministerial') {
+      updateFilter('FormId', '');
+    }
+  };
+  const setLessonId = (value) => updateFilter('LessonId', value);
+  const setGradeId = (value) => {
+    updateFilter('GradeId', value);
+    if (value) {
+      updateFilter('SubjectId', '');
+      updateFilter('UnitId', '');
+      updateFilter('LessonId', '');
+    }
+  };
+  const setSubjectId = (value) => {
+    updateFilter('SubjectId', value);
+    if (value) {
+      updateFilter('UnitId', '');
+      updateFilter('LessonId', '');
+    }
+  };
+  const setUnitId = (value) => {
+    updateFilter('UnitId', value);
+    if (value) {
+      updateFilter('LessonId', '');
+    }
+  };
+  const setFormId = (value) => updateFilter('FormId', value);
+  const setAddedBy = (value) => updateFilter('AddedBy', value);
 
   const handleClearFilters = () => {
     clearAllFilters();
@@ -121,25 +138,33 @@ export const useQuestionFilter = (onFilterChange, questions = [], debounceMs = 5
     // Filter values (for controlled inputs)
     searchTerm,
     type,
-    category,
-    lesson,
-    curriculum,
-    subject,
-    unit,
+    classValue,
+    lessonId,
+    gradeId,
+    subjectId,
+    unitId,
+    formId,
     addedBy,
     // State
     hasActiveFilters,
     showFilters,
     // Filter options
     filterOptions,
+    // Loading flags
+    isLoadingGrades,
+    isLoadingSubjects,
+    isLoadingUnits,
+    isLoadingLessons,
+    isLoadingForms,
     // Handlers
     setSearchTerm,
     setType,
-    setCategory,
-    setLesson,
-    setCurriculum,
-    setSubject,
-    setUnit,
+    setClass,
+    setLessonId,
+    setGradeId,
+    setSubjectId,
+    setUnitId,
+    setFormId,
     setAddedBy,
     handleClearFilters,
     handleToggleFilters,

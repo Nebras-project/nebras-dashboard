@@ -12,7 +12,7 @@ function QuestionCardActions({ question, onEdit, onDelete }) {
   const { t } = useTranslation();
 
   const handleDelete = (q) => {
-    onDelete(q.id);
+    onDelete(q);
   };
 
   const getQuestionName = (q) => {
