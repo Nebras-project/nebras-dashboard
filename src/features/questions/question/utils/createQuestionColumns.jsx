@@ -44,10 +44,6 @@ const QUESTION_COLUMN_DEFINITIONS = {
     filterable: false,
     sortable: true,
   },
-  addedBy: {
-    filterable: false,
-    sortable: true,
-  },
 };
 
 export default function createQuestionColumns({
@@ -86,10 +82,6 @@ export default function createQuestionColumns({
     class: {
       ...overrides.class,
       renderCell: overrides.class?.renderCell || classRenderer(t),
-    },
-    addedBy: {
-      ...overrides.addedBy,
-      description: t('users.contentManager'),
     },
   };
 

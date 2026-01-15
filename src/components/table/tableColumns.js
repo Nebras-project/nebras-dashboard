@@ -152,12 +152,6 @@ const columnRegistry = {
     minWidth: 160,
     flex: 1,
   },
-  addedBy: {
-    field: 'addedBy',
-    headerKey: 'table.columnHeaders.questions.addedBy',
-    minWidth: 200,
-    flex: 1,
-  },
   actions: (options = {}) => {
     const width = options.actionsWidth ?? 80;
     const renderActions = options.renderActions ?? options.actionsRenderer;
@@ -312,7 +306,6 @@ export function buildQuestionColumns(options = {}) {
     'unit',
     'lesson',
     'yearForm',
-    'addedBy',
   ];
 
   // Filter out columns that have hide: true in overrides
