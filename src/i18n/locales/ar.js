@@ -149,6 +149,11 @@ const ar = {
     totalCompetitions: 'إجمالي المسابقات',
     activeCompetitions: 'المسابقات النشطة',
     upcomingCompetitions: 'المسابقات القادمة',
+    ownerOverview: 'نظرة عامة للمالك',
+    adminOverview: 'نظرة عامة للمسؤول الإداري',
+    gradeOverview: 'نظرة عامة  لمدير الصفوف الدراسية و المناهج',
+    competitionOverview: 'نظرة عامة لمدير المسابقات',
+    contentOverview: 'نظرة عامة لمدير المحتوى',
   },
 
   // Users & Roles
@@ -328,6 +333,8 @@ const ar = {
     enrichmentQuestion: 'سؤال إثرائي',
     questionBank: 'بنك الأسئلة',
     totalQuestions: 'إجمالي الأسئلة',
+    totalMinisterialQuestions: ' الأسئلة الوزارية',
+    totalEnrichmentQuestions: ' الأسئلة الإثرائية',
     questionsWithImages: 'أسئلة بصور',
     lesson: 'الدرس',
     class: 'الفئة',

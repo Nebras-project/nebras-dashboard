@@ -1,33 +1,33 @@
 import { useAuth } from '@hooks';
+import { useMemo } from 'react';
 import {
   OwnerOverview,
-  CurriculumOverview,
+  GradeOverview,
   CompetitionOverview,
   ContentOverview,
+  AdminOverview,
 } from '../components';
+import { getOverviewStatisticsByRole } from '../config/overviewConfig';
 
 function OverviewPage() {
   const { role } = useAuth();
+  const counters = useMemo(() => getOverviewStatisticsByRole(role), [role]);
 
   // Render appropriate overview based on role
   const renderOverview = () => {
     switch (role) {
       case 'owner':
-      case 'general_admin':
-        return <OwnerOverview />;
+        return <OwnerOverview counters={counters} />;
+      case 'generalAdmin':
+        return <AdminOverview counters={counters} />;
+      case 'gradeManager':
+        return <GradeOverview counters={counters} />;
 
-      case 'curriculum_manager':
-        return <CurriculumOverview />;
+      case 'competitionManager':
+        return <CompetitionOverview counters={counters} />;
 
-      case 'competition_manager':
-        return <CompetitionOverview />;
-
-      case 'content_manager':
-        return <ContentOverview />;
-
-      default:
-        // Fallback: show owner overview for undefined roles
-        return <OwnerOverview />;
+      case 'contentManager':
+        return <ContentOverview counters={counters} />;
     }
   };
 

@@ -150,6 +150,11 @@ const en = {
     totalCompetitions: 'Total Competitions',
     activeCompetitions: 'Active Competitions',
     upcomingCompetitions: 'Upcoming Competitions',
+    ownerOverview: 'Owner Overview',
+    adminOverview: 'Admin Overview',
+    gradeOverview: 'Grades Overview',
+    competitionOverview: 'Competitions Overview',
+    contentOverview: 'Content Overview',
   },
 
   // Users & Roles
@@ -331,6 +336,8 @@ const en = {
     enrichmentQuestion: 'Enrichment Question',
     questionBank: 'Question Bank',
     totalQuestions: 'Total Questions',
+    totalMinisterialQuestions: 'Ministerial Questions',
+    totalEnrichmentQuestions: 'Enrichment Questions',
     questionsWithImages: 'Questions with Images',
     lesson: 'Lesson',
     class: 'Class',

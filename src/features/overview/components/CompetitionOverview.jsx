@@ -1,18 +1,19 @@
-import { Typography, Box, Container } from '@mui/material';
+import { useTranslation } from '@hooks';
+import StatsGrid from './StatsGrid';
 import { PageLayout } from '@components';
+import PropTypes from 'prop-types';
 
-function CompetitionOverview() {
+function CompetitionOverview({ counters = [] }) {
+  const { t } = useTranslation();
   return (
-    <PageLayout title="Competition Overview" description="Competition Overview">
-      <Container maxWidth="lg" sx={{ py: 4 }}>
-        <Box sx={{ textAlign: 'center', py: 8, color: 'text.secondary' }}>
-          <Typography variant="body2" sx={{ mt: 1 }}>
-            This is the competition overview.
-          </Typography>
-        </Box>
-      </Container>
+    <PageLayout title={t('navigation.dashboard')} description={t('dashboard.competitionOverview')}>
+      <StatsGrid counters={counters} t={t} spacing={3} />
     </PageLayout>
   );
 }
+
+CompetitionOverview.propTypes = {
+  counters: PropTypes.array,
+};
 
 export default CompetitionOverview;
