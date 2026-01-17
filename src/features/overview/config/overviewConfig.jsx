@@ -58,7 +58,7 @@ export const overviewStatistics = {
     counter: 14,
     counterKey: 'forms',
     text: 'ministerialForms.forms',
-    path: `${NAVIGATION_PATHS.QUESTIONS.BASE}?tab=forms`,
+    path: NAVIGATION_PATHS.FORMS.BASE,
   },
   grades: {
     icon: 'school',

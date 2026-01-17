@@ -47,6 +47,10 @@ export const NAVIGATION_PATHS = {
     BY_ID: (id) => `/questions/${id}`,
   },
 
+  FORMS: {
+    BASE: `/questions?tab=forms`,
+  },
+
   // Grades (Root of the hierarchy)
   // Hierarchy: Grade → Subject → Unit → Lesson
   GRADES: {

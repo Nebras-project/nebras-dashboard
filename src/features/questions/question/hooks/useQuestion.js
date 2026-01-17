@@ -43,7 +43,7 @@ export const useQuestion = ({ questionId, queryString, params, enabled = true, o
   return {
     question: questionId ? data : undefined,
     questions: questionId ? undefined : data?.data || [],
-    totalCount: questionId ? undefined : data?.totalCount || 0,
+    totalCount: questionId ? undefined : data?.totalCount,
     isLoading,
     isError,
     error,

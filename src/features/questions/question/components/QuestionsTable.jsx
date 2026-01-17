@@ -30,6 +30,7 @@ function QuestionsTable({ customFilters = {}, onEdit, tableRef }) {
     queryString,
   });
 
+
   // Delete question hook
   const { deleteQuestion } = useDeleteQuestion();
 
@@ -80,14 +81,15 @@ function QuestionsTable({ customFilters = {}, onEdit, tableRef }) {
   return (
     <Table
       ref={tableRef}
-      rows={questions || []}
+      rows={questions}
       columns={columns}
-      rowCount={totalCount || 0}
+      rowCount={totalCount}
       onRowClick={handleRowClick}
       paginationModel={paginationModel}
       onPaginationModelChange={handlePaginationModelChange}
       sortModel={sortModel}
       onSortModelChange={handleSortModelChange}
+      getRowId={(row) => row.id || Math.random()}
       loading={isLoading}
       disableRowSelectionOnClick
       sx={getTopTableStyles()}
