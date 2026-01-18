@@ -18,6 +18,7 @@ export const useDeleteStudent = ({ onSuccess, onError } = {}) => {
   const { deleteItem, deleteItemAsync, isLoading, isError, error } = useDelete({
     deleteFn: (student) => deleteStudentApi(student.id),
     queryKey: [QUERY_KEYS.STUDENTS],
+    additionalQueryKeys: [QUERY_KEYS.OVERVIEW_STATS],
     entityName: 'students',
     getItemName: (student, variables) => {
       const name = getStudentName(variables);

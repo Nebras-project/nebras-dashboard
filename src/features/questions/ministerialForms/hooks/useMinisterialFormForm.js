@@ -26,6 +26,7 @@ export const useMinisterialFormForm = ({
 } = {}) => {
   const { formDefaultValues, handleSubmit, isLoading, isError, error } = useEntityForm({
     queryKey: QUERY_KEYS.MINISTERIAL_FORMS,
+    additionalQueryKeys: [QUERY_KEYS.OVERVIEW_STATS],
     defaultValues,
     isEdit,
     onSuccess,

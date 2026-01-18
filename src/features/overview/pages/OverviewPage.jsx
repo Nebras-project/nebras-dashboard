@@ -8,10 +8,16 @@ import {
   AdminOverview,
 } from '../components';
 import { getOverviewStatisticsByRole } from '../config/overviewConfig';
+import { useOverview } from '../hooks/useOverview';
 
 function OverviewPage() {
   const { role } = useAuth();
-  const counters = useMemo(() => getOverviewStatisticsByRole(role), [role]);
+
+  const overviewStats = useOverview();
+  const counters = useMemo(
+    () => getOverviewStatisticsByRole(role, overviewStats),
+    [role, overviewStats]
+  );
 
   // Render appropriate overview based on role
   const renderOverview = () => {

@@ -63,7 +63,8 @@ export const useQuestionForm = ({
   onError,
 } = {}) => {
   const { formDefaultValues, handleSubmit, isLoading, isError, error } = useEntityForm({
-    queryKey: QUERY_KEYS.QUESTIONS || 'questions', // TODO: Add to QUERY_KEYS
+    queryKey: QUERY_KEYS.QUESTION,
+    additionalQueryKeys: [QUERY_KEYS.OVERVIEW_STATS],
     defaultValues,
     isEdit,
     onSuccess,

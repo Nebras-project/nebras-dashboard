@@ -24,6 +24,7 @@ export const QUERY_KEYS = {
   LESSONS: 'lessons',
   CURRENT_USER: 'currentUser',
   MINISTERIAL_FORMS: 'ministerialForms',
+  OVERVIEW_STATS: 'overviewStats',
 };
 
 /**

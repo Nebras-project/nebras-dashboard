@@ -18,6 +18,7 @@ export const useDeleteAdmin = ({ onSuccess, onError } = {}) => {
   const { deleteItem, deleteItemAsync, isLoading, isError, error } = useDelete({
     deleteFn: (admin) => deleteAdminApi(admin.userId),
     queryKey: [QUERY_KEYS.ADMINS],
+    additionalQueryKeys: [QUERY_KEYS.OVERVIEW_STATS],
     entityName: 'admins',
     getItemName: (data, variables) => {
       const nameFromVars = getAdminName(variables);

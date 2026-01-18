@@ -35,7 +35,7 @@ export const useStudentForm = ({ defaultValues = {}, isEdit = false, onSuccess, 
 
   const { formDefaultValues, handleSubmit, isLoading, isError, error } = useEntityForm({
     queryKey: QUERY_KEYS.STUDENTS,
-    additionalQueryKeys: [QUERY_KEYS.GRADES],
+    additionalQueryKeys: [QUERY_KEYS.GRADES, QUERY_KEYS.OVERVIEW_STATS],
     defaultValues,
     isEdit,
     onSuccess,

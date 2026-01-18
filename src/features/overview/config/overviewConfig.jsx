@@ -1,12 +1,13 @@
 import { ROLES } from '@utils/roleUtils';
 import { NAVIGATION_PATHS } from '@constants';
+import { counterKeyToValue } from '../utils';
 
 // Base overview counters configuration
 export const overviewStatistics = {
   admins: {
     icon: 'adminPanel',
     color: 'amber',
-    counter: 64,
+    counter: 0,
     counterKey: 'admins',
     text: 'navigation.admins',
     path: NAVIGATION_PATHS.ADMINS.BASE,
@@ -14,7 +15,7 @@ export const overviewStatistics = {
   managers: {
     icon: 'manageAccounts',
     color: 'primary',
-    counter: 10,
+    counter: 0,
     counterKey: 'managers',
     text: 'navigation.managers',
     path: NAVIGATION_PATHS.MANAGERS.BASE,
@@ -22,7 +23,7 @@ export const overviewStatistics = {
   students: {
     icon: 'groups',
     color: 'info',
-    counter: 55,
+    counter: 0,
     counterKey: 'students',
     text: 'navigation.students',
     path: NAVIGATION_PATHS.STUDENTS.BASE,
@@ -31,7 +32,7 @@ export const overviewStatistics = {
   ministerialQuestions: {
     icon: 'gavel',
     color: 'warning',
-    counter: 100,
+    counter: 0,
     counterKey: 'ministerialQuestions',
     text: 'questions.totalMinisterialQuestions',
     path: NAVIGATION_PATHS.QUESTIONS.BASE,
@@ -39,7 +40,7 @@ export const overviewStatistics = {
   enrichmentQuestions: {
     icon: 'lightbulb',
     color: 'purple',
-    counter: 58,
+    counter: 0,
     counterKey: 'enrichmentQuestions',
     text: 'questions.totalEnrichmentQuestions',
     path: NAVIGATION_PATHS.QUESTIONS.BASE,
@@ -47,7 +48,7 @@ export const overviewStatistics = {
   totalQuestions: {
     icon: 'questionAnswer',
     color: 'info',
-    counter: 158,
+    counter: 0,
     counterKey: 'totalQuestions',
     text: 'questions.totalQuestions',
     path: NAVIGATION_PATHS.QUESTIONS.BASE,
@@ -55,7 +56,7 @@ export const overviewStatistics = {
   forms: {
     icon: 'fileList',
     color: 'teal',
-    counter: 14,
+    counter: 0,
     counterKey: 'forms',
     text: 'ministerialForms.forms',
     path: NAVIGATION_PATHS.FORMS.BASE,
@@ -63,7 +64,7 @@ export const overviewStatistics = {
   grades: {
     icon: 'school',
     color: 'indigo',
-    counter: 5,
+    counter: 0,
     counterKey: 'grades',
     text: 'navigation.grades',
     path: NAVIGATION_PATHS.GRADES.BASE,
@@ -71,7 +72,7 @@ export const overviewStatistics = {
   competitions: {
     icon: 'emojiEvents',
     color: 'pink',
-    counter: 11,
+    counter: 0,
     counterKey: 'competitions',
     text: 'navigation.competitions',
     path: NAVIGATION_PATHS.COMPETITIONS.BASE,
@@ -111,9 +112,13 @@ export const overviewStatisticsByRole = {
   ],
 };
 
-// Helper to get the counters for a given role and optional totals map
-export const getOverviewStatisticsByRole = (role) => {
-  const counters = overviewStatisticsByRole[role];
+// Returns counters for the role, optionally overriding the counter value with live data
+export const getOverviewStatisticsByRole = (role, counts) => {
+  const counters = overviewStatisticsByRole[role] || [];
+  const values = counterKeyToValue(counts);
 
-  return counters;
+  return counters.map((counter) => ({
+    ...counter,
+    counter: values[counter.counterKey] ?? counter.counter ?? 0,
+  }));
 };

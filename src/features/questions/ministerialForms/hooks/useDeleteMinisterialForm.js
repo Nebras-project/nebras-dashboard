@@ -18,6 +18,7 @@ export const useDeleteMinisterialForm = ({ onSuccess, onError } = {}) => {
   const { deleteItem, deleteItemAsync, isLoading, isError, error } = useDelete({
     deleteFn: (form) => deleteFormApi(form.id),
     queryKey: [QUERY_KEYS.MINISTERIAL_FORMS],
+    additionalQueryKeys: [QUERY_KEYS.OVERVIEW_STATS],
     entityName: 'ministerialForm',
     getItemName: (data, variables) => {
       const nameFromVars = getFormName(variables);

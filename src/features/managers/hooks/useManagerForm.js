@@ -25,6 +25,7 @@ export const useManagerForm = ({ defaultValues = {}, isEdit = false, onSuccess, 
 
   const { formDefaultValues, handleSubmit, isLoading, isError, error } = useEntityForm({
     queryKey: QUERY_KEYS.MANAGERS,
+    additionalQueryKeys: [QUERY_KEYS.OVERVIEW_STATS],
     defaultValues,
     isEdit,
     onSuccess,

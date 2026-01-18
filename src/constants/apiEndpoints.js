@@ -28,6 +28,10 @@ export const API_ENDPOINTS = {
     ME: '/auth/dashboard/me', // GET - Get current authenticated user
   },
 
+  OVERVIEW_STATS: {
+    BASE: 'dashboard/overview',
+  },
+  
   // Admins Resource
   ADMINS: {
     BASE: '/admins',

@@ -18,6 +18,7 @@ export const useDeleteManager = ({ onSuccess, onError } = {}) => {
   const { deleteItem, deleteItemAsync, isLoading, isError, error } = useDelete({
     deleteFn: (manager) => deleteManagerApi(manager.userId),
     queryKey: [QUERY_KEYS.MANAGERS],
+    additionalQueryKeys: [QUERY_KEYS.OVERVIEW_STATS],
     entityName: 'managers',
     getItemName: (data, variables) => {
       const nameFromVars = getManagerName(variables);

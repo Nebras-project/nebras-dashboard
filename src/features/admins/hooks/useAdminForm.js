@@ -22,6 +22,7 @@ import { getAdminName } from '../utils';
 export const useAdminForm = ({ defaultValues = {}, isEdit = false, onSuccess, onError } = {}) => {
   const { formDefaultValues, handleSubmit, isLoading, isError, error } = useEntityForm({
     queryKey: QUERY_KEYS.ADMINS,
+    additionalQueryKeys: [QUERY_KEYS.OVERVIEW_STATS],
     defaultValues,
     isEdit,
     onSuccess,

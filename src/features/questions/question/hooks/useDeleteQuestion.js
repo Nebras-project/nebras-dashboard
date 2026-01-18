@@ -19,6 +19,7 @@ export const useDeleteQuestion = ({ onSuccess, onError } = {}) => {
   const { deleteItem, deleteItemAsync, isLoading, isError, error } = useDelete({
     deleteFn: (question) => deleteQuestionApi(question.id),
     queryKey: [QUERY_KEYS.QUESTIONS],
+    additionalQueryKeys: [QUERY_KEYS.OVERVIEW_STATS],
     entityName: 'questions',
     getItemName: (question, variables) => {
       const questionText = variables.text || '';

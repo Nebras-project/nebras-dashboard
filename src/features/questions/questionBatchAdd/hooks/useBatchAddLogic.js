@@ -157,7 +157,6 @@ export const useBatchAddLogic = ({ open, onClose, onSuccess }) => {
 
       for (const question of allQuestions) {
         try {
-          console.log('Creating question:', question);
           const result = await createQuestions(question);
           results.push(result);
         } catch (error) {
@@ -168,6 +167,7 @@ export const useBatchAddLogic = ({ open, onClose, onSuccess }) => {
 
       // Invalidate queries to refetch the list
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.QUESTIONS] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.OVERVIEW_STATS] });
 
       // Show success or error message
       if (errors.length === 0) {
