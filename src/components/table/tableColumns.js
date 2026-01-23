@@ -240,7 +240,7 @@ const USER_COLUMN_KEYS = {
  * Build columns for user-like tables (admins, students, ...).
  *
  * @param {Object} options
- * @param {'admin'|'student'} options.variant - Type of user table
+ * @param {'admin'|'manager'|'student'} options.variant - Type of user table
  * @param {boolean} [options.includeActions=true] - Whether to include actions column
  * @returns {Array} columns definition for DataGrid
  */

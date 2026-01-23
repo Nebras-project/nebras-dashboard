@@ -17,7 +17,7 @@ export function ClassChip({ label, value }) {
   // Assign different colors based on class value
   const getColor = () => {
     if (value === 'Ministerial') return 'teal';
-    if (value === 'Enrichment') return 'cyan';
+    if (value === 'Enrichment') return 'primary';
     return 'primary'; // fallback
   };
 

@@ -11,7 +11,7 @@ function StatsGrid({ counters = [], t, spacing = 3 }) {
   return (
     <Grid container spacing={spacing} justifyContent="center">
       {counters.map((counter, idx) => (
-        <Grid key={counter.counterKey || idx} size={{ mobile: 12, tablet: 6, desktop: 3 }}>
+        <Grid key={counter.counterKey || idx} size={{ mobile: 12, tablet: 6, desktop: 2 }}>
           <StatCard
             icon={counter.icon}
             count={counter.counter ?? 0}

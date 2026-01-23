@@ -23,13 +23,20 @@ import { useMinisterialForm } from '@features/questions/ministerialForms/hooks';
 export const useQuestionSettingsFields = () => {
   const { t } = useTranslation();
   const { watch, setValue } = useFormContext();
-  const { formOptions = [], isLoading: isLoadingForms } = useMinisterialForm();
 
-  // Watch form values for cascading selects
+  // Watch form values for cascading selects (declare early to pass into hooks)
   const gradeId = watch('gradeId');
   const subjectId = watch('subjectId');
   const unitId = watch('unitId');
   const classValue = watch('class');
+
+  // Fetch ministerial forms filtered by subject when available
+  const { formOptions = [], isLoading: isLoadingForms } = useMinisterialForm({
+    subjectId,
+    enabled: !!subjectId,
+  });
+
+  // Watchers already declared above
 
   // Track previous values to detect changes
   const prevGradeIdRef = useRef(gradeId);

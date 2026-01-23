@@ -38,6 +38,7 @@ function StatCard({ icon, count = 0, text, onClick, color = 'primary', sx = {} }
   );
 }
 
+
 StatCard.propTypes = {
   icon: PropTypes.string.isRequired,
   count: PropTypes.number.isRequired,

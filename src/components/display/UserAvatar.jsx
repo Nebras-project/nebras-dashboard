@@ -68,7 +68,7 @@ const getIconSize = (size) => {
 
 const getUserImage = (user) => {
   if (!user || typeof user === 'string') return null;
-  return user.userProfile || null;
+  return user.profileImage || null;
 };
 
 function UserAvatar({
@@ -78,7 +78,7 @@ function UserAvatar({
   sx = {},
   ...rest
 }) {
-  const { userId, userName, email, userProfile, role } = useAuth();
+  const { userId, userName, email, profileImage, role } = useAuth();
 
   // If propUser is provided, use it; otherwise construct from auth state
   const user =
@@ -90,11 +90,11 @@ function UserAvatar({
           userName: userName,
           email: email,
           role: role,
-          userProfile: userProfile,
+          profileImage: profileImage,
         }
       : null);
 
-  const displayName = typeof user === 'string' ? user :  user?.userName;
+  const displayName = typeof user === 'string' ? user : user?.userName;
   const ariaLabel = displayName ? `${displayName} avatar` : 'User avatar';
   const userImage = getUserImage(user);
   const hasImage = !!userImage;

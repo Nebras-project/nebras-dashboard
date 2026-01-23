@@ -16,6 +16,7 @@
     "@emotion/react": "^11.14.0",
     "@fontsource/cairo": "^5.2.7",
     "@mui/material": "^7.3.4",
+    "@mui/x-charts": "^8.25.0",
     "@mui/x-data-grid": "^8.14.1",
     "@mui/x-date-pickers": "^8.19.0",
     "@reduxjs/toolkit": "^2.9.1",

@@ -32,7 +32,7 @@ const MENU_BUTTON_STYLES = {
 const MENU_ICON_SIZE = 24;
 
 function Header() {
-  const { userId, email, userName, userProfile, role } = useAuth();
+  const { userId, email, userName, profileImage, role } = useAuth();
   const { openSidebar, sidebarWidth } = useSidebar();
   const { isRTL } = useLanguage();
   const { isSmallScreen } = useResponsive();
@@ -46,12 +46,12 @@ function Header() {
             userName: userName,
             email: email,
             role: role,
-            profileImage: userProfile,
-            avatar: userProfile,
-            userProfile: userProfile,
+            profileImage: profileImage,
+            avatar: profileImage,
+            userProfile: profileImage,
           }
         : null,
-    [userId, userName, email, role, userProfile]
+    [userId, userName, email, role, profileImage]
   );
 
   // Memoize AppBar styles - recalculates when viewport or sidebar width changes

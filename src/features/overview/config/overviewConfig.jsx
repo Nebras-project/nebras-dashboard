@@ -28,23 +28,6 @@ export const overviewStatistics = {
     text: 'navigation.students',
     path: NAVIGATION_PATHS.STUDENTS.BASE,
   },
-
-  ministerialQuestions: {
-    icon: 'gavel',
-    color: 'warning',
-    counter: 0,
-    counterKey: 'ministerialQuestions',
-    text: 'questions.totalMinisterialQuestions',
-    path: NAVIGATION_PATHS.QUESTIONS.BASE,
-  },
-  enrichmentQuestions: {
-    icon: 'lightbulb',
-    color: 'purple',
-    counter: 0,
-    counterKey: 'enrichmentQuestions',
-    text: 'questions.totalEnrichmentQuestions',
-    path: NAVIGATION_PATHS.QUESTIONS.BASE,
-  },
   totalQuestions: {
     icon: 'questionAnswer',
     color: 'info',
@@ -69,14 +52,6 @@ export const overviewStatistics = {
     text: 'navigation.grades',
     path: NAVIGATION_PATHS.GRADES.BASE,
   },
-  competitions: {
-    icon: 'emojiEvents',
-    color: 'pink',
-    counter: 0,
-    counterKey: 'competitions',
-    text: 'navigation.competitions',
-    path: NAVIGATION_PATHS.COMPETITIONS.BASE,
-  },
 };
 
 // Allowed items per role
@@ -86,30 +61,19 @@ export const overviewStatisticsByRole = {
     overviewStatistics.managers,
     overviewStatistics.students,
     overviewStatistics.totalQuestions,
-    overviewStatistics.ministerialQuestions,
-    overviewStatistics.enrichmentQuestions,
     overviewStatistics.forms,
     overviewStatistics.grades,
-    overviewStatistics.competitions,
   ],
   [ROLES.GENERAL_ADMIN]: [
     overviewStatistics.managers,
     overviewStatistics.students,
     overviewStatistics.totalQuestions,
-    overviewStatistics.ministerialQuestions,
-    overviewStatistics.enrichmentQuestions,
     overviewStatistics.forms,
     overviewStatistics.grades,
-    overviewStatistics.competitions,
   ],
   [ROLES.GRADE_MANAGER]: [overviewStatistics.grades, overviewStatistics.students],
-  [ROLES.COMPETITION_MANAGER]: [overviewStatistics.competitions, overviewStatistics.students],
-  [ROLES.CONTENT_MANAGER]: [
-    overviewStatistics.totalQuestions,
-    overviewStatistics.ministerialQuestions,
-    overviewStatistics.enrichmentQuestions,
-    overviewStatistics.forms,
-  ],
+  [ROLES.COMPETITION_MANAGER]: [overviewStatistics.students],
+  [ROLES.CONTENT_MANAGER]: [overviewStatistics.totalQuestions, overviewStatistics.forms],
 };
 
 // Returns counters for the role, optionally overriding the counter value with live data

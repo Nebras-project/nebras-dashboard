@@ -335,6 +335,7 @@ const en = {
     ministerialQuestion: 'Ministerial Question',
     enrichmentQuestion: 'Enrichment Question',
     questionBank: 'Question Bank',
+    breakdown: 'Questions Breakdown',
     totalQuestions: 'Total Questions',
     totalMinisterialQuestions: 'Ministerial Questions',
     totalEnrichmentQuestions: 'Enrichment Questions',
@@ -604,6 +605,7 @@ const en = {
       'Competition Manager': 'Competition Manager',
       'Content Manager': 'Content Manager',
     },
+    breakdown: 'Managers Breakdown',
     // Create/Update messages for hooks
     createSuccessTitle: 'Manager Created',
     createSuccessMessage: 'Manager {{name}} has been created successfully',

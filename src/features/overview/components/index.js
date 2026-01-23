@@ -4,3 +4,6 @@ export { default as GradeOverview } from './GradeOverview';
 export { default as OwnerOverview } from './OwnerOverview';
 export { default as AdminOverview } from './AdminOverview';
 export { default as StatCard } from './StatCard';
+export { default as OverviewPieChart } from './OverviewPieChart';
+export { default as OverviewPieChartContainer } from './OverviewPieChartContainer';
+export { default as OverviewPieChartsGrid } from './OverviewPieChartsGrid';

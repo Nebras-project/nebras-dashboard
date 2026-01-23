@@ -41,7 +41,7 @@ const getRoleBadgeStyles = () => ({
 
 function ProfileHero() {
   const { t } = useTranslation();
-  const { userId, userName, email, userProfile, role } = useAuth();
+  const { userId, userName, email, profileImage, role } = useAuth();
   const { isSmallScreen } = useResponsive();
 
   // Create user object for UserAvatar component
@@ -51,7 +51,7 @@ function ProfileHero() {
         userName: userName,
         email: email,
         role: role,
-        userProfile: userProfile,
+        profileImage: profileImage,
       }
     : null;
 

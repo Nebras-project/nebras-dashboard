@@ -332,6 +332,7 @@ const ar = {
     ministerialQuestion: 'سؤال وزاري',
     enrichmentQuestion: 'سؤال إثرائي',
     questionBank: 'بنك الأسئلة',
+    breakdown: 'توزيع الأسئلة',
     totalQuestions: 'إجمالي الأسئلة',
     totalMinisterialQuestions: ' الأسئلة الوزارية',
     totalEnrichmentQuestions: ' الأسئلة الإثرائية',
@@ -598,6 +599,8 @@ const ar = {
       'Competition Manager': 'مدير المسابقات',
       'Content Manager': 'مدير المحتوى',
     },
+    breakdown: 'توزيع المدراء',
+
     // Create/Update messages for hooks
     createSuccessTitle: 'تم إنشاء المدير',
     createSuccessMessage: 'تم إنشاء المدير {{name}} بنجاح',

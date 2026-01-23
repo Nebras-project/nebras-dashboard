@@ -4,9 +4,9 @@ import RENDERERS from './studentRenderers';
 
 const STUDENT_COLUMN_DEFINITIONS = {
   profileImage: {
-    renderer: 'profileAvatar',
-    sortable: false,
     filterable: false,
+    sortable: false,
+    renderer: 'profileAvatar',
   },
   userName: {
     filterable: false,

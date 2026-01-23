@@ -26,7 +26,11 @@ const buildDefaultValues = (values) => ({
 export const useGradeForm = ({ defaultValues = {}, isEdit = false, onSuccess, onError } = {}) => {
   const { formDefaultValues, handleSubmit, isLoading, isError, error } = useEntityForm({
     queryKey: QUERY_KEYS.GRADES,
-    additionalQueryKeys: [QUERY_KEYS.MINISTERIAL_FORMS, QUERY_KEYS.OVERVIEW_STATS],
+    additionalQueryKeys: [
+      QUERY_KEYS.MINISTERIAL_FORMS,
+      QUERY_KEYS.OVERVIEW_STATS,
+      QUERY_KEYS.STUDENTS,
+    ],
     defaultValues,
     isEdit,
     onSuccess,

@@ -21,11 +21,17 @@ export const useOverview = ({ enabled = true, onError } = {}) => {
     formsCount,
     ministerialQuestionsCount,
     enrichmentQuestionsCount,
+    contentManagersCount,
+    competitionManagersCount,
+    gradeManagersCount,
   } = data || {};
   // Return with student-specific property names
   return {
     adminsCount,
     managersCount,
+    contentManagersCount,
+    competitionManagersCount,
+    gradeManagersCount,
     studentsCount,
     gradesCount,
     formsCount,

@@ -16,7 +16,7 @@ export function TypeChip({ label, value }) {
 
   // Assign different colors based on type value
   const getColor = () => {
-    if (value === 'MultipleChoice') return 'primary';
+    if (value === 'MultipleChoice') return 'gray';
     if (value === 'TrueFalse') return 'info';
     return 'info'; // fallback
   };
