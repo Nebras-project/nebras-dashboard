@@ -17,7 +17,6 @@ const PROTECTED_ROUTES = [
   '/managers',
   '/questions',
   '/settings',
-  '/access-denied',
 ];
 
 /**
