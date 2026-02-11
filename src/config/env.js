@@ -67,7 +67,7 @@ export const IS_PROD = import.meta.env.PROD;
 const envApiUrl = getEnv('VITE_API_URL', '');
 export const API_URL = IS_DEV
   ? '/api' // Always use relative path in dev for proxy
-  : envApiUrl || 'http://ec2-13-60-105-141.eu-north-1.compute.amazonaws.com:8080/api'; // Use env var or default in production
+  : envApiUrl || 'https://admitted-compare-institutions-introduces.trycloudflare.com:8080/api'; // Use env var or default in production
 export const API_TIMEOUT = getNumberEnv('VITE_API_TIMEOUT', 30000);
 
 // ============================================
