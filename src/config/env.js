@@ -30,23 +30,35 @@ const getNumberEnv = (key, defaultValue = 0) => {
 // Helper to get array of numbers env variable
 const getNumberArrayEnv = (key, defaultValue = []) => {
   const value = import.meta.env[key];
+  
+  // Helper to parse a string or array into number array
+  const parseToNumberArray = (input) => {
+    if (Array.isArray(input)) {
+      const parsed = input
+        .map((item) => (typeof item === 'number' ? item : parseInt(item, 10)))
+        .filter((item) => !Number.isNaN(item));
+      return parsed.length > 0 ? parsed : null;
+    }
+
+    if (typeof input === 'string') {
+      const parsed = input
+        .split(',')
+        .map((item) => parseInt(item.trim(), 10))
+        .filter((item) => !Number.isNaN(item));
+      return parsed.length > 0 ? parsed : null;
+    }
+
+    return null;
+  };
+
   if (value === undefined || value === null) {
-    return defaultValue;
+    // Parse defaultValue if it's a string, otherwise return as-is
+    const parsedDefault = parseToNumberArray(defaultValue);
+    return parsedDefault ?? (Array.isArray(defaultValue) ? defaultValue : []);
   }
 
-  if (Array.isArray(value)) {
-    const parsed = value
-      .map((item) => (typeof item === 'number' ? item : parseInt(item, 10)))
-      .filter((item) => !Number.isNaN(item));
-    return parsed.length > 0 ? parsed : defaultValue;
-  }
-
-  const parsed = String(value)
-    .split(',')
-    .map((item) => parseInt(item.trim(), 10))
-    .filter((item) => !Number.isNaN(item));
-
-  return parsed.length > 0 ? parsed : defaultValue;
+  const parsed = parseToNumberArray(value);
+  return parsed ?? parseToNumberArray(defaultValue) ?? (Array.isArray(defaultValue) ? defaultValue : []);
 };
 
 // ============================================
