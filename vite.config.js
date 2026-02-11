@@ -31,7 +31,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://admitted-compare-institutions-introduces.trycloudflare.com:8080',
+        target: 'https://admitted-compare-institutions-introduces.trycloudflare.com',
         changeOrigin: true,
         secure: false,
         ws: true,
