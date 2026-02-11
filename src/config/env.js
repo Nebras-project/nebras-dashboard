@@ -61,12 +61,15 @@ export const IS_PROD = import.meta.env.PROD;
 // ============================================
 // API CONFIGURATION
 // ============================================
-// In development, always use relative path to leverage Vite proxy
+// In development and local preview, always use relative path to leverage Vite proxy
 // This avoids CORS issues. The proxy in vite.config.js will forward to the backend.
 // In production, use full URL from VITE_API_URL env variable
 const envApiUrl = getEnv('VITE_API_URL', '');
-export const API_URL = IS_DEV
-  ? '/api' // Always use relative path in dev for proxy
+const isLocalhost =
+  typeof window !== 'undefined' &&
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+export const API_URL = IS_DEV || isLocalhost
+  ? '/api' // Always use relative path in dev/local preview for proxy
   : envApiUrl || 'https://admitted-compare-institutions-introduces.trycloudflare.com/api'; // Use env var or default in production
 export const API_TIMEOUT = getNumberEnv('VITE_API_TIMEOUT', 30000);
 
